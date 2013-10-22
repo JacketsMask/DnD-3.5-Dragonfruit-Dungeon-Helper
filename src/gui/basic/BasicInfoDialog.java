@@ -1,5 +1,6 @@
 package gui.basic;
 
+import abstracts.Size;
 import character.races.CustomRace;
 import character.races.Race;
 import character.CharacterBasicInfo;
@@ -13,6 +14,7 @@ import enumerations.Order;
 import gui.BasicInfoPanel;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
+import javax.sound.midi.MidiDevice;
 
 /**
  *
@@ -46,6 +48,7 @@ public class BasicInfoDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTextField2 = new javax.swing.JTextField();
         dialogCharacterCommitButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         dialogAgeTextField = new javax.swing.JTextField();
@@ -80,6 +83,10 @@ public class BasicInfoDialog extends javax.swing.JDialog {
         dialogOrderComboBox = new javax.swing.JComboBox();
         dialogAlignmentComboBox = new javax.swing.JComboBox();
         dialogGenderComboBox = new javax.swing.JComboBox();
+        jLabel7 = new javax.swing.JLabel();
+        dialogSpeedTextField = new javax.swing.JTextField();
+
+        jTextField2.setText("jTextField2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -93,7 +100,7 @@ public class BasicInfoDialog extends javax.swing.JDialog {
         dialogAgeTextField.setText("[age]");
         dialogAgeTextField.setInputVerifier(new ComponentLockableIntegerVerifier(1,600, dialogAgeTextField, dialogCharacterCommitButton));
 
-        jLabel43.setText("Age");
+        jLabel43.setText("Age:");
 
         jLabel1.setText("Height (ft):");
 
@@ -130,29 +137,27 @@ public class BasicInfoDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel43)
-                        .addGap(52, 52, 52)
-                        .addComponent(dialogAgeTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addGap(48, 48, 48)
-                        .addComponent(dialogSkinTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
+                        .addComponent(dialogSkinTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(48, 48, 48)
-                        .addComponent(dialogHairTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
+                        .addComponent(dialogHairTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2)
                             .addComponent(jLabel6)
-                            .addComponent(jLabel1))
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel43))
                         .addGap(9, 9, 9)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(dialogAgeTextField)
                             .addComponent(dialogHeightFtTextField)
                             .addComponent(dialogHeightInTextField)
                             .addComponent(dialogWeightTextField)
-                            .addComponent(dialogEyesTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)))))
+                            .addComponent(dialogEyesTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,23 +190,23 @@ public class BasicInfoDialog extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(dialogSkinTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel28.setText("Race");
+        jLabel28.setText("Race:");
 
-        jLabel29.setText("Size");
+        jLabel29.setText("Size:");
 
-        jLabel27.setText("Class");
+        jLabel27.setText("Class:");
 
-        jLabel23.setText("Gender");
+        jLabel23.setText("Gender:");
 
-        jLabel26.setText("Name");
+        jLabel26.setText("Name:");
         jLabel26.setToolTipText("The name of your hero.");
 
-        jLabel24.setText("Alignment");
+        jLabel24.setText("Alignment:");
 
-        jLabel30.setText("Patron Deity");
+        jLabel30.setText("Patron Deity:");
 
         dialogRaceComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Human", "Other" }));
         dialogRaceComboBox.addItemListener(new java.awt.event.ItemListener() {
@@ -233,6 +238,11 @@ public class BasicInfoDialog extends javax.swing.JDialog {
 
         dialogGenderComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Male", "Female" }));
 
+        jLabel7.setText("Speed:");
+
+        dialogSpeedTextField.setText("[speed]");
+        dialogSpeedTextField.setInputVerifier(new ComponentLockableIntegerVerifier(0,999, dialogSpeedTextField, dialogCharacterCommitButton));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -249,9 +259,12 @@ public class BasicInfoDialog extends javax.swing.JDialog {
                             .addComponent(dialogRaceComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(dialogClassComboBox, 0, 84, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(dialogRaceTextField)
-                            .addComponent(dialogClassTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(dialogClassTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -264,22 +277,31 @@ public class BasicInfoDialog extends javax.swing.JDialog {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(dialogOrderComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(dialogAlignmentComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 12, Short.MAX_VALUE))
-                            .addComponent(dialogDeityTextField)))
+                                .addComponent(dialogAlignmentComboBox, 0, 65, Short.MAX_VALUE))
+                            .addComponent(dialogDeityTextField))
+                        .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel23)
-                            .addComponent(jLabel29))
-                        .addGap(11, 11, 11)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dialogSizeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dialogGenderComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel26)
-                        .addGap(19, 19, 19)
-                        .addComponent(dialogNameTextField))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel26)
+                                .addGap(19, 19, 19)
+                                .addComponent(dialogNameTextField))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel29)
+                                        .addGap(27, 27, 27)
+                                        .addComponent(dialogSizeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel7)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(dialogSpeedTextField))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel23)
+                                        .addGap(11, 11, 11)
+                                        .addComponent(dialogGenderComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(10, 10, 10))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -304,9 +326,13 @@ public class BasicInfoDialog extends javax.swing.JDialog {
                     .addComponent(dialogSizeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(dialogSpeedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel23)
                     .addComponent(dialogGenderComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel24)
                     .addComponent(dialogOrderComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -340,9 +366,9 @@ public class BasicInfoDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addComponent(dialogCharacterCommitButton)
                 .addContainerGap())
         );
@@ -388,6 +414,41 @@ public class BasicInfoDialog extends javax.swing.JDialog {
             CustomRace customRace = new CustomRace(selectedRace);
             //Set the character's class to the new custom class
             player.getCharacterInfo().setRace(customRace);
+        }
+        //Check to see if size is different
+        if (!dialogSizeComboBox.getSelectedItem().equals(characterInfo.getSize())) {
+            //Update size
+            String newSize = (String) dialogSizeComboBox.getSelectedItem();
+            switch (newSize) {
+                case "Fine":
+                    characterInfo.setSize(new Size.Fine());
+                    break;
+                case "Diminutive":
+                    characterInfo.setSize(new Size.Diminutive());
+                    break;
+                case "Tiny":
+                    characterInfo.setSize(new Size.Tiny());
+                    break;
+                case "Small":
+                    characterInfo.setSize(new Size.Small());
+                    break;
+                case "Medium":
+                    characterInfo.setSize(new Size.Medium());
+                    break;
+                case "Large":
+                    characterInfo.setSize(new Size.Large());
+                    break;
+                case "Gargantuan":
+                    characterInfo.setSize(new Size.Gargantuan());
+                    break;
+                case "Colossal":
+                    characterInfo.setSize(new Size.Colossal());
+                    break;
+            }
+        }
+        //Check to see if speed is different
+        if (!(Integer.parseInt(dialogSpeedTextField.getText()) == characterInfo.getSpeed())) {
+            characterInfo.setSpeed(Integer.parseInt(dialogSpeedTextField.getText()));
         }
         //Check to see if gender is different
         if (!characterInfo.getGender().toString().equals(dialogGenderComboBox.getSelectedItem().toString())) {
@@ -536,6 +597,8 @@ public class BasicInfoDialog extends javax.swing.JDialog {
         if (!raceKnown && info.getSize() != null) {
             dialogSizeComboBox.setSelectedItem(info.getSize().toString());
         }
+        //Get the player's speed
+        dialogSpeedTextField.setText("" + info.getSpeed());
         Gender gender = info.getGender();
         if (gender != null) {
             if (gender.equals(Gender.MALE)) {
@@ -644,6 +707,7 @@ public class BasicInfoDialog extends javax.swing.JDialog {
     private javax.swing.JTextField dialogRaceTextField;
     private javax.swing.JComboBox dialogSizeComboBox;
     private javax.swing.JTextField dialogSkinTextField;
+    private javax.swing.JTextField dialogSpeedTextField;
     private javax.swing.JTextField dialogWeightTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -659,7 +723,9 @@ public class BasicInfoDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }
