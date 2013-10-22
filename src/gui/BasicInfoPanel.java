@@ -56,12 +56,14 @@ public final class BasicInfoPanel extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jLabel777 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        characterHeightLabel = new javax.swing.JLabel();
-        characterWeightLabel = new javax.swing.JLabel();
-        characterEyesLabel = new javax.swing.JLabel();
-        characterHairLabel = new javax.swing.JLabel();
-        characterSkinLabel = new javax.swing.JLabel();
+        characterInfoHeightLabel = new javax.swing.JLabel();
+        characterInfoWeightLabel = new javax.swing.JLabel();
+        characterInfoEyesLabel = new javax.swing.JLabel();
+        characterInfoHairLabel = new javax.swing.JLabel();
+        characterInfoSkinLabel = new javax.swing.JLabel();
         characterClassLabel = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        characterInfoSpeedLabel = new javax.swing.JLabel();
 
         jLabel60.setText("Alignment:");
 
@@ -111,19 +113,23 @@ public final class BasicInfoPanel extends javax.swing.JPanel {
 
         jLabel6.setText("Skin:");
 
-        characterHeightLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        characterHeightLabel.setText("jLabel7");
+        characterInfoHeightLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        characterInfoHeightLabel.setText("jLabel7");
 
-        characterWeightLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        characterWeightLabel.setText("jLabel8");
+        characterInfoWeightLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        characterInfoWeightLabel.setText("jLabel8");
 
-        characterEyesLabel.setText("jLabel9");
+        characterInfoEyesLabel.setText("jLabel9");
 
-        characterHairLabel.setText("jLabel10");
+        characterInfoHairLabel.setText("jLabel10");
 
-        characterSkinLabel.setText("jLabel11");
+        characterInfoSkinLabel.setText("jLabel11");
 
         characterClassLabel.setText("jLabel5");
+
+        jLabel5.setText("Speed:");
+
+        characterInfoSpeedLabel.setText("jLabel7");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -138,45 +144,50 @@ public final class BasicInfoPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel60)
                                     .addComponent(jLabel34)
                                     .addComponent(jLabel33)
-                                    .addComponent(jLabel46))
-                                .addGap(18, 18, 18)
+                                    .addComponent(jLabel46)
+                                    .addComponent(jLabel5))
+                                .addGap(30, 30, 30)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(characterInfoSpeedLabel)
                                     .addComponent(characterInfoGenderLabel)
                                     .addComponent(characterInfoRaceLabel)
                                     .addComponent(characterInfoSizeLabel)
-                                    .addComponent(characterInfoAlignmentLabel)
                                     .addComponent(characterClassLabel))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel62)
-                                    .addComponent(jLabel64)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(20, 20, 20)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel62)
+                                            .addComponent(jLabel64)
+                                            .addComponent(jLabel1))
+                                        .addGap(20, 20, 20)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(characterInfoDeityLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(characterInfoAgeLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(characterHeightLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                            .addComponent(characterInfoHeightLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                     .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel60)
                                         .addGap(18, 18, 18)
-                                        .addComponent(characterWeightLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                        .addComponent(characterInfoAlignmentLabel))))
                             .addComponent(characterInformationButton))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
                             .addComponent(jLabel6))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(characterSkinLabel)
-                            .addComponent(characterHairLabel)
-                            .addComponent(characterEyesLabel))))
-                .addContainerGap(236, Short.MAX_VALUE))
+                            .addComponent(characterInfoWeightLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(characterInfoEyesLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(characterInfoHairLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(characterInfoSkinLabel, javax.swing.GroupLayout.Alignment.TRAILING))))))
+                .addGap(197, 197, 197))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,61 +199,60 @@ public final class BasicInfoPanel extends javax.swing.JPanel {
                     .addComponent(jLabel777)
                     .addComponent(characterClassLabel))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel33)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel34)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel46))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(characterInfoRaceLabel)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(characterInfoSizeLabel)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(characterInfoGenderLabel)))
+                                .addComponent(jLabel33)
                                 .addGap(18, 18, 18)
+                                .addComponent(jLabel34))
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(characterInfoRaceLabel)
                                     .addComponent(jLabel60)
-                                    .addComponent(characterInfoAlignmentLabel)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(64, 64, 64)
-                                        .addComponent(jLabel1))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jLabel62)
-                                            .addComponent(characterInfoDeityLabel))
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel64)))
+                                    .addComponent(characterInfoAlignmentLabel))
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabel2))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel4)
-                                    .addComponent(characterInfoAgeLabel))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(characterHeightLabel)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(characterWeightLabel))
-                                    .addComponent(jLabel6))))
+                                .addComponent(characterInfoSizeLabel)))
                         .addGap(18, 18, 18)
-                        .addComponent(characterInformationButton))
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel46)
+                            .addComponent(characterInfoGenderLabel)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(32, 32, 32)
+                            .addComponent(jLabel1))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel64)
+                            .addComponent(characterInfoSpeedLabel))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(characterInfoAgeLabel)
+                            .addGap(18, 18, 18)
+                            .addComponent(characterInfoHeightLabel)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(characterEyesLabel)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(characterInfoWeightLabel))
                         .addGap(18, 18, 18)
-                        .addComponent(characterHairLabel)
-                        .addGap(18, 18, 18)
-                        .addComponent(characterSkinLabel)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel62)
+                                    .addComponent(characterInfoDeityLabel))
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel6))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(characterInfoEyesLabel)
+                                .addGap(18, 18, 18)
+                                .addComponent(characterInfoHairLabel)
+                                .addGap(18, 18, 18)
+                                .addComponent(characterInfoSkinLabel)))))
+                .addGap(18, 18, 18)
+                .addComponent(characterInformationButton)
                 .addContainerGap(41, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -272,6 +282,7 @@ public final class BasicInfoPanel extends javax.swing.JPanel {
         characterInfoGenderLabel.setText("" + info.getGender());
         characterInfoRaceLabel.setText("" + info.getRace());
         characterInfoSizeLabel.setText("" + info.getSize());
+        characterInfoSpeedLabel.setText("" + info.getSpeed());
         String height = "";
         if (info.getHeightFeet() != 0) {
             height += info.getHeightFeet() + " ft.";
@@ -279,27 +290,28 @@ public final class BasicInfoPanel extends javax.swing.JPanel {
         if (info.getHeightInches() != 0) {
             height += " "+ info.getHeightInches() + " in.";
         }
-        characterHeightLabel.setText(height);
-        characterWeightLabel.setText("" + info.getWeight());
-        characterEyesLabel.setText("" + info.getEyeColor());
-        characterHairLabel.setText("" + info.getHairColor());
-        characterSkinLabel.setText("" + info.getSkinColor());
+        characterInfoHeightLabel.setText(height);
+        characterInfoWeightLabel.setText("" + info.getWeight());
+        characterInfoEyesLabel.setText("" + info.getEyeColor());
+        characterInfoHairLabel.setText("" + info.getHairColor());
+        characterInfoSkinLabel.setText("" + info.getSkinColor());
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel characterClassLabel;
-    private javax.swing.JLabel characterEyesLabel;
-    private javax.swing.JLabel characterHairLabel;
-    private javax.swing.JLabel characterHeightLabel;
     private javax.swing.JLabel characterInfoAgeLabel;
     private javax.swing.JLabel characterInfoAlignmentLabel;
     private javax.swing.JLabel characterInfoDeityLabel;
+    private javax.swing.JLabel characterInfoEyesLabel;
     private javax.swing.JLabel characterInfoGenderLabel;
+    private javax.swing.JLabel characterInfoHairLabel;
+    private javax.swing.JLabel characterInfoHeightLabel;
     private javax.swing.JLabel characterInfoNameLabel;
     private javax.swing.JLabel characterInfoRaceLabel;
     private javax.swing.JLabel characterInfoSizeLabel;
+    private javax.swing.JLabel characterInfoSkinLabel;
+    private javax.swing.JLabel characterInfoSpeedLabel;
+    private javax.swing.JLabel characterInfoWeightLabel;
     private javax.swing.JButton characterInformationButton;
-    private javax.swing.JLabel characterSkinLabel;
-    private javax.swing.JLabel characterWeightLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -307,6 +319,7 @@ public final class BasicInfoPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel60;
     private javax.swing.JLabel jLabel62;
