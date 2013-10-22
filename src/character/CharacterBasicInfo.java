@@ -9,9 +9,7 @@ import interfaces.SaveStateTracker;
 import java.util.Random;
 
 /**
- * Holds basic character information for an entity. The contents are as follows:
- * - Name - Gender - Race - Size - Order (Lawful, Neutral, Chaotic) - Alignment
- * (Good, Neutral, Evil)
+ * Holds basic character information for an entity.
  *
  * @author Jacob Dorman
  */
@@ -31,6 +29,7 @@ public class CharacterBasicInfo extends SaveStateTracker {
     private Size size;
     private int age;
     private Race race;
+    private int speed;
     private int weight;
     private int heightFeet;
     private int heightInches;
@@ -41,6 +40,14 @@ public class CharacterBasicInfo extends SaveStateTracker {
     public CharacterBasicInfo() {
         super();
         setDefaultValues();
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
     }
 
     public int getHeightFeet() {
@@ -186,6 +193,7 @@ public class CharacterBasicInfo extends SaveStateTracker {
         gender = Gender.MALE;
         race = new Race.Human();
         size = race.getSize();
+        speed = race.getSpeed();
         deity = "Atheist";
         alignment = Alignment.NEUTRAL;
         order = Order.NEUTRAL;
