@@ -1,0 +1,11 @@
+Folder hierarchy:
+
+data
+    abilities*
+    characters
+    classes*
+    feats*
+    items*
+    spells*
+
+*can be bundled (player defined bundles, recommend bundling by book or class)
