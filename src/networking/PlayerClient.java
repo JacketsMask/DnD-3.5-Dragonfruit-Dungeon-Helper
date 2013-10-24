@@ -213,7 +213,7 @@ public class PlayerClient
                             if (s.equals(ProtocolCommands.GET_NAME.toString()))
                             {
                                 //Announce intent to send name and attach name
-                                toServer.println(ProtocolCommands.SET_NAME + player.getCharacterInfo().getName());
+                                toServer.println(ProtocolCommands.SET_NAME + player.getBasicInfo().getName());
                             }
                         } //Otherwise just display the server's message
                         else

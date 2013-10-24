@@ -269,7 +269,7 @@ public final class BasicInfoPanel extends javax.swing.JPanel {
      * Updates the visible character information on the main tab.
      */
     public void updateVisibleCharacterInformation() {
-        CharacterBasicInfo info = player.getCharacterInfo();
+        CharacterBasicInfo info = player.getBasicInfo();
         characterInfoNameLabel.setText("" + info.getName());
         characterClassLabel.setText(player.getClassInfo().getInitialClass().getName());
         characterInfoAgeLabel.setText("" + info.getAge());

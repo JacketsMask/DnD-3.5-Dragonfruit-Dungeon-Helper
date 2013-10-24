@@ -68,7 +68,7 @@ public class FileManipulator {
      */
     public static void writeCharacterToFile(Player character) {
         //Create a new path for the character if it doesn't already exist
-        String path = CHARACTER_PATH + File.separator + character.getCharacterInfo().getName() + File.separator;
+        String path = CHARACTER_PATH + File.separator + character.getBasicInfo().getName() + File.separator;
         //Make sure the path exists
         File file = new File(path);
         file.mkdirs();
@@ -76,7 +76,7 @@ public class FileManipulator {
         writeObject(character.getAbilityScore(), path, "ability score");
         writeObject(character.getClassInfo(), path, "classes");
         writeObject(character.getDefense(), path, "defense");
-        writeObject(character.getCharacterInfo(), path, "character");
+        writeObject(character.getBasicInfo(), path, "character");
         writeObject(character.getInventory(), path, "inventory");
     }
 
@@ -105,7 +105,7 @@ public class FileManipulator {
         String path = (CHARACTER_PATH + File.separator + characterName + File.separator);
         Player character = new Player();
         character.setAbilityScore((CharacterAbilityScore) readObject(path, "ability score"));
-        character.setCharacterInfo((CharacterBasicInfo) readObject(path, "character"));
+        character.setBasicInfo((CharacterBasicInfo) readObject(path, "character"));
         character.setClassInfo((CharacterClassInfo) readObject(path, "classes"));
         character.setDefense((CharacterDefense) readObject(path, "defense"));
         character.setInventory((CharacterInventory) readObject(path, "inventory"));

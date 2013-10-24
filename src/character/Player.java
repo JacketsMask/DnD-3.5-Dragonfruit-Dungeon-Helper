@@ -3,6 +3,7 @@ package character;
 import character.effects.EffectManager;
 import character.inventory.CharacterInventory;
 import interfaces.SaveStateTracker;
+import java.util.Random;
 
 /**
  * The top level of a 3.5 character sheet. This is where the magic happens.
@@ -11,7 +12,8 @@ import interfaces.SaveStateTracker;
  */
 public class Player extends SaveStateTracker {
 
-    private CharacterBasicInfo characterInfo;
+    private CharacterBasicInfo basicInfo;
+    private CharacterHealth health;
     private CharacterClassInfo classInfo;
     private CharacterAbilityScore abilityScore;
     private CharacterAttack attack;
@@ -38,8 +40,9 @@ public class Player extends SaveStateTracker {
     //private Weapon equippedWeapon;
 
     public Player() {
-        characterInfo = new CharacterBasicInfo();
+        basicInfo = new CharacterBasicInfo();
         classInfo = new CharacterClassInfo();
+        health = new CharacterHealth(classInfo.getInitialClass());
         abilityScore = new CharacterAbilityScore();
         attack = new CharacterAttack();
         defense = new CharacterDefense(this);
@@ -47,6 +50,10 @@ public class Player extends SaveStateTracker {
         inventory = new CharacterInventory();
         effectManager = new EffectManager(this);
         skills = new CharacterSkills();
+    }
+
+    public CharacterHealth getHealth() {
+        return health;
     }
 
     public EffectManager getEffectManager() {
@@ -82,8 +89,8 @@ public class Player extends SaveStateTracker {
     /**
      * @return the character info of this character
      */
-    public CharacterBasicInfo getCharacterInfo() {
-        return characterInfo;
+    public CharacterBasicInfo getBasicInfo() {
+        return basicInfo;
     }
 
     public CharacterInventory getInventory() {
@@ -106,8 +113,8 @@ public class Player extends SaveStateTracker {
         this.abilityScore = abilityScore;
     }
 
-    public void setCharacterInfo(CharacterBasicInfo characterInfo) {
-        this.characterInfo = characterInfo;
+    public void setBasicInfo(CharacterBasicInfo characterInfo) {
+        this.basicInfo = characterInfo;
     }
 
     public void setClassInfo(CharacterClassInfo classInfo) {
@@ -131,7 +138,7 @@ public class Player extends SaveStateTracker {
      */
     @Override
     public boolean stateChanged() {
-        return (characterInfo.stateChanged() || classInfo.stateChanged()
+        return (basicInfo.stateChanged() || classInfo.stateChanged()
                 || abilityScore.stateChanged() || attack.stateChanged()
                 || defense.stateChanged() || proficiencies.stateChanged()
                 || inventory.stateChanged() || effectManager.stateChanged()
@@ -140,7 +147,7 @@ public class Player extends SaveStateTracker {
 
     @Override
     public void stateSaved() {
-        characterInfo.stateSaved();
+        basicInfo.stateSaved();
         classInfo.stateSaved();
         abilityScore.stateSaved();
         attack.stateSaved();

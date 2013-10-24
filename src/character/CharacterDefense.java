@@ -62,7 +62,7 @@ public class CharacterDefense extends SaveStateTracker {
      * @return the current standard AC value
      */
     public int getAC() {
-        Size size = character.getCharacterInfo().getSize();
+        Size size = character.getBasicInfo().getSize();
         int result = 10 + armorBonus + shieldBonus + size.getAttackAndACModifier()
                 + enhancementBonuses + deflectionBonuses + naturalArmorBonuses;
         //Check to see if each ability score bonus currently applies
