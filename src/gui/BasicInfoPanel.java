@@ -8,7 +8,7 @@ import character.CharacterBasicInfo;
 import character.Player;
 import enumerations.Alignment;
 import enumerations.Order;
-import gui.basic.BasicInfoDialog;
+import gui.basicinfo.BasicInfoDialog;
 
 /**
  *

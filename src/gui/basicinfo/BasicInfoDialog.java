@@ -1,4 +1,4 @@
-package gui.basic;
+package gui.basicinfo;
 
 import character.races.CustomRace;
 import character.races.Race;

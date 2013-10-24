@@ -1,5 +1,6 @@
 package gui;
 
+import gui.attack.AttackPanel;
 import character.Player;
 import gui.chat.ChatPanel;
 import gui.inventory.WalletPanel;

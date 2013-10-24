@@ -12,15 +12,8 @@ import character.Player;
  */
 public class DefensePanel extends javax.swing.JPanel {
 
-    /**
-     * Creates new form DefensePanel
-     */
-    public DefensePanel() {
+    public DefensePanel(Player player) {
         initComponents();
-    }
-
-    DefensePanel(Player player) {
-        //TODO: Do something here
     }
 
     /**
