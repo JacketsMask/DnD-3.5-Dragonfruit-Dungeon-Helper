@@ -11,8 +11,7 @@ import javax.swing.DefaultListModel;
  *
  * @author Jacob Dorman
  */
-public abstract class CharacterClass
-{
+public abstract class CharacterClass {
     //The name of this class
 
     protected String name;
@@ -20,6 +19,8 @@ public abstract class CharacterClass
     protected int level;
     //The current base attack bonus of this class
     protected int baseAttackBonus;
+    //Hit die
+    protected int hitDie;
     //Savings throws
     protected int fortitudeSavingThrow;
     protected int reflexSavingThrow;
@@ -39,8 +40,7 @@ public abstract class CharacterClass
     //Class notes
     protected String classNotes;
 
-    public CharacterClass()
-    {
+    public CharacterClass() {
         name = "Undefined";
         level = 1;
         baseAttackBonus = 0;
@@ -56,95 +56,90 @@ public abstract class CharacterClass
         classNotes = "[Enter class notes here]";
     }
 
+    public int getHitDie() {
+        return hitDie;
+    }
+
+    public void setHitDie(int hitDie) {
+        this.hitDie = hitDie;
+    }
+
     /**
      * Adds the passed ability to this classes' list of abilities.
      *
      * @param ability
      */
-    public void addAbility(Ability ability)
-    {
+    public void addAbility(Ability ability) {
         abilityListModel.addElement(ability);
     }
 
-    public DefaultListModel<Ability> getAbilityListModel()
-    {
+    public DefaultListModel<Ability> getAbilityListModel() {
         return abilityListModel;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
     /**
      * @return this class's fortitude save modifier
      */
-    public int getFortSaveModifiers()
-    {
+    public int getFortSaveModifiers() {
         return fortitudeSavingThrow;
     }
 
     /**
      * @return this class's reflex save modifier
      */
-    public int getRefSaveModifiers()
-    {
+    public int getRefSaveModifiers() {
         return reflexSavingThrow;
     }
 
     /**
      * @return this class's will save modifier
      */
-    public int getWillSaveModifiers()
-    {
+    public int getWillSaveModifiers() {
         return willSavingThrow;
     }
 
     /**
      * @return this class's attack bonus
      */
-    public int getBaseAttackBonus()
-    {
+    public int getBaseAttackBonus() {
         return baseAttackBonus;
     }
 
     /**
      * @return this class's skills
      */
-    public Skill[] getSkills()
-    {
+    public Skill[] getSkills() {
         return classSkills;
     }
 
     /**
      * @return this class's armor proficiencies
      */
-    public ArmorProficiency[] getArmorProficiencies()
-    {
+    public ArmorProficiency[] getArmorProficiencies() {
         return armorProficiencies;
     }
 
     /**
      * @return this class's weapon proficiencies
      */
-    public WeaponProficiency[] getWeaponProficiencies()
-    {
+    public WeaponProficiency[] getWeaponProficiencies() {
         return weaponProficiencies;
     }
 
-    public Order[] getOrderLimitations()
-    {
+    public Order[] getOrderLimitations() {
         return orderLimitations;
     }
 
-    public Alignment[] getAlignmentLimitations()
-    {
+    public Alignment[] getAlignmentLimitations() {
         return alignmentLimitations;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return name;
     }
 }
