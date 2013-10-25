@@ -5,18 +5,17 @@
 package gui.inventory;
 
 import character.DoubleVerifier;
-import character.IntegerVerifier;
 import character.Player;
 import gui.InventoryPanel;
 import character.inventory.Item;
 import javax.swing.DefaultListModel;
+import javax.swing.FocusManager;
 
 /**
  *
  * @author Japhez
  */
-public class InventoryAddNewItemDialog extends javax.swing.JDialog
-{
+public class InventoryAddNewItemDialog extends javax.swing.JDialog {
 
     private InventoryPanel parent;
     private Player player;
@@ -24,8 +23,7 @@ public class InventoryAddNewItemDialog extends javax.swing.JDialog
     /**
      * Creates new form InventoryAddNewItemDialog
      */
-    public InventoryAddNewItemDialog(InventoryPanel parent, boolean modal, Player player)
-    {
+    public InventoryAddNewItemDialog(InventoryPanel parent, boolean modal, Player player) {
         this.parent = parent;
         this.player = player;
         initComponents();
@@ -59,7 +57,11 @@ public class InventoryAddNewItemDialog extends javax.swing.JDialog
 
         jLabel1.setText("Item name:");
 
-        itemNameTextField.setText("[item name]");
+        itemNameTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TabKeyPressed(evt);
+            }
+        });
 
         jLabel2.setText("Item description:");
 
@@ -67,12 +69,21 @@ public class InventoryAddNewItemDialog extends javax.swing.JDialog
         itemDescriptionTextArea.setLineWrap(true);
         itemDescriptionTextArea.setRows(5);
         itemDescriptionTextArea.setWrapStyleWord(true);
+        itemDescriptionTextArea.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TabKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(itemDescriptionTextArea);
 
         jLabel3.setText("Item weight:");
 
-        itemWeightTextField.setText("[weight]");
         itemWeightTextField.setInputVerifier(new DoubleVerifier(0,1000000));
+        itemWeightTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TabKeyPressed(evt);
+            }
+        });
 
         saveItemButton.setText("Save item");
         saveItemButton.addActionListener(new java.awt.event.ActionListener() {
@@ -97,21 +108,21 @@ public class InventoryAddNewItemDialog extends javax.swing.JDialog
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(saveItemButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 190, Short.MAX_VALUE)
+                        .addComponent(discardItemButton))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addComponent(itemNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(18, 18, 18)
-                                .addComponent(itemWeightTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(saveItemButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 190, Short.MAX_VALUE)
-                        .addComponent(discardItemButton)))
+                                .addComponent(itemWeightTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18)
+                                .addComponent(itemNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -161,11 +172,9 @@ public class InventoryAddNewItemDialog extends javax.swing.JDialog
         String name = itemNameTextField.getText();
         String description = itemDescriptionTextArea.getText();
         double weight;
-        try
-        {
+        try {
             weight = Double.parseDouble(itemWeightTextField.getText());
-        } catch (NumberFormatException e)
-        {
+        } catch (NumberFormatException e) {
             weight = 0;
         }
         itemList.addElement(new Item(name, description, weight));
@@ -177,6 +186,13 @@ public class InventoryAddNewItemDialog extends javax.swing.JDialog
     {//GEN-HEADEREND:event_discardItemButtonActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_discardItemButtonActionPerformed
+
+    private void TabKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TabKeyPressed
+        if (evt.getExtendedKeyCode() == 9) {
+            evt.consume();
+            FocusManager.getCurrentManager().focusNextComponent();
+        }
+    }//GEN-LAST:event_TabKeyPressed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton discardItemButton;
     private javax.swing.JTextArea itemDescriptionTextArea;

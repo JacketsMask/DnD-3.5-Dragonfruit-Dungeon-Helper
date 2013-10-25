@@ -29,7 +29,7 @@ public class DoubleVerifier extends InputVerifier
     {
         this.lowerBound = lowerBound;
         this.upperBound = upperBound;
-        lastGood = "";
+        lastGood = "" + lowerBound;
         valueChanged = false;
     }
 
