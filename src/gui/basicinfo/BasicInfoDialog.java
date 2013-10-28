@@ -353,7 +353,7 @@ public class BasicInfoDialog extends javax.swing.JDialog {
     private void dialogCharacterCommitButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_dialogCharacterCommitButtonActionPerformed
     {//GEN-HEADEREND:event_dialogCharacterCommitButtonActionPerformed
         CharacterClass classInfo = player.getClassInfo().getInitialClass();
-        CharacterBasicInfo characterInfo = player.getCharacterInfo();
+        CharacterBasicInfo characterInfo = player.getBasicInfo();
         //If names differ, change name
         if (!characterInfo.getName().equals(dialogNameTextField.getText())) {
             System.out.println("Updating name to " + dialogNameTextField.getText());
@@ -382,12 +382,12 @@ public class BasicInfoDialog extends javax.swing.JDialog {
         } else {   //Race is supported, get fixed result
             selectedRace = (String) dialogRaceComboBox.getSelectedItem();
         }
-        Race race = player.getCharacterInfo().getRace();
+        Race race = player.getBasicInfo().getRace();
         //Check to see if the race isn't the same as the player's existing class
         if (race != null && !race.getName().equals(selectedRace)) {
             CustomRace customRace = new CustomRace(selectedRace);
             //Set the character's class to the new custom class
-            player.getCharacterInfo().setRace(customRace);
+            player.getBasicInfo().setRace(customRace);
         }
         //Check to see if gender is different
         if (!characterInfo.getGender().toString().equals(dialogGenderComboBox.getSelectedItem().toString())) {
@@ -478,7 +478,7 @@ public class BasicInfoDialog extends javax.swing.JDialog {
             this.getContentPane().validate();
         } else {
             dialogRaceTextField.setVisible(false);
-            dialogSizeComboBox.setSelectedItem(player.getCharacterInfo().getSize().toString());
+            dialogSizeComboBox.setSelectedItem(player.getBasicInfo().getSize().toString());
             dialogSizeComboBox.setEnabled(false);
             this.setVisible(true);
         }
@@ -498,7 +498,7 @@ public class BasicInfoDialog extends javax.swing.JDialog {
      * player file.
      */
     private void preFillCharacterInformation() {
-        CharacterBasicInfo info = player.getCharacterInfo();
+        CharacterBasicInfo info = player.getBasicInfo();
         //Fill in information about the player's name
         if (info.getName() != null) {
             dialogNameTextField.setText(info.getName());

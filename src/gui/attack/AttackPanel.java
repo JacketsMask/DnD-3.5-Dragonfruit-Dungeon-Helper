@@ -1,6 +1,10 @@
 package gui.attack;
 
+import character.IntegerVerifier;
 import character.Player;
+import diceroller.DiceRoll;
+import diceroller.DiceRoller;
+import enumerations.AbilityScore;
 
 /**
  *
@@ -13,10 +17,6 @@ public class AttackPanel extends javax.swing.JPanel {
     public AttackPanel(Player player) {
         initComponents();
         this.player = player;
-        weaponTypeRadioButtonGroup.add(meleeRadioButton);
-        weaponTypeRadioButtonGroup.add(rangedRadioButton);
-        modiferRadioButtonGroup.add(strengthRadioButton);
-        modiferRadioButtonGroup.add(dexterityRadioButton);
     }
 
     /**
@@ -28,164 +28,232 @@ public class AttackPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        weaponTypeRadioButtonGroup = new javax.swing.ButtonGroup();
-        modiferRadioButtonGroup = new javax.swing.ButtonGroup();
+        attackPanelWeaponTypeRadioButtonGroup = new javax.swing.ButtonGroup();
+        attackPanelModiferRadioButtonGroup = new javax.swing.ButtonGroup();
+        damagePanelModiferButtonGroup = new javax.swing.ButtonGroup();
+        damagePanelHandedness = new javax.swing.ButtonGroup();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        attackPanel = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        rangedPenaltyTextField = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         rangedRadioButton = new javax.swing.JRadioButton();
-        jLabel3 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         meleeRadioButton = new javax.swing.JRadioButton();
         dexterityRadioButton = new javax.swing.JRadioButton();
         strengthRadioButton = new javax.swing.JRadioButton();
+        jButton2 = new javax.swing.JButton();
+        damagePanel = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        numDiceTextField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
+        numSidesTextField = new javax.swing.JTextField();
+        calculateDamageButton = new javax.swing.JButton();
+        dexterityRadioButton1 = new javax.swing.JRadioButton();
+        strengthRadioButton1 = new javax.swing.JRadioButton();
+        jLabel9 = new javax.swing.JLabel();
+        offHandRadioButton = new javax.swing.JRadioButton();
+        twoHandRadioButton = new javax.swing.JRadioButton();
 
-        jTextField1.setText("[penalty]");
+        rangedPenaltyTextField.setText("0");
+        rangedPenaltyTextField.setInputVerifier(new IntegerVerifier(0,999));
 
-        jLabel2.setText("Modifier type:");
+        jLabel6.setText("Modifier type:");
 
-        jLabel1.setText("Weapon type:");
+        jLabel7.setText("Weapon type:");
 
+        attackPanelWeaponTypeRadioButtonGroup.add(rangedRadioButton);
         rangedRadioButton.setText("Ranged");
 
-        jLabel3.setText("Ranged Penalty:");
+        jLabel8.setText("Ranged Penalty:");
 
+        attackPanelWeaponTypeRadioButtonGroup.add(meleeRadioButton);
         meleeRadioButton.setText("Melee");
 
+        attackPanelModiferRadioButtonGroup.add(dexterityRadioButton);
         dexterityRadioButton.setText("Dexterity");
 
+        attackPanelModiferRadioButtonGroup.add(strengthRadioButton);
         strengthRadioButton.setText("Strength");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        jButton2.setText("Attack!");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(strengthRadioButton)
-                    .addComponent(dexterityRadioButton)
-                    .addComponent(jLabel2)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
-                        .addComponent(jLabel3)
+                        .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(meleeRadioButton)
-                    .addComponent(rangedRadioButton)
-                    .addComponent(jLabel1))
-                .addContainerGap(24, Short.MAX_VALUE))
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton2)
+                            .addComponent(rangedPenaltyTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(meleeRadioButton)
+                            .addComponent(jLabel7)
+                            .addComponent(rangedRadioButton))
+                        .addGap(109, 109, 109)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(dexterityRadioButton)
+                            .addComponent(strengthRadioButton)
+                            .addComponent(jLabel6))))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(meleeRadioButton))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(strengthRadioButton)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(meleeRadioButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(rangedRadioButton)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rangedRadioButton)
+                    .addComponent(dexterityRadioButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(strengthRadioButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(dexterityRadioButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(rangedPenaltyTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(52, 52, 52)
+                .addComponent(jButton2)
+                .addContainerGap(111, Short.MAX_VALUE))
         );
+
+        javax.swing.GroupLayout attackPanelLayout = new javax.swing.GroupLayout(attackPanel);
+        attackPanel.setLayout(attackPanelLayout);
+        attackPanelLayout.setHorizontalGroup(
+            attackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        attackPanelLayout.setVerticalGroup(
+            attackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Attack roll", attackPanel);
 
         jLabel4.setText("Weapon damage:");
 
-        jTextField2.setText("[#]");
+        numDiceTextField.setText("1");
 
         jLabel5.setText("d");
 
-        jTextField3.setText("[#]");
+        numSidesTextField.setText("6");
 
-        jButton1.setText("Attack!");
+        calculateDamageButton.setText("Attack!");
+        calculateDamageButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                calculateDamageButtonActionPerformed(evt);
+            }
+        });
 
-        jCheckBox1.setText("Modifier added to damage");
+        damagePanelModiferButtonGroup.add(dexterityRadioButton1);
+        dexterityRadioButton1.setText("Dexterity");
 
-        jCheckBox2.setText("Off-hand");
+        damagePanelModiferButtonGroup.add(strengthRadioButton1);
+        strengthRadioButton1.setText("Strength");
+        strengthRadioButton1.setToolTipText("<html>When you hit with a melee or thrown weapon, including a sling, add your Strength modifier to the damage result.<br\\>\nA Strength penalty, but not a bonus, applies on attacks made with a bow that is not a composite bow.<html\\>");
 
-        jCheckBox3.setText("Two-handed (not light)");
+        jLabel9.setText("Modifier type:");
+
+        damagePanelHandedness.add(offHandRadioButton);
+        offHandRadioButton.setText("Off-hand");
+        offHandRadioButton.setToolTipText("When you deal damage with a weapon in your off hand, you add only 1/2 your Strength bonus. ");
+
+        damagePanelHandedness.add(twoHandRadioButton);
+        twoHandRadioButton.setText("Two-handed (not light)");
+        twoHandRadioButton.setToolTipText("<html>When you deal damage with a weapon that you are wielding two-handed, you add 1-1/2 times your Strength bonus.<br /> However, you don’t get this higher Strength bonus when using a light weapon with two hands. </html>");
+        twoHandRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                twoHandRadioButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBox3)
-                            .addComponent(jCheckBox2)
-                            .addComponent(jCheckBox1)
-                            .addComponent(jLabel4)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(dexterityRadioButton1)
+                            .addComponent(strengthRadioButton1)
+                            .addComponent(jLabel9))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addComponent(calculateDamageButton)
+                                .addGap(125, 125, 125))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(numDiceTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(numSidesTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(65, 65, 65))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addComponent(jButton1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(twoHandRadioButton)
+                            .addComponent(offHandRadioButton))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel4)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(strengthRadioButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(dexterityRadioButton1))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(numDiceTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)
+                            .addComponent(numSidesTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jCheckBox1)
+                .addComponent(offHandRadioButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCheckBox2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCheckBox3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(54, 54, 54))
+                .addComponent(twoHandRadioButton)
+                .addGap(44, 44, 44)
+                .addComponent(calculateDamageButton)
+                .addContainerGap(74, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        javax.swing.GroupLayout damagePanelLayout = new javax.swing.GroupLayout(damagePanel);
+        damagePanel.setLayout(damagePanelLayout);
+        damagePanelLayout.setHorizontalGroup(
+            damagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        damagePanelLayout.setVerticalGroup(
+            damagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Weapon attack", jPanel1);
+        jTabbedPane1.addTab("Damage roll", damagePanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -193,8 +261,8 @@ public class AttackPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1)
-                .addContainerGap())
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(61, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,28 +272,59 @@ public class AttackPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void calculateDamageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculateDamageButtonActionPerformed
+        DiceRoll rollDice = DiceRoller.rollDice(Integer.parseInt(numDiceTextField.getText()), Integer.parseInt(numSidesTextField.getText()));
+        int damage = rollDice.getTotalRoll();
+        //Dex
+        if (dexterityRadioButton1.isSelected()) {
+            damage += player.getAbilityScore().getAbilityScoreModifier(AbilityScore.DEXTERITY);
+        }
+        //Strength, two handed
+        else if (strengthRadioButton1.isSelected() && twoHandRadioButton.isSelected()) {
+            damage += player.getAbilityScore().getAbilityScoreModifier(AbilityScore.STRENGTH) * 1.5;
+            //Strength
+        } else if (strengthRadioButton1.isSelected() && !offHandRadioButton.isSelected()) {
+            damage += player.getAbilityScore().getAbilityScoreModifier(AbilityScore.STRENGTH);
+            //Strength off handed 
+        } else if (strengthRadioButton1.isSelected() && offHandRadioButton.isSelected()) {
+            damage += player.getAbilityScore().getAbilityScoreModifier(AbilityScore.STRENGTH) / 2;
+        }
+        System.out.println("damage dealt: " + damage);
+    }//GEN-LAST:event_calculateDamageButtonActionPerformed
+
+    private void twoHandRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_twoHandRadioButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_twoHandRadioButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel attackPanel;
+    private javax.swing.ButtonGroup attackPanelModiferRadioButtonGroup;
+    private javax.swing.ButtonGroup attackPanelWeaponTypeRadioButtonGroup;
+    private javax.swing.JButton calculateDamageButton;
+    private javax.swing.JPanel damagePanel;
+    private javax.swing.ButtonGroup damagePanelHandedness;
+    private javax.swing.ButtonGroup damagePanelModiferButtonGroup;
     private javax.swing.JRadioButton dexterityRadioButton;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JRadioButton dexterityRadioButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JRadioButton meleeRadioButton;
-    private javax.swing.ButtonGroup modiferRadioButtonGroup;
+    private javax.swing.JTextField numDiceTextField;
+    private javax.swing.JTextField numSidesTextField;
+    private javax.swing.JRadioButton offHandRadioButton;
+    private javax.swing.JTextField rangedPenaltyTextField;
     private javax.swing.JRadioButton rangedRadioButton;
     private javax.swing.JRadioButton strengthRadioButton;
-    private javax.swing.ButtonGroup weaponTypeRadioButtonGroup;
+    private javax.swing.JRadioButton strengthRadioButton1;
+    private javax.swing.JRadioButton twoHandRadioButton;
     // End of variables declaration//GEN-END:variables
 }

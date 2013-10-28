@@ -54,6 +54,7 @@ public abstract class CharacterClass {
         orderLimitations = new Order[0];
         alignmentLimitations = new Alignment[0];
         classNotes = "[Enter class notes here]";
+        hitDie = 6;
     }
 
     public int getHitDie() {
