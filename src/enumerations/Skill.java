@@ -21,8 +21,8 @@ public enum Skill {
      */
     public static Skill[] getStrSkills() {
         return new Skill[]{
-                    CLIMB, JUMP, SWIM
-                };
+            CLIMB, JUMP, SWIM
+        };
     }
 
     /**
@@ -30,9 +30,9 @@ public enum Skill {
      */
     public static Skill[] getDexSkills() {
         return new Skill[]{
-                    BALANCE, ESCAPE_ARTIST, HIDE, MOVE_SILENTLY, OPEN_LOCK,
-                    RIDE, SLEIGHT_OF_HAND, TUMBLE, USE_ROPE
-                };
+            BALANCE, ESCAPE_ARTIST, HIDE, MOVE_SILENTLY, OPEN_LOCK,
+            RIDE, SLEIGHT_OF_HAND, TUMBLE, USE_ROPE
+        };
     }
 
     /**
@@ -40,8 +40,8 @@ public enum Skill {
      */
     public static Skill[] getConSkills() {
         return new Skill[]{
-                    CONCENTRATION
-                };
+            CONCENTRATION
+        };
     }
 
     /**
@@ -49,9 +49,9 @@ public enum Skill {
      */
     public static Skill[] getIntSkills() {
         return new Skill[]{
-                    APPRAISE, CRAFT, DECIPHER_SCRIPT, DISABLE_DEVICE, FORGERY,
-                    KNOWLEDGE, PSICRAFT, SEARCH, SPELLCRAFT
-                };
+            APPRAISE, CRAFT, DECIPHER_SCRIPT, DISABLE_DEVICE, FORGERY,
+            KNOWLEDGE, PSICRAFT, SEARCH, SPELLCRAFT
+        };
     }
 
     /**
@@ -59,9 +59,9 @@ public enum Skill {
      */
     public static Skill[] getWisSkills() {
         return new Skill[]{
-                    AUTOHYPNOSIS, CONTROL_SHAPE, HEAL, LISTEN, PROFESSION,
-                    SENSE_MOTIVE, SPOT, SURVIVAL
-                };
+            AUTOHYPNOSIS, CONTROL_SHAPE, HEAL, LISTEN, PROFESSION,
+            SENSE_MOTIVE, SPOT, SURVIVAL
+        };
     }
 
     /**
@@ -69,9 +69,37 @@ public enum Skill {
      */
     public static Skill[] getChaSkills() {
         return new Skill[]{
-                    BLUFF, DIPLOMACY, DISGUISE, GATHER_INFORMATION,
-                    HANDLE_ANIMAL, INTIMIDATE, PERFORM, USE_MAGIC_DEVICE,
-                    USE_PSIONIC_DEVICE
-                };
+            BLUFF, DIPLOMACY, DISGUISE, GATHER_INFORMATION,
+            HANDLE_ANIMAL, INTIMIDATE, PERFORM, USE_MAGIC_DEVICE,
+            USE_PSIONIC_DEVICE
+        };
+    }
+
+    /**
+     * A better toString method that returns a good looking string instead of a
+     * enum looking one.
+     *
+     * @return a better looking string
+     */
+    @Override
+    public String toString() {
+        String name = name();
+        String newName = "";
+        boolean nextIsCapitized = true;
+        for (int i = 0; i < name.length(); i++) {
+            if (nextIsCapitized) {
+                newName += name.substring(i, i + 1).toUpperCase();
+                nextIsCapitized = false;
+            } else {
+                String nextChar = name.substring(i, i + 1);
+                if (nextChar.equals("_")) {
+                    newName += " ";
+                    nextIsCapitized = true;
+                } else {
+                    newName += name.substring(i, i + 1).toLowerCase();
+                }
+            }
+        }
+        return newName;
     }
 }
