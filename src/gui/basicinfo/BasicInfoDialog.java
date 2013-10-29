@@ -523,6 +523,8 @@ public class BasicInfoDialog extends javax.swing.JDialog {
                 dialogRaceComboBox.setSelectedItem("Human");
                 raceKnown = true;
             } else {
+                dialogRaceComboBox.setSelectedItem("Other");
+                dialogRaceTextField.setText(race.getName());
             }
             //If the player is a known race, disable unapplicable options
             if (raceKnown) {
