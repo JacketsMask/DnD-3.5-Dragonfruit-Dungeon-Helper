@@ -11,16 +11,14 @@ import java.util.ArrayList;
  *
  * @author Jacob Dorman
  */
-public class CharacterClassInfo extends SaveStateTracker
-{
-    
+public class CharacterClassInfo extends SaveStateTracker {
+
     private ArrayList<CharacterClass> list;
 
     /**
      * Creates a object with a default class of Commoner.
      */
-    public CharacterClassInfo()
-    {
+    public CharacterClassInfo() {
         super();
         list = new ArrayList<>();
         list.add(new ClassCustom("Commoner"));
@@ -30,13 +28,18 @@ public class CharacterClassInfo extends SaveStateTracker
      * @return the first class of this character if it is defined, otherwise
      * null
      */
-    public CharacterClass getInitialClass()
-    {
-        if (list.isEmpty())
-        {
+    public CharacterClass getInitialClass() {
+        if (list.isEmpty()) {
             return null;
         }
         return list.get(0);
+    }
+
+    /**
+     * @return an ArrayList of all CharacterClasses of this character
+     */
+    public ArrayList<CharacterClass> getCharacterClasses() {
+        return list;
     }
 
     /**
@@ -45,8 +48,7 @@ public class CharacterClassInfo extends SaveStateTracker
      *
      * @param cClass the new initial class
      */
-    public void setClass(CharacterClass cClass)
-    {
+    public void setClass(CharacterClass cClass) {
         list = new ArrayList<>();
         list.add(cClass);
         super.stateChanged = true;
@@ -58,8 +60,7 @@ public class CharacterClassInfo extends SaveStateTracker
      *
      * @param cClass the class to add
      */
-    public void addClass(CharacterClass cClass)
-    {
+    public void addClass(CharacterClass cClass) {
         list.add(cClass);
         super.stateChanged = true;
     }
