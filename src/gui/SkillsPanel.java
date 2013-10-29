@@ -1,7 +1,9 @@
 package gui;
 
 import character.Player;
+import enumerations.Skill;
 import interfaces.CharacterInfoRetriever;
+import java.util.ArrayList;
 import main.FilterTextField;
 
 /**
@@ -18,6 +20,19 @@ public class SkillsPanel extends javax.swing.JPanel implements CharacterInfoRetr
     public SkillsPanel(Player player) {
         this.player = player;
         initComponents();
+        initSkillFilterTextField();
+    }
+
+    private void initSkillFilterTextField() {
+        FilterTextField<Skill> filter = (FilterTextField<Skill>) skillFilterSearchableTextField;
+        //debug, using all skills instead of player skills
+        ArrayList<Skill> arrayList = new ArrayList();
+        for (Skill s : Skill.getAllSkills()) {
+            arrayList.add(0,s);
+        }
+        filter.setConnectedList(skillList);
+        filter.setData(arrayList);
+        skillList.setVisible(true);
     }
 
     /**
@@ -38,6 +53,11 @@ public class SkillsPanel extends javax.swing.JPanel implements CharacterInfoRetr
         jLabel2 = new javax.swing.JLabel();
         showSkillModifiersButton = new javax.swing.JButton();
 
+        skillList.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "sup" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
         scrollPane.setViewportView(skillList);
 
         rollButton.setText("Roll Selected Skill");
@@ -100,7 +120,6 @@ public class SkillsPanel extends javax.swing.JPanel implements CharacterInfoRetr
     private void showSkillModifiersButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showSkillModifiersButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_showSkillModifiersButtonActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -114,6 +133,5 @@ public class SkillsPanel extends javax.swing.JPanel implements CharacterInfoRetr
 
     @Override
     public void loadInfo() {
-        
     }
 }
