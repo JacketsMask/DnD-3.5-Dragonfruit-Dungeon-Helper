@@ -6,28 +6,43 @@ import javax.swing.JList;
 import javax.swing.JTextField;
 
 /**
+ * A FilteredTextField that stores an ArrayList of data that can be filtered by
+ * typing into the text field.
+ *
+ * In order to use this, a JList must be used to display the model.
  *
  * @author Japhez
  */
-public class FilterTextField extends JTextField {
+public class FilterTextField<G> extends JTextField {
 
     //The JList that displays the data
-    private JList connectedList;
+    private JList list;
     //The model storing the visible data
     private DefaultListModel model;
     //The arraylist that holds the sum of the data
-    private ArrayList data;
+    private ArrayList<G> data;
 
     public FilterTextField() {
         super();
+        model = new DefaultListModel();
         //JList will be added later
         registerListener();
     }
 
     public FilterTextField(JList connectedList) {
         super();
-        this.connectedList = connectedList;
+        model = new DefaultListModel();
+        this.list = connectedList;
         registerListener();
+    }
+
+    public void setData(ArrayList<G> data) {
+        this.data = data;
+        fillModelFromArrayList(this.data);
+    }
+
+    public ArrayList<G> getData() {
+        return data;
     }
 
     /**
@@ -44,10 +59,9 @@ public class FilterTextField extends JTextField {
 
     private void updateVisibleElements(java.awt.event.KeyEvent evt) {
         //Get list, filter list, update visible list
-        connectedList.getModel()
-        String searchQuery = locationFilterTextField.getText();
-        ArrayList<Entry> results = pocket.searchPasswords(searchQuery);
-        generateListFromArrayList(results);
+        String searchQuery = this.getText();
+        ArrayList<G> results = this.searchData(searchQuery);
+        fillModelFromArrayList(results);
     }
 
     /**
@@ -55,19 +69,45 @@ public class FilterTextField extends JTextField {
      *
      * @param entries an ArrayList of entries
      */
-    private void generateListFromArrayList(ArrayList<Entry> entries) {
-        listModel.clear();
-        for (Entry e : entries) {
-            listModel.add(0, e);
+    private void fillModelFromArrayList(ArrayList<G> entries) {
+        model.clear();
+        for (G e : entries) {
+            model.add(0, e);
         }
-        resultList.clearSelection();
+        list.clearSelection();
     }
 
     public JList getConnectedList() {
-        return connectedList;
+        return list;
     }
 
     public void setConnectedList(JList connectedList) {
-        this.connectedList = connectedList;
+        this.list = connectedList;
+        this.list.setModel(model);
+    }
+
+    /**
+     * Clears the search filter.
+     */
+    private void clearFilter() {
+        this.setText("");
+        ArrayList<G> results = this.searchData("");
+        fillModelFromArrayList(results);
+    }
+
+    public ArrayList<G> searchData(String searchTerm) {
+        ArrayList<G> results = new ArrayList<>();
+        //Make the search term lower case for easier searching
+        searchTerm = searchTerm.toLowerCase();
+        //Search through the list, looking for things that contain the search term
+        for (G nextElement : data) {
+            String stringOfElement = nextElement.toString();
+            //Check to see if the search term is included in the list
+            if (stringOfElement.toLowerCase().contains(searchTerm)) {
+                //Add the password/source to the result list
+                results.add(nextElement);
+            }
+        }
+        return results;
     }
 }
