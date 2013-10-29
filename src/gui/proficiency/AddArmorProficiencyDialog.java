@@ -60,6 +60,7 @@ public class AddArmorProficiencyDialog extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Learn new armor proficiency");
         setAlwaysOnTop(true);
+        setLocationByPlatform(true);
 
         armorProficiencyList.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
