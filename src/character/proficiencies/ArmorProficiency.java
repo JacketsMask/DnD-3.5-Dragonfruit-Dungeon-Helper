@@ -21,4 +21,31 @@ public enum ArmorProficiency {
         list.add(LIGHT);
         return list;
     }
+
+    /**
+     * A better toString method that returns a good looking string instead of a
+     * enum looking one.
+     * @return a better looking string
+     */
+    @Override
+    public String toString() {
+        String name = name();
+        String newName = "";
+        boolean nextIsCapitized = true;
+        for (int i = 0; i < name.length(); i++) {
+            if (nextIsCapitized) {
+                newName += name.substring(i, i + 1).toUpperCase();
+                nextIsCapitized = false;
+            } else {
+                String nextChar = name.substring(i, i + 1);
+                if (nextChar.equals("_")) {
+                    newName += " ";
+                    nextIsCapitized = true;
+                } else {
+                    newName += name.substring(i, i + 1).toLowerCase();
+                }
+            }
+        }
+        return newName;
+    }
 }

@@ -7,8 +7,7 @@ import java.util.ArrayList;
  *
  * @author Japhez
  */
-public enum WeaponProficiency
-{
+public enum WeaponProficiency {
 
     //Simple
     CLUB, DAGGER, DART, GAUNTLET, HEAVY_CROSSBOW, HEAVY_MACE, JAVELIN,
@@ -30,8 +29,7 @@ public enum WeaponProficiency
     /**
      * @return all exotic weapon proficiencies in an ArrayList
      */
-    public static ArrayList<WeaponProficiency> getExoticWeapons()
-    {
+    public static ArrayList<WeaponProficiency> getExoticWeapons() {
         ArrayList<WeaponProficiency> list = new ArrayList<>();
         list.add(BASTARD_SWORD);
         list.add(BOLAS);
@@ -59,8 +57,7 @@ public enum WeaponProficiency
     /**
      * @return all martial weapon proficiencies in an ArrayList
      */
-    public static ArrayList<WeaponProficiency> getMartialWeapons()
-    {
+    public static ArrayList<WeaponProficiency> getMartialWeapons() {
         ArrayList<WeaponProficiency> list = new ArrayList<>();
         list.add(ARMOR_SPIKES);
         list.add(BATTLEAXE);
@@ -101,8 +98,7 @@ public enum WeaponProficiency
     /**
      * @return all simple weapon proficiencies in an ArrayList
      */
-    public static ArrayList<WeaponProficiency> getSimpleWeapons()
-    {
+    public static ArrayList<WeaponProficiency> getSimpleWeapons() {
         ArrayList<WeaponProficiency> list = new ArrayList<>();
         list.add(CLUB);
         list.add(DAGGER);
@@ -124,5 +120,32 @@ public enum WeaponProficiency
         list.add(SPIKED_GAUNTLET);
         list.add(UNARMED_STRIKE);
         return list;
+    }
+
+    /**
+     * A better toString method that returns a good looking string instead of a
+     * enum looking one.
+     * @return a better looking string
+     */
+    @Override
+    public String toString() {
+        String name = name();
+        String newName = "";
+        boolean nextIsCapitized = true;
+        for (int i = 0; i < name.length(); i++) {
+            if (nextIsCapitized) {
+                newName += name.substring(i, i + 1).toUpperCase();
+                nextIsCapitized = false;
+            } else {
+                String nextChar = name.substring(i, i + 1);
+                if (nextChar.equals("_")) {
+                    newName += " ";
+                    nextIsCapitized = true;
+                } else {
+                    newName += name.substring(i, i + 1).toLowerCase();
+                }
+            }
+        }
+        return newName;
     }
 }
