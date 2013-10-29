@@ -1,11 +1,12 @@
 package character;
 
 import abstracts.Size;
+import character.classes.CharacterClass;
 import character.inventory.Armor;
+import diceroller.DiceRoller;
 import enumerations.AbilityScore;
 import interfaces.SaveStateTracker;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Represents an entity's defensive capabilities. This includes AC and dodge, if
@@ -17,12 +18,12 @@ public class CharacterDefense extends SaveStateTracker {
     //AC = 10 + armor bonus + shield bonus + AbilityScore modifier + size modifier
 
     //Core AC stats
+    private static final int BASE_AC = 10;
     private Player character;
     private ArrayList<Armor> equippedArmor;
     private int armorBonus;
     private int shieldBonus;
     private int maximumDexModifierBonus;
-    private HashMap<AbilityScore, Boolean> abilityScoreBonusesUsed;
     //Dodge bonuses
     private int dodgeBonus;
     //Optional AC stats
@@ -34,26 +35,16 @@ public class CharacterDefense extends SaveStateTracker {
     public CharacterDefense(Player character) {
         this.character = character;
         this.equippedArmor = new ArrayList<>();
-        initializeAbilityScoreModifierUsage();
         //Set an unrealistic cap initially, update when armor is equipped
         maximumDexModifierBonus = 100;
         super.stateChanged = true;
     }
 
     /**
-     * Initializes the HashMap that is used to track which modifiers are
-     * included in the AC calculation. By default only DEX is used, though
-     * others may be added through feats and class choices.
+     * @return the base AC for anyone (spoilers, it is 10)
      */
-    private void initializeAbilityScoreModifierUsage() {
-        abilityScoreBonusesUsed = new HashMap<>();
-        abilityScoreBonusesUsed.put(AbilityScore.STRENGTH, false);
-        abilityScoreBonusesUsed.put(AbilityScore.DEXTERITY, true);
-        abilityScoreBonusesUsed.put(AbilityScore.CONSTITUTION, false);
-        abilityScoreBonusesUsed.put(AbilityScore.INTELLIGENCE, false);
-        abilityScoreBonusesUsed.put(AbilityScore.WISDOM, false);
-        abilityScoreBonusesUsed.put(AbilityScore.CHARISMA, false);
-        super.stateChanged = true;
+    public static int getBASE_AC() {
+        return BASE_AC;
     }
 
     /**
@@ -63,40 +54,36 @@ public class CharacterDefense extends SaveStateTracker {
      */
     public int getAC() {
         Size size = character.getBasicInfo().getSize();
-        int result = 10 + armorBonus + shieldBonus + size.getAttackAndACModifier()
+        int dexMod = character.getAbilityScore().getAbilityScoreModifier(AbilityScore.DEXTERITY);
+        int result = 10 + armorBonus + shieldBonus + dexMod + size.getAttackAndACModifier()
                 + enhancementBonuses + deflectionBonuses + naturalArmorBonuses;
-        //Check to see if each ability score bonus currently applies
-        for (AbilityScore as : abilityScoreBonusesUsed.keySet()) {
-            //If the modifier is used, apply it
-            if (abilityScoreBonusesUsed.get(as)) {
-                int abilityScoreModifier = character.getAbilityScore().getAbilityScoreModifier(as);
-                //Special case, DEX may not be applied under certain conditions (caught flat footed, etc), and may be capped
-                if (as.equals(AbilityScore.DEXTERITY)) {
-                    if (abilityScoreModifier < maximumDexModifierBonus) {
-                        result += abilityScoreModifier;
-                    } else {
-                        result += maximumDexModifierBonus;
-                    }
-                    //If the modifier is used and is not DEX, just apply the modifier
-                } else {
-                    result += abilityScoreModifier;
-                }
-            }
-        }
         return result;
     }
 
     /**
-     * Set whether this entity currently receives their ability score bonus to
-     * AC to true or false.
+     * Recalculates the touch (vs. touch attack) AC value and returns it.
      *
-     * @param abilityScore the ability score to set the usage of
-     * @param value true if the ability score modifier should be used in AC
-     * calculation
+     * @return the current touch AC value
      */
-    public void setUsingModifierBonus(AbilityScore abilityScore, boolean value) {
-        abilityScoreBonusesUsed.put(abilityScore, value);
-        super.stateChanged = true;
+    public int getACVSTouch() {
+        Size size = character.getBasicInfo().getSize();
+        int dexMod = character.getAbilityScore().getAbilityScoreModifier(AbilityScore.DEXTERITY);
+        int result = 10 + dexMod + size.getAttackAndACModifier()
+                + enhancementBonuses + deflectionBonuses;
+        return result;
+    }
+
+    /**
+     * Recalculates the flat-footed AC value and returns it.  A character uses
+     * this value if they haven't yet acted in combat.
+     *
+     * @return the current flat-footed AC value
+     */
+    public int getACFlatFooted() {
+        Size size = character.getBasicInfo().getSize();
+        int result = 10 + armorBonus + shieldBonus + size.getAttackAndACModifier()
+                + enhancementBonuses + deflectionBonuses + naturalArmorBonuses;
+        return result;
     }
 
     /**
@@ -150,12 +137,12 @@ public class CharacterDefense extends SaveStateTracker {
         super.stateChanged = true;
     }
 
-    public void setDeflectionBonuses(int deflectionBonuses) {
+    public void setDeflectionBonus(int deflectionBonuses) {
         this.deflectionBonuses = deflectionBonuses;
         super.stateChanged = true;
     }
 
-    public int getEnhancementBonuses() {
+    public int getEnhancementBonus() {
         return enhancementBonuses;
     }
 
@@ -164,7 +151,7 @@ public class CharacterDefense extends SaveStateTracker {
         super.stateChanged = true;
     }
 
-    public void setEnhancementBonuses(int enhancementBonuses) {
+    public void setEnhancementBonus(int enhancementBonuses) {
         this.enhancementBonuses = enhancementBonuses;
         super.stateChanged = true;
     }
@@ -173,7 +160,7 @@ public class CharacterDefense extends SaveStateTracker {
         return naturalArmorBonuses;
     }
 
-    public void setNaturalArmorBonuses(int naturalArmorBonuses) {
+    public void setNaturalArmorBonus(int naturalArmorBonuses) {
         this.naturalArmorBonuses = naturalArmorBonuses;
         super.stateChanged = true;
     }
@@ -212,5 +199,78 @@ public class CharacterDefense extends SaveStateTracker {
             }
         }
         super.stateChanged = true;
+    }
+
+    /**
+     * Calculates and returns a fortitude save bonus from classes and 
+     * constitution.
+     * @return the fortitude save bonus
+     */
+    public int getFortitudeSaveBonus() {
+        //Fortitude save bonuses from classes
+        ArrayList<CharacterClass> characterClasses = character.getClassInfo().getCharacterClasses();
+        int fortSaveBonus = 0;
+        for (CharacterClass cc : characterClasses) {
+            fortSaveBonus += cc.getFortSaveModifier();
+        }
+        //Constitution modifier
+        int conMod = character.getAbilityScore().getAbilityScoreModifier(AbilityScore.CONSTITUTION);
+        return fortSaveBonus + conMod;
+    }
+
+    /**
+     * Calculates and returns a reflex save bonus from classes and dexterity.
+     * @return the reflex save bonus
+     */
+    public int getReflexSaveBonus() {
+        //Fortitude save bonuses from classes
+        ArrayList<CharacterClass> characterClasses = character.getClassInfo().getCharacterClasses();
+        int reflexSaveBonus = 0;
+        for (CharacterClass cc : characterClasses) {
+            reflexSaveBonus += cc.getRefSaveModifier();
+        }
+        //Constitution modifier
+        int dexMod = character.getAbilityScore().getAbilityScoreModifier(AbilityScore.DEXTERITY);
+        return reflexSaveBonus + dexMod;
+    }
+
+    /**
+     * Calculates and returns a will save bonus from classes and wisdom.
+     * @return the will save bonus
+     */
+    public int getWillSaveBonus() {
+        //Fortitude save bonuses from classes
+        ArrayList<CharacterClass> characterClasses = character.getClassInfo().getCharacterClasses();
+        int willSaveBonus = 0;
+        for (CharacterClass cc : characterClasses) {
+            willSaveBonus += cc.getWillSaveModifier();
+        }
+        //Constitution modifier
+        int wisMod = character.getAbilityScore().getAbilityScoreModifier(AbilityScore.WISDOM);
+        return willSaveBonus + wisMod;
+    }
+
+    /**
+     * @return the size bonus to AC 
+     */
+    public int getSizeBonus() {
+        return character.getBasicInfo().getRace().getSize().getAttackAndACModifier();
+    }
+
+    /**
+     * Forcefully sets the armor bonus to the passed value.  This will work 
+     * fine early, but may cause problems if it is being used after armor can 
+     * be equipped later.
+     * @param newArmorBonus the new armor bonus
+     */
+    public void setArmorBonus(int newArmorBonus) {
+        armorBonus = newArmorBonus;
+    }
+
+    /**
+     * @return the dex modifier of this character
+     */
+    public int getDexBonus() {
+        return character.getAbilityScore().getAbilityScoreModifier(AbilityScore.DEXTERITY);
     }
 }
