@@ -85,21 +85,21 @@ public abstract class CharacterClass {
     /**
      * @return this class's fortitude save modifier
      */
-    public int getFortSaveModifiers() {
+    public int getFortSaveModifier() {
         return fortitudeSavingThrow;
     }
 
     /**
      * @return this class's reflex save modifier
      */
-    public int getRefSaveModifiers() {
+    public int getRefSaveModifier() {
         return reflexSavingThrow;
     }
 
     /**
      * @return this class's will save modifier
      */
-    public int getWillSaveModifiers() {
+    public int getWillSaveModifier() {
         return willSavingThrow;
     }
 
