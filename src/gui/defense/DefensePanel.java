@@ -1,33 +1,21 @@
 package gui.defense;
 
-import gui.defense.DefenseArmorClassDialog;
 import character.IntegerVerifier;
 import character.Player;
 import diceroller.DiceRoller;
+import interfaces.CharacterInfoRetriever;
 
 /**
  *
  * @author Japhez
  */
-public final class DefensePanel extends javax.swing.JPanel {
+public final class DefensePanel extends javax.swing.JPanel implements CharacterInfoRetriever {
 
     private Player player;
 
     public DefensePanel(Player player) {
         initComponents();
         this.player = player;
-        prefillInformation();
-    }
-
-    public void prefillInformation() {
-        //Armor class
-        armorClassTextField.setText("" + player.getDefense().getAC());
-        touchArmorClassTextField.setText("" + player.getDefense().getACVSTouch());
-        flatFootedArmorClassTextField.setText("" + player.getDefense().getACFlatFooted());
-        //Saves
-        fortitudeSaveTextField.setText("" + player.getDefense().getFortitudeSaveBonus());
-        reflexSaveTextField.setText("" + player.getDefense().getReflexSaveBonus());
-        willSaveTextField.setText("" + player.getDefense().getWillSaveBonus());
     }
 
     /**
@@ -284,7 +272,6 @@ public final class DefensePanel extends javax.swing.JPanel {
         DefenseArmorClassDialog defenseArmorClassDialog = new DefenseArmorClassDialog(this, player);
         defenseArmorClassDialog.setVisible(true);
     }//GEN-LAST:event_modifyArmorClassButtonActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField armorClassTextField;
     private javax.swing.JTextField flatFootedArmorClassTextField;
@@ -312,4 +299,16 @@ public final class DefensePanel extends javax.swing.JPanel {
     private javax.swing.JTextField willModifierValueTextField;
     private javax.swing.JTextField willSaveTextField;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void loadInfo() {
+        //Armor class
+        armorClassTextField.setText("" + player.getDefense().getAC());
+        touchArmorClassTextField.setText("" + player.getDefense().getACVSTouch());
+        flatFootedArmorClassTextField.setText("" + player.getDefense().getACFlatFooted());
+        //Saves
+        fortitudeSaveTextField.setText("" + player.getDefense().getFortitudeSaveBonus());
+        reflexSaveTextField.setText("" + player.getDefense().getReflexSaveBonus());
+        willSaveTextField.setText("" + player.getDefense().getWillSaveBonus());
+    }
 }

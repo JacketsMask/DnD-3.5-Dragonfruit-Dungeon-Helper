@@ -10,7 +10,6 @@ import character.effects.AbilityScoreEffect;
 import character.effects.EffectManager;
 import character.effects.EffectTarget;
 import enumerations.AbilityScore;
-import gui.AbilityScorePanel;
 import javax.swing.DefaultListModel;
 
 /**

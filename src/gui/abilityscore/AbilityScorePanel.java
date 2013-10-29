@@ -1,14 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package gui;
+package gui.abilityscore;
 
 import character.Player;
 import character.CharacterAbilityScore;
 import character.IntegerVerifier;
 import enumerations.AbilityScore;
-import gui.abilityscore.AbilityScoreBonusModifierDialog;
+import interfaces.CharacterInfoRetriever;
 import java.util.HashMap;
 import javax.swing.JTextField;
 
@@ -16,16 +12,14 @@ import javax.swing.JTextField;
  *
  * @author Japhez
  */
-public final class AbilityScorePanel extends javax.swing.JPanel
-{
+public final class AbilityScorePanel extends javax.swing.JPanel implements CharacterInfoRetriever {
 
     private Player player;
 
     /**
      * Creates new form AbilityScorePanel
      */
-    public AbilityScorePanel(Player player)
-    {
+    public AbilityScorePanel(Player player) {
         this.player = player;
         initComponents();
         //Set initial ability score values from the player object
@@ -315,7 +309,7 @@ public final class AbilityScorePanel extends javax.swing.JPanel
                             .addComponent(bonusValueCon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(bonusValueWis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(abilityScoreModifyBonusesAndPenaltiesButton))
-                .addContainerGap(219, Short.MAX_VALUE))
+                .addContainerGap(239, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -372,7 +366,7 @@ public final class AbilityScorePanel extends javax.swing.JPanel
                     .addComponent(bonusValueCha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(abilityScoreModifyBonusesAndPenaltiesButton)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Ability Score Values", jPanel4);
@@ -441,7 +435,7 @@ public final class AbilityScorePanel extends javax.swing.JPanel
                         .addComponent(jLabel20)
                         .addGap(18, 18, 18)
                         .addComponent(intModifier)))
-                .addContainerGap(168, Short.MAX_VALUE))
+                .addContainerGap(249, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -472,7 +466,7 @@ public final class AbilityScorePanel extends javax.swing.JPanel
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel22)
                                 .addComponent(chaModifier)))))
-                .addContainerGap(160, Short.MAX_VALUE))
+                .addContainerGap(188, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Ability Score Modifiers", jPanel3);
@@ -481,104 +475,82 @@ public final class AbilityScorePanel extends javax.swing.JPanel
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1)
-                .addContainerGap())
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1)
-                .addContainerGap())
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    
     private void abilityScoreModifyBonusesAndPenaltiesButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_abilityScoreModifyBonusesAndPenaltiesButtonActionPerformed
     {//GEN-HEADEREND:event_abilityScoreModifyBonusesAndPenaltiesButtonActionPerformed
         new AbilityScoreBonusModifierDialog(this, false, player).setVisible(true);
     }//GEN-LAST:event_abilityScoreModifyBonusesAndPenaltiesButtonActionPerformed
 
     private void baseValueFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_baseValueFieldFocusLost
-                JTextField field = (JTextField) evt.getSource();
+        JTextField field = (JTextField) evt.getSource();
         IntegerVerifier verifier = (IntegerVerifier) field.getInputVerifier();
         CharacterAbilityScore info = player.getAbilityScore();
         boolean valueChanged = false;
-        if (field.equals(baseValueStr) && verifier.isValueChanged())
-        {
+        if (field.equals(baseValueStr) && verifier.isValueChanged()) {
             info.setBaseAbilityScore(AbilityScore.STRENGTH, Integer.parseInt(baseValueStr.getText()));
             valueChanged = true;
-        } else if (field.equals(baseValueDex) && verifier.isValueChanged())
-        {
+        } else if (field.equals(baseValueDex) && verifier.isValueChanged()) {
             info.setBaseAbilityScore(AbilityScore.DEXTERITY, Integer.parseInt(baseValueDex.getText()));
             valueChanged = true;
-        } else if (field.equals(baseValueCon) && verifier.isValueChanged())
-        {
+        } else if (field.equals(baseValueCon) && verifier.isValueChanged()) {
             info.setBaseAbilityScore(AbilityScore.CONSTITUTION, Integer.parseInt(baseValueCon.getText()));
             valueChanged = true;
 
-        } else if (field.equals(baseValueInt) && verifier.isValueChanged())
-        {
+        } else if (field.equals(baseValueInt) && verifier.isValueChanged()) {
             info.setBaseAbilityScore(AbilityScore.INTELLIGENCE, Integer.parseInt(baseValueInt.getText()));
             valueChanged = true;
 
-        } else if (field.equals(baseValueWis) && verifier.isValueChanged())
-        {
+        } else if (field.equals(baseValueWis) && verifier.isValueChanged()) {
             info.setBaseAbilityScore(AbilityScore.WISDOM, Integer.parseInt(baseValueWis.getText()));
             valueChanged = true;
-        } else if (field.equals(baseValueCha) && verifier.isValueChanged())
-        {
+        } else if (field.equals(baseValueCha) && verifier.isValueChanged()) {
             info.setBaseAbilityScore(AbilityScore.CHARISMA, Integer.parseInt(baseValueCha.getText()));
             valueChanged = true;
         }
-        if (valueChanged)
-        {
+        if (valueChanged) {
             updateVisibleAbilityScoreTotal();
             updateVisibleAbilityScoreModifiers();
         }
     }//GEN-LAST:event_baseValueFieldFocusLost
 
     private void bonusValueFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_bonusValueFieldFocusLost
-       JTextField field = (JTextField) evt.getSource();
+        JTextField field = (JTextField) evt.getSource();
         IntegerVerifier verifier = (IntegerVerifier) bonusValueStr.getInputVerifier();
         CharacterAbilityScore info = player.getAbilityScore();
         boolean valueChanged = false;
-        if (field.equals(bonusValueStr) && verifier.isValueChanged())
-        {
+        if (field.equals(bonusValueStr) && verifier.isValueChanged()) {
             info.setBonusAbilityScore(AbilityScore.STRENGTH, Integer.parseInt(bonusValueStr.getText()));
             valueChanged = true;
-        } else if (field.equals(bonusValueDex) && verifier.isValueChanged())
-        {
+        } else if (field.equals(bonusValueDex) && verifier.isValueChanged()) {
             info.setBonusAbilityScore(AbilityScore.DEXTERITY, Integer.parseInt(bonusValueDex.getText()));
             valueChanged = true;
-        } else if (field.equals(bonusValueCon) && verifier.isValueChanged())
-        {
+        } else if (field.equals(bonusValueCon) && verifier.isValueChanged()) {
             info.setBonusAbilityScore(AbilityScore.CONSTITUTION, Integer.parseInt(bonusValueCon.getText()));
             valueChanged = true;
 
-        } else if (field.equals(bonusValueInt) && verifier.isValueChanged())
-        {
+        } else if (field.equals(bonusValueInt) && verifier.isValueChanged()) {
             info.setBonusAbilityScore(AbilityScore.INTELLIGENCE, Integer.parseInt(bonusValueInt.getText()));
             valueChanged = true;
 
-        } else if (field.equals(bonusValueWis) && verifier.isValueChanged())
-        {
+        } else if (field.equals(bonusValueWis) && verifier.isValueChanged()) {
             info.setBonusAbilityScore(AbilityScore.WISDOM, Integer.parseInt(bonusValueWis.getText()));
             valueChanged = true;
-        } else if (field.equals(bonusValueCha) && verifier.isValueChanged())
-        {
+        } else if (field.equals(bonusValueCha) && verifier.isValueChanged()) {
             info.setBonusAbilityScore(AbilityScore.CHARISMA, Integer.parseInt(bonusValueCha.getText()));
             valueChanged = true;
         }
-        if (valueChanged)
-        {
+        if (valueChanged) {
             updateVisibleAbilityScoreTotal();
             updateVisibleAbilityScoreModifiers();
         }
     }//GEN-LAST:event_bonusValueFieldFocusLost
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton abilityScoreModifyBonusesAndPenaltiesButton;
     private javax.swing.JTextField baseValueCha;
@@ -629,13 +601,20 @@ public final class AbilityScorePanel extends javax.swing.JPanel
     private javax.swing.JLabel wisModifier;
     // End of variables declaration//GEN-END:variables
 
+    @Override
+    public void loadInfo() {
+        updateVisibleAbilityScoreBase();
+        updateVisibleAbilityScoreBonus();
+        updateVisibleAbilityScoreModifiers();
+        updateVisibleAbilityScoreTotal();
+    }
+
     /**
      * Updates the base ability score labels in the ability score tab. It
      * retrieves a reference to the base ability score HashMap, then gets each
      * value from it.
      */
-    public void updateVisibleAbilityScoreBase()
-    {
+    public void updateVisibleAbilityScoreBase() {
         //Set all 6 labels for the base stats
         HashMap<AbilityScore, Integer> base = player.getAbilityScore().getAbilityScoresBases();
         baseValueStr.setText(base.get(AbilityScore.STRENGTH).toString());
@@ -651,8 +630,7 @@ public final class AbilityScorePanel extends javax.swing.JPanel
      * retrieves a reference to the bonus ability score HashMap, then gets each
      * value from it.
      */
-    public void updateVisibleAbilityScoreBonus()
-    {
+    public void updateVisibleAbilityScoreBonus() {
         //Set all 6 labels for the bonus stats
         HashMap<AbilityScore, Integer> bonus = player.getAbilityScore().getAbilityScoresBonuses();
         bonusValueStr.setText(bonus.get(AbilityScore.STRENGTH).toString());
@@ -668,8 +646,7 @@ public final class AbilityScorePanel extends javax.swing.JPanel
      * retrieves each base and bonus values from the player and adds them before
      * displaying the result.
      */
-    public void updateVisibleAbilityScoreTotal()
-    {
+    public void updateVisibleAbilityScoreTotal() {
         CharacterAbilityScore info = player.getAbilityScore();
         totalStrLabel.setText(""
                 + (info.getAbilityScoreBaseValue(AbilityScore.STRENGTH)
@@ -694,8 +671,7 @@ public final class AbilityScorePanel extends javax.swing.JPanel
     /**
      * Sets the character information ability score modifier text.
      */
-    public void updateVisibleAbilityScoreModifiers()
-    {
+    public void updateVisibleAbilityScoreModifiers() {
         CharacterAbilityScore score = player.getAbilityScore();
         strModifier.setText("" + score.getAbilityScoreModifier(AbilityScore.STRENGTH));
         dexModifier.setText("" + score.getAbilityScoreModifier(AbilityScore.DEXTERITY));

@@ -6,7 +6,6 @@ package gui.proficiency;
 
 import character.Player;
 import character.proficiencies.WeaponProficiency;
-import gui.ProficiencyPanel;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
@@ -372,7 +371,7 @@ public class AddWeaponProficiencyDialog extends javax.swing.JDialog {
             WeaponProficiency ap = (WeaponProficiency) o;
             character.getProficiencies().getWeaponProficiencyList().add(ap);
         }
-        parent.refreshDisplayedInformation();
+        parent.loadInfo();
         this.dispose();
     }//GEN-LAST:event_learnProficiencyButtonActionPerformed
 
@@ -408,7 +407,6 @@ public class AddWeaponProficiencyDialog extends javax.swing.JDialog {
             exoticProficiencyList.clearSelection();
         }
     }//GEN-LAST:event_deselectAllButtonActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton exoticCancelButton;
     private javax.swing.JButton exoticDeselectAllButton;

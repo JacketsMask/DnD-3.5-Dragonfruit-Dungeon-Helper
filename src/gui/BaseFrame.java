@@ -1,9 +1,14 @@
 package gui;
 
+import gui.proficiency.ProficiencyPanel;
+import gui.basicinfo.BasicInfoPanel;
+import gui.inventory.InventoryPanel;
+import gui.abilityscore.AbilityScorePanel;
 import gui.defense.DefensePanel;
 import character.Player;
 import gui.chat.ChatPanel;
 import gui.inventory.WalletPanel;
+import interfaces.CharacterInfoRetriever;
 import java.io.IOException;
 import javax.swing.JTabbedPane;
 
@@ -30,20 +35,25 @@ public final class BaseFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        tabbedPane = new javax.swing.JTabbedPane();
-        tabbedPane2 = new javax.swing.JTabbedPane();
-        jButton1 = new javax.swing.JButton();
+        characterInfoTabbedPane = new javax.swing.JTabbedPane();
+        chatTabbedPane = new javax.swing.JTabbedPane();
+        showCombatInfoButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("D&D 3.5 Helper");
         setResizable(false);
 
-        tabbedPane.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+        characterInfoTabbedPane.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+        characterInfoTabbedPane.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                baseTabbedPaneStateChanged(evt);
+            }
+        });
 
-        jButton1.setText("Show combat info");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        showCombatInfoButton.setText("Show combat info");
+        showCombatInfoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                showCombatInfoButtonActionPerformed(evt);
             }
         });
 
@@ -54,37 +64,54 @@ public final class BaseFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE)
-                    .addComponent(tabbedPane2, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(characterInfoTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE)
+                    .addComponent(chatTabbedPane, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(83, 83, 83)
-                .addComponent(jButton1)
+                .addComponent(showCombatInfoButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(characterInfoTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(showCombatInfoButton)
                 .addGap(11, 11, 11)
-                .addComponent(tabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
+                .addComponent(chatTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void showCombatInfoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showCombatInfoButtonActionPerformed
         System.exit(0);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_showCombatInfoButtonActionPerformed
 
+    /**
+     * Called when a tab from the main JTabbedPane is selected.
+     *
+     * For panels that implement CharacterInfoRetrieval, update the displayed
+     * data whenever the panel is displayed.
+     *
+     * @param evt
+     */
+    private void baseTabbedPaneStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_baseTabbedPaneStateChanged
+        if (characterInfoTabbedPane.getSelectedComponent() instanceof CharacterInfoRetriever) {
+            CharacterInfoRetriever retriever = (CharacterInfoRetriever) characterInfoTabbedPane.getSelectedComponent();
+            //TODO: Determine panel, check each character info source that the
+            //panel retrieves info from
+            //if the base info has changed, update the info in the GUI
+            retriever.loadInfo();
+        }
+    }//GEN-LAST:event_baseTabbedPaneStateChanged
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JTabbedPane tabbedPane;
-    private javax.swing.JTabbedPane tabbedPane2;
+    private javax.swing.JTabbedPane characterInfoTabbedPane;
+    private javax.swing.JTabbedPane chatTabbedPane;
+    private javax.swing.JButton showCombatInfoButton;
     // End of variables declaration//GEN-END:variables
 
     /**
@@ -92,20 +119,20 @@ public final class BaseFrame extends javax.swing.JFrame {
      * panel below.
      */
     private void addPanels() throws IOException, IOException {
-        tabbedPane.addTab("General", new BasicInfoPanel(player));
-        tabbedPane.addTab("Ability Score", new AbilityScorePanel(player));
-        tabbedPane.addTab("Class", new ClassPanel(player.getClassInfo()));
-        tabbedPane.addTab("Skills", new SkillsPanel(player));
-        tabbedPane.addTab("Attack", new AttackPanel(player));
-        tabbedPane.addTab("Defense", new DefensePanel(player));
-        tabbedPane.addTab("Proficiencies", new ProficiencyPanel(player));
+        characterInfoTabbedPane.addTab("General", new BasicInfoPanel(player));
+        characterInfoTabbedPane.addTab("Ability Score", new AbilityScorePanel(player));
+        characterInfoTabbedPane.addTab("Class", new ClassPanel(player.getClassInfo()));
+        characterInfoTabbedPane.addTab("Skills", new SkillsPanel(player));
+        characterInfoTabbedPane.addTab("Attack", new AttackPanel(player));
+        characterInfoTabbedPane.addTab("Defense", new DefensePanel(player));
+        characterInfoTabbedPane.addTab("Proficiencies", new ProficiencyPanel(player));
         JTabbedPane inventoryTabbedPane = new JTabbedPane();
         inventoryTabbedPane.add("Items", new InventoryPanel(player));
         //Tries to read in data from a file if possible, throwing an exception 
         //shouldn't happen under normal circumstances though
         inventoryTabbedPane.add("Coin Pouch", new WalletPanel(player));
-        tabbedPane.add("Inventory", inventoryTabbedPane);
-        tabbedPane2.add("All", new ChatPanel(player));
+        characterInfoTabbedPane.add("Inventory", inventoryTabbedPane);
+        chatTabbedPane.add("All", new ChatPanel(player));
         pack();
     }
 }

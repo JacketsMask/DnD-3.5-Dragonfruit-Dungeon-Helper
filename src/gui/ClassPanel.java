@@ -3,13 +3,14 @@ package gui;
 import abstracts.Ability;
 import character.CharacterClassInfo;
 import character.classes.CharacterClass;
+import interfaces.CharacterInfoRetriever;
 import javax.swing.DefaultListModel;
 
 /**
  *
  * @author Japhez
  */
-public class ClassPanel extends javax.swing.JPanel {
+public class ClassPanel extends javax.swing.JPanel implements CharacterInfoRetriever {
 
     private CharacterClass characterClass;
 
@@ -222,7 +223,6 @@ public class ClassPanel extends javax.swing.JPanel {
     private void abililitiesAddAbilityButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abililitiesAddAbilityButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_abililitiesAddAbilityButton1ActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton abililitiesAddAbilityButton1;
     private javax.swing.JButton abilitiesMoreInfoButton1;
@@ -249,5 +249,10 @@ public class ClassPanel extends javax.swing.JPanel {
      */
     private void initializeAbilityList() {
         DefaultListModel<Ability> abilities = characterClass.getAbilityListModel();
+    }
+
+    @Override
+    public void loadInfo() {
+        
     }
 }

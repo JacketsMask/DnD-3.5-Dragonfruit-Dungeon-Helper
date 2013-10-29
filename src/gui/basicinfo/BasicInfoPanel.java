@@ -2,19 +2,20 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui;
+package gui.basicinfo;
 
 import character.CharacterBasicInfo;
 import character.Player;
 import enumerations.Alignment;
 import enumerations.Order;
 import gui.basicinfo.BasicInfoDialog;
+import interfaces.CharacterInfoRetriever;
 
 /**
  *
  * @author Japhez
  */
-public final class BasicInfoPanel extends javax.swing.JPanel {
+public final class BasicInfoPanel extends javax.swing.JPanel implements CharacterInfoRetriever {
 
     private Player player;
 
@@ -24,7 +25,6 @@ public final class BasicInfoPanel extends javax.swing.JPanel {
     public BasicInfoPanel(Player player) {
         this.player = player;
         initComponents();
-        updateVisibleCharacterInformation();
     }
 
     /**
@@ -265,10 +265,8 @@ public final class BasicInfoPanel extends javax.swing.JPanel {
         generalInformationDialog.setVisible(true);
     }//GEN-LAST:event_characterInformationButtonActionPerformed
 
-    /**
-     * Updates the visible character information on the main tab.
-     */
-    public void updateVisibleCharacterInformation() {
+    @Override
+    public void loadInfo() {
         CharacterBasicInfo info = player.getBasicInfo();
         characterInfoNameLabel.setText("" + info.getName());
         characterClassLabel.setText(player.getClassInfo().getInitialClass().getName());
@@ -288,7 +286,7 @@ public final class BasicInfoPanel extends javax.swing.JPanel {
             height += info.getHeightFeet() + " ft.";
         }
         if (info.getHeightInches() != 0) {
-            height += " "+ info.getHeightInches() + " in.";
+            height += " " + info.getHeightInches() + " in.";
         }
         characterInfoHeightLabel.setText(height);
         characterInfoWeightLabel.setText("" + info.getWeight());
@@ -296,6 +294,7 @@ public final class BasicInfoPanel extends javax.swing.JPanel {
         characterInfoHairLabel.setText("" + info.getHairColor());
         characterInfoSkinLabel.setText("" + info.getSkinColor());
     }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel characterClassLabel;
     private javax.swing.JLabel characterInfoAgeLabel;

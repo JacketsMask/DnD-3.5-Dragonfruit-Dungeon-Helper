@@ -6,7 +6,6 @@ package gui.proficiency;
 
 import character.Player;
 import character.proficiencies.ArmorProficiency;
-import gui.ProficiencyPanel;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
@@ -126,7 +125,7 @@ public class AddArmorProficiencyDialog extends javax.swing.JDialog {
             ArmorProficiency ap = (ArmorProficiency) o;
             character.getProficiencies().getArmorProficiencyList().add(ap);
         }
-        parent.refreshDisplayedInformation();
+        parent.loadInfo();
         this.dispose();
     }//GEN-LAST:event_learnProficiencyButtonActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables

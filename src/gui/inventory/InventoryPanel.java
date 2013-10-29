@@ -1,15 +1,14 @@
-package gui;
+package gui.inventory;
 
 import character.Player;
 import character.inventory.Item;
-import gui.inventory.InventoryAddNewItemDialog;
-import gui.inventory.InventoryModifyItemDialog;
+import interfaces.CharacterInfoRetriever;
 
 /**
  *
  * @author Japhez
  */
-public class InventoryPanel extends javax.swing.JPanel {
+public class InventoryPanel extends javax.swing.JPanel implements CharacterInfoRetriever {
 
     private Player player;
 
@@ -249,5 +248,11 @@ public class InventoryPanel extends javax.swing.JPanel {
 
     public void updateInventoryDisplayedTotalWeight() {
         currentWeightLabel.setText("Current weight: " + player.getInventory().getInventoryWeight());
+    }
+
+    @Override
+    public void loadInfo() {
+        updateInventoryDisplayedInfo();
+        updateInventoryDisplayedTotalWeight();
     }
 }

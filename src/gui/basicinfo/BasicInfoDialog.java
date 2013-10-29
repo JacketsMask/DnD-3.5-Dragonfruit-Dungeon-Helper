@@ -10,7 +10,6 @@ import character.classes.ClassCustom;
 import enumerations.Alignment;
 import enumerations.Gender;
 import enumerations.Order;
-import gui.BasicInfoPanel;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 
@@ -460,7 +459,7 @@ public class BasicInfoDialog extends javax.swing.JDialog {
         if (!(characterInfo.getSkinColor().equals(dialogSkinTextField.getText()))) {
             characterInfo.setSkinColor(dialogSkinTextField.getText());
         }
-        parent.updateVisibleCharacterInformation();
+        parent.loadInfo();
         this.setVisible(false);
     }//GEN-LAST:event_dialogCharacterCommitButtonActionPerformed
 

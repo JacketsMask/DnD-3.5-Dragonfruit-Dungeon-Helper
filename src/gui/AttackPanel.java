@@ -2,16 +2,19 @@ package gui;
 
 import character.IntegerVerifier;
 import character.Player;
+import character.classes.CharacterClass;
 import diceroller.DiceRoll;
 import diceroller.DiceRoller;
 import enumerations.AbilityScore;
+import interfaces.CharacterInfoRetriever;
+import java.util.ArrayList;
 import javax.swing.JRadioButton;
 
 /**
  *
  * @author Japhez
  */
-public class AttackPanel extends javax.swing.JPanel {
+public class AttackPanel extends javax.swing.JPanel implements CharacterInfoRetriever {
 
     private Player player;
 
@@ -22,6 +25,17 @@ public class AttackPanel extends javax.swing.JPanel {
         meleeRadioButton.doClick();
     }
 
+    @Override
+    public void loadInfo() {
+        //Prefill BAB
+        ArrayList<CharacterClass> characterClasses = player.getClassInfo().getCharacterClasses();
+        int BAB = 0;
+        for (CharacterClass cc : characterClasses) {
+            BAB += cc.getBaseAttackBonus();
+        }
+        baseAttackBonusTextField.setText("" + BAB);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -64,6 +78,8 @@ public class AttackPanel extends javax.swing.JPanel {
         mainHandRadioButton = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
         offHandRadioButton = new javax.swing.JRadioButton();
+        jLabel2 = new javax.swing.JLabel();
+        baseAttackBonusTextField = new javax.swing.JTextField();
 
         weaponTypeRadioButtonGroup.add(meleeRadioButton);
         meleeRadioButton.setText("Melee");
@@ -258,6 +274,11 @@ public class AttackPanel extends javax.swing.JPanel {
         offHandRadioButton.setText("Off-hand");
         offHandRadioButton.setToolTipText("When you deal damage with a weapon in your off hand, you add only 1/2 your Strength bonus. ");
 
+        jLabel2.setText("Base attack bonus:");
+
+        baseAttackBonusTextField.setEditable(false);
+        baseAttackBonusTextField.setText("0");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -277,7 +298,11 @@ public class AttackPanel extends javax.swing.JPanel {
                     .addComponent(twoHandRadioButton)
                     .addComponent(jLabel1)
                     .addComponent(offHandRadioButton)
-                    .addComponent(mainHandRadioButton))
+                    .addComponent(mainHandRadioButton)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(baseAttackBonusTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -297,9 +322,13 @@ public class AttackPanel extends javax.swing.JPanel {
                     .addComponent(numDiceTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
                     .addComponent(numSidesTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(baseAttackBonusTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(calculateDamageButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(27, 27, 27))
         );
 
         javax.swing.GroupLayout attackPanelLayout = new javax.swing.GroupLayout(attackPanel);
@@ -327,7 +356,7 @@ public class AttackPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -462,10 +491,12 @@ public class AttackPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_rangeInfoChanged
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel attackPanel;
+    private javax.swing.JTextField baseAttackBonusTextField;
     private javax.swing.JButton calculateDamageButton;
     private javax.swing.JRadioButton dexterityRadioButton;
     private javax.swing.ButtonGroup handednessButtonGroup;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;

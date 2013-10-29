@@ -6,7 +6,6 @@ package gui.inventory;
 
 import character.DoubleVerifier;
 import character.inventory.Item;
-import gui.InventoryPanel;
 
 /**
  *

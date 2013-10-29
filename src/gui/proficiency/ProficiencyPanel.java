@@ -2,13 +2,14 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui;
+package gui.proficiency;
 
 import character.Player;
 import character.proficiencies.ArmorProficiency;
 import character.proficiencies.WeaponProficiency;
 import gui.proficiency.AddArmorProficiencyDialog;
 import gui.proficiency.AddWeaponProficiencyDialog;
+import interfaces.CharacterInfoRetriever;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 
@@ -16,7 +17,7 @@ import javax.swing.DefaultListModel;
  *
  * @author Japhez
  */
-public class ProficiencyPanel extends javax.swing.JPanel {
+public class ProficiencyPanel extends javax.swing.JPanel implements CharacterInfoRetriever {
 
     private Player player;
 
@@ -105,7 +106,7 @@ public class ProficiencyPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 103, Short.MAX_VALUE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -113,7 +114,7 @@ public class ProficiencyPanel extends javax.swing.JPanel {
                     .addComponent(addArmorProficiencyButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel48, javax.swing.GroupLayout.PREFERRED_SIZE, 114, Short.MAX_VALUE)
+                    .addComponent(jLabel48, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -169,11 +170,6 @@ public class ProficiencyPanel extends javax.swing.JPanel {
         weaponProficiencyList.setModel(model);
     }
 
-    public void refreshDisplayedInformation() {
-        initializeArmorProficiencyList();
-        initializeWeaponProficiencyList();
-    }
-
     private void addWeaponProficiencyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addWeaponProficiencyButtonActionPerformed
         AddWeaponProficiencyDialog dialog = new AddWeaponProficiencyDialog(this, player);
         dialog.pack();
@@ -211,4 +207,10 @@ public class ProficiencyPanel extends javax.swing.JPanel {
     private javax.swing.JButton removeWeaponProficiencyButton;
     private javax.swing.JList weaponProficiencyList;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void loadInfo() {
+        initializeArmorProficiencyList();
+        initializeWeaponProficiencyList();
+    }
 }

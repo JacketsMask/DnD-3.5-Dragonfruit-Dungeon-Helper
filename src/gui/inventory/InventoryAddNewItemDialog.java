@@ -6,7 +6,6 @@ package gui.inventory;
 
 import character.DoubleVerifier;
 import character.Player;
-import gui.InventoryPanel;
 import character.inventory.Item;
 import javax.swing.DefaultListModel;
 import javax.swing.FocusManager;
