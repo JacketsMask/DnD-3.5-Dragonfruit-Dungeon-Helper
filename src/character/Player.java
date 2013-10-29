@@ -3,7 +3,6 @@ package character;
 import character.effects.EffectManager;
 import character.inventory.CharacterInventory;
 import interfaces.SaveStateTracker;
-import java.util.Random;
 
 /**
  * The top level of a 3.5 character sheet. This is where the magic happens.
