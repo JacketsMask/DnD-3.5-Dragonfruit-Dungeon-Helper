@@ -23,7 +23,16 @@ public class CharacterSkills extends SaveStateTracker {
         skillsBase = new HashMap<>();
         skillsBonus = new HashMap<>();
         conditionalModifierList = new DefaultListModel<>();
+        initializeSkills();
         super.stateChanged = true;
+    }
+
+    private void initializeSkills() {
+        Skill[] allSkills = Skill.getAllSkills();
+        for (Skill s : allSkills) {
+            skillsBase.put(s, 0);
+            skillsBonus.put(s, 0);
+        }
     }
 
     /**
