@@ -51,7 +51,6 @@ public final class DefensePanel extends javax.swing.JPanel implements CharacterI
         rollReflexButton = new javax.swing.JButton();
         uselessLabelName3 = new javax.swing.JLabel();
         fortModifierValueTextField = new javax.swing.JTextField();
-        jButton58 = new javax.swing.JButton();
 
         touchArmorClassTextField.setEditable(false);
 
@@ -115,7 +114,7 @@ public final class DefensePanel extends javax.swing.JPanel implements CharacterI
                     .addComponent(flatFootedArmorClassTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(modifyArmorClassButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         jPanel2.setInputVerifier(new IntegerVerifier(-999,999));
@@ -167,8 +166,6 @@ public final class DefensePanel extends javax.swing.JPanel implements CharacterI
         fortModifierValueTextField.setText("0");
         fortModifierValueTextField.setInputVerifier(new IntegerVerifier(-999,999));
 
-        jButton58.setText("View Breakdown");
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -201,8 +198,7 @@ public final class DefensePanel extends javax.swing.JPanel implements CharacterI
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(rollWillButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(rollFortitudeButton, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(rollReflexButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton58, javax.swing.GroupLayout.Alignment.TRAILING))))
+                            .addComponent(rollReflexButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -230,8 +226,6 @@ public final class DefensePanel extends javax.swing.JPanel implements CharacterI
                     .addComponent(uselessLabelName3)
                     .addComponent(willModifierValueTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(willSaveTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jButton58)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -277,7 +271,6 @@ public final class DefensePanel extends javax.swing.JPanel implements CharacterI
     private javax.swing.JTextField flatFootedArmorClassTextField;
     private javax.swing.JTextField fortModifierValueTextField;
     private javax.swing.JTextField fortitudeSaveTextField;
-    private javax.swing.JButton jButton58;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;

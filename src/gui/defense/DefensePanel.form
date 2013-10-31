@@ -81,7 +81,7 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="modifyArmorClassButton" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="20" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -180,7 +180,6 @@
                               <Component id="rollWillButton" alignment="1" min="-2" pref="123" max="-2" attributes="0"/>
                               <Component id="rollFortitudeButton" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="rollReflexButton" alignment="1" min="-2" pref="123" max="-2" attributes="0"/>
-                              <Component id="jButton58" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -217,8 +216,6 @@
                       <Component id="willModifierValueTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="willSaveTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jButton58" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -317,11 +314,6 @@
             <Property name="inputVerifier" type="javax.swing.InputVerifier" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="new IntegerVerifier(-999,999)" type="code"/>
             </Property>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="jButton58">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="View Breakdown"/>
           </Properties>
         </Component>
       </SubComponents>
