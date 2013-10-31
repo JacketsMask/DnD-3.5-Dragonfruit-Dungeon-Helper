@@ -66,7 +66,7 @@ public class FilteredListModel<G> extends DefaultListModel {
             String stringOfElement = nextElement.toString();
             //Check to see if the search term is included in the list
             if (stringOfElement.toLowerCase().contains(searchQuery)) {
-                //Add the password/source to the result list
+                //Add the resulting element to the list
                 results.add(nextElement);
             }
         }
