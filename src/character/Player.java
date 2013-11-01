@@ -48,7 +48,7 @@ public class Player extends SaveStateTracker {
         proficiencies = new CharacterProficiencies();
         inventory = new CharacterInventory();
         effectManager = new EffectManager(this);
-        skills = new CharacterSkills();
+        skills = new CharacterSkills(this);
     }
 
     public CharacterHealth getHealth() {
