@@ -1,7 +1,7 @@
 package main;
 
 import java.util.ArrayList;
-import javax.swing.DefaultListModel;
+import javax.swing.AbstractListModel;
 import javax.swing.JTextField;
 
 /**
@@ -10,22 +10,21 @@ import javax.swing.JTextField;
  *
  * For simplicity's sake currently the only way to modify the full element list
  * is to retrieve the data ArrayList with getData() and then work on that
- * ArrayList directly. This is to prevent confusion with the inherited methods
- * that modify the Vector data structure inherited from DefaultListModel, which
- * is actually used to display elements.
- *
- * Don't bother modifying the Vector structure. It is volatile and is
- * regenerated whenever the list is filtered, anyways.
+ * ArrayList directly. 
  *
  * Elements added to the list won't be shown until the filter is refreshed,
  * though this process can be forced with the clearFilter() method.
  *
  * @author Jacob Dorman
  */
-public class FilteredListModel<G> extends DefaultListModel {
+public class FilteredListModel<G> extends AbstractListModel {
 
     //Holds all list data, whether it be visible or not
     private ArrayList<G> data;
+    //Holds visible list data if the search is active
+    private ArrayList<G> visibleData;
+    //Whether a filter search is active or not
+    private boolean searchCompleted;
     //The text field that acts as a filter to the visible list data
     private JTextField filterTextField;
 
@@ -37,6 +36,8 @@ public class FilteredListModel<G> extends DefaultListModel {
      */
     public FilteredListModel(final JTextField filterTextField) {
         this.data = new ArrayList<>();
+        visibleData = new ArrayList<>();
+        searchCompleted = false;
         this.filterTextField = filterTextField;
         //Add listener to JTextField to update filter
         filterTextField.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -57,6 +58,11 @@ public class FilteredListModel<G> extends DefaultListModel {
     private void updateVisibleListFromFilter() {
         //Get the search query from the JTextField
         String searchQuery = filterTextField.getText();
+        if (searchQuery.equals("")) {
+            searchCompleted = false;
+            fireContentsChanged(this, 0, 0);
+            return;
+        }
         //Create an ArrayList to store query results
         ArrayList<G> results = new ArrayList<>();
         //Make the search term lower case for easier searching
@@ -71,17 +77,19 @@ public class FilteredListModel<G> extends DefaultListModel {
             }
         }
         //Clear the visible data
-        super.clear();
+        visibleData.clear();
         //Add each result to the super (visible) vector, respecting original order
         for (G e : results) {
-            super.add(0, e);
+            visibleData.add(0, e);
         }
+        searchCompleted = true;
+        fireContentsChanged(this, 0, 0);
     }
 
     /**
      * @return the ArrayList containing all this lists elements
      */
-    public ArrayList<G> getData() {
+    public ArrayList<G> getDataArrayList() {
         return data;
     }
 
@@ -91,7 +99,7 @@ public class FilteredListModel<G> extends DefaultListModel {
      *
      * @param data the new ArrayList to be used as list elements
      */
-    public void setData(ArrayList<G> data) {
+    public void setDataArrayList(ArrayList<G> data) {
         this.data = data;
         //Clears the filtering text field
         filterTextField.setText("");
@@ -105,10 +113,42 @@ public class FilteredListModel<G> extends DefaultListModel {
     public void clearFilter() {
         filterTextField.setText("");
         //Clear the visible data
-        super.clear();
-        //Add each entry from the data to the visible Vector
-        for (G e : data) {
-            super.add(0, e);
+        visibleData.clear();
+        searchCompleted = false;
+    }
+
+    /**
+     * Adds the passed data element to the list.
+     * @param data 
+     */
+    public void addDataElement(G data) {
+        this.data.add(data);
+    }
+
+    /**
+     * Attempts to get the data element at the passed index.
+     * @param index
+     * @return the element at the passed index
+     */
+    public G getDataElement(int index) {
+        return this.data.get(index);
+    }
+
+    @Override
+    public int getSize() {
+        if (searchCompleted) {
+            return visibleData.size();
+        } else {
+            return data.size();
+        }
+    }
+
+    @Override
+    public Object getElementAt(int index) {
+        if (searchCompleted) {
+            return visibleData.get(index);
+        } else {
+            return data.get(index);
         }
     }
 }

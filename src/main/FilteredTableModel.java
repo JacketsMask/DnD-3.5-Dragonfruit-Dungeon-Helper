@@ -20,17 +20,28 @@ public final class FilteredTableModel extends AbstractTableModel {
      * 
      */
     private ArrayList<ArrayList<Object>> masterData;
+    /**
+     * This ArrayList is used when a filter search has been completed.
+     */
     private ArrayList<ArrayList<Object>> visibleData;
+    //The number of columns in the table
     private int numCols;
+    //The total number of rows in the table, visible or not
     private int numTotalRows;
+    //The total number of visible rows
     private int numVisibleRows;
+    //The index of the column that will be searched
+    private int columnToSearch;
+    //Whether a search filter is currently in effect or not
+    private boolean searchCompleted;
+    //The names of the columns of the table
     private String[] columnNames;
     //The text field that acts as a filter to the visible list data
     private JTextField filterTextField;
 
     /**
      * Creates a new FilteredListModel, and assigns the passed JTextField as the
-     * filter for this list.
+     * filter for this list.  The column that will be searched is by default the first column.
      * @param filterTextField the filter of the list
      * @param numCols the number of columns
      * @param columnNames a string array of the names of the columns
@@ -39,6 +50,8 @@ public final class FilteredTableModel extends AbstractTableModel {
         this.numCols = numCols;
         this.numTotalRows = 0;
         this.numVisibleRows = 0;
+        this.columnToSearch = 0;
+        searchCompleted = false;
         this.masterData = new ArrayList<>();
         this.visibleData = new ArrayList<>();
         //For each column
@@ -56,6 +69,42 @@ public final class FilteredTableModel extends AbstractTableModel {
                 updateVisibleListFromFilter();
             }
         });
+    }
+
+    /**
+     * Returns 
+     * @param index
+     * @return 
+     */
+    public ArrayList<Object> getRow(int index) {
+        ArrayList<Object> rowData = new ArrayList<>();
+        ArrayList<ArrayList<Object>> activeArray;
+        if (searchCompleted) {
+            activeArray = visibleData;
+        } else {
+            activeArray = masterData;
+        }
+        for (ArrayList<Object> a : activeArray) {
+            rowData.add(a.get(index));
+        }
+        return rowData;
+    }
+
+    /**
+     * Set the column that will be searched by the text field filter.
+     * @param columnIndex 
+     */
+    public void setColumnToSearch(int columnIndex) {
+        if (columnIndex > 0 && columnIndex < numCols) {
+            this.columnToSearch = columnIndex;
+        }
+    }
+
+    /**
+     * @return the index of the column that is used for searching
+     */
+    public int getColumnToSearch() {
+        return columnToSearch;
     }
 
     /**
@@ -100,12 +149,19 @@ public final class FilteredTableModel extends AbstractTableModel {
     private void updateVisibleListFromFilter() {
         //Get the search query from the JTextField
         String searchQuery = filterTextField.getText();
+        //Check to see if a filter is necessary
+        if (searchQuery.equals("")) {
+            numVisibleRows = 0;
+            searchCompleted = false;
+            fireTableDataChanged();
+            return;
+        }
         //Create an ArrayList to store the indexes of matching rows
         ArrayList<Integer> results = new ArrayList<>();
         //Make the search term lower case for easier searching
         searchQuery = searchQuery.toLowerCase();
-        //Search through the first column, looking for things that contain the search term
-        ArrayList<Object> firstColumn = masterData.get(0);
+        //Search target column
+        ArrayList<Object> firstColumn = masterData.get(columnToSearch);
         //Search every row of the first column
         for (int j = 0; j < numTotalRows; j++) {
             Object row = firstColumn.get(j);
@@ -129,9 +185,13 @@ public final class FilteredTableModel extends AbstractTableModel {
             }
             numVisibleRows++;
         }
+        searchCompleted = true;
         fireTableDataChanged();
     }
 
+    /**
+     * Clears the visible data ArrayList.
+     */
     private void clearVisibleTable() {
         for (ArrayList<Object> a : visibleData) {
             a.clear();
@@ -150,7 +210,7 @@ public final class FilteredTableModel extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        if (numVisibleRows == 0) {
+        if (!searchCompleted) {
             return numTotalRows;
         } else {
             return numVisibleRows;
@@ -165,7 +225,7 @@ public final class FilteredTableModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         ArrayList<ArrayList<Object>> visibleTable;
-        if (numVisibleRows == 0) {
+        if (!searchCompleted) {
             visibleTable = masterData;
         } else {
             visibleTable = visibleData;
