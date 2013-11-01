@@ -3,7 +3,6 @@ package character;
 import abstracts.Size;
 import character.classes.CharacterClass;
 import character.inventory.Armor;
-import diceroller.DiceRoller;
 import enumerations.AbilityScore;
 import interfaces.SaveStateTracker;
 import java.util.ArrayList;
@@ -32,8 +31,8 @@ public class CharacterDefense extends SaveStateTracker {
     private int naturalArmorBonuses;
 
     //Enhancement, natural, deflection, 
-    public CharacterDefense(Player character) {
-        this.character = character;
+    public CharacterDefense(Player player) {
+        this.character = player;
         this.equippedArmor = new ArrayList<>();
         //Set an unrealistic cap initially, update when armor is equipped
         maximumDexModifierBonus = 100;
