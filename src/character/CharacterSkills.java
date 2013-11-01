@@ -1,10 +1,9 @@
 package character;
 
-import character.effects.SimpleEffect;
+import enumerations.AbilityScore;
 import enumerations.Skill;
 import interfaces.SaveStateTracker;
 import java.util.HashMap;
-import javax.swing.DefaultListModel;
 
 /**
  * Stores information related to character skills, such as their base skill
@@ -15,16 +14,53 @@ import javax.swing.DefaultListModel;
  */
 public class CharacterSkills extends SaveStateTracker {
 
+    private Player player;
     private HashMap<Skill, Integer> skillsBase; //Base skills
     private HashMap<Skill, Integer> skillsBonus; //Temporary or names bonuses/penalties
-    private DefaultListModel<SimpleEffect> conditionalModifierList; //Modifiers to skills under certain circumstances
+    //Mapping of which ability scores affect which skills
+    private static HashMap<Skill, AbilityScore> keyAbilityModifiers;
 
-    public CharacterSkills() {
+    public CharacterSkills(Player player) {
+        this.player = player;
         skillsBase = new HashMap<>();
         skillsBonus = new HashMap<>();
-        conditionalModifierList = new DefaultListModel<>();
+        keyAbilityModifiers = new HashMap<>();
         initializeSkills();
+        linkKeyAbilityModifiers();
         super.stateChanged = true;
+    }
+
+    private void linkKeyAbilityModifiers() {
+        //Link strength skills
+        Skill[] strSkills = Skill.getStrSkills();
+        for (Skill s : strSkills) {
+            keyAbilityModifiers.put(s, AbilityScore.STRENGTH);
+        }
+        //Link dexterity skills
+        Skill[] dexSkills = Skill.getDexSkills();
+        for (Skill s : dexSkills) {
+            keyAbilityModifiers.put(s, AbilityScore.DEXTERITY);
+        }
+        //Link constitution skills
+        Skill[] conSkills = Skill.getConSkills();
+        for (Skill s : conSkills) {
+            keyAbilityModifiers.put(s, AbilityScore.CONSTITUTION);
+        }
+        //Link intelligence skills
+        Skill[] intSkills = Skill.getIntSkills();
+        for (Skill s : intSkills) {
+            keyAbilityModifiers.put(s, AbilityScore.INTELLIGENCE);
+        }
+        //Link wisdom skills
+        Skill[] wisSkills = Skill.getWisSkills();
+        for (Skill s : wisSkills) {
+            keyAbilityModifiers.put(s, AbilityScore.WISDOM);
+        }
+        //Link charisma skills
+        Skill[] charSkills = Skill.getChaSkills();
+        for (Skill s : charSkills) {
+            keyAbilityModifiers.put(s, AbilityScore.CHARISMA);
+        }
     }
 
     private void initializeSkills() {
@@ -36,13 +72,24 @@ public class CharacterSkills extends SaveStateTracker {
     }
 
     /**
-     * Returns the int value of the passed skill by adding both the base and
-     * bonus/penalty values.
+     * Returns the int value of the passed skill by adding the base,
+     * bonus/penalty, and ability modifier values.
      *
      * @param skill
      * @return the skill value
      */
-    public int getSkillValue(Skill skill) {
+    public int getKeyModifierValue(Skill skill) {
+        AbilityScore as = keyAbilityModifiers.get(skill);
+        //If there is an ability score associated with the skill
+        if (as != null) {
+            return (player.getAbilityScore().getAbilityScoreModifier(as));
+            //If there isn't an ability score associated with the skill
+        } else {
+            return 0;
+        }
+    }
+
+    public int getSkillRank(Skill skill) {
         return (skillsBase.get(skill) + skillsBonus.get(skill));
     }
 
@@ -66,12 +113,5 @@ public class CharacterSkills extends SaveStateTracker {
         int origValue = skillsBonus.get(skill);
         skillsBonus.put(skill, origValue + value);
         super.stateChanged = true;
-    }
-
-    /**
-     * @return a list of conditional modifier that can be used directly in a GUI
-     */
-    public DefaultListModel<SimpleEffect> getConditionalModifierList() {
-        return conditionalModifierList;
     }
 }
