@@ -134,6 +134,7 @@ public final class FilteredTableModel extends AbstractTableModel {
         if (searchQuery.equals("")) {
             numVisibleRows = 0;
             searchCompleted = false;
+            return;
         }
         //Create an ArrayList to store the indexes of matching rows
         ArrayList<Integer> results = new ArrayList<>();
