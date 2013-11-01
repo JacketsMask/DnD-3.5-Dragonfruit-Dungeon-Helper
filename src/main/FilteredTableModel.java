@@ -72,6 +72,25 @@ public final class FilteredTableModel extends AbstractTableModel {
     }
 
     /**
+     * Returns 
+     * @param index
+     * @return 
+     */
+    public ArrayList<Object> getRow(int index) {
+        ArrayList<Object> rowData = new ArrayList<>();
+        ArrayList<ArrayList<Object>> activeArray;
+        if (searchCompleted) {
+            activeArray = visibleData;
+        } else {
+            activeArray = masterData;
+        }
+        for (ArrayList<Object> a : activeArray) {
+            rowData.add(a.get(index));
+        }
+        return rowData;
+    }
+
+    /**
      * Set the column that will be searched by the text field filter.
      * @param columnIndex 
      */
