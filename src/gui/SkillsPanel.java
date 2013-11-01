@@ -4,6 +4,7 @@ import character.Player;
 import enumerations.Skill;
 import interfaces.CharacterInfoRetriever;
 import java.util.ArrayList;
+import javax.swing.ListSelectionModel;
 import main.FilteredTableModel;
 
 /**
@@ -30,6 +31,8 @@ public class SkillsPanel extends javax.swing.JPanel implements CharacterInfoRetr
         }
         //Set the table's model
         skillTable.setModel(skillTableModel);
+        //Set max selected rows
+        skillTable.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
     /**
