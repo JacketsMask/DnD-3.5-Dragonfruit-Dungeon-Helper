@@ -1,10 +1,16 @@
 package gui;
 
+import character.IntegerVerifier;
 import character.Player;
+import diceroller.DiceRoller;
 import enumerations.Skill;
 import interfaces.CharacterInfoRetriever;
 import java.util.ArrayList;
+import javax.swing.JLabel;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import main.FilteredTableModel;
 
 /**
@@ -23,16 +29,41 @@ public class SkillsPanel extends javax.swing.JPanel implements CharacterInfoRetr
         this.player = player;
         initComponents();
         //Create the model for the table data
-        skillTableModel = new FilteredTableModel(skillFilterTextField, 2, new String[]{"Skill", "Value"});
+        skillTableModel = new FilteredTableModel(skillFilterTextField, 4,
+                new String[]{"Skill", "Rank", "Modifier", "Total"});
         //Add all skills and player values to the table
         for (Skill s : Skill.getAllSkills()) {
-            int value = player.getSkills().getSkillValue(s);
-            skillTableModel.addRow(new Object[]{s, value});
+            int ranks = player.getSkills().getSkillRank(s);
+            int keyModifier = player.getSkills().getKeyModifierValue(s);
+            skillTableModel.addRow(new Object[]{s, ranks, keyModifier, (ranks + keyModifier)});
         }
         //Set the table's model
+        int threeSeventyFour = 374;
         skillTable.setModel(skillTableModel);
+        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+        renderer.setHorizontalAlignment(JLabel.CENTER);
+        skillTable.getColumnModel().getColumn(0).setPreferredWidth((int) (threeSeventyFour * .40));
+        skillTable.getColumnModel().getColumn(1).setCellRenderer(renderer);
+        skillTable.getColumnModel().getColumn(1).setPreferredWidth((int) (threeSeventyFour * .20));
+        skillTable.getColumnModel().getColumn(2).setCellRenderer(renderer);
+        skillTable.getColumnModel().getColumn(2).setPreferredWidth((int) (threeSeventyFour * .20));
+        skillTable.getColumnModel().getColumn(3).setCellRenderer(renderer);
+        skillTable.getColumnModel().getColumn(3).setPreferredWidth((int) (threeSeventyFour * .20));
         //Set max selected rows
         skillTable.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        skillTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                //No selection made
+                if (skillTable.getSelectedRow() == -1) {
+                    rollButton.setEnabled(false);
+                    showSkillModifiersButton.setEnabled(false);
+                } else {
+                    rollButton.setEnabled(true);
+                    showSkillModifiersButton.setEnabled(true);
+                }
+            }
+        });
     }
 
     /**
@@ -54,17 +85,23 @@ public class SkillsPanel extends javax.swing.JPanel implements CharacterInfoRetr
         skillTable = new javax.swing.JTable();
 
         rollButton.setText("Roll Selected Skill");
+        rollButton.setEnabled(false);
         rollButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rollButtonActionPerformed(evt);
             }
         });
 
+        skillModifierTextField.setText("0");
+        skillModifierTextField.setToolTipText("");
+        skillModifierTextField.setInputVerifier(new IntegerVerifier(-99,99));
+
         jLabel1.setText("Modifier:");
 
         jLabel2.setText("Skill filter:");
 
         showSkillModifiersButton.setText("Show Skill Modifiers");
+        showSkillModifiersButton.setEnabled(false);
         showSkillModifiersButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 showSkillModifiersButtonActionPerformed(evt);
@@ -73,49 +110,49 @@ public class SkillsPanel extends javax.swing.JPanel implements CharacterInfoRetr
 
         skillTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Skill", "Value"
+                "Skill", "Rank", "Modifier", "Total"
             }
         ));
         tableScrollPane.setViewportView(skillTable);
@@ -127,23 +164,22 @@ public class SkillsPanel extends javax.swing.JPanel implements CharacterInfoRetr
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(skillFilterTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(tableScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tableScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(skillModifierTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(showSkillModifiersButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(rollButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(showSkillModifiersButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(rollButton, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(skillFilterTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel2)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -163,10 +199,9 @@ public class SkillsPanel extends javax.swing.JPanel implements CharacterInfoRetr
                         .addComponent(rollButton)
                         .addGap(18, 18, 18)
                         .addComponent(showSkillModifiersButton)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(tableScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addGap(0, 109, Short.MAX_VALUE))
+                    .addComponent(tableScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -177,12 +212,17 @@ public class SkillsPanel extends javax.swing.JPanel implements CharacterInfoRetr
     private void rollButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rollButtonActionPerformed
         int selectedRow = skillTable.getSelectedRow();
         ArrayList<Object> row = skillTableModel.getRow(selectedRow);
-        for (Object o : row) {
-            System.out.print(o + " ");
-        }
-        System.out.println("");
+        Skill skill = (Skill) row.get(0);
+        int characterValue = (int) row.get(1);
+        int customModifier = Integer.parseInt(skillModifierTextField.getText());
+        int roll = DiceRoller.rollD20();
+        int ASModifier = player.getSkills().getKeyModifierValue(skill);
+        System.out.println("Character: " + characterValue);
+        System.out.println("TextField Modifier: " + customModifier);
+        System.out.println("Roll: " + roll);
+        System.out.println("AS Modifier: " + ASModifier);
+        System.out.println(skill + " roll: " + (characterValue + customModifier + roll + ASModifier));
     }//GEN-LAST:event_rollButtonActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
