@@ -60,6 +60,7 @@ public class FilteredListModel<G> extends AbstractListModel {
         String searchQuery = filterTextField.getText();
         if (searchQuery.equals("")) {
             searchCompleted = false;
+            fireContentsChanged(this, 0, 0);
             return;
         }
         //Create an ArrayList to store query results
@@ -81,12 +82,14 @@ public class FilteredListModel<G> extends AbstractListModel {
         for (G e : results) {
             visibleData.add(0, e);
         }
+        searchCompleted = true;
+        fireContentsChanged(this, 0, 0);
     }
 
     /**
      * @return the ArrayList containing all this lists elements
      */
-    public ArrayList<G> getData() {
+    public ArrayList<G> getDataArrayList() {
         return data;
     }
 
@@ -96,7 +99,7 @@ public class FilteredListModel<G> extends AbstractListModel {
      *
      * @param data the new ArrayList to be used as list elements
      */
-    public void setData(ArrayList<G> data) {
+    public void setDataArrayList(ArrayList<G> data) {
         this.data = data;
         //Clears the filtering text field
         filterTextField.setText("");
@@ -112,6 +115,23 @@ public class FilteredListModel<G> extends AbstractListModel {
         //Clear the visible data
         visibleData.clear();
         searchCompleted = false;
+    }
+
+    /**
+     * Adds the passed data element to the list.
+     * @param data 
+     */
+    public void addDataElement(G data) {
+        this.data.add(data);
+    }
+
+    /**
+     * Attempts to get the data element at the passed index.
+     * @param index
+     * @return the element at the passed index
+     */
+    public G getDataElement(int index) {
+        return this.data.get(index);
     }
 
     @Override
