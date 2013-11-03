@@ -254,6 +254,16 @@ public final class FilteredTableModel extends AbstractTableModel {
     }
 
     /**
+     * Removes all rows present in the table.
+     */
+    public void clearRows() {
+        int rowCount = getRowCount();
+        for (int i = 0 ; i < rowCount; i++) {
+            removeRow(0);
+        }
+    }
+
+    /**
      * An exception that should be thrown when an invalid amount of data is
      * attempted to be added to a table.
      */
