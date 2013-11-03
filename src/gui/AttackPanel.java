@@ -33,7 +33,19 @@ public class AttackPanel extends javax.swing.JPanel implements CharacterInfoRetr
         for (CharacterClass cc : characterClasses) {
             BAB += cc.getBaseAttackBonus();
         }
+        //Calculate number of attacks granted from BAB
         baseAttackBonusTextField.setText("" + BAB);
+        if (BAB > 15){
+            attacksPerRoundTextField.setText("4");
+        }
+        else if (BAB > 10){
+            attacksPerRoundTextField.setText("3");
+        }
+        else if (BAB > 5){
+            attacksPerRoundTextField.setText("2");
+        } else {
+            attacksPerRoundTextField.setText("1");
+        }
     }
     
     /**
@@ -80,6 +92,8 @@ public class AttackPanel extends javax.swing.JPanel implements CharacterInfoRetr
         offHandRadioButton = new javax.swing.JRadioButton();
         jLabel2 = new javax.swing.JLabel();
         baseAttackBonusTextField = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        attacksPerRoundTextField = new javax.swing.JTextField();
 
         weaponTypeRadioButtonGroup.add(meleeRadioButton);
         meleeRadioButton.setText("Melee");
@@ -279,6 +293,11 @@ public class AttackPanel extends javax.swing.JPanel implements CharacterInfoRetr
         baseAttackBonusTextField.setEditable(false);
         baseAttackBonusTextField.setText("0");
 
+        jLabel3.setText("Attacks per round:");
+
+        attacksPerRoundTextField.setText("0");
+        attacksPerRoundTextField.setEnabled(false);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -286,14 +305,6 @@ public class AttackPanel extends javax.swing.JPanel implements CharacterInfoRetr
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(numDiceTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(numSidesTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(calculateDamageButton)
                     .addComponent(twoHandRadioButton)
                     .addComponent(jLabel1)
@@ -302,8 +313,20 @@ public class AttackPanel extends javax.swing.JPanel implements CharacterInfoRetr
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(baseAttackBonusTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(baseAttackBonusTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18)
+                        .addComponent(numDiceTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(numSidesTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(attacksPerRoundTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -326,6 +349,10 @@ public class AttackPanel extends javax.swing.JPanel implements CharacterInfoRetr
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(baseAttackBonusTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(attacksPerRoundTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(calculateDamageButton)
                 .addContainerGap())
@@ -489,14 +516,17 @@ public class AttackPanel extends javax.swing.JPanel implements CharacterInfoRetr
     private void rangeInfoChanged(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rangeInfoChanged
         updatePenaltyButton.setEnabled(true);
     }//GEN-LAST:event_rangeInfoChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel attackPanel;
+    private javax.swing.JTextField attacksPerRoundTextField;
     private javax.swing.JTextField baseAttackBonusTextField;
     private javax.swing.JButton calculateDamageButton;
     private javax.swing.JRadioButton dexterityRadioButton;
     private javax.swing.ButtonGroup handednessButtonGroup;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
