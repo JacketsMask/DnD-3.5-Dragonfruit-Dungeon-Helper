@@ -1,5 +1,6 @@
 package gui;
 
+import gui.skills.SkillsPanel;
 import gui.proficiency.ProficiencyPanel;
 import gui.basicinfo.BasicInfoPanel;
 import gui.inventory.InventoryPanel;
@@ -37,7 +38,6 @@ public final class BaseFrame extends javax.swing.JFrame {
 
         characterInfoTabbedPane = new javax.swing.JTabbedPane();
         chatTabbedPane = new javax.swing.JTabbedPane();
-        showCombatInfoButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("D&D 3.5 Helper");
@@ -50,13 +50,6 @@ public final class BaseFrame extends javax.swing.JFrame {
             }
         });
 
-        showCombatInfoButton.setText("Show combat info");
-        showCombatInfoButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                showCombatInfoButtonActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -65,31 +58,21 @@ public final class BaseFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(characterInfoTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE)
-                    .addComponent(chatTabbedPane, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(chatTabbedPane))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(83, 83, 83)
-                .addComponent(showCombatInfoButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(characterInfoTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(showCombatInfoButton)
-                .addGap(11, 11, 11)
-                .addComponent(chatTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(chatTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void showCombatInfoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showCombatInfoButtonActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_showCombatInfoButtonActionPerformed
 
     /**
      * Called when a tab from the main JTabbedPane is selected.
@@ -111,7 +94,6 @@ public final class BaseFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane characterInfoTabbedPane;
     private javax.swing.JTabbedPane chatTabbedPane;
-    private javax.swing.JButton showCombatInfoButton;
     // End of variables declaration//GEN-END:variables
 
     /**
