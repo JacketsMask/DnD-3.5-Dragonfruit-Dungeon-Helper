@@ -59,7 +59,9 @@ public class SkillAdjustmentDialog extends javax.swing.JDialog {
         cancelButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setLocationByPlatform(true);
         setModal(true);
+        setResizable(false);
 
         skillNameTextField.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         skillNameTextField.setText("[skill name]");

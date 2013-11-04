@@ -238,7 +238,6 @@ public class SkillsPanel extends javax.swing.JPanel implements CharacterInfoRetr
 
     @Override
     public void loadInfo() {
-        System.out.println("info loaded");
         skillTableModel.clearRows();
         CharacterSkills skills = player.getSkills();
         //Add all skills and player values to the table
