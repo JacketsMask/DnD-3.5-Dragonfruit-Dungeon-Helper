@@ -15,15 +15,15 @@ import java.util.HashMap;
 public class CharacterSkills extends SaveStateTracker {
 
     private Player player;
-    private HashMap<Skill, Integer> skillsBase; //Base skills
-    private HashMap<Skill, Integer> skillsBonus; //Temporary or names bonuses/penalties
+    private HashMap<Skill, Integer> skillRanks; //Base skills
+    private HashMap<Skill, Integer> skillMiscModifier; //Temporary or names bonuses/penalties
     //Mapping of which ability scores affect which skills
     private static HashMap<Skill, AbilityScore> keyAbilityModifiers;
 
     public CharacterSkills(Player player) {
         this.player = player;
-        skillsBase = new HashMap<>();
-        skillsBonus = new HashMap<>();
+        skillRanks = new HashMap<>();
+        skillMiscModifier = new HashMap<>();
         keyAbilityModifiers = new HashMap<>();
         initializeSkills();
         linkKeyAbilityModifiers();
@@ -66,17 +66,17 @@ public class CharacterSkills extends SaveStateTracker {
     private void initializeSkills() {
         Skill[] allSkills = Skill.getAllSkills();
         for (Skill s : allSkills) {
-            skillsBase.put(s, 0);
-            skillsBonus.put(s, 0);
+            skillRanks.put(s, 0);
+            skillMiscModifier.put(s, 0);
         }
     }
 
     /**
-     * Returns the int value of the passed skill by adding the base,
-     * bonus/penalty, and ability modifier values.
+     * Returns the int value of the ability score modifier for this skill if 
+     * one exists.
      *
      * @param skill
-     * @return the skill value
+     * @return the modifier value
      */
     public int getKeyModifierValue(Skill skill) {
         AbilityScore as = keyAbilityModifiers.get(skill);
@@ -90,7 +90,7 @@ public class CharacterSkills extends SaveStateTracker {
     }
 
     public int getSkillRank(Skill skill) {
-        return (skillsBase.get(skill) + skillsBonus.get(skill));
+        return (skillRanks.get(skill) + skillMiscModifier.get(skill));
     }
 
     /**
@@ -99,7 +99,7 @@ public class CharacterSkills extends SaveStateTracker {
      * @param skillsBase the new base skills for this character
      */
     public void setSkillsBase(HashMap<Skill, Integer> skillsBase) {
-        this.skillsBase = skillsBase;
+        this.skillRanks = skillsBase;
         super.stateChanged = true;
     }
 
@@ -109,9 +109,36 @@ public class CharacterSkills extends SaveStateTracker {
      * @param skill
      * @param value
      */
-    public void modifySkillBonus(Skill skill, int value) {
-        int origValue = skillsBonus.get(skill);
-        skillsBonus.put(skill, origValue + value);
+    public void modifyMiscSkillModifier(Skill skill, int value) {
+        int origValue = skillMiscModifier.get(skill);
+        skillMiscModifier.put(skill, origValue + value);
         super.stateChanged = true;
+    }
+
+    /**
+     * Returns the misc modifier value for the given skill.
+     * @param skill
+     * @return 
+     */
+    public int getMiscModifierSkillValue(Skill skill) {
+        return skillMiscModifier.get(skill);
+    }
+
+    /**
+     * Sets the value of the passed skill rank to the passed value.
+     * @param skill
+     * @param rank 
+     */
+    public void setSkillRank(Skill skill, int rank) {
+        skillRanks.put(skill, rank);
+    }
+
+    /**
+     * Sets the value of the passed skill misc modifier to the passed value.
+     * @param skill
+     * @param value 
+     */
+    public void setSkillModifier(Skill skill, int value) {
+        skillMiscModifier.put(skill, value);
     }
 }
