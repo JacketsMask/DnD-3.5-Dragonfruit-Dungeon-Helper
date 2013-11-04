@@ -191,7 +191,7 @@ public class BasicInfoDialog extends javax.swing.JDialog {
 
         jLabel29.setText("Size");
 
-        jLabel27.setText("Class");
+        jLabel27.setText("Starting class");
 
         jLabel23.setText("Gender");
 
@@ -264,7 +264,7 @@ public class BasicInfoDialog extends javax.swing.JDialog {
                                 .addComponent(dialogOrderComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(dialogAlignmentComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 12, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(dialogDeityTextField)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -355,7 +355,6 @@ public class BasicInfoDialog extends javax.swing.JDialog {
         CharacterBasicInfo characterInfo = player.getBasicInfo();
         //If names differ, change name
         if (!characterInfo.getName().equals(dialogNameTextField.getText())) {
-            System.out.println("Updating name to " + dialogNameTextField.getText());
             characterInfo.setName(dialogNameTextField.getText());
         }
         //If class differs, change class
@@ -470,7 +469,6 @@ public class BasicInfoDialog extends javax.swing.JDialog {
             return;
         }
         String selectedItem = (String) dialogRaceComboBox.getSelectedItem();
-        System.out.println(selectedItem + " selected.");
         if (selectedItem.equals("Other")) {
             dialogRaceTextField.setVisible(true);
             dialogSizeComboBox.setEnabled(true);
