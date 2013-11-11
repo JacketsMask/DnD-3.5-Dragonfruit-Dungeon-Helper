@@ -4,6 +4,7 @@ import character.proficiencies.WeaponProficiency;
 import character.proficiencies.ArmorProficiency;
 import enumerations.*;
 import abstracts.Ability;
+import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 
 /**
@@ -33,12 +34,14 @@ public abstract class CharacterClass {
     protected ArmorProficiency[] armorProficiencies;
     //Weapon proficiencies
     protected WeaponProficiency[] weaponProficiencies;
-    //Class related order limitations
-    protected Order[] orderLimitations;
-    //Class related alignment limitations
-    protected Alignment[] alignmentLimitations;
+    //Class related alignment allowances
+    protected ArrayList<Alignment> allowedAlignments;
     //Class notes
     protected String classNotes;
+    //Starting gold
+    protected StartingGold startingGold;
+    //Caster type
+    protected CasterType casterType;
 
     public CharacterClass() {
         name = "Undefined";
@@ -51,10 +54,23 @@ public abstract class CharacterClass {
         abilityListModel = new DefaultListModel<>();
         armorProficiencies = new ArmorProficiency[0];
         weaponProficiencies = new WeaponProficiency[0];
-        orderLimitations = new Order[0];
-        alignmentLimitations = new Alignment[0];
+        allowedAlignments = new ArrayList<>();
         classNotes = "[Enter class notes here]";
         hitDie = 6;
+        startingGold = new StartingGold(1, 1, 10);
+        casterType = CasterType.NON_CASTER;
+    }
+
+    public void setCasterType(CasterType casterType) {
+        this.casterType = casterType;
+    }
+
+    public CasterType getCasterType() {
+        return casterType;
+    }
+
+    public void setAllowedAlignments(ArrayList<Alignment> allowedAlignments) {
+        this.allowedAlignments = allowedAlignments;
     }
 
     public int getHitDie() {
@@ -63,6 +79,14 @@ public abstract class CharacterClass {
 
     public void setHitDie(int hitDie) {
         this.hitDie = hitDie;
+    }
+
+    public void setStartingGold(StartingGold startingGold) {
+        this.startingGold = startingGold;
+    }
+
+    public StartingGold getStartingGold() {
+        return startingGold;
     }
 
     /**
@@ -131,12 +155,8 @@ public abstract class CharacterClass {
         return weaponProficiencies;
     }
 
-    public Order[] getOrderLimitations() {
-        return orderLimitations;
-    }
-
-    public Alignment[] getAlignmentLimitations() {
-        return alignmentLimitations;
+    public ArrayList<Alignment> getAlignmentLimitations() {
+        return allowedAlignments;
     }
 
     @Override
