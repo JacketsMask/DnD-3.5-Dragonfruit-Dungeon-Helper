@@ -6,7 +6,7 @@ package enumerations;
  */
 public enum Alignment {
 
-    GOOD, NEUTRAL, EVIL;
+    LAWFUL_GOOD, NEUTRAL_GOOD, CHAOTIC_GOOD, LAWFUL_NEUTRAL, TRUE_NEUTRAL, CHAOTIC_NEUTRAL, LAWFUL_EVIL, NEUTRAL_EVIL, CHAOTIC_EVIL;
 
     /**
      * Override for toString that returns the enumeration with the first letter
