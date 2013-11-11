@@ -7,7 +7,6 @@ package gui.basicinfo;
 import character.CharacterBasicInfo;
 import character.Player;
 import enumerations.Alignment;
-import enumerations.Order;
 import gui.basicinfo.BasicInfoDialog;
 import interfaces.CharacterInfoRetriever;
 
@@ -271,10 +270,10 @@ public final class BasicInfoPanel extends javax.swing.JPanel implements Characte
         characterInfoNameLabel.setText("" + info.getName());
         characterClassLabel.setText(player.getClassInfo().getInitialClass().getName());
         characterInfoAgeLabel.setText("" + info.getAge());
-        if (info.getOrder().equals(Order.NEUTRAL) && info.getAlignment().equals(Alignment.NEUTRAL)) {
+        if (info.getAlignment().equals(Alignment.TRUE_NEUTRAL)) {
             characterInfoAlignmentLabel.setText("True Neutral");
         } else {
-            characterInfoAlignmentLabel.setText("" + info.getOrder() + " " + info.getAlignment());
+            characterInfoAlignmentLabel.setText("" + info.getAlignment());
         }
         characterInfoDeityLabel.setText("" + info.getDeity());
         characterInfoGenderLabel.setText("" + info.getGender());
@@ -294,7 +293,6 @@ public final class BasicInfoPanel extends javax.swing.JPanel implements Characte
         characterInfoHairLabel.setText("" + info.getHairColor());
         characterInfoSkinLabel.setText("" + info.getSkinColor());
     }
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel characterClassLabel;
     private javax.swing.JLabel characterInfoAgeLabel;

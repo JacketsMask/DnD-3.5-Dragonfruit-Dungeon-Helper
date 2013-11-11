@@ -6,10 +6,9 @@ import character.CharacterBasicInfo;
 import character.ComponentLockableIntegerVerifier;
 import character.Player;
 import character.classes.CharacterClass;
-import character.classes.ClassCustom;
+import character.classes.CustomClass;
 import enumerations.Alignment;
 import enumerations.Gender;
-import enumerations.Order;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 
@@ -368,7 +367,7 @@ public class BasicInfoDialog extends javax.swing.JDialog {
         }
         //Check to see if the class isn't the same as the player's existing class
         if (classInfo != null && !classInfo.getName().equals(selectedClass)) {
-            ClassCustom customClass = new ClassCustom(selectedClass);
+            CustomClass customClass = new CustomClass(selectedClass);
             //Set the character's class to the new custom class
             player.getClassInfo().setClass(customClass);
         }
@@ -396,36 +395,7 @@ public class BasicInfoDialog extends javax.swing.JDialog {
                 characterInfo.setGender(Gender.MALE);
             }
         }
-        //Check to see if order is different
-        if (!characterInfo.getOrder().toString().equals(dialogOrderComboBox.getSelectedItem().toString())) {
-            String newOrder = (String) dialogOrderComboBox.getSelectedItem();
-            switch (newOrder) {
-                case "Lawful":
-                    characterInfo.setOrder(Order.LAWFUL);
-                    break;
-                case "Neutral":
-                    characterInfo.setOrder(Order.NEUTRAL);
-                    break;
-                case "Chaotic":
-                    characterInfo.setOrder(Order.CHAOTIC);
-                    break;
-            }
-        }
-        //Check to see if alignment is different
-        if (!characterInfo.getAlignment().toString().equals(dialogAlignmentComboBox.getSelectedItem().toString())) {
-            String newAlignment = (String) dialogAlignmentComboBox.getSelectedItem();
-            switch (newAlignment) {
-                case "Good":
-                    characterInfo.setAlignment(Alignment.GOOD);
-                    break;
-                case "Neutral":
-                    characterInfo.setAlignment(Alignment.NEUTRAL);
-                    break;
-                case "Evil":
-                    characterInfo.setAlignment(Alignment.EVIL);
-                    break;
-            }
-        }
+        //TODO: Check alignment
         //Check to see if deity has changed
         if (!characterInfo.getDeity().equals(dialogDeityTextField.getText())) {
             characterInfo.setDeity(dialogDeityTextField.getText());
@@ -504,7 +474,7 @@ public class BasicInfoDialog extends javax.swing.JDialog {
         CharacterClass characterClass = player.getClassInfo().getInitialClass();
         if (characterClass == null) {
             dialogClassComboBox.setSelectedItem("Other");
-            player.getClassInfo().setClass(new ClassCustom("Commoner"));
+            player.getClassInfo().setClass(new CustomClass("Commoner"));
         } else {
             //The character's class is something else
             dialogClassComboBox.setSelectedItem("Other");
@@ -543,12 +513,8 @@ public class BasicInfoDialog extends javax.swing.JDialog {
                 dialogGenderComboBox.setSelectedItem("Female");
             }
         }
-        if (info.getOrder() != null) {
-            dialogOrderComboBox.setSelectedItem(info.getOrder().toString());
-        }
-        if (info.getAlignment() != null) {
-            dialogAlignmentComboBox.setSelectedItem(info.getAlignment().toString());
-        }
+        //TODO: Handle alignment
+
         if (info.getDeity() != null) {
             dialogDeityTextField.setText(info.getDeity().toString());
         }
@@ -590,37 +556,7 @@ public class BasicInfoDialog extends javax.swing.JDialog {
             dialogClassTextField.setVisible(true);
             invalidate();
         } else {
-            //Get list of limited order and alignment from the race class
-            Order[] orderLimitations = initialClass.getOrderLimitations();
-            Alignment[] alignmentLimitations = initialClass.getAlignmentLimitations();
-            //Remove each invalid order option from the list
-            if (orderLimitations != null) {
-                for (Order o : orderLimitations) {
-                    //If the currently selected order is limited, unselected it
-                    if (dialogOrderComboBox.getSelectedItem().equals(o.toString())) {
-                        dialogOrderComboBox.setSelectedItem(null);
-                    }
-                    System.out.println("Trying to remove " + o.toString() + " from the options.");
-                    dialogOrderComboBox.removeItem(o.toString());
-                    //Keep track of it for later if I am not already
-                    if (!deactivatedOrders.contains(o.toString())) {
-                        deactivatedOrders.add(o.toString());
-                    }
-                }
-            }
-            //Remove each invalid alignment option from the list
-            if (alignmentLimitations != null) {
-                for (Alignment a : alignmentLimitations) {
-                    if (dialogAlignmentComboBox.getSelectedItem().equals(a.toString())) {
-                        dialogAlignmentComboBox.setSelectedItem(null);
-                    }
-                    dialogAlignmentComboBox.removeItem(a.toString());
-                    //Keep track of it for later if I am not already
-                    if (!deactivatedAlignments.contains(a.toString())) {
-                        deactivatedAlignments.add(a.toString());
-                    }
-                }
-            }
+            //TODO: Get list of limited order and alignment from the race class
             //Hide the custom class text field
             dialogClassTextField.setVisible(false);
         }
