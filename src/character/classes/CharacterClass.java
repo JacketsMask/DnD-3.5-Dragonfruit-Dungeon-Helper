@@ -42,6 +42,9 @@ public abstract class CharacterClass {
     protected StartingGold startingGold;
     //Caster type
     protected CasterType casterType;
+    //Starting skill ranks
+    protected int initialSkillRankModifier;
+    protected int skillRankModifier;
 
     public CharacterClass() {
         name = "Undefined";
@@ -59,6 +62,95 @@ public abstract class CharacterClass {
         hitDie = 6;
         startingGold = new StartingGold(1, 1, 10);
         casterType = CasterType.NON_CASTER;
+        initialSkillRankModifier = 0;
+    }
+
+    public ArrayList<Alignment> getAllowedAlignments() {
+        return allowedAlignments;
+    }
+
+    public void setArmorProficiencies(ArmorProficiency[] armorProficiencies) {
+        this.armorProficiencies = armorProficiencies;
+    }
+
+    public void setAbilityListModel(DefaultListModel<Ability> abilityListModel) {
+        this.abilityListModel = abilityListModel;
+    }
+
+    public void setBaseAttackBonus(int baseAttackBonus) {
+        this.baseAttackBonus = baseAttackBonus;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setWeaponProficiencies(WeaponProficiency[] weaponProficiencies) {
+        this.weaponProficiencies = weaponProficiencies;
+    }
+
+    public Skill[] getClassSkills() {
+        return classSkills;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public int getFortitudeSavingThrow() {
+        return fortitudeSavingThrow;
+    }
+
+    public void setFortitudeSavingThrow(int fortitudeSavingThrow) {
+        this.fortitudeSavingThrow = fortitudeSavingThrow;
+    }
+
+    public int getReflexSavingThrow() {
+        return reflexSavingThrow;
+    }
+
+    public void setReflexSavingThrow(int reflexSavingThrow) {
+        this.reflexSavingThrow = reflexSavingThrow;
+    }
+
+    public int getWillSavingThrow() {
+        return willSavingThrow;
+    }
+
+    public void setWillSavingThrow(int willSavingThrow) {
+        this.willSavingThrow = willSavingThrow;
+    }
+
+    public String getClassNotes() {
+        return classNotes;
+    }
+
+    public void setClassNotes(String classNotes) {
+        this.classNotes = classNotes;
+    }
+
+    public void setClassSkills(Skill[] classSkills) {
+        this.classSkills = classSkills;
+    }
+
+    public void setInitialSkillRankModifier(int initialSkillRankModifier) {
+        this.initialSkillRankModifier = initialSkillRankModifier;
+    }
+
+    public int getInitialSkillRankModifier() {
+        return initialSkillRankModifier;
+    }
+
+    public void setSkillRankModifier(int skillRankModifier) {
+        this.skillRankModifier = skillRankModifier;
+    }
+
+    public int getSkillRankModifier() {
+        return skillRankModifier;
     }
 
     public void setCasterType(CasterType casterType) {
