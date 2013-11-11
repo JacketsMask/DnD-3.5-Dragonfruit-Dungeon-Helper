@@ -65,7 +65,7 @@
                       <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="433" max="32767" attributes="0"/>
+                      <EmptySpace pref="185" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -151,7 +151,7 @@
               <SubComponents>
                 <Component class="javax.swing.JTextField" name="hitDieTextField">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="0"/>
+                    <Property name="text" type="java.lang.String" value="8"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel1">
@@ -165,6 +165,9 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="nameTextField">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Cleric"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel3">
                   <Properties>
@@ -173,7 +176,7 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="startingGoldNumDieTextField">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="0"/>
+                    <Property name="text" type="java.lang.String" value="5"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel4">
@@ -183,7 +186,7 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="startingGoldSidesTextField">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="0"/>
+                    <Property name="text" type="java.lang.String" value="4"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel6">
@@ -193,7 +196,7 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="startingGoldMultiplierTextField">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="0"/>
+                    <Property name="text" type="java.lang.String" value="10"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -252,21 +255,25 @@
               <SubComponents>
                 <Component class="javax.swing.JCheckBox" name="lawfulGoodCheckBox">
                   <Properties>
+                    <Property name="selected" type="boolean" value="true"/>
                     <Property name="text" type="java.lang.String" value="Lawful Good"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="chaoticNeutralCheckBox">
                   <Properties>
+                    <Property name="selected" type="boolean" value="true"/>
                     <Property name="text" type="java.lang.String" value="Chaotic Neutral"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="chaoticGoodCheckBox">
                   <Properties>
+                    <Property name="selected" type="boolean" value="true"/>
                     <Property name="text" type="java.lang.String" value="Chaotic Good"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="lawfulNeutralCheckBox">
                   <Properties>
+                    <Property name="selected" type="boolean" value="true"/>
                     <Property name="text" type="java.lang.String" value="Lawful Neutral"/>
                   </Properties>
                 </Component>
@@ -277,26 +284,31 @@
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="chaoticEvilCheckBox">
                   <Properties>
+                    <Property name="selected" type="boolean" value="true"/>
                     <Property name="text" type="java.lang.String" value="Chaotic Evil"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="neutralEvilCheckBox">
                   <Properties>
+                    <Property name="selected" type="boolean" value="true"/>
                     <Property name="text" type="java.lang.String" value="Neutral Evil"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="trueNeutralCheckBox">
                   <Properties>
+                    <Property name="selected" type="boolean" value="true"/>
                     <Property name="text" type="java.lang.String" value="True Neutral"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="neutralGoodCheckBox">
                   <Properties>
+                    <Property name="selected" type="boolean" value="true"/>
                     <Property name="text" type="java.lang.String" value="Neutral Good"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="lawfulEvilCheckBox">
                   <Properties>
+                    <Property name="selected" type="boolean" value="true"/>
                     <Property name="text" type="java.lang.String" value="Lawful Evil"/>
                   </Properties>
                 </Component>
@@ -353,7 +365,6 @@
                       <ComponentRef name="casterSpellTypeTypeButtonGroup"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Arcane spellcaster"/>
-                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="divineSpellCasterRadioButton">
@@ -361,12 +372,16 @@
                     <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                       <ComponentRef name="casterSpellTypeTypeButtonGroup"/>
                     </Property>
+                    <Property name="selected" type="boolean" value="true"/>
                     <Property name="text" type="java.lang.String" value="Divine spellcaster"/>
-                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="casterRadioButton">
                   <Properties>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="casterTypeButtonGroup"/>
+                    </Property>
+                    <Property name="selected" type="boolean" value="true"/>
                     <Property name="text" type="java.lang.String" value="Caster"/>
                   </Properties>
                   <Events>
@@ -375,6 +390,9 @@
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="nonCasterRadioButton">
                   <Properties>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="casterTypeButtonGroup"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Non-caster"/>
                   </Properties>
                 </Component>
@@ -401,7 +419,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" pref="918" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" pref="670" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -472,71 +490,71 @@
                           <Data value="14/9/4"/>
                           <Data value="15/10/5"/>
                         </Column>
-                        <Column editable="true" title="Fortitude save" type="java.lang.Integer">
-                          <Data value="0"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
+                        <Column editable="true" title="Fortitude Save" type="java.lang.Integer">
+                          <Data value="2"/>
+                          <Data value="3"/>
+                          <Data value="3"/>
+                          <Data value="4"/>
+                          <Data value="4"/>
+                          <Data value="5"/>
+                          <Data value="5"/>
+                          <Data value="6"/>
+                          <Data value="6"/>
+                          <Data value="7"/>
+                          <Data value="7"/>
+                          <Data value="8"/>
+                          <Data value="8"/>
+                          <Data value="9"/>
+                          <Data value="9"/>
+                          <Data value="10"/>
+                          <Data value="10"/>
+                          <Data value="11"/>
+                          <Data value="11"/>
+                          <Data value="12"/>
                         </Column>
-                        <Column editable="true" title="Reflex save" type="java.lang.Integer">
+                        <Column editable="true" title="Reflex Save" type="java.lang.Integer">
                           <Data value="0"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
+                          <Data value="0"/>
+                          <Data value="1"/>
+                          <Data value="1"/>
+                          <Data value="1"/>
+                          <Data value="2"/>
+                          <Data value="2"/>
+                          <Data value="2"/>
+                          <Data value="3"/>
+                          <Data value="3"/>
+                          <Data value="3"/>
+                          <Data value="4"/>
+                          <Data value="4"/>
+                          <Data value="4"/>
+                          <Data value="5"/>
+                          <Data value="5"/>
+                          <Data value="5"/>
+                          <Data value="6"/>
+                          <Data value="6"/>
+                          <Data value="6"/>
                         </Column>
-                        <Column editable="true" title="Will save" type="java.lang.Integer">
-                          <Data value="0"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
+                        <Column editable="true" title="Will Save" type="java.lang.Integer">
+                          <Data value="2"/>
+                          <Data value="3"/>
+                          <Data value="3"/>
+                          <Data value="4"/>
+                          <Data value="4"/>
+                          <Data value="5"/>
+                          <Data value="5"/>
+                          <Data value="6"/>
+                          <Data value="6"/>
+                          <Data value="7"/>
+                          <Data value="7"/>
+                          <Data value="8"/>
+                          <Data value="8"/>
+                          <Data value="9"/>
+                          <Data value="9"/>
+                          <Data value="10"/>
+                          <Data value="10"/>
+                          <Data value="11"/>
+                          <Data value="11"/>
+                          <Data value="12"/>
                         </Column>
                         <Column editable="true" title="Notes" type="java.lang.Object">
                           <Data value="Something cool happens"/>
@@ -588,7 +606,7 @@
                       <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="480" max="32767" attributes="0"/>
+                      <EmptySpace pref="232" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -707,13 +725,13 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jTextField7" min="-2" pref="20" max="-2" attributes="0"/>
+                                  <Component id="skillModifierTextField" min="-2" pref="20" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jTextField6" min="-2" pref="20" max="-2" attributes="0"/>
+                                  <Component id="skillInitialModifierTextField" min="-2" pref="20" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -731,14 +749,14 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextField6" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="skillInitialModifierTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextField7" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="skillModifierTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
@@ -751,14 +769,14 @@
                     <Property name="text" type="java.lang.String" value="+ intelligence modifier"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField6">
+                <Component class="javax.swing.JTextField" name="skillInitialModifierTextField">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="0"/>
+                    <Property name="text" type="java.lang.String" value="4"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField7">
+                <Component class="javax.swing.JTextField" name="skillModifierTextField">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="0"/>
+                    <Property name="text" type="java.lang.String" value="2"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel11">
@@ -794,8 +812,9 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="34" max="32767" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jPanel8" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -820,11 +839,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jScrollPane5" min="-2" pref="145" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="jButton3" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="jScrollPane5" alignment="0" min="-2" pref="145" max="-2" attributes="0"/>
                               <Component id="jLabel15" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -846,11 +861,7 @@
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jScrollPane5" pref="329" max="32767" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <Component id="jButton3" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="jScrollPane5" pref="332" max="32767" attributes="0"/>
                               <Component id="jScrollPane4" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -913,11 +924,6 @@
                     <Property name="text" type="java.lang.String" value="Unknown armor proficiencies:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton3">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Move selected"/>
-                  </Properties>
-                </Component>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="jPanel8">
@@ -931,8 +937,6 @@
                               <Component id="jLabel16" max="32767" attributes="0"/>
                               <Component id="jScrollPane6" min="-2" pref="145" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jButton2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="jLabel17" max="32767" attributes="0"/>
@@ -950,13 +954,7 @@
                               <Group type="102" attributes="0">
                                   <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jScrollPane7" pref="332" max="32767" attributes="0"/>
-                                      <Group type="102" attributes="0">
-                                          <Component id="jButton2" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
+                                  <Component id="jScrollPane7" pref="332" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
@@ -1024,11 +1022,6 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JButton" name="jButton2">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Move selected"/>
-                  </Properties>
-                </Component>
               </SubComponents>
             </Container>
           </SubComponents>
@@ -1046,18 +1039,18 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="394" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="293" max="-2" attributes="0"/>
                       <Component id="finishClassButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="453" max="32767" attributes="0"/>
+                      <EmptySpace pref="306" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="196" max="32767" attributes="0"/>
+                      <EmptySpace pref="188" max="32767" attributes="0"/>
                       <Component id="finishClassButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="178" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="186" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
