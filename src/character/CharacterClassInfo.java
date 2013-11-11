@@ -1,7 +1,7 @@
 package character;
 
 import character.classes.CharacterClass;
-import character.classes.ClassCustom;
+import character.classes.CustomClass;
 import interfaces.SaveStateTracker;
 import java.util.ArrayList;
 
@@ -21,7 +21,7 @@ public class CharacterClassInfo extends SaveStateTracker {
     public CharacterClassInfo() {
         super();
         list = new ArrayList<>();
-        list.add(new ClassCustom("Commoner"));
+        list.add(new CustomClass("Commoner"));
     }
 
     /**

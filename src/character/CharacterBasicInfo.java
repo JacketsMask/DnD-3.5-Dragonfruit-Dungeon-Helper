@@ -4,7 +4,6 @@ import abstracts.Size;
 import character.races.Race;
 import enumerations.Alignment;
 import enumerations.Gender;
-import enumerations.Order;
 import interfaces.SaveStateTracker;
 import java.util.Random;
 
@@ -23,7 +22,6 @@ public class CharacterBasicInfo extends SaveStateTracker {
     };
     private String name;
     private Gender gender;
-    private Order order;
     private String deity;
     private Alignment alignment;
     private Size size;
@@ -135,10 +133,6 @@ public class CharacterBasicInfo extends SaveStateTracker {
         return gender;
     }
 
-    public Order getOrder() {
-        return order;
-    }
-
     public Alignment getAlignment() {
         return alignment;
     }
@@ -173,12 +167,6 @@ public class CharacterBasicInfo extends SaveStateTracker {
 
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
-        super.stateChanged = true;
-
-    }
-
     public void setSize(Size size) {
         this.size = size;
         super.stateChanged = true;
@@ -195,8 +183,7 @@ public class CharacterBasicInfo extends SaveStateTracker {
         size = race.getSize();
         speed = race.getSpeed();
         deity = "Atheist";
-        alignment = Alignment.NEUTRAL;
-        order = Order.NEUTRAL;
+        alignment = Alignment.TRUE_NEUTRAL;
         age = 21;
         heightFeet = 5;
         heightInches = 5;
