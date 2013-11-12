@@ -10,14 +10,10 @@ import enumerations.Skill;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.DefaultListModel;
-import javax.swing.JList;
 import javax.swing.ListModel;
-import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumnModel;
-import main.JTableHelper;
+import main.JListHelper;
 import main.TableColumnAdjuster;
 
 /**
@@ -688,33 +684,33 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
         int numSides = Integer.parseInt(startingGoldSidesTextField.getText());
         int multiplier = Integer.parseInt(startingGoldMultiplierTextField.getText());
         custom.setStartingGold(new StartingGold(numDie, numSides, multiplier));
-        //Possible alignments
+        //Restricted alignments
         ArrayList<Alignment> allowedAlignments = new ArrayList();
-        if (lawfulGoodCheckBox.isSelected()) {
+        if (!lawfulGoodCheckBox.isSelected()) {
             allowedAlignments.add(Alignment.LAWFUL_GOOD);
         }
-        if (neutralGoodCheckBox.isSelected()) {
+        if (!neutralGoodCheckBox.isSelected()) {
             allowedAlignments.add(Alignment.NEUTRAL_GOOD);
         }
-        if (chaoticGoodCheckBox.isSelected()) {
+        if (!chaoticGoodCheckBox.isSelected()) {
             allowedAlignments.add(Alignment.CHAOTIC_GOOD);
         }
-        if (lawfulNeutralCheckBox.isSelected()) {
+        if (!lawfulNeutralCheckBox.isSelected()) {
             allowedAlignments.add(Alignment.LAWFUL_NEUTRAL);
         }
-        if (trueNeutralCheckBox.isSelected()) {
+        if (!trueNeutralCheckBox.isSelected()) {
             allowedAlignments.add(Alignment.TRUE_NEUTRAL);
         }
-        if (chaoticNeutralCheckBox.isSelected()) {
+        if (!chaoticNeutralCheckBox.isSelected()) {
             allowedAlignments.add(Alignment.CHAOTIC_NEUTRAL);
         }
-        if (lawfulEvilCheckBox.isSelected()) {
+        if (!lawfulEvilCheckBox.isSelected()) {
             allowedAlignments.add(Alignment.LAWFUL_EVIL);
         }
-        if (neutralEvilCheckBox.isSelected()) {
+        if (!neutralEvilCheckBox.isSelected()) {
             allowedAlignments.add(Alignment.NEUTRAL_EVIL);
         }
-        custom.setAllowedAlignments(allowedAlignments);
+        custom.setRestrictedAlignments(allowedAlignments);
         //Casting information
         if (nonCasterRadioButton.isSelected()) {
             custom.setCasterType(CasterType.NON_CASTER);
@@ -795,7 +791,7 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
         }
         unknownArmorProficiencyList.setModel(unknownArmorProficiencyModel);
         knownArmorProficiencyList.setModel(knownArmorProficiencyModel);
-        JTableHelper.registerLinkedJListListener(unknownArmorProficiencyList, knownArmorProficiencyList);
+        JListHelper.registerLinkedJListListener(unknownArmorProficiencyList, knownArmorProficiencyList);
         //Weapons
         ArrayList<WeaponProficiency> allWeaponProficiencies = WeaponProficiency.getAllProficiencies();
         DefaultListModel unknownWeaponProficiencyModel = new DefaultListModel();
@@ -805,7 +801,7 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
         }
         unknownWeaponProficiencyList.setModel(unknownWeaponProficiencyModel);
         knownWeaponProficiencyList.setModel(knownWeaponProficiencyModel);
-        JTableHelper.registerLinkedJListListener(unknownWeaponProficiencyList, knownWeaponProficiencyList);
+        JListHelper.registerLinkedJListListener(unknownWeaponProficiencyList, knownWeaponProficiencyList);
     }
 
     private void initSkillLists() {
@@ -821,7 +817,7 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
         crossClassSkillsList.setModel(crossClassModel);
         //Set the model for the class list
         classSkillsList.setModel(classModel);
-        JTableHelper.registerLinkedJListListener(classSkillsList, crossClassSkillsList);
+        JListHelper.registerLinkedJListListener(classSkillsList, crossClassSkillsList);
     }
 
     /**

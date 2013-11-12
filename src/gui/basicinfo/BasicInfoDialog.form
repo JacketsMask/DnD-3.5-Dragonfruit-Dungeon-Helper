@@ -240,45 +240,13 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel28" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel27" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="dialogRaceComboBox" max="32767" attributes="0"/>
-                              <Component id="dialogClassComboBox" pref="84" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="dialogRaceTextField" max="32767" attributes="0"/>
-                              <Component id="dialogClassTextField" min="-2" pref="76" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jLabel24" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel30" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="dialogOrderComboBox" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="dialogAlignmentComboBox" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              </Group>
-                              <Component id="dialogDeityTextField" alignment="0" max="32767" attributes="0"/>
-                          </Group>
+                      <Group type="102" attributes="0">
+                          <Component id="jLabel26" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                          <Component id="nameTextField" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -287,15 +255,38 @@
                           </Group>
                           <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="dialogSizeComboBox" min="-2" pref="76" max="-2" attributes="0"/>
-                              <Component id="dialogGenderComboBox" min="-2" pref="76" max="-2" attributes="0"/>
+                              <Component id="sizeComboBox" min="-2" pref="76" max="-2" attributes="0"/>
+                              <Component id="genderComboBox" min="-2" pref="76" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <Component id="jLabel26" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                          <Component id="dialogNameTextField" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabel30" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                                  <Component id="dialogDeityTextField" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel28" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel27" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="raceComboBox" max="32767" attributes="0"/>
+                                      <Component id="classComboBox" pref="84" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="0" pref="16" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="jLabel24" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="alignmentComboBox" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="raceTextField" pref="76" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -307,37 +298,35 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel26" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="dialogNameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="nameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel27" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="dialogClassComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="dialogClassTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="classComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel28" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="dialogRaceComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="dialogRaceTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="raceComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="raceTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel29" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="dialogSizeComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="sizeComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel23" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="dialogGenderComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel24" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="dialogOrderComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="dialogAlignmentComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="genderComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel24" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="alignmentComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel30" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="dialogDeityTextField" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -384,7 +373,7 @@
             <Property name="text" type="java.lang.String" value="Patron Deity"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="dialogRaceComboBox">
+        <Component class="javax.swing.JComboBox" name="raceComboBox">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="2">
@@ -394,37 +383,30 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="dialogRaceComboBoxItemStateChanged"/>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="raceComboBoxItemStateChanged"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="dialogRaceTextField">
+        <Component class="javax.swing.JTextField" name="raceTextField">
           <Properties>
             <Property name="text" type="java.lang.String" value="[race]"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="dialogClassComboBox">
+        <Component class="javax.swing.JComboBox" name="classComboBox">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="1">
-                <StringItem index="0" value="Other"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="dialogClassComboBoxItemStateChanged"/>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="classComboBoxItemStateChanged"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="dialogClassTextField">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="[class]"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="dialogNameTextField">
+        <Component class="javax.swing.JTextField" name="nameTextField">
           <Properties>
             <Property name="text" type="java.lang.String" value="[character name]"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="dialogSizeComboBox">
+        <Component class="javax.swing.JComboBox" name="sizeComboBox">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="9">
@@ -446,29 +428,14 @@
             <Property name="text" type="java.lang.String" value="[deity]"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="dialogOrderComboBox">
+        <Component class="javax.swing.JComboBox" name="alignmentComboBox">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="3">
-                <StringItem index="0" value="Lawful"/>
-                <StringItem index="1" value="Neutral"/>
-                <StringItem index="2" value="Chaotic"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="dialogAlignmentComboBox">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="3">
-                <StringItem index="0" value="Good"/>
-                <StringItem index="1" value="Neutral"/>
-                <StringItem index="2" value="Evil"/>
-              </StringArray>
-            </Property>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JComboBox" name="dialogGenderComboBox">
+        <Component class="javax.swing.JComboBox" name="genderComboBox">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="2">

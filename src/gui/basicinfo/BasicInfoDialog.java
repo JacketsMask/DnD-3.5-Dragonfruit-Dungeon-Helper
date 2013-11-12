@@ -68,16 +68,14 @@ public class BasicInfoDialog extends javax.swing.JDialog {
         jLabel26 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
-        dialogRaceComboBox = new javax.swing.JComboBox();
-        dialogRaceTextField = new javax.swing.JTextField();
-        dialogClassComboBox = new javax.swing.JComboBox();
-        dialogClassTextField = new javax.swing.JTextField();
-        dialogNameTextField = new javax.swing.JTextField();
-        dialogSizeComboBox = new javax.swing.JComboBox();
+        raceComboBox = new javax.swing.JComboBox();
+        raceTextField = new javax.swing.JTextField();
+        classComboBox = new javax.swing.JComboBox();
+        nameTextField = new javax.swing.JTextField();
+        sizeComboBox = new javax.swing.JComboBox();
         dialogDeityTextField = new javax.swing.JTextField();
-        dialogOrderComboBox = new javax.swing.JComboBox();
-        dialogAlignmentComboBox = new javax.swing.JComboBox();
-        dialogGenderComboBox = new javax.swing.JComboBox();
+        alignmentComboBox = new javax.swing.JComboBox();
+        genderComboBox = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -201,35 +199,28 @@ public class BasicInfoDialog extends javax.swing.JDialog {
 
         jLabel30.setText("Patron Deity");
 
-        dialogRaceComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Human", "Other" }));
-        dialogRaceComboBox.addItemListener(new java.awt.event.ItemListener() {
+        raceComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Human", "Other" }));
+        raceComboBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                dialogRaceComboBoxItemStateChanged(evt);
+                raceComboBoxItemStateChanged(evt);
             }
         });
 
-        dialogRaceTextField.setText("[race]");
+        raceTextField.setText("[race]");
 
-        dialogClassComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Other" }));
-        dialogClassComboBox.addItemListener(new java.awt.event.ItemListener() {
+        classComboBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                dialogClassComboBoxItemStateChanged(evt);
+                classComboBoxItemStateChanged(evt);
             }
         });
 
-        dialogClassTextField.setText("[class]");
+        nameTextField.setText("[character name]");
 
-        dialogNameTextField.setText("[character name]");
-
-        dialogSizeComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Fine", "Diminutive", "Tiny", "Small", "Medium", "Large", "Huge", "Gargantuan", "Colossal" }));
+        sizeComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Fine", "Diminutive", "Tiny", "Small", "Medium", "Large", "Huge", "Gargantuan", "Colossal" }));
 
         dialogDeityTextField.setText("[deity]");
 
-        dialogOrderComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Lawful", "Neutral", "Chaotic" }));
-
-        dialogAlignmentComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Good", "Neutral", "Evil" }));
-
-        dialogGenderComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Male", "Female" }));
+        genderComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Male", "Female" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -239,45 +230,39 @@ public class BasicInfoDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel28)
-                            .addComponent(jLabel27))
-                        .addGap(21, 21, 21)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(dialogRaceComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(dialogClassComboBox, 0, 84, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(dialogRaceTextField)
-                            .addComponent(dialogClassTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel24)
-                                .addGap(18, 18, 18))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel30)
-                                .addGap(5, 5, 5)))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(dialogOrderComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(dialogAlignmentComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(dialogDeityTextField)))
+                        .addComponent(jLabel26)
+                        .addGap(19, 19, 19)
+                        .addComponent(nameTextField))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel23)
                             .addComponent(jLabel29))
                         .addGap(11, 11, 11)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dialogSizeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dialogGenderComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(sizeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(genderComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel26)
-                        .addGap(19, 19, 19)
-                        .addComponent(dialogNameTextField))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel30)
+                                .addGap(5, 5, 5)
+                                .addComponent(dialogDeityTextField))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel28)
+                                    .addComponent(jLabel27))
+                                .addGap(21, 21, 21)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(raceComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(classComboBox, 0, 84, Short.MAX_VALUE))
+                                .addGap(0, 16, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel24)
+                                .addGap(18, 18, 18)
+                                .addComponent(alignmentComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(raceTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -285,31 +270,29 @@ public class BasicInfoDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel26)
-                    .addComponent(dialogNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel27)
-                    .addComponent(dialogClassComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dialogClassTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(classComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel28)
-                    .addComponent(dialogRaceComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dialogRaceTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(raceComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(raceTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel29)
-                    .addComponent(dialogSizeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(sizeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel23)
-                    .addComponent(dialogGenderComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
+                    .addComponent(genderComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel24)
-                    .addComponent(dialogOrderComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dialogAlignmentComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(alignmentComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel30)
                     .addComponent(dialogDeityTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -353,17 +336,17 @@ public class BasicInfoDialog extends javax.swing.JDialog {
         CharacterClass classInfo = player.getClassInfo().getInitialClass();
         CharacterBasicInfo characterInfo = player.getBasicInfo();
         //If names differ, change name
-        if (!characterInfo.getName().equals(dialogNameTextField.getText())) {
-            characterInfo.setName(dialogNameTextField.getText());
+        if (!characterInfo.getName().equals(nameTextField.getText())) {
+            characterInfo.setName(nameTextField.getText());
         }
         //If class differs, change class
         String selectedClass;
         //Check to see if this is an unsupported class
-        if (dialogClassComboBox.getSelectedItem().equals("Other")) {
-            selectedClass = dialogClassTextField.getText();
+        if (classComboBox.getSelectedItem().equals("Other")) {
+            selectedClass = classTextField.getText();
 
         } else {   //Class is supported, get fixed result
-            selectedClass = (String) dialogClassComboBox.getSelectedItem();
+            selectedClass = (String) classComboBox.getSelectedItem();
         }
         //Check to see if the class isn't the same as the player's existing class
         if (classInfo != null && !classInfo.getName().equals(selectedClass)) {
@@ -373,11 +356,11 @@ public class BasicInfoDialog extends javax.swing.JDialog {
         }
         //Check to see if this is a supported or unsupported race
         String selectedRace;
-        if (dialogRaceComboBox.getSelectedItem().equals("Other")) {
-            selectedRace = dialogRaceTextField.getText();
+        if (raceComboBox.getSelectedItem().equals("Other")) {
+            selectedRace = raceTextField.getText();
 
         } else {   //Race is supported, get fixed result
-            selectedRace = (String) dialogRaceComboBox.getSelectedItem();
+            selectedRace = (String) raceComboBox.getSelectedItem();
         }
         Race race = player.getBasicInfo().getRace();
         //Check to see if the race isn't the same as the player's existing class
@@ -387,7 +370,7 @@ public class BasicInfoDialog extends javax.swing.JDialog {
             player.getBasicInfo().setRace(customRace);
         }
         //Check to see if gender is different
-        if (!characterInfo.getGender().toString().equals(dialogGenderComboBox.getSelectedItem().toString())) {
+        if (!characterInfo.getGender().toString().equals(genderComboBox.getSelectedItem().toString())) {
             Gender gender = characterInfo.getGender();
             if (gender.equals(Gender.MALE)) {
                 characterInfo.setGender(Gender.FEMALE);
@@ -432,33 +415,33 @@ public class BasicInfoDialog extends javax.swing.JDialog {
         this.setVisible(false);
     }//GEN-LAST:event_dialogCharacterCommitButtonActionPerformed
 
-    private void dialogRaceComboBoxItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_dialogRaceComboBoxItemStateChanged
-    {//GEN-HEADEREND:event_dialogRaceComboBoxItemStateChanged
+    private void raceComboBoxItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_raceComboBoxItemStateChanged
+    {//GEN-HEADEREND:event_raceComboBoxItemStateChanged
         //Ignore deselection events
         if (evt.getStateChange() == ItemEvent.DESELECTED) {
             return;
         }
-        String selectedItem = (String) dialogRaceComboBox.getSelectedItem();
+        String selectedItem = (String) raceComboBox.getSelectedItem();
         if (selectedItem.equals("Other")) {
-            dialogRaceTextField.setVisible(true);
-            dialogSizeComboBox.setEnabled(true);
+            raceTextField.setVisible(true);
+            sizeComboBox.setEnabled(true);
             this.getContentPane().validate();
         } else {
-            dialogRaceTextField.setVisible(false);
-            dialogSizeComboBox.setSelectedItem(player.getBasicInfo().getSize().toString());
-            dialogSizeComboBox.setEnabled(false);
+            raceTextField.setVisible(false);
+            sizeComboBox.setSelectedItem(player.getBasicInfo().getSize().toString());
+            sizeComboBox.setEnabled(false);
             this.setVisible(true);
         }
-    }//GEN-LAST:event_dialogRaceComboBoxItemStateChanged
+    }//GEN-LAST:event_raceComboBoxItemStateChanged
 
-    private void dialogClassComboBoxItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_dialogClassComboBoxItemStateChanged
-    {//GEN-HEADEREND:event_dialogClassComboBoxItemStateChanged
+    private void classComboBoxItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_classComboBoxItemStateChanged
+    {//GEN-HEADEREND:event_classComboBoxItemStateChanged
         //Ignore deselection events
         if (evt.getStateChange() == ItemEvent.DESELECTED) {
             return;
         }
         updateCharacterOptionsBasedOffClass();
-    }//GEN-LAST:event_dialogClassComboBoxItemStateChanged
+    }//GEN-LAST:event_classComboBoxItemStateChanged
 
     /**
      * Fills in character information for the dialog window as read from the
@@ -468,18 +451,17 @@ public class BasicInfoDialog extends javax.swing.JDialog {
         CharacterBasicInfo info = player.getBasicInfo();
         //Fill in information about the player's name
         if (info.getName() != null) {
-            dialogNameTextField.setText(info.getName());
+            nameTextField.setText(info.getName());
         }
         //Fill in information about the character's class
         CharacterClass characterClass = player.getClassInfo().getInitialClass();
         if (characterClass == null) {
-            dialogClassComboBox.setSelectedItem("Other");
-            player.getClassInfo().setClass(new CustomClass("Commoner"));
+            classComboBox.setSelectedItem("Other");
         } else {
             //The character's class is something else
-            dialogClassComboBox.setSelectedItem("Other");
-            dialogClassTextField.setVisible(true);
-            dialogClassTextField.setText(characterClass.getName());
+            classComboBox.setSelectedItem("Other");
+            classTextField.setVisible(true);
+            classTextField.setText(characterClass.getName());
         }
         //Fill in information about the character's race, and size if race
         //determines that
@@ -487,33 +469,47 @@ public class BasicInfoDialog extends javax.swing.JDialog {
         Race race = info.getRace();
         if (race != null) {
             if (race instanceof Race.Human) {
-                dialogRaceComboBox.setSelectedItem("Human");
+                raceComboBox.setSelectedItem("Human");
                 raceKnown = true;
             } else {
-                dialogRaceComboBox.setSelectedItem("Other");
-                dialogRaceTextField.setText(race.getName());
+                raceComboBox.setSelectedItem("Other");
+                raceTextField.setText(race.getName());
             }
             //If the player is a known race, disable unapplicable options
             if (raceKnown) {
-                dialogRaceTextField.setVisible(false);
-                dialogSizeComboBox.setSelectedItem(info.getSize().toString());
-                dialogSizeComboBox.setEnabled(false);
+                raceTextField.setVisible(false);
+                sizeComboBox.setSelectedItem(info.getSize().toString());
+                sizeComboBox.setEnabled(false);
                 updateCharacterOptionsBasedOffClass();
             }
         }
         //Get the player's size if their race isn't known
         if (!raceKnown && info.getSize() != null) {
-            dialogSizeComboBox.setSelectedItem(info.getSize().toString());
+            sizeComboBox.setSelectedItem(info.getSize().toString());
         }
         Gender gender = info.getGender();
         if (gender != null) {
             if (gender.equals(Gender.MALE)) {
-                dialogGenderComboBox.setSelectedItem("Male");
+                genderComboBox.setSelectedItem("Male");
             } else {
-                dialogGenderComboBox.setSelectedItem("Female");
+                genderComboBox.setSelectedItem("Female");
             }
         }
-        //TODO: Handle alignment
+        //If the alignment is set then a class must be set
+        if (info.getAlignment() != null) {
+            ArrayList<Alignment> alignmentsInList = Alignment.getAllAlignments();
+            ArrayList<CharacterClass> characterClasses = player.getClassInfo().getCharacterClasses();
+            //Remove each restricted alignment from the list
+            for (CharacterClass cc : characterClasses) {
+                for (Alignment a : cc.getAlignmentLimitations()) {
+                    alignmentsInList.remove(a);
+                }
+            }
+            alignmentComboBox.setSelectedItem(info.getAlignment());
+        } else {
+            //If alignment isn't set, then a class must not be selected yet
+            //Don't allow alignment selection until a class is selected
+        }
 
         if (info.getDeity() != null) {
             dialogDeityTextField.setText(info.getDeity().toString());
@@ -539,47 +535,36 @@ public class BasicInfoDialog extends javax.swing.JDialog {
      */
     private void updateCharacterOptionsBasedOffClass() {
         CharacterClass initialClass = player.getClassInfo().getInitialClass();
-        String selectedItem = (String) dialogClassComboBox.getSelectedItem();
+        String selectedItem = (String) classComboBox.getSelectedItem();
         if (selectedItem.equals("Other")) {
-            //Restore deactivate order options
-            for (String string : deactivatedOrders) {
-                dialogOrderComboBox.addItem(string);
-                System.out.println("Trying to add " + string + " to the options.");
-            }
             //Restore deactivated alignment options
             for (String string : deactivatedAlignments) {
-                dialogAlignmentComboBox.addItem(string);
+                alignmentComboBox.addItem(string);
                 System.out.println("Trying to add " + string + " to the options.");
             }
             //Make text field visible
-            dialogClassTextField.setText("" + player.getClassInfo().getInitialClass());
-            dialogClassTextField.setVisible(true);
+            classTextField.setText("" + player.getClassInfo().getInitialClass());
+            classTextField.setVisible(true);
             invalidate();
         } else {
             //TODO: Get list of limited order and alignment from the race class
             //Hide the custom class text field
-            dialogClassTextField.setVisible(false);
+            classTextField.setVisible(false);
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox alignmentComboBox;
+    private javax.swing.JComboBox classComboBox;
     private javax.swing.JTextField dialogAgeTextField;
-    private javax.swing.JComboBox dialogAlignmentComboBox;
     private javax.swing.JButton dialogCharacterCommitButton;
-    private javax.swing.JComboBox dialogClassComboBox;
-    private javax.swing.JTextField dialogClassTextField;
     private javax.swing.JTextField dialogDeityTextField;
     private javax.swing.JTextField dialogEyesTextField;
-    private javax.swing.JComboBox dialogGenderComboBox;
     private javax.swing.JTextField dialogHairTextField;
     private javax.swing.JTextField dialogHeightFtTextField;
     private javax.swing.JTextField dialogHeightInTextField;
-    private javax.swing.JTextField dialogNameTextField;
-    private javax.swing.JComboBox dialogOrderComboBox;
-    private javax.swing.JComboBox dialogRaceComboBox;
-    private javax.swing.JTextField dialogRaceTextField;
-    private javax.swing.JComboBox dialogSizeComboBox;
     private javax.swing.JTextField dialogSkinTextField;
     private javax.swing.JTextField dialogWeightTextField;
+    private javax.swing.JComboBox genderComboBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel23;
@@ -596,5 +581,9 @@ public class BasicInfoDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JTextField nameTextField;
+    private javax.swing.JComboBox raceComboBox;
+    private javax.swing.JTextField raceTextField;
+    private javax.swing.JComboBox sizeComboBox;
     // End of variables declaration//GEN-END:variables
 }
