@@ -1,7 +1,5 @@
 package character.classes;
 
-import enumerations.Skill;
-
 /**
  * A custom class. The information here is provided by and customized by the
  * user. This custom character class allows for sharing and customization

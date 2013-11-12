@@ -34,8 +34,8 @@ public abstract class CharacterClass {
     protected ArmorProficiency[] armorProficiencies;
     //Weapon proficiencies
     protected WeaponProficiency[] weaponProficiencies;
-    //Class related alignment allowances
-    protected ArrayList<Alignment> allowedAlignments;
+    //Class related alignment restrictions
+    protected ArrayList<Alignment> restrictedAlignments;
     //Class notes
     protected String classNotes;
     //Starting gold
@@ -57,7 +57,7 @@ public abstract class CharacterClass {
         abilityListModel = new DefaultListModel<>();
         armorProficiencies = new ArmorProficiency[0];
         weaponProficiencies = new WeaponProficiency[0];
-        allowedAlignments = new ArrayList<>();
+        restrictedAlignments = new ArrayList<>();
         classNotes = "[Enter class notes here]";
         hitDie = 6;
         startingGold = new StartingGold(1, 1, 10);
@@ -65,8 +65,12 @@ public abstract class CharacterClass {
         initialSkillRankModifier = 0;
     }
 
-    public ArrayList<Alignment> getAllowedAlignments() {
-        return allowedAlignments;
+    public ArrayList<Alignment> getRestrictedAlignments() {
+        return restrictedAlignments;
+    }
+
+    public void setRestrictedAlignments(ArrayList<Alignment> restrictedAlignments) {
+        this.restrictedAlignments = restrictedAlignments;
     }
 
     public void setArmorProficiencies(ArmorProficiency[] armorProficiencies) {
@@ -161,10 +165,6 @@ public abstract class CharacterClass {
         return casterType;
     }
 
-    public void setAllowedAlignments(ArrayList<Alignment> allowedAlignments) {
-        this.allowedAlignments = allowedAlignments;
-    }
-
     public int getHitDie() {
         return hitDie;
     }
@@ -248,7 +248,7 @@ public abstract class CharacterClass {
     }
 
     public ArrayList<Alignment> getAlignmentLimitations() {
-        return allowedAlignments;
+        return restrictedAlignments;
     }
 
     @Override
