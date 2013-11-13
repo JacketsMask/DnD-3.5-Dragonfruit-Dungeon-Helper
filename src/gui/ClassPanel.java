@@ -1,10 +1,8 @@
 package gui;
 
-import abstracts.Ability;
 import character.CharacterClassInfo;
 import character.classes.CharacterClass;
 import interfaces.CharacterInfoRetriever;
-import javax.swing.DefaultListModel;
 
 /**
  *
@@ -17,7 +15,6 @@ public class ClassPanel extends javax.swing.JPanel implements CharacterInfoRetri
     ClassPanel(CharacterClassInfo classInfo) {
         this.characterClass = classInfo.getInitialClass();
         initComponents();
-        initializeAbilityList();
     }
 
     /**
@@ -243,13 +240,6 @@ public class ClassPanel extends javax.swing.JPanel implements CharacterInfoRetri
     private javax.swing.JTextArea spellDescriptionTextArea;
     private javax.swing.JLabel spellNameLabel;
     // End of variables declaration//GEN-END:variables
-
-    /**
-     * Initializes the list that represents this class
-     */
-    private void initializeAbilityList() {
-        DefaultListModel<Ability> abilities = characterClass.getAbilityListModel();
-    }
 
     @Override
     public void loadInfo() {
