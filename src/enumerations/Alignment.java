@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public enum Alignment {
 
     LAWFUL_GOOD, NEUTRAL_GOOD, CHAOTIC_GOOD, LAWFUL_NEUTRAL, TRUE_NEUTRAL, CHAOTIC_NEUTRAL, LAWFUL_EVIL, NEUTRAL_EVIL, CHAOTIC_EVIL;
-    
+
     public static ArrayList<Alignment> getAllAlignments() {
         ArrayList<Alignment> arrayList = new ArrayList<>();
         arrayList.add(LAWFUL_GOOD);
@@ -25,17 +25,30 @@ public enum Alignment {
     }
 
     /**
-     * Override for toString that returns the enumeration with the first letter
-     * capitalized, and the rest lower case.
-     * http://javahowto.blogspot.com/2006/10/custom-string-values-for-enum.html?showComment=1240529040000#c6158717620626337359
+     * A better toString method that returns a good looking string instead of a
+     * enum looking one.
      *
-     * @return the enumeration with the first letter capitalized, and the rest
-     * lower case.
+     * @return a better looking string
      */
     @Override
     public String toString() {
-        String output = name().toString();
-        output = output.charAt(0) + output.substring(1).toLowerCase();
-        return output;
+        String name = name();
+        String newName = "";
+        boolean nextIsCapitized = true;
+        for (int i = 0; i < name.length(); i++) {
+            if (nextIsCapitized) {
+                newName += name.substring(i, i + 1).toUpperCase();
+                nextIsCapitized = false;
+            } else {
+                String nextChar = name.substring(i, i + 1);
+                if (nextChar.equals("_")) {
+                    newName += " ";
+                    nextIsCapitized = true;
+                } else {
+                    newName += name.substring(i, i + 1).toLowerCase();
+                }
+            }
+        }
+        return newName;
     }
 }
