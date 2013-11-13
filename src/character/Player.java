@@ -41,7 +41,7 @@ public class Player extends SaveStateTracker {
     public Player() {
         basicInfo = new CharacterBasicInfo();
         classInfo = new CharacterClassInfo();
-        health = new CharacterHealth(classInfo.getInitialClass());
+        health = new CharacterHealth(this);
         abilityScore = new CharacterAbilityScore();
         attack = new CharacterAttack();
         defense = new CharacterDefense(this);
