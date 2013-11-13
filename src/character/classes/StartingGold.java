@@ -1,10 +1,12 @@
 package character.classes;
 
+import java.io.Serializable;
+
 /**
  * Holds starting gold statistics for a class.
  * @author Jacob Dorman
  */
-public class StartingGold {
+public class StartingGold implements Serializable {
 
     private int numDice;
     private int numSides;

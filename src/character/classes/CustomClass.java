@@ -1,5 +1,7 @@
 package character.classes;
 
+import java.io.Serializable;
+
 /**
  * A custom class. The information here is provided by and customized by the
  * user. This custom character class allows for sharing and customization
@@ -7,7 +9,7 @@ package character.classes;
  *
  * @author Jacob Dorman
  */
-public class CustomClass extends CharacterClass
+public class CustomClass extends CharacterClass implements Serializable
 {
 
     /**
@@ -16,6 +18,6 @@ public class CustomClass extends CharacterClass
      */
     public CustomClass(String className) {
         super();
-        name = className;
+        super.name = className;
     }
 }

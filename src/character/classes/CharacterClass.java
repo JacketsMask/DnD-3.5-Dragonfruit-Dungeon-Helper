@@ -4,6 +4,7 @@ import character.proficiencies.WeaponProficiency;
 import character.proficiencies.ArmorProficiency;
 import enumerations.*;
 import abstracts.Ability;
+import java.io.Serializable;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 
@@ -12,7 +13,7 @@ import javax.swing.DefaultListModel;
  *
  * @author Jacob Dorman
  */
-public abstract class CharacterClass {
+public abstract class CharacterClass implements Serializable {
     //The name of this class
 
     protected String name;
