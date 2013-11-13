@@ -1,6 +1,5 @@
 package character;
 
-import character.classes.CharacterClass;
 import diceroller.DiceRoller;
 
 /**
@@ -10,15 +9,20 @@ import diceroller.DiceRoller;
  */
 public class CharacterHealth {
 
+    private Player player;
     private int maxHitPoints;
     private int wounds;
     private int nonlethalDamage;
 
-    public CharacterHealth(CharacterClass charClass) {
-        //Roll initial hitpoints based off of character class
-        maxHitPoints = DiceRoller.rollDice(1, charClass.getHitDie()).getTotalRoll();
+    public CharacterHealth(Player player) {
+        this.player = player;
         wounds = 0;
         nonlethalDamage = 0;
+    }
+
+    //Roll initial hitpoints based off of character class
+    public void rollInitialHitPoints() {
+        maxHitPoints = DiceRoller.rollDice(1, player.getClassInfo().getInitialClass().getHitDie()).getTotalRoll();
     }
 
     public int getMaxHitPoints() {
