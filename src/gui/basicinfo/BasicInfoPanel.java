@@ -267,7 +267,11 @@ public final class BasicInfoPanel extends javax.swing.JPanel implements Characte
     public void loadInfo() {
         CharacterBasicInfo info = player.getBasicInfo();
         characterInfoNameLabel.setText("" + info.getName());
-        characterClassLabel.setText(player.getClassInfo().getInitialClass().getName());
+        if (player.getClassInfo().getInitialClass() != null) {
+            characterClassLabel.setText(player.getClassInfo().getInitialClass().getName());
+        } else {
+            characterClassLabel.setText("Jobless layabout");
+        }
         characterInfoAgeLabel.setText("" + info.getAge());
         if (info.getAlignment().equals(Alignment.TRUE_NEUTRAL)) {
             characterInfoAlignmentLabel.setText("True Neutral");

@@ -6,12 +6,13 @@ import character.CharacterBasicInfo;
 import character.ComponentLockableIntegerVerifier;
 import character.Player;
 import character.classes.CharacterClass;
-import character.classes.CustomClass;
 import enumerations.Alignment;
 import enumerations.Gender;
+import file.manipulation.FileManipulator;
 import gui.classes.ClassBuilderDialog;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -30,6 +31,7 @@ public class BasicInfoDialog extends javax.swing.JDialog {
         this.player = player;
         initComponents();
         preFillCharacterInformation();
+        loadSavedClasses();
     }
 
     /**
@@ -328,29 +330,32 @@ public class BasicInfoDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void loadSavedClasses() {
+        //Read saved classes in from files
+        CharacterClass[] readClasses = FileManipulator.readClasses();
+        if (readClasses.length > 0) {
+            for (CharacterClass cc : readClasses) {
+                System.out.println("Loaded class: " + cc.getName());
+                classComboBox.addItem(cc);
+            }
+        } else {
+            System.out.println("No saved classes found.");
+            classComboBox.addItem("");
+        }
+        classComboBox.addItem("New class");
+        classComboBox.setSelectedItem("");
+    }
+
     private void dialogCharacterCommitButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_dialogCharacterCommitButtonActionPerformed
     {//GEN-HEADEREND:event_dialogCharacterCommitButtonActionPerformed
-        CharacterClass classInfo = player.getClassInfo().getInitialClass();
         CharacterBasicInfo characterInfo = player.getBasicInfo();
         //If names differ, change name
         if (!characterInfo.getName().equals(nameTextField.getText())) {
             characterInfo.setName(nameTextField.getText());
         }
-        //If class differs, change class
-        String selectedClass = null;
-        //Check to see if this is an unsupported class
-        if (classComboBox.getSelectedItem().equals("Other")) {
-            //Create new class
-            CharacterClass newClass = buildClass();
-
-        } else {   //Class is supported, get fixed result
-            selectedClass = (String) classComboBox.getSelectedItem();
-        }
-        //Check to see if the class isn't the same as the player's existing class
-        if (classInfo != null && !classInfo.getName().equals(selectedClass)) {
-            CustomClass customClass = new CustomClass(selectedClass);
-            //Set the character's class to the new custom class
-            player.getClassInfo().setClass(customClass);
+        //Update class if necessary
+        if (!classComboBox.getSelectedItem().equals(player.getClassInfo().getInitialClass())) {
+            player.getClassInfo().setClass((CharacterClass) classComboBox.getSelectedItem());
         }
         //Check to see if this is a supported or unsupported race
         String selectedRace;
@@ -376,7 +381,10 @@ public class BasicInfoDialog extends javax.swing.JDialog {
                 characterInfo.setGender(Gender.MALE);
             }
         }
-        //TODO: Check alignment
+        //Check to see if alignment has changed
+        if (!alignmentComboBox.getSelectedItem().equals(characterInfo.getAlignment())) {
+            characterInfo.setAlignment((Alignment) alignmentComboBox.getSelectedItem());
+        }
         //Check to see if deity has changed
         if (!characterInfo.getDeity().equals(dialogDeityTextField.getText())) {
             characterInfo.setDeity(dialogDeityTextField.getText());
@@ -413,11 +421,15 @@ public class BasicInfoDialog extends javax.swing.JDialog {
         this.setVisible(false);
     }//GEN-LAST:event_dialogCharacterCommitButtonActionPerformed
 
+    /**
+     * Builds and returns a new CharacterClass designed by the player.
+     *
+     * @return a new CharacterClass object
+     */
     private CharacterClass buildClass() {
         ClassBuilderDialog classBuilderDialog = new ClassBuilderDialog(null, true);
         classBuilderDialog.setVisible(true);
-        System.out.println("aw yis");
-        return null;
+        return classBuilderDialog.getNewClass();
     }
 
     private void raceComboBoxItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_raceComboBoxItemStateChanged
@@ -441,11 +453,28 @@ public class BasicInfoDialog extends javax.swing.JDialog {
 
     private void classComboBoxItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_classComboBoxItemStateChanged
     {//GEN-HEADEREND:event_classComboBoxItemStateChanged
+        JComboBox box = (JComboBox) evt.getSource();
         //Ignore deselection events
         if (evt.getStateChange() == ItemEvent.DESELECTED) {
             return;
         }
-        updateAlignmentChoices();
+        //Check for new class selection
+        if (box.getSelectedItem().toString().equals("New class")) {
+            //Build a new class for the player
+            CharacterClass buildClass = buildClass();
+            //Update class selection list
+            box.insertItemAt(buildClass, 1);
+            box.setSelectedItem(buildClass);
+            //Save new class to file
+            FileManipulator.writeClass(buildClass);
+            //Remove empty option
+            box.removeItem("");
+            updateAlignmentChoices();
+        } else if (!box.getSelectedItem().toString().equals("")) {
+            //New non-empty selection, update alignment choices
+            updateAlignmentChoices();
+        }
+        //Update restricted alignment based off player's selected class
     }//GEN-LAST:event_classComboBoxItemStateChanged
 
     /**
@@ -498,7 +527,7 @@ public class BasicInfoDialog extends javax.swing.JDialog {
                 genderComboBox.setSelectedItem("Female");
             }
         }
-        
+
         updateAlignmentChoices();
 
         if (info.getDeity() != null) {
@@ -524,24 +553,20 @@ public class BasicInfoDialog extends javax.swing.JDialog {
      * Updates the visible alignment choices to reflect class limitations.
      */
     private void updateAlignmentChoices() {
-        CharacterBasicInfo info = player.getBasicInfo();
-        //If the alignment is set then a class must be set
-        if (info.getAlignment() != null) {
+        CharacterClass selectedClass = (CharacterClass) classComboBox.getSelectedItem();
+        if (selectedClass != null) {
+            //Get all alignments
             ArrayList<Alignment> alignmentsInList = Alignment.getAllAlignments();
-            ArrayList<CharacterClass> characterClasses = player.getClassInfo().getCharacterClasses();
-            //Remove each restricted alignment from the list
-            for (CharacterClass cc : characterClasses) {
-                for (Alignment a : cc.getAlignmentLimitations()) {
-                    alignmentsInList.remove(a);
-                }
+            //Remove restricted alignments from the list
+            for (Alignment a : selectedClass.getAlignmentLimitations()) {
+                alignmentsInList.remove(a);
             }
-            alignmentComboBox.setSelectedItem(info.getAlignment());
-        } else {
-            //If alignment isn't set, then a class must not be selected yet
-            //Don't allow alignment selection until a class is selected
+            alignmentComboBox.removeAllItems();
+            for (Alignment a : alignmentsInList) {
+                alignmentComboBox.addItem(a);
+            }
         }
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox alignmentComboBox;
     private javax.swing.JComboBox classComboBox;

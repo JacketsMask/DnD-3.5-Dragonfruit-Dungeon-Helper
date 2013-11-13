@@ -22,6 +22,8 @@ import main.TableColumnAdjuster;
  */
 public class ClassBuilderDialog extends javax.swing.JDialog {
 
+    private CustomClass newClass;
+
     /**
      * Creates new form ClassBuilder
      */
@@ -31,6 +33,10 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
         initSkillLists();
         initProficiencyLists();
         new TableColumnAdjuster(classTable).adjustColumns();
+    }
+
+    public CustomClass getNewClass() {
+        return newClass;
     }
 
     /**
@@ -675,49 +681,52 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
 
     private void finishClassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finishClassButtonActionPerformed
         //Basic class info
-        //Name
-        CustomClass custom = new CustomClass(nameTextField.getText());
+        //Name 
+        newClass = new CustomClass(nameTextField.getText());
         //Hit die
-        custom.setHitDie(Integer.parseInt(hitDieTextField.getText()));
+        newClass.setHitDie(Integer.parseInt(hitDieTextField.getText()));
         //Starting gold
         int numDie = Integer.parseInt(startingGoldNumDieTextField.getText());
         int numSides = Integer.parseInt(startingGoldSidesTextField.getText());
         int multiplier = Integer.parseInt(startingGoldMultiplierTextField.getText());
-        custom.setStartingGold(new StartingGold(numDie, numSides, multiplier));
+        newClass.setStartingGold(new StartingGold(numDie, numSides, multiplier));
         //Restricted alignments
-        ArrayList<Alignment> allowedAlignments = new ArrayList();
+        ArrayList<Alignment> alignments = new ArrayList();
         if (!lawfulGoodCheckBox.isSelected()) {
-            allowedAlignments.add(Alignment.LAWFUL_GOOD);
+            alignments.add(Alignment.LAWFUL_GOOD);
         }
         if (!neutralGoodCheckBox.isSelected()) {
-            allowedAlignments.add(Alignment.NEUTRAL_GOOD);
+            alignments.add(Alignment.NEUTRAL_GOOD);
         }
         if (!chaoticGoodCheckBox.isSelected()) {
-            allowedAlignments.add(Alignment.CHAOTIC_GOOD);
+            alignments.add(Alignment.CHAOTIC_GOOD);
         }
         if (!lawfulNeutralCheckBox.isSelected()) {
-            allowedAlignments.add(Alignment.LAWFUL_NEUTRAL);
+            alignments.add(Alignment.LAWFUL_NEUTRAL);
         }
         if (!trueNeutralCheckBox.isSelected()) {
-            allowedAlignments.add(Alignment.TRUE_NEUTRAL);
+            alignments.add(Alignment.TRUE_NEUTRAL);
         }
         if (!chaoticNeutralCheckBox.isSelected()) {
-            allowedAlignments.add(Alignment.CHAOTIC_NEUTRAL);
+            alignments.add(Alignment.CHAOTIC_NEUTRAL);
         }
         if (!lawfulEvilCheckBox.isSelected()) {
-            allowedAlignments.add(Alignment.LAWFUL_EVIL);
+            alignments.add(Alignment.LAWFUL_EVIL);
         }
         if (!neutralEvilCheckBox.isSelected()) {
-            allowedAlignments.add(Alignment.NEUTRAL_EVIL);
+            alignments.add(Alignment.NEUTRAL_EVIL);
         }
-        custom.setRestrictedAlignments(allowedAlignments);
+        if (!chaoticEvilCheckBox.isSelected()) {
+            alignments.add(Alignment.CHAOTIC_EVIL);
+        }
+        newClass.setRestrictedAlignments(alignments);
         //Casting information
         if (nonCasterRadioButton.isSelected()) {
-            custom.setCasterType(CasterType.NON_CASTER);
+            newClass.setCasterType(CasterType.NON_CASTER);
         } else if (arcaneSpellCasterRadioButton.isSelected()) {
-            custom.setCasterType(CasterType.ARCANE_CASTER);
+            newClass.setCasterType(CasterType.ARCANE_CASTER);
         } else if (divineSpellCasterRadioButton.isSelected()) {
-            custom.setCasterType(CasterType.DIVINE_CASTER);
+            newClass.setCasterType(CasterType.DIVINE_CASTER);
         }
         //Table
         HashMap<Integer, CharacterLevelData> map = new HashMap<>();
@@ -744,31 +753,31 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
         //Skill ranks
         int initialSkillModifier = Integer.parseInt(skillInitialModifierTextField.getText());
         int skillModifier = Integer.parseInt(skillModifierTextField.getText());
-        custom.setInitialSkillRankModifier(initialSkillModifier);
-        custom.setSkillRankModifier(skillModifier);
+        newClass.setInitialSkillRankModifier(initialSkillModifier);
+        newClass.setSkillRankModifier(skillModifier);
         //Class skills
         ListModel model = classSkillsList.getModel();
         Skill[] skillArray = new Skill[model.getSize()];
         for (int i = 0; i < model.getSize(); i++) {
             skillArray[i] = (Skill) model.getElementAt(i);
         }
-        custom.setClassSkills(skillArray);
+        newClass.setClassSkills(skillArray);
         //Proficiencies - Armor
         DefaultListModel armorProficiencyModel = (DefaultListModel) knownArmorProficiencyList.getModel();
         ArmorProficiency[] armorProficiencies = new ArmorProficiency[armorProficiencyModel.getSize()];
         for (int i = 0; i < armorProficiencyModel.getSize(); i++) {
             armorProficiencies[i] = (ArmorProficiency) armorProficiencyModel.getElementAt(i);
         }
-        custom.setArmorProficiencies(armorProficiencies);
+        newClass.setArmorProficiencies(armorProficiencies);
         //Proficiencies - Weapon
         DefaultListModel weaponProficiencyModel = (DefaultListModel) knownWeaponProficiencyList.getModel();
         WeaponProficiency[] weaponProficiencies = new WeaponProficiency[weaponProficiencyModel.getSize()];
         for (int i = 0; i < weaponProficiencyModel.getSize(); i++) {
             weaponProficiencies[i] = (WeaponProficiency) weaponProficiencyModel.getElementAt(i);
         }
-        custom.setWeaponProficiencies(weaponProficiencies);
+        newClass.setWeaponProficiencies(weaponProficiencies);
         //Class is done
-        System.out.println("Class: " + nameTextField.getText() + " finished.");
+        this.setVisible(false);
     }//GEN-LAST:event_finishClassButtonActionPerformed
 
     private void casterRadioButtonStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_casterRadioButtonStateChanged
