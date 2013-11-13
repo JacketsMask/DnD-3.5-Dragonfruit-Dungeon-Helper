@@ -1,7 +1,6 @@
 package character;
 
 import character.classes.CharacterClass;
-import character.classes.CustomClass;
 import interfaces.SaveStateTracker;
 import java.util.ArrayList;
 
@@ -15,13 +14,9 @@ public class CharacterClassInfo extends SaveStateTracker {
 
     private ArrayList<CharacterClass> list;
 
-    /**
-     * Creates a object with a default class of Commoner.
-     */
     public CharacterClassInfo() {
         super();
         list = new ArrayList<>();
-        list.add(new CustomClass("Commoner"));
     }
 
     /**
