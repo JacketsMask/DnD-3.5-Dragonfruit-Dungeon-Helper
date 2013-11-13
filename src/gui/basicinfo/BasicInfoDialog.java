@@ -9,6 +9,7 @@ import character.classes.CharacterClass;
 import character.classes.CustomClass;
 import enumerations.Alignment;
 import enumerations.Gender;
+import gui.classes.ClassBuilderDialog;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 
@@ -20,15 +21,11 @@ public class BasicInfoDialog extends javax.swing.JDialog {
 
     private BasicInfoPanel parent;
     private Player player;
-    private ArrayList<String> deactivatedOrders;
-    private ArrayList<String> deactivatedAlignments;
 
     /**
      * Creates new form GeneralInformationDialog
      */
     public BasicInfoDialog(BasicInfoPanel parent, boolean modal, Player player) {
-        deactivatedOrders = new ArrayList<>();
-        deactivatedAlignments = new ArrayList<>();
         this.parent = parent;
         this.player = player;
         initComponents();
@@ -340,10 +337,11 @@ public class BasicInfoDialog extends javax.swing.JDialog {
             characterInfo.setName(nameTextField.getText());
         }
         //If class differs, change class
-        String selectedClass;
+        String selectedClass = null;
         //Check to see if this is an unsupported class
         if (classComboBox.getSelectedItem().equals("Other")) {
-            selectedClass = classTextField.getText();
+            //Create new class
+            CharacterClass newClass = buildClass();
 
         } else {   //Class is supported, get fixed result
             selectedClass = (String) classComboBox.getSelectedItem();
@@ -415,6 +413,13 @@ public class BasicInfoDialog extends javax.swing.JDialog {
         this.setVisible(false);
     }//GEN-LAST:event_dialogCharacterCommitButtonActionPerformed
 
+    private CharacterClass buildClass() {
+        ClassBuilderDialog classBuilderDialog = new ClassBuilderDialog(null, true);
+        classBuilderDialog.setVisible(true);
+        System.out.println("aw yis");
+        return null;
+    }
+
     private void raceComboBoxItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_raceComboBoxItemStateChanged
     {//GEN-HEADEREND:event_raceComboBoxItemStateChanged
         //Ignore deselection events
@@ -440,7 +445,7 @@ public class BasicInfoDialog extends javax.swing.JDialog {
         if (evt.getStateChange() == ItemEvent.DESELECTED) {
             return;
         }
-        updateCharacterOptionsBasedOffClass();
+        updateAlignmentChoices();
     }//GEN-LAST:event_classComboBoxItemStateChanged
 
     /**
@@ -460,8 +465,6 @@ public class BasicInfoDialog extends javax.swing.JDialog {
         } else {
             //The character's class is something else
             classComboBox.setSelectedItem("Other");
-            classTextField.setVisible(true);
-            classTextField.setText(characterClass.getName());
         }
         //Fill in information about the character's race, and size if race
         //determines that
@@ -480,7 +483,7 @@ public class BasicInfoDialog extends javax.swing.JDialog {
                 raceTextField.setVisible(false);
                 sizeComboBox.setSelectedItem(info.getSize().toString());
                 sizeComboBox.setEnabled(false);
-                updateCharacterOptionsBasedOffClass();
+                updateAlignmentChoices();
             }
         }
         //Get the player's size if their race isn't known
@@ -495,21 +498,8 @@ public class BasicInfoDialog extends javax.swing.JDialog {
                 genderComboBox.setSelectedItem("Female");
             }
         }
-        //If the alignment is set then a class must be set
-        if (info.getAlignment() != null) {
-            ArrayList<Alignment> alignmentsInList = Alignment.getAllAlignments();
-            ArrayList<CharacterClass> characterClasses = player.getClassInfo().getCharacterClasses();
-            //Remove each restricted alignment from the list
-            for (CharacterClass cc : characterClasses) {
-                for (Alignment a : cc.getAlignmentLimitations()) {
-                    alignmentsInList.remove(a);
-                }
-            }
-            alignmentComboBox.setSelectedItem(info.getAlignment());
-        } else {
-            //If alignment isn't set, then a class must not be selected yet
-            //Don't allow alignment selection until a class is selected
-        }
+        
+        updateAlignmentChoices();
 
         if (info.getDeity() != null) {
             dialogDeityTextField.setText(info.getDeity().toString());
@@ -531,27 +521,27 @@ public class BasicInfoDialog extends javax.swing.JDialog {
     }
 
     /**
-     * Updates available order and alignment based off of race.
+     * Updates the visible alignment choices to reflect class limitations.
      */
-    private void updateCharacterOptionsBasedOffClass() {
-        CharacterClass initialClass = player.getClassInfo().getInitialClass();
-        String selectedItem = (String) classComboBox.getSelectedItem();
-        if (selectedItem.equals("Other")) {
-            //Restore deactivated alignment options
-            for (String string : deactivatedAlignments) {
-                alignmentComboBox.addItem(string);
-                System.out.println("Trying to add " + string + " to the options.");
+    private void updateAlignmentChoices() {
+        CharacterBasicInfo info = player.getBasicInfo();
+        //If the alignment is set then a class must be set
+        if (info.getAlignment() != null) {
+            ArrayList<Alignment> alignmentsInList = Alignment.getAllAlignments();
+            ArrayList<CharacterClass> characterClasses = player.getClassInfo().getCharacterClasses();
+            //Remove each restricted alignment from the list
+            for (CharacterClass cc : characterClasses) {
+                for (Alignment a : cc.getAlignmentLimitations()) {
+                    alignmentsInList.remove(a);
+                }
             }
-            //Make text field visible
-            classTextField.setText("" + player.getClassInfo().getInitialClass());
-            classTextField.setVisible(true);
-            invalidate();
+            alignmentComboBox.setSelectedItem(info.getAlignment());
         } else {
-            //TODO: Get list of limited order and alignment from the race class
-            //Hide the custom class text field
-            classTextField.setVisible(false);
+            //If alignment isn't set, then a class must not be selected yet
+            //Don't allow alignment selection until a class is selected
         }
     }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox alignmentComboBox;
     private javax.swing.JComboBox classComboBox;
