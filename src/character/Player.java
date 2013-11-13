@@ -21,22 +21,6 @@ public class Player extends SaveStateTracker {
     private CharacterInventory inventory;
     private EffectManager effectManager;
     private CharacterSkills skills;
-    //private HashMap<String, Ability> abilities;
-    //private HashMap<String, WeaponProficiency> proficiencies;
-    //private HashMap<String, ArmorProficiency> armorProficiencies;
-    //Player feats
-    //private int currentHealth;
-    //private int maxHealth;
-    //Player spell uses
-    //private int ac;
-    //private int initiative;
-    // private int playerWeight;
-    //private HashMap<String, Spell> spells;
-    //private int hitRollModifier;
-    //Player stats
-    //private HashMap<String, Condition> conditions;
-    //Player inventory as item description and weight
-    //private Weapon equippedWeapon;
 
     public Player() {
         basicInfo = new CharacterBasicInfo();
