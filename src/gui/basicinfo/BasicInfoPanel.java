@@ -7,7 +7,6 @@ package gui.basicinfo;
 import character.CharacterBasicInfo;
 import character.Player;
 import enumerations.Alignment;
-import gui.basicinfo.BasicInfoDialog;
 import interfaces.CharacterInfoRetriever;
 
 /**
@@ -258,7 +257,7 @@ public final class BasicInfoPanel extends javax.swing.JPanel implements Characte
 
     private void characterInformationButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_characterInformationButtonActionPerformed
     {//GEN-HEADEREND:event_characterInformationButtonActionPerformed
-        BasicInfoDialog generalInformationDialog = new BasicInfoDialog(this, false, player);
+        BasicInfoDialog generalInformationDialog = new BasicInfoDialog(this, true, player);
         generalInformationDialog.pack();
         generalInformationDialog.setLocationRelativeTo(getRootPane());
         generalInformationDialog.setVisible(true);
