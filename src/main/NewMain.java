@@ -4,6 +4,7 @@
  */
 package main;
 
+import file.manipulation.FileManipulator;
 import gui.BaseFrame;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -35,6 +36,8 @@ public class NewMain {
             @Override
             public void run() {
                 try {
+                    //Verify data hierarchy
+                    FileManipulator.verifiyFileHierarchy();
                     //Create the main frame and sub-panels
                     BaseFrame gui = new BaseFrame();
                     //Set the location of the new window to be determined by the OS
