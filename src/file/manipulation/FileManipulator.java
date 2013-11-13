@@ -54,6 +54,7 @@ public class FileManipulator {
 
     public static void writeClass(CharacterClass cClass) {
         writeObject(cClass, CLASS_PATH, cClass.getName() + ".class");
+        System.out.println(cClass.getName()+ " class data written to file.");
     }
 
     public static void writeClassBundle(CharacterClass[] classes, String bundleName) {
@@ -214,7 +215,15 @@ public class FileManipulator {
         }
     }
 
-    public static void main(String[] args) {
-        getSavedCharacters();
+    public static CharacterClass[] readClasses() {
+        File[] listFiles = new File(CLASS_PATH).listFiles();
+        if (listFiles == null) {
+            System.err.println("Can't find path to class files.");
+        }
+        CharacterClass[] classes = new CharacterClass[listFiles.length];
+        for (int i = 0; i < classes.length; i++) {
+            classes[i] = (CharacterClass) readObject(CLASS_PATH, listFiles[i].getName());
+        }
+        return classes;
     }
 }
