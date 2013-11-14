@@ -1,6 +1,6 @@
 package gui.classes;
 
-import character.classes.CustomClass;
+import character.classes.CharacterClass;
 import character.classes.StartingGold;
 import character.proficiencies.ArmorProficiency;
 import character.proficiencies.WeaponProficiency;
@@ -22,7 +22,7 @@ import main.TableColumnAdjuster;
  */
 public class ClassBuilderDialog extends javax.swing.JDialog {
 
-    private CustomClass newClass;
+    private CharacterClass newClass;
 
     /**
      * Creates new form ClassBuilder
@@ -35,7 +35,7 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
         new TableColumnAdjuster(classTable).adjustColumns();
     }
 
-    public CustomClass getNewClass() {
+    public CharacterClass getNewClass() {
         return newClass;
     }
 
@@ -48,7 +48,6 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        casterSpellTypeTypeButtonGroup = new javax.swing.ButtonGroup();
         casterTypeButtonGroup = new javax.swing.ButtonGroup();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         basicInfoPanel = new javax.swing.JPanel();
@@ -75,11 +74,11 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
         neutralGoodCheckBox = new javax.swing.JCheckBox();
         lawfulEvilCheckBox = new javax.swing.JCheckBox();
         jPanel5 = new javax.swing.JPanel();
-        arcaneSpellCasterRadioButton = new javax.swing.JRadioButton();
-        divineSpellCasterRadioButton = new javax.swing.JRadioButton();
-        casterRadioButton = new javax.swing.JRadioButton();
-        nonCasterRadioButton = new javax.swing.JRadioButton();
         jLabel13 = new javax.swing.JLabel();
+        castsSpellsCheckBox = new javax.swing.JCheckBox();
+        usesAbilitiesCheckBox = new javax.swing.JCheckBox();
+        arcaneSpellcasterRadioButton = new javax.swing.JRadioButton();
+        divineSpellcasterRadioButton = new javax.swing.JRadioButton();
         tablePanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         classTable = new javax.swing.JTable();
@@ -117,6 +116,7 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
         finishClassButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Character Class Builder");
 
         hitDieTextField.setText("8");
 
@@ -265,26 +265,25 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
                 .addContainerGap(98, Short.MAX_VALUE))
         );
 
-        casterSpellTypeTypeButtonGroup.add(arcaneSpellCasterRadioButton);
-        arcaneSpellCasterRadioButton.setText("Arcane spellcaster");
+        jLabel13.setText("Casting information:");
 
-        casterSpellTypeTypeButtonGroup.add(divineSpellCasterRadioButton);
-        divineSpellCasterRadioButton.setSelected(true);
-        divineSpellCasterRadioButton.setText("Divine spellcaster");
-
-        casterTypeButtonGroup.add(casterRadioButton);
-        casterRadioButton.setSelected(true);
-        casterRadioButton.setText("Caster");
-        casterRadioButton.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                casterRadioButtonStateChanged(evt);
+        castsSpellsCheckBox.setSelected(true);
+        castsSpellsCheckBox.setText("Casts Spells");
+        castsSpellsCheckBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                castsSpellsCheckBoxItemStateChanged(evt);
             }
         });
 
-        casterTypeButtonGroup.add(nonCasterRadioButton);
-        nonCasterRadioButton.setText("Non-caster");
+        usesAbilitiesCheckBox.setSelected(true);
+        usesAbilitiesCheckBox.setText("Uses Abilities");
 
-        jLabel13.setText("Casting information:");
+        casterTypeButtonGroup.add(arcaneSpellcasterRadioButton);
+        arcaneSpellcasterRadioButton.setText("Arcane spellcaster");
+
+        casterTypeButtonGroup.add(divineSpellcasterRadioButton);
+        divineSpellcasterRadioButton.setSelected(true);
+        divineSpellcasterRadioButton.setText("Divine spellcaster");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -296,14 +295,14 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(casterRadioButton)
-                    .addComponent(nonCasterRadioButton)
+                    .addComponent(castsSpellsCheckBox)
+                    .addComponent(usesAbilitiesCheckBox)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(arcaneSpellCasterRadioButton)
-                            .addComponent(divineSpellCasterRadioButton))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(divineSpellcasterRadioButton)
+                            .addComponent(arcaneSpellcasterRadioButton))))
+                .addContainerGap(186, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -311,13 +310,13 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(nonCasterRadioButton)
+                .addComponent(castsSpellsCheckBox)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(casterRadioButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(arcaneSpellCasterRadioButton)
+                .addComponent(arcaneSpellcasterRadioButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(divineSpellCasterRadioButton)
+                .addComponent(divineSpellcasterRadioButton)
+                .addGap(18, 18, 18)
+                .addComponent(usesAbilitiesCheckBox)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -332,13 +331,13 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(185, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         basicInfoPanelLayout.setVerticalGroup(
             basicInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, basicInfoPanelLayout.createSequentialGroup()
-                .addGap(0, 45, Short.MAX_VALUE)
+                .addGap(0, 42, Short.MAX_VALUE)
                 .addGroup(basicInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -391,14 +390,14 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
             tablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tablePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
                 .addContainerGap())
         );
         tablePanelLayout.setVerticalGroup(
             tablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tablePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -445,7 +444,7 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -510,7 +509,7 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(232, Short.MAX_VALUE))
+                .addContainerGap(237, Short.MAX_VALUE))
         );
         skillsLayout.setVerticalGroup(
             skillsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -608,7 +607,7 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(jLabel17)
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE))
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE))
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(jLabel16)
                         .addGap(18, 18, 18)
@@ -624,7 +623,7 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -651,12 +650,12 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addGap(293, 293, 293)
                 .addComponent(finishClassButton)
-                .addContainerGap(306, Short.MAX_VALUE))
+                .addContainerGap(313, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                .addContainerGap(188, Short.MAX_VALUE)
+                .addContainerGap(185, Short.MAX_VALUE)
                 .addComponent(finishClassButton)
                 .addGap(186, 186, 186))
         );
@@ -681,8 +680,7 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
 
     private void finishClassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finishClassButtonActionPerformed
         //Basic class info
-        //Name 
-        newClass = new CustomClass(nameTextField.getText());
+        newClass = new CharacterClass(nameTextField.getText());
         //Hit die
         newClass.setHitDie(Integer.parseInt(hitDieTextField.getText()));
         //Starting gold
@@ -721,15 +719,24 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
         }
         newClass.setRestrictedAlignments(alignments);
         //Casting information
-        if (nonCasterRadioButton.isSelected()) {
-            newClass.setCasterType(CasterType.NON_CASTER);
-        } else if (arcaneSpellCasterRadioButton.isSelected()) {
-            newClass.setCasterType(CasterType.ARCANE_CASTER);
-        } else if (divineSpellCasterRadioButton.isSelected()) {
-            newClass.setCasterType(CasterType.DIVINE_CASTER);
+        if (castsSpellsCheckBox.isSelected()) {
+            if (arcaneSpellcasterRadioButton.isSelected()) {
+                newClass.setCasterType(CasterType.ARCANE_CASTER);
+            } else if (divineSpellcasterRadioButton.isSelected()) {
+                newClass.setCasterType(CasterType.DIVINE_CASTER);
+            } else {
+                newClass.setCasterType(CasterType.NON_CASTER);
+            }
         }
+        //Ability information
+        if (usesAbilitiesCheckBox.isSelected()) {
+            newClass.setAbilityUser(true);
+        } else {
+            newClass.setAbilityUser(false);
+        }
+
         //Table
-        HashMap<Integer, CharacterLevelData> map = new HashMap<>();
+        HashMap<Integer,CharacterClassLevelData> map = new HashMap<>();
         TableColumnModel columnModel = classTable.getColumnModel();
         int levelColumn = columnModel.getColumnIndex("Level");
         int babColumn = columnModel.getColumnIndex("Base Attack Bonus");
@@ -746,10 +753,11 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
             int reflexSave = (int) classTable.getValueAt(i, reflexSaveColumn);
             int willSave = (int) classTable.getValueAt(i, willSaveColumn);
             String notes = (String) classTable.getValueAt(i, notesColumn);
-            CharacterLevelData data = new CharacterLevelData(localLevel, bab, fortSave, reflexSave, willSave, notes);
+            CharacterClassLevelData data = new CharacterClassLevelData(localLevel, bab, fortSave, reflexSave, willSave, notes);
             //Add it all to the map at this level
-            map.put(localLevel, data);
+            map.put(localLevel,data);
         }
+        newClass.setLevelDataMap(map);
         //Skill ranks
         int initialSkillModifier = Integer.parseInt(skillInitialModifierTextField.getText());
         int skillModifier = Integer.parseInt(skillModifierTextField.getText());
@@ -776,19 +784,22 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
             weaponProficiencies[i] = (WeaponProficiency) weaponProficiencyModel.getElementAt(i);
         }
         newClass.setWeaponProficiencies(weaponProficiencies);
+        newClass.setCurrentLevel(20);
         //Class is done
         this.setVisible(false);
     }//GEN-LAST:event_finishClassButtonActionPerformed
 
-    private void casterRadioButtonStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_casterRadioButtonStateChanged
-        if (casterRadioButton.isSelected()) {
-            arcaneSpellCasterRadioButton.setEnabled(true);
-            divineSpellCasterRadioButton.setEnabled(true);
+    private void castsSpellsCheckBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_castsSpellsCheckBoxItemStateChanged
+        if (castsSpellsCheckBox.isSelected()) {
+            arcaneSpellcasterRadioButton.setEnabled(true);
+            casterTypeButtonGroup.setSelected(divineSpellcasterRadioButton.getModel(), true);
+            divineSpellcasterRadioButton.setEnabled(true);
         } else {
-            arcaneSpellCasterRadioButton.setEnabled(false);
-            divineSpellCasterRadioButton.setEnabled(false);
+            arcaneSpellcasterRadioButton.setEnabled(false);
+            divineSpellcasterRadioButton.setEnabled(false);
+            casterTypeButtonGroup.clearSelection();
         }
-    }//GEN-LAST:event_casterRadioButtonStateChanged
+    }//GEN-LAST:event_castsSpellsCheckBoxItemStateChanged
 
     private void initProficiencyLists() {
         //Armor
@@ -871,18 +882,17 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JRadioButton arcaneSpellCasterRadioButton;
+    private javax.swing.JRadioButton arcaneSpellcasterRadioButton;
     private javax.swing.JPanel basicInfoPanel;
-    private javax.swing.JRadioButton casterRadioButton;
-    private javax.swing.ButtonGroup casterSpellTypeTypeButtonGroup;
     private javax.swing.ButtonGroup casterTypeButtonGroup;
+    private javax.swing.JCheckBox castsSpellsCheckBox;
     private javax.swing.JCheckBox chaoticEvilCheckBox;
     private javax.swing.JCheckBox chaoticGoodCheckBox;
     private javax.swing.JCheckBox chaoticNeutralCheckBox;
     private javax.swing.JList classSkillsList;
     private javax.swing.JTable classTable;
     private javax.swing.JList crossClassSkillsList;
-    private javax.swing.JRadioButton divineSpellCasterRadioButton;
+    private javax.swing.JRadioButton divineSpellcasterRadioButton;
     private javax.swing.JButton finishClassButton;
     private javax.swing.JTextField hitDieTextField;
     private javax.swing.JLabel jLabel1;
@@ -927,7 +937,6 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
     private javax.swing.JTextField nameTextField;
     private javax.swing.JCheckBox neutralEvilCheckBox;
     private javax.swing.JCheckBox neutralGoodCheckBox;
-    private javax.swing.JRadioButton nonCasterRadioButton;
     private javax.swing.JTextField skillInitialModifierTextField;
     private javax.swing.JTextField skillModifierTextField;
     private javax.swing.JPanel skills;
@@ -938,5 +947,6 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
     private javax.swing.JCheckBox trueNeutralCheckBox;
     private javax.swing.JList unknownArmorProficiencyList;
     private javax.swing.JList unknownWeaponProficiencyList;
+    private javax.swing.JCheckBox usesAbilitiesCheckBox;
     // End of variables declaration//GEN-END:variables
 }
