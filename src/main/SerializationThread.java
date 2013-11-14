@@ -2,6 +2,8 @@ package main;
 
 import character.Player;
 import file.manipulation.FileManipulator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * A thread that periodically saves character data to the local disk.
@@ -12,12 +14,14 @@ public class SerializationThread implements Runnable {
 
     private Player player;
     private final int CHECK_DELAY = 1000;
-    private final int CHANGE_DELAY = 5000;
-    private int timesResetBeforeSave;
+//    private final int CHANGE_DELAY = 5000;
+    private final int CHANGE_DELAY = 1;
+    private int timesSkippedBeforeSaving;
+    private final int MAX_SKIPS = 3;
 
     public SerializationThread(Player player) {
         this.player = player;
-        timesResetBeforeSave = 0;
+        timesSkippedBeforeSaving = 0;
     }
 
     @Override
@@ -27,17 +31,20 @@ public class SerializationThread implements Runnable {
                 //Check to see if the state has changed
                 if (player.stateChanged()) {
                     do {
+                        player.stateSaved();
                         System.out.println("SerializationThread: Player state change detected");
                         Thread.sleep(CHANGE_DELAY);
-                        timesResetBeforeSave++;
-                    } while (player.stateChanged() || timesResetBeforeSave > 3);
+                        timesSkippedBeforeSaving++;
+                    } while (player.stateChanged() || timesSkippedBeforeSaving >= MAX_SKIPS);
                     FileManipulator.writeCharacterToFile(player);
                     player.stateSaved();
-                    timesResetBeforeSave = 0;
+                    timesSkippedBeforeSaving = 0;
                 }
                 Thread.sleep(CHECK_DELAY);
-            } catch (InterruptedException ex) {
+            } catch (NullPointerException ex) {
                 return;
+            } catch (InterruptedException ex) {
+                Logger.getLogger(SerializationThread.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
