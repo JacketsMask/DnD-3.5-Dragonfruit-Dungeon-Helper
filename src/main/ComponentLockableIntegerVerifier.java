@@ -1,4 +1,4 @@
-package main;
+ package main;
 
 import character.IntegerVerifier;
 import java.awt.Color;
