@@ -2,14 +2,15 @@ package character;
 
 import character.effects.EffectManager;
 import character.inventory.CharacterInventory;
-import interfaces.SaveStateTracker;
+import main.SaveStateTracker;
+import java.io.Serializable;
 
 /**
  * The top level of a 3.5 character sheet. This is where the magic happens.
  *
  * @author Jacob Dorman
  */
-public class Player extends SaveStateTracker {
+public class Player extends SaveStateTracker implements Serializable {
 
     private CharacterBasicInfo basicInfo;
     private CharacterHealth health;
@@ -33,6 +34,18 @@ public class Player extends SaveStateTracker {
         inventory = new CharacterInventory();
         effectManager = new EffectManager(this);
         skills = new CharacterSkills(this);
+    }
+
+    public void setAttack(CharacterAttack attack) {
+        this.attack = attack;
+    }
+
+    public void setSkills(CharacterSkills skills) {
+        this.skills = skills;
+    }
+
+    public void setHealth(CharacterHealth health) {
+        this.health = health;
     }
 
     public CharacterHealth getHealth() {
@@ -121,7 +134,7 @@ public class Player extends SaveStateTracker {
      */
     @Override
     public boolean stateChanged() {
-        return (basicInfo.stateChanged() || classInfo.stateChanged()
+        return (basicInfo.stateChanged() || health.stateChanged() || classInfo.stateChanged()
                 || abilityScore.stateChanged() || attack.stateChanged()
                 || defense.stateChanged() || proficiencies.stateChanged()
                 || inventory.stateChanged() || effectManager.stateChanged()
@@ -131,6 +144,7 @@ public class Player extends SaveStateTracker {
     @Override
     public void stateSaved() {
         basicInfo.stateSaved();
+        health.stateSaved();
         classInfo.stateSaved();
         abilityScore.stateSaved();
         attack.stateSaved();

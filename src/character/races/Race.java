@@ -10,6 +10,7 @@ import enumerations.AbilityScore;
 import character.proficiencies.ArmorProficiency;
 import enumerations.Language;
 import character.proficiencies.WeaponProficiency;
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
@@ -18,9 +19,9 @@ import java.util.HashMap;
  *
  * @author Japhez
  */
-public abstract class Race
-{
+public abstract class Race implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     //Race name
     String name;
     //Ability Score modifiers
@@ -43,21 +44,17 @@ public abstract class Race
     protected int racialHitDie;
     protected String racialHitDieName;
 
-    public Race()
-    {
+    public Race() {
         initializeAbilityScoreModifiers();
     }
-
 
     /**
      * Initializes all of the class ability score modifiers to 0.
      */
-    private void initializeAbilityScoreModifiers()
-    {
+    private void initializeAbilityScoreModifiers() {
         abilityScoreModifiers = new HashMap<>();
         AbilityScore[] abilityScores = AbilityScore.getAbilityScores();
-        for (AbilityScore as : abilityScores)
-        {
+        for (AbilityScore as : abilityScores) {
             abilityScoreModifiers.put(as, 0);
         }
     }
@@ -68,68 +65,56 @@ public abstract class Race
      * @param abilityScore
      * @return the class modifier for the passed Ability Score
      */
-    public int getAbilityScoreModifier(AbilityScore abilityScore)
-    {
+    public int getAbilityScoreModifier(AbilityScore abilityScore) {
         return abilityScoreModifiers.get(abilityScore);
     }
-    public Language[] getLanguages()
-    {
+
+    public Language[] getLanguages() {
         return languages;
     }
 
-    public int getLevelAdjustment()
-    {
+    public int getLevelAdjustment() {
         return levelAdjustment;
     }
 
-    public int getModifiedSkillPointsEachLevel()
-    {
+    public int getModifiedSkillPointsEachLevel() {
         return modifiedSkillPointsEachLevel;
     }
 
-    public Ability[] getRacialAbilities()
-    {
+    public Ability[] getRacialAbilities() {
         return racialAbilities;
     }
 
-    public ArmorProficiency[] getRacialArmorProficiencies()
-    {
+    public ArmorProficiency[] getRacialArmorProficiencies() {
         return racialArmorProficiencies;
     }
 
-    public WeaponProficiency[] getRacialWeaponProficiencies()
-    {
+    public WeaponProficiency[] getRacialWeaponProficiencies() {
         return racialWeaponProficiencies;
     }
 
-    public SavingThrowModifier[] getSavingThrowModifiers()
-    {
+    public SavingThrowModifier[] getSavingThrowModifiers() {
         return savingThrowModifiers;
     }
 
-    public Size getSize()
-    {
+    public Size getSize() {
         return size;
     }
 
-    public int getSpeed()
-    {
+    public int getSpeed() {
         return speed;
     }
 
-    public int getStartingModifiedSkillPoints()
-    {
+    public int getStartingModifiedSkillPoints() {
         return startingModifiedSkillPoints;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return name;
     }
 
@@ -138,14 +123,11 @@ public abstract class Race
      *
      * @author Jacob Dorman
      */
-    public static class Human extends Race
-    {
+    public static class Human extends Race {
 
-        public Human()
-        {
+        public Human() {
             name = "Human";
-            languages = new Language[]
-            {
+            languages = new Language[]{
                 Language.COMMON
             };
             size = new Size.Medium();

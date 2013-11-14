@@ -1,7 +1,8 @@
 package character;
 
 import character.classes.CharacterClass;
-import interfaces.SaveStateTracker;
+import main.SaveStateTracker;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -10,8 +11,9 @@ import java.util.ArrayList;
  *
  * @author Jacob Dorman
  */
-public class CharacterClassInfo extends SaveStateTracker {
+public class CharacterClassInfo extends SaveStateTracker implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     private ArrayList<CharacterClass> list;
 
     public CharacterClassInfo() {

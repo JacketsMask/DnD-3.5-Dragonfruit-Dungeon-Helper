@@ -4,17 +4,20 @@
  */
 package character;
 
+import character.classes.CharacterClass;
 import character.proficiencies.ArmorProficiency;
 import character.proficiencies.WeaponProficiency;
-import interfaces.SaveStateTracker;
+import main.SaveStateTracker;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Japhez
  */
-public class CharacterProficiencies extends SaveStateTracker {
+public class CharacterProficiencies extends SaveStateTracker implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     private ArrayList<ArmorProficiency> armorProficiencyList;
     private ArrayList<WeaponProficiency> weaponProficiencyList;
 
@@ -61,5 +64,21 @@ public class CharacterProficiencies extends SaveStateTracker {
 
     public boolean hasWeaponProficiency(WeaponProficiency proficiency) {
         return (weaponProficiencyList.contains(proficiency));
+    }
+
+    public void updateProficienciesFromClasses(ArrayList<CharacterClass> characterClasses) {
+        for (CharacterClass cc : characterClasses) {
+            for (ArmorProficiency ap : cc.getArmorProficiencies()) {
+                if (!armorProficiencyList.contains(ap)) {
+                    armorProficiencyList.add(ap);
+                }
+            }
+            for (WeaponProficiency wp : cc.getWeaponProficiencies()) {
+                if (!weaponProficiencyList.contains(wp)) {
+                    weaponProficiencyList.add(wp);
+                }
+            }
+        }
+        System.out.println("Proficiencies updated from new class information.");
     }
 }

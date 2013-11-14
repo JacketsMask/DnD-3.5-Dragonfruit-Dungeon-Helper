@@ -4,7 +4,8 @@ import abstracts.Size;
 import character.races.Race;
 import enumerations.Alignment;
 import enumerations.Gender;
-import interfaces.SaveStateTracker;
+import main.SaveStateTracker;
+import java.io.Serializable;
 import java.util.Random;
 
 /**
@@ -12,8 +13,9 @@ import java.util.Random;
  *
  * @author Jacob Dorman
  */
-public class CharacterBasicInfo extends SaveStateTracker {
+public class CharacterBasicInfo extends SaveStateTracker implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     private final String[] FIRST_NAMES = {
         "Xavier", "The", "Winged", "Cowardly", "Subpar"
     };

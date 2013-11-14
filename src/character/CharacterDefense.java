@@ -4,8 +4,10 @@ import abstracts.Size;
 import character.classes.CharacterClass;
 import character.inventory.Armor;
 import enumerations.AbilityScore;
-import interfaces.SaveStateTracker;
+import main.SaveStateTracker;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Represents an entity's defensive capabilities. This includes AC and dodge, if
@@ -13,10 +15,11 @@ import java.util.ArrayList;
  *
  * @author Jacob Dorman
  */
-public class CharacterDefense extends SaveStateTracker {
+public class CharacterDefense extends SaveStateTracker implements Serializable {
     //AC = 10 + armor bonus + shield bonus + AbilityScore modifier + size modifier
 
     //Core AC stats
+    private static final long serialVersionUID = 1L;
     private static final int BASE_AC = 10;
     private Player character;
     private ArrayList<Armor> equippedArmor;

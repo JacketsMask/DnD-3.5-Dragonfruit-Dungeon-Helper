@@ -1,20 +1,17 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package character.races;
 
-import character.races.Race;
+import java.io.Serializable;
 
 /**
  *
  * @author Japhez
  */
-public class CustomRace extends Race {
+public class CustomRace extends Race implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     public CustomRace(String name) {
         super();
         this.name = name;
     }
-    
 }

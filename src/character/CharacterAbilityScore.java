@@ -2,7 +2,8 @@ package character;
 
 import diceroller.DiceRoller;
 import enumerations.AbilityScore;
-import interfaces.SaveStateTracker;
+import main.SaveStateTracker;
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
@@ -12,8 +13,9 @@ import java.util.HashMap;
  *
  * @author Jacob Dorman
  */
-public final class CharacterAbilityScore extends SaveStateTracker {
+public final class CharacterAbilityScore extends SaveStateTracker implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     private HashMap<AbilityScore, Integer> abilityScoreBases;
     private HashMap<AbilityScore, Integer> abilityScoreBonuses;
     private HashMap<AbilityScore, Integer> abilityScoreModifiers;

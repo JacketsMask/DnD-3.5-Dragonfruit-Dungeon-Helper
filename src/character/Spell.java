@@ -8,9 +8,9 @@ import java.util.HashMap;
  *
  * @author Jacob Dorman
  */
-public class Spell implements Serializable
-{
+public class Spell implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     //The name of this spell
     private String name;
     //The description of this spell
@@ -49,11 +49,10 @@ public class Spell implements Serializable
     //The last used modififier for the roll result
     private int lastModifier;
 
-    public Spell(String spellName)
-    {
+    public Spell(String spellName) {
         this.name = spellName;
     }
-    
+
     public boolean isRollable() {
         return (diceNumber > 0 && diceSides > 0);
     }
@@ -197,8 +196,7 @@ public class Spell implements Serializable
     /**
      * An enumeration of the schools of spells that exist.
      */
-    public enum School
-    {
+    public enum School {
 
         ABJURATION, CONJURATION, DIVINATION, ENCHANTMENT, EVOCATION, ILLUSION,
         NECROMANCY, TRANSMUTATION, UNIVERSAL;
@@ -212,8 +210,7 @@ public class Spell implements Serializable
          * rest lower case.
          */
         @Override
-        public String toString()
-        {
+        public String toString() {
             String output = name().toString();
             output = output.charAt(0) + output.substring(1).toLowerCase();
             return output;
@@ -222,21 +219,18 @@ public class Spell implements Serializable
         /**
          * @return an ArrayList of the spell schools
          */
-        public static School[] getSchools()
-        {
-            return new School[]
-                    {
-                        ABJURATION, CONJURATION, DIVINATION,
-                        ENCHANTMENT, EVOCATION, ILLUSION, NECROMANCY, TRANSMUTATION, UNIVERSAL
-                    };
+        public static School[] getSchools() {
+            return new School[]{
+                ABJURATION, CONJURATION, DIVINATION,
+                ENCHANTMENT, EVOCATION, ILLUSION, NECROMANCY, TRANSMUTATION, UNIVERSAL
+            };
         }
     }
 
     /**
      * An enumeration of the types of basic types of spells that exist.
      */
-    public enum SpellType
-    {
+    public enum SpellType {
 
         UTILITY, ATTACK, DEFENSIVE;
 
@@ -249,8 +243,7 @@ public class Spell implements Serializable
          * rest lower case.
          */
         @Override
-        public String toString()
-        {
+        public String toString() {
             String output = name().toString();
             output = output.charAt(0) + output.substring(1).toLowerCase();
             return output;

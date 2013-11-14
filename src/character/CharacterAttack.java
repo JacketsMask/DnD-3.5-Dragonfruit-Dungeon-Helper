@@ -3,7 +3,8 @@ package character;
 import character.inventory.Weapon;
 import diceroller.DiceRoll;
 import diceroller.DiceRoller;
-import interfaces.SaveStateTracker;
+import main.SaveStateTracker;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -12,8 +13,9 @@ import java.util.ArrayList;
  *
  * @author Japhez
  */
-public class CharacterAttack extends SaveStateTracker {
+public class CharacterAttack extends SaveStateTracker implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     private int attackRoll;
     private int damageRollBonus;
     private ArrayList<Weapon> equippedWeapons;

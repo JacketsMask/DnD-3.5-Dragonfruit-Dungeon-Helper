@@ -2,7 +2,8 @@ package character;
 
 import enumerations.AbilityScore;
 import enumerations.Skill;
-import interfaces.SaveStateTracker;
+import main.SaveStateTracker;
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
@@ -12,8 +13,9 @@ import java.util.HashMap;
  *
  * @author Jacob Dorman
  */
-public class CharacterSkills extends SaveStateTracker {
+public class CharacterSkills extends SaveStateTracker implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     private Player player;
     private HashMap<Skill, Integer> skillRanks; //Base skills
     private HashMap<Skill, Integer> skillMiscModifier; //Temporary or names bonuses/penalties
