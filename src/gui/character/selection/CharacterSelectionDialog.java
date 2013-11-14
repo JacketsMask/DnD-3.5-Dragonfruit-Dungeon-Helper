@@ -10,7 +10,6 @@ import gui.basicinfo.BasicInfoDialog;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
-import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -209,6 +208,7 @@ public class CharacterSelectionDialog extends javax.swing.JDialog {
      * adds each one as a radio button, and groups the buttons together.
      */
     private void populateList() {
+        model.clear();
         String[] savedCharacters = FileManipulator.getSavedCharacters();
         if (savedCharacters.length > 0) {
             //Add each character to the list
