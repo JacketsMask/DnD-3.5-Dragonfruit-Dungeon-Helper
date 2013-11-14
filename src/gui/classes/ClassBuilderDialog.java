@@ -724,9 +724,9 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
                 newClass.setCasterType(CasterType.ARCANE_CASTER);
             } else if (divineSpellcasterRadioButton.isSelected()) {
                 newClass.setCasterType(CasterType.DIVINE_CASTER);
-            } else {
-                newClass.setCasterType(CasterType.NON_CASTER);
             }
+        } else {
+            newClass.setCasterType(CasterType.NON_CASTER);
         }
         //Ability information
         if (usesAbilitiesCheckBox.isSelected()) {
@@ -736,7 +736,7 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
         }
 
         //Table
-        HashMap<Integer,CharacterClassLevelData> map = new HashMap<>();
+        HashMap<Integer, CharacterClassLevelData> map = new HashMap<>();
         TableColumnModel columnModel = classTable.getColumnModel();
         int levelColumn = columnModel.getColumnIndex("Level");
         int babColumn = columnModel.getColumnIndex("Base Attack Bonus");
@@ -755,7 +755,7 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
             String notes = (String) classTable.getValueAt(i, notesColumn);
             CharacterClassLevelData data = new CharacterClassLevelData(localLevel, bab, fortSave, reflexSave, willSave, notes);
             //Add it all to the map at this level
-            map.put(localLevel,data);
+            map.put(localLevel, data);
         }
         newClass.setLevelDataMap(map);
         //Skill ranks
