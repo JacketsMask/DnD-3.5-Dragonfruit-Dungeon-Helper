@@ -3,7 +3,6 @@ package gui.basicinfo;
 import character.races.CustomRace;
 import character.races.Race;
 import character.CharacterBasicInfo;
-import character.ComponentLockableIntegerVerifier;
 import character.Player;
 import character.classes.CharacterClass;
 import enumerations.Alignment;
@@ -13,6 +12,7 @@ import gui.classes.ClassBuilderDialog;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
+import main.ComponentLockableIntegerVerifier;
 
 /**
  *
@@ -20,14 +20,12 @@ import javax.swing.JComboBox;
  */
 public class BasicInfoDialog extends javax.swing.JDialog {
 
-    private BasicInfoPanel parent;
     private Player player;
 
     /**
      * Creates new form GeneralInformationDialog
      */
-    public BasicInfoDialog(BasicInfoPanel parent, boolean modal, Player player) {
-        this.parent = parent;
+    public BasicInfoDialog(boolean modal, Player player) {
         this.player = player;
         initComponents();
         preFillCharacterInformation();
@@ -417,7 +415,8 @@ public class BasicInfoDialog extends javax.swing.JDialog {
         if (!(characterInfo.getSkinColor().equals(dialogSkinTextField.getText()))) {
             characterInfo.setSkinColor(dialogSkinTextField.getText());
         }
-        parent.loadInfo();
+        //Update proficiencies from class information
+        player.getProficiencies().updateProficienciesFromClasses(player.getClassInfo().getCharacterClasses());
         this.setVisible(false);
     }//GEN-LAST:event_dialogCharacterCommitButtonActionPerformed
 
