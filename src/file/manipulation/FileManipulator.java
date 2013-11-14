@@ -3,16 +3,22 @@ package file.manipulation;
 import abstracts.Ability;
 import character.Player;
 import character.CharacterAbilityScore;
+import character.CharacterAttack;
 import character.CharacterBasicInfo;
 import character.CharacterClassInfo;
 import character.CharacterDefense;
+import character.CharacterHealth;
+import character.CharacterProficiencies;
+import character.CharacterSkills;
 import character.Spell;
 import character.classes.CharacterClass;
+import character.effects.EffectManager;
 import character.inventory.CharacterInventory;
 import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -54,7 +60,7 @@ public class FileManipulator {
 
     public static void writeClass(CharacterClass cClass) {
         writeObject(cClass, CLASS_PATH, cClass.getName() + ".class");
-        System.out.println(cClass.getName()+ " class data written to file.");
+        System.out.println(cClass.getName() + " class data written to file.");
     }
 
     public static void writeClassBundle(CharacterClass[] classes, String bundleName) {
@@ -74,11 +80,16 @@ public class FileManipulator {
         File file = new File(path);
         file.mkdirs();
         //Write all applicable information to the file
-        writeObject(character.getAbilityScore(), path, "ability score");
+        writeObject(character.getBasicInfo(), path, "basic info");
+        writeObject(character.getHealth(), path, "health");
         writeObject(character.getClassInfo(), path, "classes");
+        writeObject(character.getAbilityScore(), path, "ability score");
+        writeObject(character.getAttack(), path, "attack");
         writeObject(character.getDefense(), path, "defense");
-        writeObject(character.getBasicInfo(), path, "character");
+        writeObject(character.getProficiencies(), path, "proficiencies");
         writeObject(character.getInventory(), path, "inventory");
+        writeObject(character.getEffectManager(), path, "effects");
+        writeObject(character.getSkills(), path, "skills");
     }
 
     /**
@@ -105,11 +116,57 @@ public class FileManipulator {
     public static Player readCharacterFromFile(String characterName) {
         String path = (CHARACTER_PATH + File.separator + characterName + File.separator);
         Player character = new Player();
-        character.setAbilityScore((CharacterAbilityScore) readObject(path, "ability score"));
-        character.setBasicInfo((CharacterBasicInfo) readObject(path, "character"));
-        character.setClassInfo((CharacterClassInfo) readObject(path, "classes"));
-        character.setDefense((CharacterDefense) readObject(path, "defense"));
-        character.setInventory((CharacterInventory) readObject(path, "inventory"));
+        try {
+            character.setBasicInfo((CharacterBasicInfo) readObject(path, "basic info"));
+        } catch (ClassNotFoundException | IOException ex) {
+            JOptionPane.showMessageDialog(null, "Basic info serialization outdated.  You'll have to re-enter a bit of data for your character. Sorry about that.", "Oops", JOptionPane.OK_OPTION);
+//            character.setBasicInfo(new CharacterBasicInfo());
+        }
+        try {
+            character.setHealth((CharacterHealth) readObject(path, "health"));
+        } catch (ClassNotFoundException | IOException ex) {
+            Logger.getLogger(FileManipulator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            character.setClassInfo((CharacterClassInfo) readObject(path, "classes"));
+        } catch (ClassNotFoundException | IOException ex) {
+            Logger.getLogger(FileManipulator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            character.setAbilityScore((CharacterAbilityScore) readObject(path, "ability score"));
+        } catch (ClassNotFoundException | IOException ex) {
+            JOptionPane.showMessageDialog(null, "Ability score serialization outdated.  You'll have to re-enter a bit of data for your character. Sorry about that.", "Oops", JOptionPane.OK_OPTION);
+        }
+        try {
+            character.setAttack((CharacterAttack) readObject(path, "attack"));
+        } catch (ClassNotFoundException | IOException ex) {
+            Logger.getLogger(FileManipulator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            character.setDefense((CharacterDefense) readObject(path, "defense"));
+        } catch (ClassNotFoundException | IOException ex) {
+            Logger.getLogger(FileManipulator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            character.setProficiencies((CharacterProficiencies) readObject(path, "proficiencies"));
+        } catch (ClassNotFoundException | IOException ex) {
+            Logger.getLogger(FileManipulator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            character.setInventory((CharacterInventory) readObject(path, "inventory"));
+        } catch (ClassNotFoundException | IOException ex) {
+            Logger.getLogger(FileManipulator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            character.setEffectManager((EffectManager) readObject(path, "effects"));
+        } catch (ClassNotFoundException | IOException ex) {
+            Logger.getLogger(FileManipulator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            character.setSkills((CharacterSkills) readObject(path, "skills"));
+        } catch (ClassNotFoundException | IOException ex) {
+            Logger.getLogger(FileManipulator.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return character;
     }
 
@@ -125,8 +182,13 @@ public class FileManipulator {
         if (file == null) {
             return null;
         }
-        //Attempt to deserialize the spell to return it.
-        return (Spell) readObject(SPELL_PATH, file.getName());
+        try {
+            //Attempt to deserialize the spell to return it.
+            return (Spell) readObject(SPELL_PATH, file.getName());
+        } catch (ClassNotFoundException | IOException ex) {
+            Logger.getLogger(FileManipulator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     /**
@@ -177,7 +239,7 @@ public class FileManipulator {
      * @param fileName
      * @return the read in object
      */
-    private static Object readObject(String path, String fileName) {
+    private static Object readObject(String path, String fileName) throws ClassNotFoundException, IOException {
 
         try {
             Object result;
@@ -187,9 +249,8 @@ public class FileManipulator {
             }
 
         } catch (ClassNotFoundException | IOException ex) {
-            Logger.getLogger(FileManipulator.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
         }
-        return null;
     }
 
     /**
@@ -222,7 +283,11 @@ public class FileManipulator {
         }
         CharacterClass[] classes = new CharacterClass[listFiles.length];
         for (int i = 0; i < classes.length; i++) {
-            classes[i] = (CharacterClass) readObject(CLASS_PATH, listFiles[i].getName());
+            try {
+                classes[i] = (CharacterClass) readObject(CLASS_PATH, listFiles[i].getName());
+            } catch (ClassNotFoundException | IOException ex) {
+                Logger.getLogger(FileManipulator.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return classes;
     }
