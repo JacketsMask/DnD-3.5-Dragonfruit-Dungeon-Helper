@@ -10,6 +10,7 @@ import enumerations.Skill;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.DefaultListModel;
+import javax.swing.JTable;
 import javax.swing.ListModel;
 import javax.swing.UIManager;
 import javax.swing.table.TableColumnModel;
@@ -23,6 +24,7 @@ import main.TableColumnAdjuster;
 public class ClassBuilderDialog extends javax.swing.JDialog {
 
     private CharacterClass newClass;
+    private ClassBuilderSpellsPerDayPanel spellsPerDayPanel;
 
     /**
      * Creates new form ClassBuilder
@@ -49,7 +51,7 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
     private void initComponents() {
 
         casterTypeButtonGroup = new javax.swing.ButtonGroup();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        mainTabbedPane = new javax.swing.JTabbedPane();
         basicInfoPanel = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         hitDieTextField = new javax.swing.JTextField();
@@ -79,6 +81,7 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
         usesAbilitiesCheckBox = new javax.swing.JCheckBox();
         arcaneSpellcasterRadioButton = new javax.swing.JRadioButton();
         divineSpellcasterRadioButton = new javax.swing.JRadioButton();
+        getsDomainSpellCheckBox = new javax.swing.JCheckBox();
         tablePanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         classTable = new javax.swing.JTable();
@@ -112,6 +115,8 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
         unknownWeaponProficiencyList = new javax.swing.JList();
         jScrollPane6 = new javax.swing.JScrollPane();
         knownWeaponProficiencyList = new javax.swing.JList();
+        simpleWeaponsCheckBox = new javax.swing.JCheckBox();
+        martialWeaponsCheckBox = new javax.swing.JCheckBox();
         jPanel9 = new javax.swing.JPanel();
         finishClassButton = new javax.swing.JButton();
 
@@ -124,13 +129,13 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
 
         jLabel5.setText("Hitdie: 1D");
 
-        nameTextField.setText("Cleric");
+        nameTextField.setText("Potato Defender");
 
         jLabel3.setText("Starting gold:");
 
         startingGoldNumDieTextField.setText("5");
 
-        jLabel4.setText("D");
+        jLabel4.setText("d");
 
         startingGoldSidesTextField.setText("4");
 
@@ -142,31 +147,32 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+                        .addGap(10, 10, 10))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(startingGoldNumDieTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(startingGoldSidesTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(startingGoldMultiplierTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(hitDieTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(startingGoldNumDieTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(startingGoldSidesTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(startingGoldMultiplierTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(hitDieTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,7 +194,7 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
                     .addComponent(startingGoldSidesTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
                     .addComponent(startingGoldMultiplierTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(353, Short.MAX_VALUE))
         );
 
         lawfulGoodCheckBox.setSelected(true);
@@ -267,7 +273,6 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
 
         jLabel13.setText("Casting information:");
 
-        castsSpellsCheckBox.setSelected(true);
         castsSpellsCheckBox.setText("Casts Spells");
         castsSpellsCheckBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -280,10 +285,14 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
 
         casterTypeButtonGroup.add(arcaneSpellcasterRadioButton);
         arcaneSpellcasterRadioButton.setText("Arcane spellcaster");
+        arcaneSpellcasterRadioButton.setEnabled(false);
 
         casterTypeButtonGroup.add(divineSpellcasterRadioButton);
-        divineSpellcasterRadioButton.setSelected(true);
         divineSpellcasterRadioButton.setText("Divine spellcaster");
+        divineSpellcasterRadioButton.setEnabled(false);
+
+        getsDomainSpellCheckBox.setText("Gets domain spell");
+        getsDomainSpellCheckBox.setEnabled(false);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -301,7 +310,8 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
                         .addGap(21, 21, 21)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(divineSpellcasterRadioButton)
-                            .addComponent(arcaneSpellcasterRadioButton))))
+                            .addComponent(arcaneSpellcasterRadioButton)
+                            .addComponent(getsDomainSpellCheckBox))))
                 .addContainerGap(186, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
@@ -315,7 +325,9 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
                 .addComponent(arcaneSpellcasterRadioButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(divineSpellcasterRadioButton)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(getsDomainSpellCheckBox)
+                .addGap(47, 47, 47)
                 .addComponent(usesAbilitiesCheckBox)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -327,23 +339,23 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
             .addGroup(basicInfoPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(138, Short.MAX_VALUE))
         );
         basicInfoPanelLayout.setVerticalGroup(
             basicInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, basicInfoPanelLayout.createSequentialGroup()
-                .addGap(0, 42, Short.MAX_VALUE)
+                .addGap(0, 113, Short.MAX_VALUE)
                 .addGroup(basicInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
-        jTabbedPane1.addTab("Basic class info", basicInfoPanel);
+        mainTabbedPane.addTab("Basic class info", basicInfoPanel);
 
         classTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -390,18 +402,18 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
             tablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tablePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 933, Short.MAX_VALUE)
                 .addContainerGap())
         );
         tablePanelLayout.setVerticalGroup(
             tablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tablePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Table", tablePanel);
+        mainTabbedPane.addTab("Table", tablePanel);
 
         crossClassSkillsList.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -444,7 +456,7 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -509,7 +521,7 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(237, Short.MAX_VALUE))
+                .addContainerGap(423, Short.MAX_VALUE))
         );
         skillsLayout.setVerticalGroup(
             skillsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -517,7 +529,7 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Skills", skills);
+        mainTabbedPane.addTab("Skills", skills);
 
         knownArmorProficiencyList.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -561,7 +573,7 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
                     .addComponent(jLabel14))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
                     .addComponent(jScrollPane4))
                 .addContainerGap())
         );
@@ -584,18 +596,35 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
         });
         jScrollPane6.setViewportView(knownWeaponProficiencyList);
 
+        simpleWeaponsCheckBox.setText("Simple weapons");
+        simpleWeaponsCheckBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                simpleWeaponsCheckBoxItemStateChanged(evt);
+            }
+        });
+
+        martialWeaponsCheckBox.setText("Martial weapons");
+        martialWeaponsCheckBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                martialWeaponsCheckBoxItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(simpleWeaponsCheckBox)
+                    .addComponent(martialWeaponsCheckBox)
+                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel17)
                     .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -605,13 +634,18 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(jLabel17)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE))
-                    .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(jLabel16)
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane6)))
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(simpleWeaponsCheckBox)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(martialWeaponsCheckBox)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(jLabel17)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane7)))
                 .addContainerGap())
         );
 
@@ -623,7 +657,7 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -634,7 +668,7 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Proficiencies", jPanel6);
+        mainTabbedPane.addTab("Proficiencies", jPanel6);
 
         finishClassButton.setText("FINISH HIM");
         finishClassButton.addActionListener(new java.awt.event.ActionListener() {
@@ -648,31 +682,29 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(293, 293, 293)
+                .addGap(386, 386, 386)
                 .addComponent(finishClassButton)
-                .addContainerGap(313, Short.MAX_VALUE))
+                .addContainerGap(462, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                .addContainerGap(185, Short.MAX_VALUE)
+                .addContainerGap(251, Short.MAX_VALUE)
                 .addComponent(finishClassButton)
-                .addGap(186, 186, 186))
+                .addGap(197, 197, 197))
         );
 
-        jTabbedPane1.addTab("Finishing", jPanel9);
+        mainTabbedPane.addTab("Finishing", jPanel9);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(mainTabbedPane)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(mainTabbedPane)
         );
 
         pack();
@@ -725,6 +757,10 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
             } else if (divineSpellcasterRadioButton.isSelected()) {
                 newClass.setCasterType(CasterType.DIVINE_CASTER);
             }
+            //Get spells per level
+            TableColumnModel columnModel = spellsPerDayPanel.getSpellsPerDayTable().getColumnModel();
+            int[] spellsPerDay = new int[10];
+            
         } else {
             newClass.setCasterType(CasterType.NON_CASTER);
         }
@@ -784,7 +820,7 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
             weaponProficiencies[i] = (WeaponProficiency) weaponProficiencyModel.getElementAt(i);
         }
         newClass.setWeaponProficiencies(weaponProficiencies);
-        newClass.setCurrentLevel(20);
+        newClass.setCurrentLevel(1);
         //Class is done
         this.setVisible(false);
     }//GEN-LAST:event_finishClassButtonActionPerformed
@@ -794,12 +830,61 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
             arcaneSpellcasterRadioButton.setEnabled(true);
             casterTypeButtonGroup.setSelected(divineSpellcasterRadioButton.getModel(), true);
             divineSpellcasterRadioButton.setEnabled(true);
+            getsDomainSpellCheckBox.setEnabled(true);
+            //Add spells per day tab
+            //Initialize if necessary
+            if (spellsPerDayPanel == null) {
+                spellsPerDayPanel = new ClassBuilderSpellsPerDayPanel();
+                JTable spellsPerDayTable = spellsPerDayPanel.getSpellsPerDayTable();
+                new TableColumnAdjuster(spellsPerDayTable).adjustColumns();
+            }
+            mainTabbedPane.add(spellsPerDayPanel, 3);
         } else {
             arcaneSpellcasterRadioButton.setEnabled(false);
             divineSpellcasterRadioButton.setEnabled(false);
+            getsDomainSpellCheckBox.setEnabled(false);
+            getsDomainSpellCheckBox.setSelected(false);
             casterTypeButtonGroup.clearSelection();
+            //Remove spells per day tab
+            mainTabbedPane.remove(3);
         }
     }//GEN-LAST:event_castsSpellsCheckBoxItemStateChanged
+
+    private void simpleWeaponsCheckBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_simpleWeaponsCheckBoxItemStateChanged
+        //Selected, add simple weapon proficiencies to known list and remove them from unknown list
+        ArrayList<WeaponProficiency> simpleWeapons = WeaponProficiency.getSimpleWeapons();
+        DefaultListModel unknown = (DefaultListModel) unknownWeaponProficiencyList.getModel();
+        DefaultListModel known = (DefaultListModel) knownWeaponProficiencyList.getModel();
+        if (simpleWeaponsCheckBox.isSelected()) {
+            for (WeaponProficiency wp : simpleWeapons) {
+                unknown.removeElement(wp);
+                known.addElement(wp);
+            }
+        } else {
+            for (WeaponProficiency wp : simpleWeapons) {
+                known.removeElement(wp);
+                unknown.addElement(wp);
+            }
+        }
+    }//GEN-LAST:event_simpleWeaponsCheckBoxItemStateChanged
+
+    private void martialWeaponsCheckBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_martialWeaponsCheckBoxItemStateChanged
+        //Selected, add martial weapon proficiencies to known list and remove them from unknown list
+        ArrayList<WeaponProficiency> martialWeapons = WeaponProficiency.getMartialWeapons();
+        DefaultListModel unknown = (DefaultListModel) unknownWeaponProficiencyList.getModel();
+        DefaultListModel known = (DefaultListModel) knownWeaponProficiencyList.getModel();
+        if (martialWeaponsCheckBox.isSelected()) {
+            for (WeaponProficiency wp : martialWeapons) {
+                unknown.removeElement(wp);
+                known.addElement(wp);
+            }
+        } else {
+            for (WeaponProficiency wp : martialWeapons) {
+                known.removeElement(wp);
+                unknown.addElement(wp);
+            }
+        }
+    }//GEN-LAST:event_martialWeaponsCheckBoxItemStateChanged
 
     private void initProficiencyLists() {
         //Armor
@@ -894,6 +979,7 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
     private javax.swing.JList crossClassSkillsList;
     private javax.swing.JRadioButton divineSpellcasterRadioButton;
     private javax.swing.JButton finishClassButton;
+    private javax.swing.JCheckBox getsDomainSpellCheckBox;
     private javax.swing.JTextField hitDieTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -928,15 +1014,17 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JList knownArmorProficiencyList;
     private javax.swing.JList knownWeaponProficiencyList;
     private javax.swing.JCheckBox lawfulEvilCheckBox;
     private javax.swing.JCheckBox lawfulGoodCheckBox;
     private javax.swing.JCheckBox lawfulNeutralCheckBox;
+    private javax.swing.JTabbedPane mainTabbedPane;
+    private javax.swing.JCheckBox martialWeaponsCheckBox;
     private javax.swing.JTextField nameTextField;
     private javax.swing.JCheckBox neutralEvilCheckBox;
     private javax.swing.JCheckBox neutralGoodCheckBox;
+    private javax.swing.JCheckBox simpleWeaponsCheckBox;
     private javax.swing.JTextField skillInitialModifierTextField;
     private javax.swing.JTextField skillModifierTextField;
     private javax.swing.JPanel skills;
