@@ -10,6 +10,7 @@ import java.io.Serializable;
  */
 public class Wallet implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     private static final int COPPER_PER_PLATINUM = 1000;
     private static final int COPPER_PER_GOLD = 100;
     private static final int COPPER_PER_SILVER = 10;

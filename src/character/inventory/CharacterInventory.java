@@ -1,6 +1,7 @@
 package character.inventory;
 
-import interfaces.SaveStateTracker;
+import main.SaveStateTracker;
+import java.io.Serializable;
 import javax.swing.DefaultListModel;
 
 /**
@@ -9,8 +10,9 @@ import javax.swing.DefaultListModel;
  *
  * @author Jacob Dorman
  */
-public class CharacterInventory extends SaveStateTracker {
+public class CharacterInventory extends SaveStateTracker implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     private Wallet wallet;
     private DefaultListModel<Item> itemList;
 
