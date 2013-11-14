@@ -4,8 +4,10 @@
  */
 package main;
 
+import character.Player;
 import file.manipulation.FileManipulator;
 import gui.BaseFrame;
+import gui.character.selection.CharacterSelectionDialog;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,8 +40,14 @@ public class NewMain {
                 try {
                     //Verify data hierarchy
                     FileManipulator.verifiyFileHierarchy();
+                    //Select player file
+                    CharacterSelectionDialog selection = new CharacterSelectionDialog(null, true);
+                    selection.setVisible(true);
+                    Player player = selection.getPlayer();
+                    //Start the serialization thread for this player
+                    new Thread(new SerializationThread(player)).start();
                     //Create the main frame and sub-panels
-                    BaseFrame gui = new BaseFrame();
+                    BaseFrame gui = new BaseFrame(player);
                     //Set the location of the new window to be determined by the OS
                     gui.setLocationByPlatform(true);
                     //Make the window visible
