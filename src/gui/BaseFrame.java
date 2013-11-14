@@ -1,5 +1,7 @@
 package gui;
 
+import character.CharacterClassInfo;
+import gui.classes.AbilityPanel;
 import gui.skills.SkillsPanel;
 import gui.proficiency.ProficiencyPanel;
 import gui.basicinfo.BasicInfoPanel;
@@ -7,10 +9,14 @@ import gui.inventory.InventoryPanel;
 import gui.abilityscore.AbilityScorePanel;
 import gui.defense.DefensePanel;
 import character.Player;
+import character.classes.CharacterClass;
+import enumerations.CasterType;
 import gui.chat.ChatPanel;
+import gui.classes.SpellPanel;
 import gui.inventory.WalletPanel;
 import interfaces.CharacterInfoRetriever;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.JTabbedPane;
 
 /**
@@ -21,8 +27,8 @@ public final class BaseFrame extends javax.swing.JFrame {
 
     private Player player;
 
-    public BaseFrame() throws IOException {
-        player = new Player();
+    public BaseFrame(Player player) throws IOException {
+        this.player = player;
         initComponents();
         addPanels();
     }
@@ -103,7 +109,18 @@ public final class BaseFrame extends javax.swing.JFrame {
     private void addPanels() throws IOException, IOException {
         characterInfoTabbedPane.addTab("General", new BasicInfoPanel(player));
         characterInfoTabbedPane.addTab("Ability Score", new AbilityScorePanel(player));
-        characterInfoTabbedPane.addTab("Class", new ClassPanel(player.getClassInfo()));
+        CharacterClassInfo classInfo = player.getClassInfo();
+        ArrayList<CharacterClass> characterClasses = classInfo.getCharacterClasses();
+        for (CharacterClass cc : characterClasses) {
+            JTabbedPane classTabs = new JTabbedPane();
+            characterInfoTabbedPane.addTab(cc.getName(), classTabs);
+            if (!cc.getCasterType().equals(CasterType.NON_CASTER)) {
+                classTabs.addTab("Spells", new SpellPanel(player));
+            }
+            if (cc.isAbilityUser()) {
+                classTabs.addTab("Abilities", new AbilityPanel(player));
+            }
+        }
         characterInfoTabbedPane.addTab("Skills", new SkillsPanel(player));
         characterInfoTabbedPane.addTab("Attack", new AttackPanel(player));
         characterInfoTabbedPane.addTab("Defense", new DefensePanel(player));
@@ -116,5 +133,9 @@ public final class BaseFrame extends javax.swing.JFrame {
         characterInfoTabbedPane.add("Inventory", inventoryTabbedPane);
         chatTabbedPane.add("All", new ChatPanel(player));
         pack();
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }
