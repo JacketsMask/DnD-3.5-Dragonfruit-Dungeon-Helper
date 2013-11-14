@@ -4,7 +4,8 @@ import character.CharacterAttack;
 import character.CharacterDefense;
 import character.Player;
 import enumerations.AbilityScore;
-import interfaces.SaveStateTracker;
+import main.SaveStateTracker;
+import java.io.Serializable;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 
@@ -13,8 +14,9 @@ import javax.swing.DefaultListModel;
  *
  * @author Jacob Dorman
  */
-public class EffectManager extends SaveStateTracker {
+public class EffectManager extends SaveStateTracker implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     private ArrayList<Effect> permanentEffects;
     private ArrayList<Effect> transientEffects;
     private Player character;
