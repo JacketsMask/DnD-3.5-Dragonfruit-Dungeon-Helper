@@ -3,34 +3,27 @@ package character.classes;
 import character.proficiencies.WeaponProficiency;
 import character.proficiencies.ArmorProficiency;
 import enumerations.*;
-import abstracts.Ability;
+import gui.classes.CharacterClassLevelData;
 import java.io.Serializable;
 import java.util.ArrayList;
-import javax.swing.DefaultListModel;
+import java.util.HashMap;
 
 /**
- * A basic character class to be extended and set by child classes.
+ * A character class containing most of the information pertaining to a class.
  *
  * @author Jacob Dorman
  */
-public abstract class CharacterClass implements Serializable {
-    //The name of this class
+public class CharacterClass implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    //The name of this class
     protected String name;
-    //The current level of this class
-    protected int level;
-    //The current base attack bonus of this class
-    protected int baseAttackBonus;
+    //Current level
+    protected int currentLevel;
     //Hit die
     protected int hitDie;
-    //Savings throws
-    protected int fortitudeSavingThrow;
-    protected int reflexSavingThrow;
-    protected int willSavingThrow;
     //The class skills of that this class provides
     protected Skill[] classSkills;
-    //The list of abilities
-    protected DefaultListModel<Ability> abilityListModel;
     //Armor proficiencies
     protected ArmorProficiency[] armorProficiencies;
     //Weapon proficiencies
@@ -43,27 +36,60 @@ public abstract class CharacterClass implements Serializable {
     protected StartingGold startingGold;
     //Caster type
     protected CasterType casterType;
+    //Whether or not this class uses abilities
+    protected boolean usesAbilities;
     //Starting skill ranks
     protected int initialSkillRankModifier;
     protected int skillRankModifier;
+    //Class data for each level
+    protected HashMap<Integer, CharacterClassLevelData> levelDataMap;
 
     public CharacterClass() {
         name = "Undefined";
-        level = 1;
-        baseAttackBonus = 0;
-        fortitudeSavingThrow = 0;
-        reflexSavingThrow = 0;
-        willSavingThrow = 0;
-        classSkills = new Skill[0];
-        abilityListModel = new DefaultListModel<>();
-        armorProficiencies = new ArmorProficiency[0];
-        weaponProficiencies = new WeaponProficiency[0];
         restrictedAlignments = new ArrayList<>();
-        classNotes = "[Enter class notes here]";
-        hitDie = 6;
-        startingGold = new StartingGold(1, 1, 10);
-        casterType = CasterType.NON_CASTER;
-        initialSkillRankModifier = 0;
+        levelDataMap = new HashMap<>();
+    }
+
+    public int getCurrentLevel() {
+        return currentLevel;
+    }
+
+    public void setCurrentLevel(int currentLevel) {
+        this.currentLevel = currentLevel;
+    }
+
+    public int getFortSaveModifier() {
+        return levelDataMap.get(currentLevel).getFortSave();
+    }
+
+    public int getRefSaveModifier() {
+        return levelDataMap.get(currentLevel).getRefSave();
+    }
+
+    public int getWillSaveModifier() {
+        return levelDataMap.get(currentLevel).getWillSave();
+    }
+    
+    public int[] getBaseAttackBonus() {
+        return levelDataMap.get(currentLevel).getBaseAttackBonus();
+    }
+
+    public CharacterClass(String name) {
+        this.name = name;
+        restrictedAlignments = new ArrayList<>();
+        levelDataMap = new HashMap<>();
+    }
+
+    public void setLevelDataMap(HashMap<Integer, CharacterClassLevelData> levelDataMap) {
+        this.levelDataMap = levelDataMap;
+    }
+
+    public void setAbilityUser(boolean usesAbilities) {
+        this.usesAbilities = usesAbilities;
+    }
+
+    public boolean isAbilityUser() {
+        return usesAbilities;
     }
 
     public ArrayList<Alignment> getRestrictedAlignments() {
@@ -78,14 +104,6 @@ public abstract class CharacterClass implements Serializable {
         this.armorProficiencies = armorProficiencies;
     }
 
-    public void setAbilityListModel(DefaultListModel<Ability> abilityListModel) {
-        this.abilityListModel = abilityListModel;
-    }
-
-    public void setBaseAttackBonus(int baseAttackBonus) {
-        this.baseAttackBonus = baseAttackBonus;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -96,38 +114,6 @@ public abstract class CharacterClass implements Serializable {
 
     public Skill[] getClassSkills() {
         return classSkills;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
-    }
-
-    public int getFortitudeSavingThrow() {
-        return fortitudeSavingThrow;
-    }
-
-    public void setFortitudeSavingThrow(int fortitudeSavingThrow) {
-        this.fortitudeSavingThrow = fortitudeSavingThrow;
-    }
-
-    public int getReflexSavingThrow() {
-        return reflexSavingThrow;
-    }
-
-    public void setReflexSavingThrow(int reflexSavingThrow) {
-        this.reflexSavingThrow = reflexSavingThrow;
-    }
-
-    public int getWillSavingThrow() {
-        return willSavingThrow;
-    }
-
-    public void setWillSavingThrow(int willSavingThrow) {
-        this.willSavingThrow = willSavingThrow;
     }
 
     public String getClassNotes() {
@@ -182,49 +168,8 @@ public abstract class CharacterClass implements Serializable {
         return startingGold;
     }
 
-    /**
-     * Adds the passed ability to this classes' list of abilities.
-     *
-     * @param ability
-     */
-    public void addAbility(Ability ability) {
-        abilityListModel.addElement(ability);
-    }
-
-    public DefaultListModel<Ability> getAbilityListModel() {
-        return abilityListModel;
-    }
-
     public String getName() {
         return name;
-    }
-
-    /**
-     * @return this class's fortitude save modifier
-     */
-    public int getFortSaveModifier() {
-        return fortitudeSavingThrow;
-    }
-
-    /**
-     * @return this class's reflex save modifier
-     */
-    public int getRefSaveModifier() {
-        return reflexSavingThrow;
-    }
-
-    /**
-     * @return this class's will save modifier
-     */
-    public int getWillSaveModifier() {
-        return willSavingThrow;
-    }
-
-    /**
-     * @return this class's attack bonus
-     */
-    public int getBaseAttackBonus() {
-        return baseAttackBonus;
     }
 
     /**
