@@ -4,16 +4,21 @@
  */
 package gui.classes;
 
+import character.Player;
+
 /**
  *
  * @author Japhez
  */
 public class SpellPanel extends javax.swing.JPanel {
 
+    private Player player;
+
     /**
      * Creates new form SpellPanel
      */
-    public SpellPanel() {
+    public SpellPanel(Player player) {
+        this.player = player;
         initComponents();
     }
 
@@ -29,10 +34,16 @@ public class SpellPanel extends javax.swing.JPanel {
         spellsAddSpellButton = new javax.swing.JButton();
         spellsRemoveSpellbutton = new javax.swing.JButton();
         spellScrollPane = new javax.swing.JScrollPane();
-        jList5 = new javax.swing.JList();
+        knownSpellsList = new javax.swing.JList();
         jButton1 = new javax.swing.JButton();
-        spellsMoreInfoButton = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        preparedSpellsList = new javax.swing.JList();
+        uselessLabel780 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        spellDescriptionTextArea = new javax.swing.JTextArea();
 
         spellsAddSpellButton.setText("Add Spell");
         spellsAddSpellButton.addActionListener(new java.awt.event.ActionListener() {
@@ -48,56 +59,98 @@ public class SpellPanel extends javax.swing.JPanel {
             }
         });
 
-        jList5.setModel(new javax.swing.AbstractListModel() {
+        knownSpellsList.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        spellScrollPane.setViewportView(jList5);
+        spellScrollPane.setViewportView(knownSpellsList);
 
         jButton1.setText("Cast Spell");
 
-        spellsMoreInfoButton.setText("More Info");
-
         jLabel15.setText("Known spells:");
+
+        jTextField1.setText("[filter]");
+
+        jLabel1.setText("Prepared spells:");
+
+        preparedSpellsList.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(preparedSpellsList);
+
+        uselessLabel780.setText("Selected spell info:");
+
+        spellDescriptionTextArea.setEditable(false);
+        spellDescriptionTextArea.setColumns(20);
+        spellDescriptionTextArea.setLineWrap(true);
+        spellDescriptionTextArea.setRows(5);
+        spellDescriptionTextArea.setWrapStyleWord(true);
+        spellDescriptionTextArea.setAutoscrolls(false);
+        spellDescriptionTextArea.setBorder(null);
+        jScrollPane5.setViewportView(spellDescriptionTextArea);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel15)
-                .addGap(450, 450, 450))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(spellScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(spellsMoreInfoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(spellsAddSpellButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(spellsRemoveSpellbutton, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(spellsAddSpellButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(spellsRemoveSpellbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(spellScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(uselessLabel780)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel15)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(79, 79, 79)
+                                .addComponent(jLabel1)))
+                        .addGap(0, 87, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel15)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(spellsMoreInfoButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(spellsAddSpellButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(spellsRemoveSpellbutton)
-                        .addGap(0, 176, Short.MAX_VALUE))
-                    .addComponent(spellScrollPane))
-                .addContainerGap())
+                        .addComponent(uselessLabel780)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel15)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(spellScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton1)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(spellsAddSpellButton)
+                                    .addComponent(spellsRemoveSpellbutton)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -108,14 +161,19 @@ public class SpellPanel extends javax.swing.JPanel {
     private void spellsRemoveSpellbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_spellsRemoveSpellbuttonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_spellsRemoveSpellbuttonActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JList jList5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JList knownSpellsList;
+    private javax.swing.JList preparedSpellsList;
+    private javax.swing.JTextArea spellDescriptionTextArea;
     private javax.swing.JScrollPane spellScrollPane;
     private javax.swing.JButton spellsAddSpellButton;
-    private javax.swing.JButton spellsMoreInfoButton;
     private javax.swing.JButton spellsRemoveSpellbutton;
+    private javax.swing.JLabel uselessLabel780;
     // End of variables declaration//GEN-END:variables
 }
