@@ -1,5 +1,7 @@
 package abstracts;
 
+import java.io.Serializable;
+
 /**
  * Represents the size of a character. Contains all the standard sizes as inner
  * classes (which is what you should use). The attributes are all defined in the
@@ -7,8 +9,9 @@ package abstracts;
  *
  * @author Japhez
  */
-public abstract class Size {
+public abstract class Size implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     protected String name;
     protected int attackAndAcModifier;
     protected int specialAttacksModifier;
