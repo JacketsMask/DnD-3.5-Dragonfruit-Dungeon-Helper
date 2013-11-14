@@ -22,6 +22,10 @@ public final class BasicInfoPanel extends javax.swing.JPanel implements Characte
      */
     public BasicInfoPanel(Player player) {
         this.player = player;
+        //If the player info is null, the user must've closed the program
+        if (player == null) {
+            System.exit(0);
+        }
         initComponents();
     }
 
@@ -257,7 +261,7 @@ public final class BasicInfoPanel extends javax.swing.JPanel implements Characte
 
     private void characterInformationButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_characterInformationButtonActionPerformed
     {//GEN-HEADEREND:event_characterInformationButtonActionPerformed
-        BasicInfoDialog generalInformationDialog = new BasicInfoDialog(this, true, player);
+        BasicInfoDialog generalInformationDialog = new BasicInfoDialog(true, player);
         generalInformationDialog.pack();
         generalInformationDialog.setLocationRelativeTo(getRootPane());
         generalInformationDialog.setVisible(true);
