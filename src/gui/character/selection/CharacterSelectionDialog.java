@@ -4,14 +4,13 @@
  */
 package gui.character.selection;
 
+import character.Player;
 import file.manipulation.FileManipulator;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
+import gui.basicinfo.BasicInfoDialog;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.BoxLayout;
-import javax.swing.GroupLayout;
-import javax.swing.JRadioButton;
+import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -21,12 +20,17 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class CharacterSelectionDialog extends javax.swing.JDialog {
 
+    private DefaultListModel model;
+    private Player player;
+
     /**
      * Creates new form CharacterSelectionDialog
      */
     public CharacterSelectionDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        model = new DefaultListModel();
+        characterList.setModel(model);
         populateList();
     }
 
@@ -42,14 +46,20 @@ public class CharacterSelectionDialog extends javax.swing.JDialog {
         characterButtonGroup = new javax.swing.ButtonGroup();
         characterSelectionPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        characterList = new javax.swing.JList();
         choiceSelectionPanel = new javax.swing.JPanel();
         loadButton = new javax.swing.JButton();
         createNewCharacterButton = new javax.swing.JButton();
         deleteCharacterButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Character Selection");
+        setLocationByPlatform(true);
 
         jLabel1.setText("Select a character:");
+
+        jScrollPane1.setViewportView(characterList);
 
         javax.swing.GroupLayout characterSelectionPanelLayout = new javax.swing.GroupLayout(characterSelectionPanel);
         characterSelectionPanel.setLayout(characterSelectionPanelLayout);
@@ -57,20 +67,34 @@ public class CharacterSelectionDialog extends javax.swing.JDialog {
             characterSelectionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(characterSelectionPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addGroup(characterSelectionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         characterSelectionPanelLayout.setVerticalGroup(
             characterSelectionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(characterSelectionPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(142, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
 
         loadButton.setText("Load Character");
+        loadButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loadButtonActionPerformed(evt);
+            }
+        });
 
         createNewCharacterButton.setText("Create New Character");
+        createNewCharacterButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createNewCharacterButtonActionPerformed(evt);
+            }
+        });
 
         deleteCharacterButton.setText("Delete Character");
 
@@ -93,7 +117,7 @@ public class CharacterSelectionDialog extends javax.swing.JDialog {
                 .addComponent(loadButton)
                 .addGap(18, 18, 18)
                 .addComponent(createNewCharacterButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
                 .addComponent(deleteCharacterButton)
                 .addContainerGap())
         );
@@ -106,23 +130,42 @@ public class CharacterSelectionDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(characterSelectionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(choiceSelectionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(choiceSelectionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(characterSelectionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(choiceSelectionPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(choiceSelectionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(characterSelectionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void loadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadButtonActionPerformed
+        String characterName = (String) characterList.getSelectedValue();
+        if (characterName == null) {
+            return;
+        }
+        player = FileManipulator.readCharacterFromFile(characterName);
+        this.setVisible(false);
+    }//GEN-LAST:event_loadButtonActionPerformed
+
+    private void createNewCharacterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createNewCharacterButtonActionPerformed
+        Player newPlayer = new Player();
+        this.player = newPlayer;
+        BasicInfoDialog basicInfoDialog = new BasicInfoDialog(true, player);
+        this.setModal(false);
+        basicInfoDialog.setModal(true);
+        basicInfoDialog.setVisible(true);
+        FileManipulator.writeCharacterToFile(player);
+        System.out.println("repopulating list");
+        populateList();
+        this.setModal(true);
+    }//GEN-LAST:event_createNewCharacterButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -151,31 +194,33 @@ public class CharacterSelectionDialog extends javax.swing.JDialog {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup characterButtonGroup;
+    private javax.swing.JList characterList;
     private javax.swing.JPanel characterSelectionPanel;
     private javax.swing.JPanel choiceSelectionPanel;
     private javax.swing.JButton createNewCharacterButton;
     private javax.swing.JButton deleteCharacterButton;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton loadButton;
     // End of variables declaration//GEN-END:variables
 
     /**
      * Populates the character list by retrieving a list of characters on file,
      * adds each one as a radio button, and groups the buttons together.
-     */ 
+     */
     private void populateList() {
         String[] savedCharacters = FileManipulator.getSavedCharacters();
         if (savedCharacters.length > 0) {
             //Add each character to the list
             for (String s : savedCharacters) {
-                JRadioButton newButton = new JRadioButton(s);
-                characterButtonGroup.add(newButton);
-                //TODO: Find out what layout to use do that the buttons will list vertically
-                characterSelectionPanel.add(newButton);
+                model.addElement(s);
             }
         } else {
-            //TODO: Default to new character creation
+            player = new Player();
         }
+    }
 
+    public Player getPlayer() {
+        return player;
     }
 }
