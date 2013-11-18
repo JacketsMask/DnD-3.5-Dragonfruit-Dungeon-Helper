@@ -108,7 +108,21 @@ public class FileManipulator {
         System.out.println("Found " + characters.length + " characters.");
         return characters;
     }
-
+    
+    public static void deleteCharacterFile(String characterName) {
+        String path = CHARACTER_PATH + File.separator + characterName + File.separator;
+        System.out.println("path: " + path);
+        File[] listFiles = new File(path).listFiles();
+        for (File f : listFiles) {
+            System.out.println(f);
+            f.delete();
+        }
+        boolean delete = new File(path).delete();
+        if (delete) {
+            System.out.println(characterName + " was deleted.");
+        }
+    }
+    
     /**
      * Attempts to gather character data with the passed name, and then returns
      * it.

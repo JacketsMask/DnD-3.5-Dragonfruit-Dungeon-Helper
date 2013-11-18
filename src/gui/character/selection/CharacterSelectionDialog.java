@@ -31,6 +31,8 @@ public class CharacterSelectionDialog extends javax.swing.JDialog {
         model = new DefaultListModel();
         characterList.setModel(model);
         populateList();
+        loadButton.setEnabled(false);
+        deleteCharacterButton.setEnabled(false);
     }
 
     /**
@@ -55,9 +57,19 @@ public class CharacterSelectionDialog extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Character Selection");
         setLocationByPlatform(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jLabel1.setText("Select a character:");
 
+        characterList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                characterListValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(characterList);
 
         javax.swing.GroupLayout characterSelectionPanelLayout = new javax.swing.GroupLayout(characterSelectionPanel);
@@ -96,6 +108,11 @@ public class CharacterSelectionDialog extends javax.swing.JDialog {
         });
 
         deleteCharacterButton.setText("Delete Character");
+        deleteCharacterButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteCharacterButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout choiceSelectionPanelLayout = new javax.swing.GroupLayout(choiceSelectionPanel);
         choiceSelectionPanel.setLayout(choiceSelectionPanelLayout);
@@ -156,15 +173,36 @@ public class CharacterSelectionDialog extends javax.swing.JDialog {
     private void createNewCharacterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createNewCharacterButtonActionPerformed
         Player newPlayer = new Player();
         this.player = newPlayer;
-        BasicInfoDialog basicInfoDialog = new BasicInfoDialog(true, player);
+        BasicInfoDialog basicInfoDialog = new BasicInfoDialog(this, true, player);
         this.setModal(false);
         basicInfoDialog.setModal(true);
         basicInfoDialog.setVisible(true);
-        FileManipulator.writeCharacterToFile(player);
-        System.out.println("repopulating list");
-        populateList();
+        if (basicInfoDialog.isChangeCommitted()) {
+            FileManipulator.writeCharacterToFile(player);
+            populateList();
+        }
         this.setModal(true);
     }//GEN-LAST:event_createNewCharacterButtonActionPerformed
+
+    private void deleteCharacterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteCharacterButtonActionPerformed
+        FileManipulator.deleteCharacterFile(characterList.getSelectedValue().toString());
+        populateList();
+    }//GEN-LAST:event_deleteCharacterButtonActionPerformed
+
+    private void characterListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_characterListValueChanged
+        if (characterList.isSelectionEmpty()) {
+            loadButton.setEnabled(false);
+            deleteCharacterButton.setEnabled(false);
+        } else {
+            loadButton.setEnabled(true);
+            deleteCharacterButton.setEnabled(true);
+        }
+    }//GEN-LAST:event_characterListValueChanged
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        System.out.println("Player selection window closing.");
+        player = null;
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
@@ -208,6 +246,7 @@ public class CharacterSelectionDialog extends javax.swing.JDialog {
      * adds each one as a radio button, and groups the buttons together.
      */
     private void populateList() {
+        System.out.println("Repopulating character list.");
         model.clear();
         String[] savedCharacters = FileManipulator.getSavedCharacters();
         if (savedCharacters.length > 0) {

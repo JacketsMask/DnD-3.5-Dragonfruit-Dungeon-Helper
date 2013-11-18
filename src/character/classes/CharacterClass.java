@@ -7,13 +7,14 @@ import gui.classes.CharacterClassLevelData;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import main.SaveStateTracker;
 
 /**
  * A character class containing most of the information pertaining to a class.
  *
  * @author Jacob Dorman
  */
-public class CharacterClass implements Serializable {
+public class CharacterClass extends SaveStateTracker implements Serializable {
 
     private static final long serialVersionUID = 1L;
     //The name of this class
@@ -43,11 +44,23 @@ public class CharacterClass implements Serializable {
     protected int skillRankModifier;
     //Class data for each level
     protected HashMap<Integer, CharacterClassLevelData> levelDataMap;
+    //Class data for spells
+    protected ClassSpellList spellList;
 
-    public CharacterClass() {
-        name = "Undefined";
+    public CharacterClass(String name) {
+        this.name = name;
         restrictedAlignments = new ArrayList<>();
         levelDataMap = new HashMap<>();
+    }
+
+    public ClassSpellList getSpellList() {
+        return spellList;
+    }
+
+    public void setSpellList(ClassSpellList spellList) {
+        System.out.println(name + " spell list set.");
+        this.spellList = spellList;
+        super.stateChanged = true;
     }
 
     public int getCurrentLevel() {
@@ -56,6 +69,7 @@ public class CharacterClass implements Serializable {
 
     public void setCurrentLevel(int currentLevel) {
         this.currentLevel = currentLevel;
+        super.stateChanged = true;
     }
 
     public int getFortSaveModifier() {
@@ -69,23 +83,19 @@ public class CharacterClass implements Serializable {
     public int getWillSaveModifier() {
         return levelDataMap.get(currentLevel).getWillSave();
     }
-    
+
     public int[] getBaseAttackBonus() {
         return levelDataMap.get(currentLevel).getBaseAttackBonus();
     }
 
-    public CharacterClass(String name) {
-        this.name = name;
-        restrictedAlignments = new ArrayList<>();
-        levelDataMap = new HashMap<>();
-    }
-
     public void setLevelDataMap(HashMap<Integer, CharacterClassLevelData> levelDataMap) {
         this.levelDataMap = levelDataMap;
+        super.stateChanged = true;
     }
 
     public void setAbilityUser(boolean usesAbilities) {
         this.usesAbilities = usesAbilities;
+        super.stateChanged = true;
     }
 
     public boolean isAbilityUser() {
@@ -98,18 +108,22 @@ public class CharacterClass implements Serializable {
 
     public void setRestrictedAlignments(ArrayList<Alignment> restrictedAlignments) {
         this.restrictedAlignments = restrictedAlignments;
+        super.stateChanged = true;
     }
 
     public void setArmorProficiencies(ArmorProficiency[] armorProficiencies) {
         this.armorProficiencies = armorProficiencies;
+        super.stateChanged = true;
     }
 
     public void setName(String name) {
         this.name = name;
+        super.stateChanged = true;
     }
 
     public void setWeaponProficiencies(WeaponProficiency[] weaponProficiencies) {
         this.weaponProficiencies = weaponProficiencies;
+        super.stateChanged = true;
     }
 
     public Skill[] getClassSkills() {
@@ -122,14 +136,17 @@ public class CharacterClass implements Serializable {
 
     public void setClassNotes(String classNotes) {
         this.classNotes = classNotes;
+        super.stateChanged = true;
     }
 
     public void setClassSkills(Skill[] classSkills) {
         this.classSkills = classSkills;
+        super.stateChanged = true;
     }
 
     public void setInitialSkillRankModifier(int initialSkillRankModifier) {
         this.initialSkillRankModifier = initialSkillRankModifier;
+        super.stateChanged = true;
     }
 
     public int getInitialSkillRankModifier() {
@@ -138,6 +155,7 @@ public class CharacterClass implements Serializable {
 
     public void setSkillRankModifier(int skillRankModifier) {
         this.skillRankModifier = skillRankModifier;
+        super.stateChanged = true;
     }
 
     public int getSkillRankModifier() {
@@ -146,6 +164,7 @@ public class CharacterClass implements Serializable {
 
     public void setCasterType(CasterType casterType) {
         this.casterType = casterType;
+        super.stateChanged = true;
     }
 
     public CasterType getCasterType() {
@@ -158,10 +177,12 @@ public class CharacterClass implements Serializable {
 
     public void setHitDie(int hitDie) {
         this.hitDie = hitDie;
+        super.stateChanged = true;
     }
 
     public void setStartingGold(StartingGold startingGold) {
         this.startingGold = startingGold;
+        super.stateChanged = true;
     }
 
     public StartingGold getStartingGold() {
@@ -195,6 +216,17 @@ public class CharacterClass implements Serializable {
 
     public ArrayList<Alignment> getAlignmentLimitations() {
         return restrictedAlignments;
+    }
+
+    @Override
+    public boolean stateChanged() {
+        return super.stateChanged() || spellList.stateChanged();
+    }
+
+    @Override
+    public void stateSaved() {
+        super.stateSaved();
+        spellList.stateSaved();
     }
 
     @Override

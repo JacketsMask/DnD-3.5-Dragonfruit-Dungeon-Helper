@@ -1,6 +1,7 @@
 package gui.classes;
 
 import character.classes.CharacterClass;
+import character.classes.ClassSpellList;
 import character.classes.StartingGold;
 import character.proficiencies.ArmorProficiency;
 import character.proficiencies.WeaponProficiency;
@@ -711,6 +712,7 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void finishClassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finishClassButtonActionPerformed
+        System.out.println("Creating new class...");
         //Basic class info
         newClass = new CharacterClass(nameTextField.getText());
         //Hit die
@@ -757,9 +759,11 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
             } else if (divineSpellcasterRadioButton.isSelected()) {
                 newClass.setCasterType(CasterType.DIVINE_CASTER);
             }
-            //Get spells per level
+            //Get spells per level //TODO: Finish this
             TableColumnModel columnModel = spellsPerDayPanel.getSpellsPerDayTable().getColumnModel();
             int[] spellsPerDay = new int[10];
+            //Initialize spell info for class
+            newClass.setSpellList(new ClassSpellList());
             
         } else {
             newClass.setCasterType(CasterType.NON_CASTER);

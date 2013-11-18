@@ -115,7 +115,7 @@ public final class BaseFrame extends javax.swing.JFrame {
             JTabbedPane classTabs = new JTabbedPane();
             characterInfoTabbedPane.addTab(cc.getName(), classTabs);
             if (!cc.getCasterType().equals(CasterType.NON_CASTER)) {
-                classTabs.addTab("Spells", new SpellPanel(player));
+                classTabs.addTab("Spells", new SpellPanel(player, cc));
             }
             if (cc.isAbilityUser()) {
                 classTabs.addTab("Abilities", new AbilityPanel(player));

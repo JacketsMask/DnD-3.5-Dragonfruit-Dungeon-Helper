@@ -21,15 +21,19 @@ import main.ComponentLockableIntegerVerifier;
 public class BasicInfoDialog extends javax.swing.JDialog {
 
     private Player player;
+    private boolean commitChanges;
+    private Object parent;
 
     /**
      * Creates new form GeneralInformationDialog
      */
-    public BasicInfoDialog(boolean modal, Player player) {
+    public BasicInfoDialog(Object parent, boolean modal, Player player) {
+        this.parent = parent;
         this.player = player;
         initComponents();
         preFillCharacterInformation();
         loadSavedClasses();
+        commitChanges = false;
     }
 
     /**
@@ -75,6 +79,7 @@ public class BasicInfoDialog extends javax.swing.JDialog {
         genderComboBox = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setLocationByPlatform(true);
 
         dialogCharacterCommitButton.setText("Save Changes");
         dialogCharacterCommitButton.addActionListener(new java.awt.event.ActionListener() {
@@ -250,9 +255,9 @@ public class BasicInfoDialog extends javax.swing.JDialog {
                                     .addComponent(jLabel28)
                                     .addComponent(jLabel27))
                                 .addGap(21, 21, 21)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(raceComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(classComboBox, 0, 84, Short.MAX_VALUE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(raceComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(classComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 16, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel24)
@@ -417,8 +422,18 @@ public class BasicInfoDialog extends javax.swing.JDialog {
         }
         //Update proficiencies from class information
         player.getProficiencies().updateProficienciesFromClasses(player.getClassInfo().getCharacterClasses());
+        commitChanges = true;
         this.setVisible(false);
+        //If the parent component is the panel, reload visible data
+        if (parent instanceof BasicInfoPanel) {
+            BasicInfoPanel panel = (BasicInfoPanel) parent;
+            panel.loadInfo();
+        }
     }//GEN-LAST:event_dialogCharacterCommitButtonActionPerformed
+
+    public boolean isChangeCommitted() {
+        return commitChanges;
+    }
 
     /**
      * Builds and returns a new CharacterClass designed by the player.
@@ -461,6 +476,9 @@ public class BasicInfoDialog extends javax.swing.JDialog {
         if (box.getSelectedItem().toString().equals("New class")) {
             //Build a new class for the player
             CharacterClass buildClass = buildClass();
+            if (buildClass == null) {
+                return;
+            }
             //Update class selection list
             box.insertItemAt(buildClass, 1);
             box.setSelectedItem(buildClass);
@@ -526,9 +544,10 @@ public class BasicInfoDialog extends javax.swing.JDialog {
                 genderComboBox.setSelectedItem("Female");
             }
         }
-
+        //Update alignment options
         updateAlignmentChoices();
 
+        //Get deity information
         if (info.getDeity() != null) {
             dialogDeityTextField.setText(info.getDeity().toString());
         }
@@ -564,6 +583,12 @@ public class BasicInfoDialog extends javax.swing.JDialog {
             for (Alignment a : alignmentsInList) {
                 alignmentComboBox.addItem(a);
             }
+        }
+        //Update selected alignment
+        Alignment alignment = player.getBasicInfo().getAlignment();
+        if (alignment != null) {
+            alignmentComboBox.setSelectedItem(alignment);
+            
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

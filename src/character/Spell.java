@@ -1,7 +1,6 @@
 package character;
 
 import java.io.Serializable;
-import java.util.HashMap;
 
 /**
  * A general spell that contains most all the information a spell can contain.
@@ -13,15 +12,14 @@ public class Spell implements Serializable {
     private static final long serialVersionUID = 1L;
     //The name of this spell
     private String name;
+    //The level of this spell
+    private int level;
     //The description of this spell
     private String description;
     //The school that this spell belongs to
     private School school;
-    /**
-     * A HashMap containing the name of each class that can use this spell and
-     * the level it is available at.
-     */
-    private HashMap<String, Integer> classAvailability;
+    //Spell general type
+    private SpellType type;
     //Whether or not this spell requires the ability to speak
     private boolean verbal;
     //Whether or not this spell requires a free hand to cast
@@ -53,6 +51,22 @@ public class Spell implements Serializable {
         this.name = spellName;
     }
 
+    public SpellType getType() {
+        return type;
+    }
+
+    public void setType(SpellType type) {
+        this.type = type;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
     public boolean isRollable() {
         return (diceNumber > 0 && diceSides > 0);
     }
@@ -79,14 +93,6 @@ public class Spell implements Serializable {
 
     public void setSchool(School school) {
         this.school = school;
-    }
-
-    public HashMap<String, Integer> getClassAvailability() {
-        return classAvailability;
-    }
-
-    public void setClassAvailability(HashMap<String, Integer> classAvailability) {
-        this.classAvailability = classAvailability;
     }
 
     public boolean isVerbal() {
@@ -232,7 +238,7 @@ public class Spell implements Serializable {
      */
     public enum SpellType {
 
-        UTILITY, ATTACK, DEFENSIVE;
+        UTILITY, OFFENSIVE, DEFENSIVE;
 
         /**
          * Override for toString that returns the enumeration with the first
@@ -248,5 +254,10 @@ public class Spell implements Serializable {
             output = output.charAt(0) + output.substring(1).toLowerCase();
             return output;
         }
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }
