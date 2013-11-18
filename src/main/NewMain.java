@@ -44,8 +44,13 @@ public class NewMain {
                     CharacterSelectionDialog selection = new CharacterSelectionDialog(null, true);
                     selection.setVisible(true);
                     Player player = selection.getPlayer();
+                    if (player == null) {
+                        System.out.println("No player selected, ending program.");
+                        System.exit(0);
+                    }
                     //Start the serialization thread for this player
                     new Thread(new SerializationThread(player)).start();
+                    System.out.println("Serialization thread started...");
                     //Create the main frame and sub-panels
                     BaseFrame gui = new BaseFrame(player);
                     //Set the location of the new window to be determined by the OS
