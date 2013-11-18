@@ -1,4 +1,4 @@
-package gui.classes;
+package gui.spell;
 
 import character.Spell;
 import java.util.ArrayList;
@@ -58,12 +58,19 @@ public class SpellByLevelPanel extends javax.swing.JPanel {
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
+        spellList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        spellList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                spellListValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(spellList);
 
         spellsLevelLabel.setText("[level # spells]");
 
         spellDescriptionTextArea.setEditable(false);
         spellDescriptionTextArea.setColumns(20);
+        spellDescriptionTextArea.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         spellDescriptionTextArea.setLineWrap(true);
         spellDescriptionTextArea.setRows(5);
         spellDescriptionTextArea.setWrapStyleWord(true);
@@ -80,14 +87,14 @@ public class SpellByLevelPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(spellsLevelLabel))
+                    .addComponent(spellsLevelLabel)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(uselessLabel780)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -107,6 +114,16 @@ public class SpellByLevelPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void spellListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_spellListValueChanged
+        if (!spellList.isSelectionEmpty()) {
+            Spell spell = (Spell) spellList.getSelectedValue();
+            spellDescriptionTextArea.setText(spell.getDescription());
+        } else {
+            spellDescriptionTextArea.setText("");
+        }
+    }//GEN-LAST:event_spellListValueChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane5;

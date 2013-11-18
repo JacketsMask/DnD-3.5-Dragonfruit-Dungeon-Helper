@@ -1,4 +1,4 @@
-package gui.classes;
+package gui.spell;
 
 import java.io.Serializable;
 
