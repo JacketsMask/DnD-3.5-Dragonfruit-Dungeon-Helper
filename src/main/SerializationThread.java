@@ -1,7 +1,11 @@
 package main;
 
 import character.Player;
+import character.Spell;
+import character.classes.CharacterClass;
+import character.classes.ClassSpellList;
 import file.manipulation.FileManipulator;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,6 +30,13 @@ public class SerializationThread implements Runnable {
 
     @Override
     public void run() {
+        ArrayList<CharacterClass> characterClasses = player.getClassInfo().getCharacterClasses();
+        System.out.print("SerializationThread: Watching for changes in: ");
+        for (CharacterClass cc : characterClasses) {
+            System.out.print("[" + cc + "]" + " ");
+            cc.stateSaved();
+        }
+        System.out.println("");
         while (!Thread.interrupted()) {
             try {
                 //Check to see if the state has changed
@@ -40,12 +51,36 @@ public class SerializationThread implements Runnable {
                     player.stateSaved();
                     timesSkippedBeforeSaving = 0;
                 }
+                //Check to see if class state has changed
+                for (CharacterClass cc : characterClasses) {
+                    if (cc.stateChanged()) {
+                        do {
+                            cc.stateSaved();
+                            System.out.println("SerializationThread: Class state change detected");
+                            Thread.sleep(CHANGE_DELAY);
+                            timesSkippedBeforeSaving++;
+                        } while (cc.stateChanged() || timesSkippedBeforeSaving >= MAX_SKIPS);
+                        FileManipulator.writeClass(cc);
+                        FileManipulator.writeCharacterToFile(player);
+                        cc.stateSaved();
+                        timesSkippedBeforeSaving = 0;
+                    }
+                }
                 Thread.sleep(CHECK_DELAY);
             } catch (NullPointerException ex) {
                 return;
             } catch (InterruptedException ex) {
                 Logger.getLogger(SerializationThread.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+    }
+    
+    public static void main(String[] args) {
+        CharacterClass[] readClasses = FileManipulator.readClasses();
+        ClassSpellList spellList = readClasses[0].getSpellList();
+        ArrayList<Spell> spellsAtLevel = spellList.getSpellsAtLevel(0);
+        for (Spell s : spellsAtLevel) {
+            System.out.println(s);
         }
     }
 }
