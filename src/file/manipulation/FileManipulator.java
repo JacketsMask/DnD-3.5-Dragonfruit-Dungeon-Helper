@@ -92,6 +92,29 @@ public class FileManipulator {
         writeObject(character.getSkills(), path, "skills");
     }
 
+    private static String[] getFilesOnPath(String path) {
+        File[] listFiles = new File(path).listFiles();
+        if (listFiles ==  null) {
+            return null;
+        }
+        String[] fileNames = new String[listFiles.length];
+        for (int i = 0; i < listFiles.length; i++) {
+            System.out.println(listFiles[i].getName());
+            fileNames[i] = listFiles[i].getName();
+        }
+        return fileNames;
+    }
+    
+    /**
+     * Looks at folders in the class directory, and returns a string array
+     * containing the class names.
+     *
+     * @return a string array of saved class names
+     */
+    public static String[] getSavedClasses() {
+        return getFilesOnPath(CLASS_PATH);
+    }
+
     /**
      * Looks at folders in the character directory, and returns a string array
      * containing the character names.
@@ -99,16 +122,9 @@ public class FileManipulator {
      * @return a string array of saved character names
      */
     public static String[] getSavedCharacters() {
-        File[] listFiles = new File(CHARACTER_PATH).listFiles();
-        String[] characters = new String[listFiles.length];
-        for (int i = 0; i < listFiles.length; i++) {
-            System.out.println(listFiles[i].getName());
-            characters[i] = listFiles[i].getName();
-        }
-        System.out.println("Found " + characters.length + " characters.");
-        return characters;
+        return getFilesOnPath(CHARACTER_PATH);
     }
-    
+
     public static void deleteCharacterFile(String characterName) {
         String path = CHARACTER_PATH + File.separator + characterName + File.separator;
         System.out.println("path: " + path);
@@ -122,7 +138,7 @@ public class FileManipulator {
             System.out.println(characterName + " was deleted.");
         }
     }
-    
+
     /**
      * Attempts to gather character data with the passed name, and then returns
      * it.
@@ -304,5 +320,14 @@ public class FileManipulator {
             }
         }
         return classes;
+    }
+
+    public static CharacterClass readClass(String className) {
+        try {
+            return (CharacterClass) readObject(CLASS_PATH, className + ".class");
+        } catch (ClassNotFoundException | IOException ex) {
+            Logger.getLogger(FileManipulator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 }
