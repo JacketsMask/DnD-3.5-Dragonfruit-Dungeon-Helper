@@ -1,23 +1,34 @@
 package HelperApps;
 
+import character.classes.CharacterClass;
+import file.manipulation.FileManipulator;
+import gui.classes.ClassBuilderDialog;
+import javax.swing.DefaultListModel;
+import javax.swing.UIManager;
+
 /**
+ * An applet used to create and modify character classes for the main program.
  *
  * @author Japhez
  */
 public class ClassEditorApp extends javax.swing.JFrame {
+
+    private DefaultListModel model;
 
     /**
      * Creates new form ClassBuilder
      */
     public ClassEditorApp() {
         initComponents();
+        model = (DefaultListModel) classList.getModel();
         //List classes
-        //Allow user to create a class
-        // - Use existing dialog
-        //Allow user to select a class
-        // - Open class for editing
-        //Allow user to delete classes
-        // - Remove class from file and list
+        String[] savedClasses = FileManipulator.getSavedClasses();
+        if (savedClasses != null) {
+            for (String s : savedClasses) {
+                //Add the name of the file without the extension
+                model.addElement(s.replace(".class", ""));
+            }
+        }
     }
 
     /**
@@ -38,12 +49,15 @@ public class ClassEditorApp extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Character Class Editor");
+        setLocationByPlatform(true);
         setResizable(false);
 
-        classList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+        classList.setModel(new DefaultListModel());
+        classList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        classList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                classListValueChanged(evt);
+            }
         });
         jScrollPane1.setViewportView(classList);
 
@@ -51,8 +65,18 @@ public class ClassEditorApp extends javax.swing.JFrame {
         jLabel1.setText("Classes:");
 
         editClassButton.setText("Edit Class");
+        editClassButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editClassButtonActionPerformed(evt);
+            }
+        });
 
         addClassButton.setText("Add Class");
+        addClassButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addClassButtonActionPerformed(evt);
+            }
+        });
 
         removeClassButton.setText("Remove Class");
 
@@ -80,19 +104,51 @@ public class ClassEditorApp extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(editClassButton)
-                        .addGap(18, 18, 18)
                         .addComponent(addClassButton)
                         .addGap(18, 18, 18)
+                        .addComponent(editClassButton)
+                        .addGap(18, 18, 18)
                         .addComponent(removeClassButton)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void addClassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addClassButtonActionPerformed
+        ClassBuilderDialog dialog = new ClassBuilderDialog(this, true);
+        dialog.setVisible(true);
+        CharacterClass newClass = dialog.getNewClass();
+        if (newClass != null) {
+            //Serial the class
+            FileManipulator.writeClass(newClass);
+            //Add to list
+            model.addElement(newClass);
+        }
+    }//GEN-LAST:event_addClassButtonActionPerformed
+
+    private void classListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_classListValueChanged
+        //Ignore changing values, just get result
+        if (!evt.getValueIsAdjusting()) {
+            if (classList.getSelectedValue() != null) {
+                editClassButton.setEnabled(true);
+                removeClassButton.setEnabled(true);
+            } else {
+                editClassButton.setEnabled(false);
+                removeClassButton.setEnabled(false);
+            }
+        }
+    }//GEN-LAST:event_classListValueChanged
+
+    private void editClassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editClassButtonActionPerformed
+        String className = (String) classList.getSelectedValue();
+        CharacterClass readClass = FileManipulator.readClass(className);
+        ClassBuilderDialog classBuilderDialog = new ClassBuilderDialog(this, true, readClass);
+//        classBuilderDialog.setVisible(true);
+    }//GEN-LAST:event_editClassButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -104,19 +160,8 @@ public class ClassEditorApp extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ClassEditorApp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ClassEditorApp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ClassEditorApp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ClassEditorApp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -124,6 +169,7 @@ public class ClassEditorApp extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                FileManipulator.verifiyFileHierarchy();
                 new ClassEditorApp().setVisible(true);
             }
         });
