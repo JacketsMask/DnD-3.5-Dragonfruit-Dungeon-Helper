@@ -88,6 +88,10 @@ public class CharacterClass extends SaveStateTracker implements Serializable {
         return levelDataMap.get(currentLevel).getBaseAttackBonus();
     }
 
+    public HashMap<Integer, CharacterClassLevelData> getLevelDataMap() {
+        return levelDataMap;
+    }
+
     public void setLevelDataMap(HashMap<Integer, CharacterClassLevelData> levelDataMap) {
         this.levelDataMap = levelDataMap;
         super.stateChanged = true;
