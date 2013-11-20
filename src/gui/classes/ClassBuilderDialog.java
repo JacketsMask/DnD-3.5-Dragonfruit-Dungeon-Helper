@@ -38,6 +38,132 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
         new TableColumnAdjuster(classTable).adjustColumns();
     }
 
+    /**
+     * Load in an existing class to edit.
+     *
+     * @param parent
+     * @param model
+     * @param initialClass
+     */
+    public ClassBuilderDialog(java.awt.Frame parent, boolean model, CharacterClass initialClass) {
+        super(parent, model);
+        initComponents();
+        newClass = initialClass;
+        loadInInitialData();
+    }
+
+    private void loadInInitialData() {
+        //Name
+        nameTextField.setText(newClass.getName());
+        //Hit die
+        hitDieTextField.setText("" + newClass.getHitDie());
+        loadStartingGold();
+        loadCasterData();
+        loadAlignments();
+        loadClassTable();
+    }
+
+    private void loadClassTable() {
+        HashMap<Integer, CharacterClassLevelData> map = newClass.getLevelDataMap();
+        TableColumnModel columnModel = classTable.getColumnModel();
+        int babColumn = columnModel.getColumnIndex("Base Attack Bonus");
+        int fortSaveColumn = columnModel.getColumnIndex("Fortitude Save");
+        int reflexSaveColumn = columnModel.getColumnIndex("Reflex Save");
+        int willSaveColumn = columnModel.getColumnIndex("Will Save");
+        int notesColumn = columnModel.getColumnIndex("Notes");
+        int rowCount = classTable.getRowCount();
+        //Get rest of info from each column at the same row
+        for (int i = 0; i < rowCount; i++) {
+            CharacterClassLevelData data = map.get(i);
+            //Set BAB
+            int[] baseAttackBonus = data.getBaseAttackBonus();
+            String bab = "";
+            for (Integer integer : baseAttackBonus) {
+                bab += integer + "/";
+            }
+            //Remove last slash
+            bab = bab.substring(0, bab.length() - 1);
+            classTable.setValueAt(bab, i, babColumn);
+            //Set saves
+            classTable.setValueAt(data.getFortSave(), i, fortSaveColumn);
+            classTable.setValueAt(data.getRefSave(), i, reflexSaveColumn);
+            classTable.setValueAt(data.getWillSave(), i, willSaveColumn);
+            //Set level notes
+            classTable.setValueAt(data.getLevelNotes(), i, notesColumn);
+        }
+    }
+
+    private void loadStartingGold() {
+        //Starting gold
+        StartingGold startingGold = newClass.getStartingGold();
+        startingGoldNumDieTextField.setText("" + startingGold.getNumDice());
+        startingGoldSidesTextField.setText("" + startingGold.getNumSides());
+        startingGoldMultiplierTextField.setText("" + startingGoldMultiplierTextField);
+    }
+
+    private void loadCasterData() {
+        //Casting info
+        if (newClass.getCasterType() == CasterType.ARCANE_CASTER) {
+            castsSpellsCheckBox.setSelected(true);
+            arcaneSpellcasterRadioButton.setSelected(true);
+        } else if (newClass.getCasterType() == CasterType.DIVINE_CASTER) {
+            castsSpellsCheckBox.setSelected(true);
+            divineSpellcasterRadioButton.setSelected(true);
+        } else if (newClass.getCasterType() == CasterType.NON_CASTER) {
+            castsSpellsCheckBox.setSelected(false);
+        }
+    }
+
+    private void loadAlignments() {
+        //Possible alignments
+        ArrayList<Alignment> alignmentLimitations = newClass.getAlignmentLimitations();
+        if (!alignmentLimitations.contains(Alignment.LAWFUL_GOOD)) {
+            lawfulGoodCheckBox.setSelected(true);
+        } else {
+            lawfulGoodCheckBox.setSelected(false);
+        }
+        if (!alignmentLimitations.contains(Alignment.NEUTRAL_GOOD)) {
+            neutralGoodCheckBox.setSelected(true);
+        } else {
+            neutralGoodCheckBox.setSelected(false);
+        }
+        if (!alignmentLimitations.contains(Alignment.CHAOTIC_GOOD)) {
+            chaoticGoodCheckBox.setSelected(true);
+        } else {
+            chaoticGoodCheckBox.setSelected(false);
+        }
+        if (!alignmentLimitations.contains(Alignment.LAWFUL_NEUTRAL)) {
+            lawfulNeutralCheckBox.setSelected(true);
+        } else {
+            lawfulNeutralCheckBox.setSelected(false);
+        }
+        if (!alignmentLimitations.contains(Alignment.TRUE_NEUTRAL)) {
+            trueNeutralCheckBox.setSelected(true);
+        } else {
+            trueNeutralCheckBox.setSelected(false);
+        }
+        if (!alignmentLimitations.contains(Alignment.CHAOTIC_NEUTRAL)) {
+            chaoticNeutralCheckBox.setSelected(true);
+        } else {
+            chaoticNeutralCheckBox.setSelected(false);
+        }
+        if (!alignmentLimitations.contains(Alignment.LAWFUL_EVIL)) {
+            lawfulEvilCheckBox.setSelected(true);
+        } else {
+            lawfulEvilCheckBox.setSelected(false);
+        }
+        if (!alignmentLimitations.contains(Alignment.NEUTRAL_EVIL)) {
+            neutralEvilCheckBox.setSelected(true);
+        } else {
+            neutralEvilCheckBox.setSelected(false);
+        }
+        if (!alignmentLimitations.contains(Alignment.CHAOTIC_EVIL)) {
+            chaoticEvilCheckBox.setSelected(true);
+        } else {
+            chaoticEvilCheckBox.setSelected(false);
+        }
+    }
+
     public CharacterClass getNewClass() {
         return newClass;
     }
@@ -123,6 +249,7 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Character Class Builder");
+        setLocationByPlatform(true);
 
         hitDieTextField.setText("8");
 
@@ -198,33 +325,24 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
                 .addContainerGap(353, Short.MAX_VALUE))
         );
 
-        lawfulGoodCheckBox.setSelected(true);
         lawfulGoodCheckBox.setText("Lawful Good");
 
-        chaoticNeutralCheckBox.setSelected(true);
         chaoticNeutralCheckBox.setText("Chaotic Neutral");
 
-        chaoticGoodCheckBox.setSelected(true);
         chaoticGoodCheckBox.setText("Chaotic Good");
 
-        lawfulNeutralCheckBox.setSelected(true);
         lawfulNeutralCheckBox.setText("Lawful Neutral");
 
         jLabel2.setText("Possible alignments:");
 
-        chaoticEvilCheckBox.setSelected(true);
         chaoticEvilCheckBox.setText("Chaotic Evil");
 
-        neutralEvilCheckBox.setSelected(true);
         neutralEvilCheckBox.setText("Neutral Evil");
 
-        trueNeutralCheckBox.setSelected(true);
         trueNeutralCheckBox.setText("True Neutral");
 
-        neutralGoodCheckBox.setSelected(true);
         neutralGoodCheckBox.setText("Neutral Good");
 
-        lawfulEvilCheckBox.setSelected(true);
         lawfulEvilCheckBox.setText("Lawful Evil");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -281,7 +399,6 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
             }
         });
 
-        usesAbilitiesCheckBox.setSelected(true);
         usesAbilitiesCheckBox.setText("Uses Abilities");
 
         casterTypeButtonGroup.add(arcaneSpellcasterRadioButton);
@@ -344,7 +461,7 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(138, Short.MAX_VALUE))
+                .addContainerGap(278, Short.MAX_VALUE))
         );
         basicInfoPanelLayout.setVerticalGroup(
             basicInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -388,9 +505,16 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Object.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true, true, true
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         classTable.setCellSelectionEnabled(true);
@@ -403,14 +527,14 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
             tablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tablePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 933, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 935, Short.MAX_VALUE)
                 .addContainerGap())
         );
         tablePanelLayout.setVerticalGroup(
             tablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tablePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -457,7 +581,7 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -522,7 +646,7 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(423, Short.MAX_VALUE))
+                .addContainerGap(497, Short.MAX_VALUE))
         );
         skillsLayout.setVerticalGroup(
             skillsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -642,7 +766,7 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
                         .addComponent(simpleWeaponsCheckBox)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(martialWeaponsCheckBox)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 71, Short.MAX_VALUE))
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(jLabel17)
                         .addGap(18, 18, 18)
@@ -658,7 +782,7 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(275, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -685,12 +809,12 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addGap(386, 386, 386)
                 .addComponent(finishClassButton)
-                .addContainerGap(462, Short.MAX_VALUE))
+                .addContainerGap(478, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                .addContainerGap(251, Short.MAX_VALUE)
+                .addContainerGap(253, Short.MAX_VALUE)
                 .addComponent(finishClassButton)
                 .addGap(197, 197, 197))
         );
@@ -764,7 +888,7 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
             int[] spellsPerDay = new int[10];
             //Initialize spell info for class
             newClass.setSpellList(new ClassSpellList());
-            
+
         } else {
             newClass.setCasterType(CasterType.NON_CASTER);
         }
