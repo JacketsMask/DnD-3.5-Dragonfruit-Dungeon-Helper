@@ -28,6 +28,7 @@ public class CharacterClassLevelData implements Serializable {
     public CharacterClassLevelData(int level, String baseAttackBonus, int fortSave, int refSave, int willSave, String levelNotes) {
         this.level = level;
         String[] split = baseAttackBonus.split("/");
+        System.out.println("BAB: " + baseAttackBonus);
         int[] bab = new int[split.length];
         for (int i = 0; i < split.length; i++) {
             bab[i] = Integer.parseInt(split[i]);

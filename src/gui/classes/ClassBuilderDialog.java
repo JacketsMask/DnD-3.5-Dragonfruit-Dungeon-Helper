@@ -61,6 +61,83 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
         loadCasterData();
         loadAlignments();
         loadClassTable();
+        loadSkills();
+        loadProficiencies();
+    }
+
+    private void loadProficiencies() {
+        //Armor proficiencies
+        DefaultListModel knownArmor = new DefaultListModel();
+        DefaultListModel unknownArmor = new DefaultListModel();
+        ArrayList<ArmorProficiency> remainingArmor = ArmorProficiency.getProficiencies();
+        ArmorProficiency[] armorProficiencies = newClass.getArmorProficiencies();
+        //For each proficiency retrieved from the player
+        for (ArmorProficiency a : armorProficiencies) {
+            //Add to known list
+            knownArmor.addElement(a);
+            //Remove from list that will be the unknown list
+            remainingArmor.remove(a);
+        }
+        //Add remaining proficiencies to unknown list
+        for (ArmorProficiency a : remainingArmor) {
+            unknownArmor.addElement(a);
+        }
+        knownArmorProficiencyList.setModel(knownArmor);
+        unknownArmorProficiencyList.setModel(unknownArmor);
+        JListHelper.registerLinkedJListListener(knownArmorProficiencyList, unknownArmorProficiencyList);
+        //Weapon proficiencies
+        DefaultListModel knownWeapons = new DefaultListModel();
+        DefaultListModel unknownWeapons = new DefaultListModel();
+        ArrayList<WeaponProficiency> remainingWeapons = WeaponProficiency.getAllProficiencies();
+        WeaponProficiency[] weaponProficiencies = newClass.getWeaponProficiencies();
+        for (WeaponProficiency w : weaponProficiencies) {
+            knownWeapons.addElement(w);
+            remainingWeapons.remove(w);
+        }
+        for (WeaponProficiency w : remainingWeapons) {
+            unknownWeapons.addElement(w);
+        }
+        //Check to see if checkboxes should be set
+        boolean simpleWeaponsIncluded = true;
+        ArrayList<WeaponProficiency> simpleWeapons = WeaponProficiency.getSimpleWeapons();
+        for (int i = 0; i < simpleWeapons.size(); i++) {
+            if (!knownWeapons.contains(simpleWeapons.get(i))) {
+                simpleWeaponsIncluded = false;
+            }
+        }
+        if (simpleWeaponsIncluded) {
+            simpleWeaponsCheckBox.setSelected(true);
+        }
+        //Martial weapons
+        boolean martialWeaponsIncluded = true;
+        ArrayList<WeaponProficiency> martialWeapons = WeaponProficiency.getMartialWeapons();
+        for (int i = 0; i < martialWeapons.size(); i++) {
+            if (!knownWeapons.contains(martialWeapons.get(i))) {
+                martialWeaponsIncluded = false;
+            }
+        }
+        if (martialWeaponsIncluded) {
+            martialWeaponsCheckBox.setSelected(true);
+        }
+    }
+
+    private void loadSkills() {
+        //Get skill ranks per level
+        skillInitialModifierTextField.setText("" + newClass.getInitialSkillRankModifier());
+        skillModifierTextField.setText("" + newClass.getSkillRankModifier());
+        //Class skills
+        DefaultListModel model = new DefaultListModel();
+        for (Skill s : newClass.getClassSkills()) {
+            model.addElement(s);
+        }
+        classSkillsList.setModel(model);
+        //Cross-class skills
+        DefaultListModel model2 = new DefaultListModel();
+        for (Skill s : newClass.getClassSkills()) {
+            model2.addElement(s);
+        }
+        crossClassSkillsList.setModel(model2);
+        JListHelper.registerLinkedJListListener(classSkillsList, crossClassSkillsList);
     }
 
     private void loadClassTable() {
@@ -912,7 +989,7 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
         //Get rest of info from each column at the same row
         for (int i = 0; i < rowCount; i++) {
             int localLevel = (int) classTable.getValueAt(i, levelColumn);
-            String bab = classTable.getValueAt(i, babColumn).toString();
+            String bab = classTable.getValueAt(i, babColumn).toString(); //FIXME: BAB isn't being read properly
             int fortSave = (int) classTable.getValueAt(i, fortSaveColumn);
             int reflexSave = (int) classTable.getValueAt(i, reflexSaveColumn);
             int willSave = (int) classTable.getValueAt(i, willSaveColumn);

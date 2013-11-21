@@ -147,7 +147,14 @@ public class ClassEditorApp extends javax.swing.JFrame {
         String className = (String) classList.getSelectedValue();
         CharacterClass readClass = FileManipulator.readClass(className);
         ClassBuilderDialog classBuilderDialog = new ClassBuilderDialog(this, true, readClass);
-//        classBuilderDialog.setVisible(true);
+        classBuilderDialog.setVisible(true);
+        CharacterClass newClass = classBuilderDialog.getNewClass();
+        if (newClass != null) {
+            //Serial the class
+            FileManipulator.writeClass(newClass);
+            //Add to list
+            model.addElement(newClass.getName());
+        }
     }//GEN-LAST:event_editClassButtonActionPerformed
 
     /**
