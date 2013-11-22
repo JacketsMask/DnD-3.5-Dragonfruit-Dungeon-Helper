@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 /**
  * Class data that corresponds to a particular level of that class.
+ *
  * @author Japhez
  */
 public class CharacterClassLevelData implements Serializable {
@@ -27,13 +28,16 @@ public class CharacterClassLevelData implements Serializable {
 
     public CharacterClassLevelData(int level, String baseAttackBonus, int fortSave, int refSave, int willSave, String levelNotes) {
         this.level = level;
-        String[] split = baseAttackBonus.split("/");
-        System.out.println("BAB: " + baseAttackBonus);
-        int[] bab = new int[split.length];
-        for (int i = 0; i < split.length; i++) {
-            bab[i] = Integer.parseInt(split[i]);
+        if (baseAttackBonus.contains("/")) {
+            String[] split = baseAttackBonus.split("/");
+            int[] bab = new int[split.length];
+            for (int i = 0; i < split.length; i++) {
+                bab[i] = Integer.parseInt(split[i]);
+            }
+            this.baseAttackBonus = bab;
+        } else {
+            this.baseAttackBonus = new int[]{Integer.parseInt(baseAttackBonus)};
         }
-        this.baseAttackBonus = bab;
         this.fortSave = fortSave;
         this.refSave = refSave;
         this.willSave = willSave;

@@ -126,7 +126,7 @@ public class ClassEditorApp extends javax.swing.JFrame {
             //Serial the class
             FileManipulator.writeClass(newClass);
             //Add to list
-            model.addElement(newClass);
+            model.addElement(newClass.getName());
         }
     }//GEN-LAST:event_addClassButtonActionPerformed
 
@@ -152,6 +152,8 @@ public class ClassEditorApp extends javax.swing.JFrame {
         if (newClass != null) {
             //Serial the class
             FileManipulator.writeClass(newClass);
+            //Remove old reference
+            model.removeElement(className);
             //Add to list
             model.addElement(newClass.getName());
         }

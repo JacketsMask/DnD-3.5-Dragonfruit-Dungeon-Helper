@@ -88,6 +88,9 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
         //Weapon proficiencies
         DefaultListModel knownWeapons = new DefaultListModel();
         DefaultListModel unknownWeapons = new DefaultListModel();
+        knownWeaponProficiencyList.setModel(knownWeapons);
+        unknownWeaponProficiencyList.setModel(unknownWeapons);
+        JListHelper.registerLinkedJListListener(knownWeaponProficiencyList, unknownWeaponProficiencyList);
         ArrayList<WeaponProficiency> remainingWeapons = WeaponProficiency.getAllProficiencies();
         WeaponProficiency[] weaponProficiencies = newClass.getWeaponProficiencies();
         for (WeaponProficiency w : weaponProficiencies) {
@@ -125,15 +128,17 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
         //Get skill ranks per level
         skillInitialModifierTextField.setText("" + newClass.getInitialSkillRankModifier());
         skillModifierTextField.setText("" + newClass.getSkillRankModifier());
+        ArrayList<Skill> remaining = Skill.getAllSkillsInArrayList();
         //Class skills
         DefaultListModel model = new DefaultListModel();
         for (Skill s : newClass.getClassSkills()) {
             model.addElement(s);
+            remaining.remove(s);
         }
         classSkillsList.setModel(model);
         //Cross-class skills
         DefaultListModel model2 = new DefaultListModel();
-        for (Skill s : newClass.getClassSkills()) {
+        for (Skill s : remaining) {
             model2.addElement(s);
         }
         crossClassSkillsList.setModel(model2);
@@ -151,9 +156,9 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
         int rowCount = classTable.getRowCount();
         //Get rest of info from each column at the same row
         for (int i = 0; i < rowCount; i++) {
-            CharacterClassLevelData data = map.get(i);
+            CharacterClassLevelData data = map.get(i+1);
             //Set BAB
-            int[] baseAttackBonus = data.getBaseAttackBonus();
+            int[] baseAttackBonus = data.getBaseAttackBonus(); //FIXME: Null pointer
             String bab = "";
             for (Integer integer : baseAttackBonus) {
                 bab += integer + "/";
@@ -175,7 +180,7 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
         StartingGold startingGold = newClass.getStartingGold();
         startingGoldNumDieTextField.setText("" + startingGold.getNumDice());
         startingGoldSidesTextField.setText("" + startingGold.getNumSides());
-        startingGoldMultiplierTextField.setText("" + startingGoldMultiplierTextField);
+        startingGoldMultiplierTextField.setText("" + startingGold.getMultiplier());
     }
 
     private void loadCasterData() {
@@ -989,7 +994,8 @@ public class ClassBuilderDialog extends javax.swing.JDialog {
         //Get rest of info from each column at the same row
         for (int i = 0; i < rowCount; i++) {
             int localLevel = (int) classTable.getValueAt(i, levelColumn);
-            String bab = classTable.getValueAt(i, babColumn).toString(); //FIXME: BAB isn't being read properly
+            String bab = classTable.getValueAt(i, babColumn).toString();
+            System.out.println("BAB at level " + localLevel + ": " + bab);
             int fortSave = (int) classTable.getValueAt(i, fortSaveColumn);
             int reflexSave = (int) classTable.getValueAt(i, reflexSaveColumn);
             int willSave = (int) classTable.getValueAt(i, willSaveColumn);
