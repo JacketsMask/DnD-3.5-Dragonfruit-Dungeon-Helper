@@ -30,13 +30,6 @@ public class SerializationThread implements Runnable {
 
     @Override
     public void run() {
-        ArrayList<CharacterClass> characterClasses = player.getClassInfo().getCharacterClasses();
-        System.out.print("SerializationThread: Watching for changes in: ");
-        for (CharacterClass cc : characterClasses) {
-            System.out.print("[" + cc + "]" + " ");
-            cc.stateSaved();
-        }
-        System.out.println("");
         while (!Thread.interrupted()) {
             try {
                 //Check to see if the state has changed
@@ -50,21 +43,6 @@ public class SerializationThread implements Runnable {
                     FileManipulator.writeCharacterToFile(player);
                     player.stateSaved();
                     timesSkippedBeforeSaving = 0;
-                }
-                //Check to see if class state has changed
-                for (CharacterClass cc : characterClasses) {
-                    if (cc.stateChanged()) {
-                        do {
-                            cc.stateSaved();
-                            System.out.println("SerializationThread: Class state change detected");
-                            Thread.sleep(CHANGE_DELAY);
-                            timesSkippedBeforeSaving++;
-                        } while (cc.stateChanged() || timesSkippedBeforeSaving >= MAX_SKIPS);
-                        FileManipulator.writeClass(cc);
-                        FileManipulator.writeCharacterToFile(player);
-                        cc.stateSaved();
-                        timesSkippedBeforeSaving = 0;
-                    }
                 }
                 Thread.sleep(CHECK_DELAY);
             } catch (NullPointerException ex) {

@@ -1039,7 +1039,6 @@ public class ClassEditorDialog extends javax.swing.JDialog {
             weaponProficiencies[i] = (WeaponProficiency) weaponProficiencyModel.getElementAt(i);
         }
         newClass.setWeaponProficiencies(weaponProficiencies);
-        newClass.setCurrentLevel(1);
         //Class is done
         classDone = true;
         this.setVisible(false);

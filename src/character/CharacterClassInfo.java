@@ -1,6 +1,7 @@
 package character;
 
 import character.classes.CharacterClass;
+import character.classes.ClassMetaData;
 import main.SaveStateTracker;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,41 +14,44 @@ import java.util.HashMap;
  * @author Jacob Dorman
  */
 public class CharacterClassInfo extends SaveStateTracker implements Serializable {
-
+    
     private static final long serialVersionUID = 1L;
-    private ArrayList<CharacterClass> list;
-    private HashMap<CharacterClass, ArrayList<Spell>> knownSpells;
-
+    private transient ArrayList<CharacterClass> list;
+    //class name:data
+    private HashMap<String, ClassMetaData> classData;
+    
     public CharacterClassInfo() {
         super();
         list = new ArrayList<>();
-        knownSpells = new HashMap<>();
+        classData = new HashMap<>();
     }
-    
+
     /**
      * Adds the passed spell to the learned spell list of the passed class.
+     *
      * @param characterClass
-     * @param spell 
+     * @param spell
      */
     public void learnSpell(CharacterClass characterClass, Spell spell) {
+        HashMap<Integer, ArrayList<String>> knownSpells = classData.get(characterClass.getName()).getKnownSpells();
+        int spellLevel = spell.getLevel();
         //Add value to ArrayList of spells for the passed class,
-        //if there is no ArrayList set up yet, set it up
-        if (knownSpells.get(characterClass) != null) {
-            knownSpells.get(characterClass).add(spell);
-        } else {
-            ArrayList<Spell> classSpells = new ArrayList<>();
-            classSpells.add(spell);
-            knownSpells.put(characterClass, classSpells);
-        }
+        knownSpells.get(spellLevel).add(spell.getName());
     }
-    
+
     /**
      * Unlearns the passed spells from the passed class.
+     *
      * @param characterClass
-     * @param spell 
+     * @param spell
      */
     public void unlearnSpell(CharacterClass characterClass, Spell spell) {
-        knownSpells.get(characterClass).remove(spell);
+        HashMap<Integer, ArrayList<String>> knownSpells = classData.get(characterClass.getName()).getKnownSpells();
+        knownSpells.get(spell.getLevel()).remove(spell.getName());
+    }
+    
+    public int getFortSave() {
+        
     }
 
     /**
