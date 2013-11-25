@@ -1,5 +1,8 @@
 package enumerations;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * An enumeration of all skill types included in D&D 3.5. Keep in mind that
  * there can be multiples of knowledge or profession type skills. TODO: Find a
@@ -27,6 +30,12 @@ public enum Skill {
             RIDE, SEARCH, SENSE_MOTIVE, SLEIGHT_OF_HAND, SPEAK_LANGUAGE, SPELLCRAFT,
             SPOT, SURVIVAL, SWIM, TUMBLE, USE_MAGIC_DEVICE, USE_PSIONIC_DEVICE, USE_ROPE};
     }
+    
+    public static ArrayList<Skill> getAllSkillsInArrayList() {
+        ArrayList<Skill> arrayList = new ArrayList<>();
+        arrayList.addAll(Arrays.asList(getAllSkills()));
+        return arrayList;
+     }
 
     /**
      * @return an array of strength based skills
