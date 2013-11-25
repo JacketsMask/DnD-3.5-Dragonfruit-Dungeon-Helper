@@ -51,6 +51,7 @@ public class CharacterClass extends SaveStateTracker implements Serializable {
         this.name = name;
         restrictedAlignments = new ArrayList<>();
         levelDataMap = new HashMap<>();
+        spellList = new ClassSpellList();
     }
 
     public ClassSpellList getSpellList() {

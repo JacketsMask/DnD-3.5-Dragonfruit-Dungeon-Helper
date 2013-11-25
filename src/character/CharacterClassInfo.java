@@ -4,6 +4,7 @@ import character.classes.CharacterClass;
 import main.SaveStateTracker;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Holds information regarding character classes. This exists because of the
@@ -15,10 +16,38 @@ public class CharacterClassInfo extends SaveStateTracker implements Serializable
 
     private static final long serialVersionUID = 1L;
     private ArrayList<CharacterClass> list;
+    private HashMap<CharacterClass, ArrayList<Spell>> knownSpells;
 
     public CharacterClassInfo() {
         super();
         list = new ArrayList<>();
+        knownSpells = new HashMap<>();
+    }
+    
+    /**
+     * Adds the passed spell to the learned spell list of the passed class.
+     * @param characterClass
+     * @param spell 
+     */
+    public void learnSpell(CharacterClass characterClass, Spell spell) {
+        //Add value to ArrayList of spells for the passed class,
+        //if there is no ArrayList set up yet, set it up
+        if (knownSpells.get(characterClass) != null) {
+            knownSpells.get(characterClass).add(spell);
+        } else {
+            ArrayList<Spell> classSpells = new ArrayList<>();
+            classSpells.add(spell);
+            knownSpells.put(characterClass, classSpells);
+        }
+    }
+    
+    /**
+     * Unlearns the passed spells from the passed class.
+     * @param characterClass
+     * @param spell 
+     */
+    public void unlearnSpell(CharacterClass characterClass, Spell spell) {
+        knownSpells.get(characterClass).remove(spell);
     }
 
     /**
