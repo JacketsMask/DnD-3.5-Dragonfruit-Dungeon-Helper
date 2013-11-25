@@ -14,6 +14,8 @@ public class Spell implements Serializable {
     private String name;
     //The level of this spell
     private int level;
+    //The reference that contains this spell
+    private String reference;
     //The description of this spell
     private String description;
     //The school that this spell belongs to
@@ -49,6 +51,14 @@ public class Spell implements Serializable {
 
     public Spell(String spellName) {
         this.name = spellName;
+    }
+
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
     }
 
     public SpellType getType() {

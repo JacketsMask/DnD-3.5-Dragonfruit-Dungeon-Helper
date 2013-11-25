@@ -8,7 +8,7 @@ import character.classes.CharacterClass;
 import enumerations.Alignment;
 import enumerations.Gender;
 import file.manipulation.FileManipulator;
-import gui.classes.ClassBuilderDialog;
+import HelperApps.ClassEditor.ClassEditorDialog;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
@@ -441,7 +441,7 @@ public class BasicInfoDialog extends javax.swing.JDialog {
      * @return a new CharacterClass object
      */
     private CharacterClass buildClass() {
-        ClassBuilderDialog classBuilderDialog = new ClassBuilderDialog(null, true);
+        ClassEditorDialog classBuilderDialog = new ClassEditorDialog(null, true);
         classBuilderDialog.setVisible(true);
         return classBuilderDialog.getNewClass();
     }
