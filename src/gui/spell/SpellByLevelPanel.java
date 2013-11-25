@@ -3,6 +3,7 @@ package gui.spell;
 import character.Spell;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.JList;
 
 /**
  * An object of this panel should be generated for every level of spell that a 
@@ -17,6 +18,7 @@ public class SpellByLevelPanel extends javax.swing.JPanel {
     /** Creates new form SpellByLevelPanel */
     public SpellByLevelPanel(int level, ArrayList<Spell> spellArray) {
         initComponents();
+        spellsLevelLabel.setText("Level " + level + " spells:");
         model = new DefaultListModel();
         spellList.setModel(model);
         this.spellArray = spellArray;
@@ -26,10 +28,18 @@ public class SpellByLevelPanel extends javax.swing.JPanel {
         }
     }
 
+    public Spell getSelectedSpell() {
+        return (Spell) spellList.getSelectedValue();
+    }
+
     private void initSpellList() {
         for (Spell s : spellArray) {
             model.addElement(s);
         }
+    }
+
+    public JList getSpellList() {
+        return spellList;
     }
 
     public void reloadSpells() {
@@ -88,29 +98,26 @@ public class SpellByLevelPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(spellsLevelLabel)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(uselessLabel780)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(spellsLevelLabel)
-                        .addGap(18, 18, 18))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(uselessLabel780)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(spellsLevelLabel)
+                    .addComponent(uselessLabel780))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
-                    .addComponent(jScrollPane5))
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -123,7 +130,6 @@ public class SpellByLevelPanel extends javax.swing.JPanel {
             spellDescriptionTextArea.setText("");
         }
     }//GEN-LAST:event_spellListValueChanged
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane5;

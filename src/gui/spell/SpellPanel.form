@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.3" maxVersion="1.8" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <Properties>
+    <Property name="name" type="java.lang.String" value="Class Spells" noResource="true"/>
+  </Properties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -45,22 +48,13 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="spellsByLevelTabbedPane" min="-2" pref="401" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="spellsAddSpellButton" min="-2" pref="105" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="modifySpellButton" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="castSpellButton" min="-2" pref="105" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="prepareSpellButton" min="-2" pref="97" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Component id="spellsRemoveSpellbutton" min="-2" pref="105" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="learnSpellsButton" alignment="0" pref="105" max="32767" attributes="0"/>
+                          <Component id="castSpellButton" alignment="0" pref="105" max="32767" attributes="0"/>
+                          <Component id="unlearnSpellsButton" pref="105" max="32767" attributes="0"/>
+                          <Component id="prepareSpellButton" alignment="0" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="18" max="32767" attributes="0"/>
+                      <EmptySpace pref="133" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -69,20 +63,16 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="castSpellButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="prepareSpellButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="spellsAddSpellButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="modifySpellButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                          <Component id="spellsByLevelTabbedPane" alignment="0" min="-2" pref="216" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="castSpellButton" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="spellsRemoveSpellbutton" min="-2" max="-2" attributes="0"/>
+                              <Component id="prepareSpellButton" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="learnSpellsButton" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="unlearnSpellsButton" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="spellsByLevelTabbedPane" min="-2" pref="216" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="13" max="32767" attributes="0"/>
                   </Group>
@@ -90,12 +80,12 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="spellsAddSpellButton">
+            <Component class="javax.swing.JButton" name="learnSpellsButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Add Spell"/>
+                <Property name="text" type="java.lang.String" value="Learn Spells"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="spellsAddSpellButtonActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="learnSpellsButtonActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="prepareSpellButton">
@@ -109,12 +99,12 @@
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="spellsRemoveSpellbutton">
+            <Component class="javax.swing.JButton" name="unlearnSpellsButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Remove Spell"/>
+                <Property name="text" type="java.lang.String" value="Unlearn Spell"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="spellsRemoveSpellbuttonActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="unlearnSpellsButtonActionPerformed"/>
               </Events>
             </Component>
             <Container class="javax.swing.JTabbedPane" name="spellsByLevelTabbedPane">
@@ -124,11 +114,6 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
             </Container>
-            <Component class="javax.swing.JButton" name="modifySpellButton">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Modify Spell"/>
-              </Properties>
-            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jPanel2">
@@ -159,7 +144,7 @@
                           <Component id="jScrollPane6" min="-2" pref="198" max="-2" attributes="0"/>
                           <Component id="uselessLabel781" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="233" max="32767" attributes="0"/>
+                      <EmptySpace pref="237" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -184,7 +169,7 @@
                           <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="24" max="32767" attributes="0"/>
+                      <EmptySpace pref="26" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

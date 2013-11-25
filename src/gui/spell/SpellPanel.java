@@ -5,12 +5,11 @@ import character.Player;
 import character.Spell;
 import character.classes.CharacterClass;
 import character.classes.ClassSpellList;
-import gui.spellcrafter.SpellDesignerDialog;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- *
+ * //TODO: Load in known spells at launch (in spellpanels)
  * @author Japhez
  */
 public class SpellPanel extends javax.swing.JPanel {
@@ -60,12 +59,11 @@ public class SpellPanel extends javax.swing.JPanel {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
-        spellsAddSpellButton = new javax.swing.JButton();
+        learnSpellsButton = new javax.swing.JButton();
         prepareSpellButton = new javax.swing.JButton();
         castSpellButton = new javax.swing.JButton();
-        spellsRemoveSpellbutton = new javax.swing.JButton();
+        unlearnSpellsButton = new javax.swing.JButton();
         spellsByLevelTabbedPane = new javax.swing.JTabbedPane();
-        modifySpellButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         spellScrollPane1 = new javax.swing.JScrollPane();
         preparedSpellsList = new javax.swing.JList();
@@ -120,10 +118,12 @@ public class SpellPanel extends javax.swing.JPanel {
         jTextField27 = new javax.swing.JTextField();
         jLabel29 = new javax.swing.JLabel();
 
-        spellsAddSpellButton.setText("Add Spell");
-        spellsAddSpellButton.addActionListener(new java.awt.event.ActionListener() {
+        setName("Class Spells"); // NOI18N
+
+        learnSpellsButton.setText("Learn Spells");
+        learnSpellsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                spellsAddSpellButtonActionPerformed(evt);
+                learnSpellsButtonActionPerformed(evt);
             }
         });
 
@@ -132,16 +132,14 @@ public class SpellPanel extends javax.swing.JPanel {
         castSpellButton.setText("Cast Spell");
         castSpellButton.setEnabled(false);
 
-        spellsRemoveSpellbutton.setText("Remove Spell");
-        spellsRemoveSpellbutton.addActionListener(new java.awt.event.ActionListener() {
+        unlearnSpellsButton.setText("Unlearn Spell");
+        unlearnSpellsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                spellsRemoveSpellbuttonActionPerformed(evt);
+                unlearnSpellsButtonActionPerformed(evt);
             }
         });
 
         spellsByLevelTabbedPane.setTabPlacement(javax.swing.JTabbedPane.LEFT);
-
-        modifySpellButton.setText("Modify Spell");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -150,35 +148,27 @@ public class SpellPanel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(spellsByLevelTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(spellsAddSpellButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(modifySpellButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(castSpellButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(prepareSpellButton, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(spellsRemoveSpellbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(learnSpellsButton, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                    .addComponent(castSpellButton, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                    .addComponent(unlearnSpellsButton, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                    .addComponent(prepareSpellButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(133, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(spellsByLevelTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(castSpellButton)
-                            .addComponent(prepareSpellButton))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(spellsAddSpellButton)
-                            .addComponent(modifySpellButton))
+                        .addComponent(castSpellButton)
                         .addGap(18, 18, 18)
-                        .addComponent(spellsRemoveSpellbutton))
-                    .addComponent(spellsByLevelTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(prepareSpellButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(learnSpellsButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(unlearnSpellsButton)))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
@@ -226,7 +216,7 @@ public class SpellPanel extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(uselessLabel781))
-                .addContainerGap(233, Short.MAX_VALUE))
+                .addContainerGap(237, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,7 +235,7 @@ public class SpellPanel extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Prepared Spells", jPanel2);
@@ -568,21 +558,15 @@ public class SpellPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void spellsAddSpellButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_spellsAddSpellButtonActionPerformed
-        //Start creating a new spell
-        SpellDesignerDialog spellDesignerDialog = new SpellDesignerDialog(null, true, null);
-        spellDesignerDialog.setVisible(true);
-        //Get the resulting spell
-        Spell spell = spellDesignerDialog.getSpell();
-        //Add the spell to the spell list
-        cc.getSpellList().addSpell(spell, spell.getLevel());
-        //Reload displayed spell list
-        spellPanels.get(spell.getLevel()).reloadSpells();
-    }//GEN-LAST:event_spellsAddSpellButtonActionPerformed
-
-    private void spellsRemoveSpellbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_spellsRemoveSpellbuttonActionPerformed
+    private void unlearnSpellsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unlearnSpellsButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_spellsRemoveSpellbuttonActionPerformed
+    }//GEN-LAST:event_unlearnSpellsButtonActionPerformed
+
+    private void learnSpellsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_learnSpellsButtonActionPerformed
+        //List class spells
+        cc.getSpellList();
+    }//GEN-LAST:event_learnSpellsButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton castSpellButton;
     private javax.swing.JButton jButton1;
@@ -636,14 +620,13 @@ public class SpellPanel extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
-    private javax.swing.JButton modifySpellButton;
+    private javax.swing.JButton learnSpellsButton;
     private javax.swing.JButton prepareSpellButton;
     private javax.swing.JList preparedSpellsList;
     private javax.swing.JTextArea spellDescriptionTextArea1;
     private javax.swing.JScrollPane spellScrollPane1;
-    private javax.swing.JButton spellsAddSpellButton;
     private javax.swing.JTabbedPane spellsByLevelTabbedPane;
-    private javax.swing.JButton spellsRemoveSpellbutton;
+    private javax.swing.JButton unlearnSpellsButton;
     private javax.swing.JLabel uselessLabel781;
     // End of variables declaration//GEN-END:variables
 }
