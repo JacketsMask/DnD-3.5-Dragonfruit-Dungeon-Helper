@@ -1,6 +1,7 @@
 package HelperApps.ClassEditor;
 
 import character.classes.CharacterClass;
+import character.classes.MutableCharacterClass;
 import character.classes.StartingGold;
 import character.proficiencies.ArmorProficiency;
 import character.proficiencies.WeaponProficiency;
@@ -24,7 +25,7 @@ import main.TableColumnAdjuster;
  */
 public class ClassEditorDialog extends javax.swing.JDialog {
 
-    private CharacterClass newClass;
+    private MutableCharacterClass newClass;
     private ClassEditorSpellsPerDayPanel spellsPerDayPanel;
     private ClassEditorSpellPanel spellPanel;
     private boolean classDone;
@@ -48,7 +49,7 @@ public class ClassEditorDialog extends javax.swing.JDialog {
      * @param model
      * @param initialClass
      */
-    public ClassEditorDialog(java.awt.Frame parent, boolean model, CharacterClass initialClass) {
+    public ClassEditorDialog(java.awt.Frame parent, boolean model, MutableCharacterClass initialClass) {
         super(parent, model);
         initComponents();
         newClass = initialClass;
@@ -928,7 +929,7 @@ public class ClassEditorDialog extends javax.swing.JDialog {
     private void finishClassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finishClassButtonActionPerformed
         System.out.println("Creating new class...");
         //Basic class info
-        newClass = new CharacterClass(nameTextField.getText());
+        newClass = new MutableCharacterClass(nameTextField.getText());
         //Hit die
         newClass.setHitDie(Integer.parseInt(hitDieTextField.getText()));
         //Starting gold
@@ -984,9 +985,9 @@ public class ClassEditorDialog extends javax.swing.JDialog {
         }
         //Ability information
         if (usesAbilitiesCheckBox.isSelected()) {
-            newClass.setAbilityUser(true);
+            newClass.setUsesAbilities(true);
         } else {
-            newClass.setAbilityUser(false);
+            newClass.setUsesAbilities(false);
         }
 
         //Table

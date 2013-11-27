@@ -1,6 +1,7 @@
 package HelperApps.ClassEditor;
 
 import character.classes.CharacterClass;
+import character.classes.MutableCharacterClass;
 import file.manipulation.FileManipulator;
 import javax.swing.DefaultListModel;
 import javax.swing.UIManager;
@@ -146,7 +147,7 @@ public class ClassEditorApp extends javax.swing.JFrame {
 
     private void editClassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editClassButtonActionPerformed
         String className = (String) classList.getSelectedValue();
-        CharacterClass readClass = FileManipulator.readClass(className);
+        MutableCharacterClass readClass = FileManipulator.readClass(className);
         ClassEditorDialog classEditor = new ClassEditorDialog(this, true, readClass);
         classEditor.setVisible(true);
         CharacterClass newClass = classEditor.getNewClass();
