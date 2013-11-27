@@ -12,6 +12,7 @@ import character.CharacterProficiencies;
 import character.CharacterSkills;
 import character.Spell;
 import character.classes.CharacterClass;
+import character.classes.MutableCharacterClass;
 import character.effects.EffectManager;
 import character.inventory.CharacterInventory;
 import java.io.*;
@@ -94,7 +95,7 @@ public class FileManipulator {
 
     private static String[] getFilesOnPath(String path) {
         File[] listFiles = new File(path).listFiles();
-        if (listFiles ==  null) {
+        if (listFiles == null) {
             return null;
         }
         String[] fileNames = new String[listFiles.length];
@@ -104,7 +105,7 @@ public class FileManipulator {
         }
         return fileNames;
     }
-    
+
     /**
      * Looks at folders in the class directory, and returns a string array
      * containing the class names.
@@ -158,7 +159,9 @@ public class FileManipulator {
             Logger.getLogger(FileManipulator.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            character.setClassInfo((CharacterClassInfo) readObject(path, "classes"));
+            CharacterClassInfo classInfo = (CharacterClassInfo) readObject(path, "classes");
+            classInfo.loadClassData();
+            character.setClassInfo(classInfo);
         } catch (ClassNotFoundException | IOException ex) {
             Logger.getLogger(FileManipulator.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -306,15 +309,15 @@ public class FileManipulator {
         }
     }
 
-    public static CharacterClass[] readClasses() {
+    public static MutableCharacterClass[] readClasses() {
         File[] listFiles = new File(CLASS_PATH).listFiles();
         if (listFiles == null) {
             System.err.println("Can't find path to class files.");
         }
-        CharacterClass[] classes = new CharacterClass[listFiles.length];
+        MutableCharacterClass[] classes = new MutableCharacterClass[listFiles.length];
         for (int i = 0; i < classes.length; i++) {
             try {
-                classes[i] = (CharacterClass) readObject(CLASS_PATH, listFiles[i].getName());
+                classes[i] = (MutableCharacterClass) readObject(CLASS_PATH, listFiles[i].getName());
             } catch (ClassNotFoundException | IOException ex) {
                 Logger.getLogger(FileManipulator.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -322,9 +325,9 @@ public class FileManipulator {
         return classes;
     }
 
-    public static CharacterClass readClass(String className) {
+    public static MutableCharacterClass readClass(String className) {
         try {
-            return (CharacterClass) readObject(CLASS_PATH, className + ".class");
+            return (MutableCharacterClass) readObject(CLASS_PATH, className + ".class");
         } catch (ClassNotFoundException | IOException ex) {
             Logger.getLogger(FileManipulator.class.getName()).log(Level.SEVERE, null, ex);
         }
