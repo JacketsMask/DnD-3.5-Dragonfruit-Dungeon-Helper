@@ -29,6 +29,10 @@ public class CharacterClassInfo extends SaveStateTracker implements Serializable
         classData = new HashMap<>();
     }
 
+    public HashMap<String, ClassMetaData> getClassData() {
+        return classData;
+    }
+
     public void loadClassData() {
         classList = new ArrayList<>();
         Set<String> keySet = classData.keySet();
@@ -41,7 +45,7 @@ public class CharacterClassInfo extends SaveStateTracker implements Serializable
                 System.out.println("Unable to load class: " + s);
             }
         }
-        
+
     }
 
     /**

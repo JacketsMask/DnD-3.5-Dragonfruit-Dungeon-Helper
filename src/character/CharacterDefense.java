@@ -213,7 +213,8 @@ public class CharacterDefense extends SaveStateTracker implements Serializable {
         ArrayList<CharacterClass> characterClasses = character.getClassInfo().getCharacterClasses();
         int fortSaveBonus = 0;
         for (CharacterClass cc : characterClasses) {
-            fortSaveBonus += cc.getFortSaveModifier();
+            int classLevel = character.getClassInfo().getClassData().get(cc.getName()).getClassLevel();
+            fortSaveBonus += cc.getFortSaveModifier(classLevel);
         }
         //Constitution modifier
         int conMod = character.getAbilityScore().getAbilityScoreModifier(AbilityScore.CONSTITUTION);
@@ -229,7 +230,8 @@ public class CharacterDefense extends SaveStateTracker implements Serializable {
         ArrayList<CharacterClass> characterClasses = character.getClassInfo().getCharacterClasses();
         int reflexSaveBonus = 0;
         for (CharacterClass cc : characterClasses) {
-            reflexSaveBonus += cc.getRefSaveModifier();
+            int classLevel = character.getClassInfo().getClassData().get(cc.getName()).getClassLevel();
+            reflexSaveBonus += cc.getRefSaveModifier(classLevel);
         }
         //Constitution modifier
         int dexMod = character.getAbilityScore().getAbilityScoreModifier(AbilityScore.DEXTERITY);
@@ -245,7 +247,8 @@ public class CharacterDefense extends SaveStateTracker implements Serializable {
         ArrayList<CharacterClass> characterClasses = character.getClassInfo().getCharacterClasses();
         int willSaveBonus = 0;
         for (CharacterClass cc : characterClasses) {
-            willSaveBonus += cc.getWillSaveModifier();
+            int classLevel = character.getClassInfo().getClassData().get(cc.getName()).getClassLevel();
+            willSaveBonus += cc.getWillSaveModifier(classLevel);
         }
         //Constitution modifier
         int wisMod = character.getAbilityScore().getAbilityScoreModifier(AbilityScore.WISDOM);
