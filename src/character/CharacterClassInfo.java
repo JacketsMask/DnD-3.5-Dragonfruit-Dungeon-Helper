@@ -2,10 +2,13 @@ package character;
 
 import character.classes.CharacterClass;
 import character.classes.ClassMetaData;
+import character.classes.MutableCharacterClass;
+import file.manipulation.FileManipulator;
 import main.SaveStateTracker;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 /**
  * Holds information regarding character classes. This exists because of the
@@ -14,16 +17,31 @@ import java.util.HashMap;
  * @author Jacob Dorman
  */
 public class CharacterClassInfo extends SaveStateTracker implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
-    private transient ArrayList<CharacterClass> list;
+    private transient ArrayList<CharacterClass> classList;
     //class name:data
     private HashMap<String, ClassMetaData> classData;
-    
+
     public CharacterClassInfo() {
         super();
-        list = new ArrayList<>();
+        classList = new ArrayList<>();
         classData = new HashMap<>();
+    }
+
+    public void loadClassData() {
+        classList = new ArrayList<>();
+        Set<String> keySet = classData.keySet();
+        for (String s : keySet) {
+            //Attempt to load in class
+            try {
+                MutableCharacterClass readClass = FileManipulator.readClass(s);
+                classList.add(readClass);
+            } catch (Exception e) {
+                System.out.println("Unable to load class: " + s);
+            }
+        }
+        
     }
 
     /**
@@ -33,10 +51,7 @@ public class CharacterClassInfo extends SaveStateTracker implements Serializable
      * @param spell
      */
     public void learnSpell(CharacterClass characterClass, Spell spell) {
-        HashMap<Integer, ArrayList<String>> knownSpells = classData.get(characterClass.getName()).getKnownSpells();
-        int spellLevel = spell.getLevel();
-        //Add value to ArrayList of spells for the passed class,
-        knownSpells.get(spellLevel).add(spell.getName());
+        classData.get(characterClass.getName()).learnSpell(spell);
     }
 
     /**
@@ -46,12 +61,7 @@ public class CharacterClassInfo extends SaveStateTracker implements Serializable
      * @param spell
      */
     public void unlearnSpell(CharacterClass characterClass, Spell spell) {
-        HashMap<Integer, ArrayList<String>> knownSpells = classData.get(characterClass.getName()).getKnownSpells();
-        knownSpells.get(spell.getLevel()).remove(spell.getName());
-    }
-    
-    public int getFortSave() {
-        
+        classData.get(characterClass.getName()).unlearnSpell(spell);
     }
 
     /**
@@ -59,17 +69,17 @@ public class CharacterClassInfo extends SaveStateTracker implements Serializable
      * null
      */
     public CharacterClass getInitialClass() {
-        if (list.isEmpty()) {
+        if (classList.isEmpty()) {
             return null;
         }
-        return list.get(0);
+        return classList.get(0);
     }
 
     /**
      * @return an ArrayList of all CharacterClasses of this character
      */
     public ArrayList<CharacterClass> getCharacterClasses() {
-        return list;
+        return classList;
     }
 
     /**
@@ -79,8 +89,8 @@ public class CharacterClassInfo extends SaveStateTracker implements Serializable
      * @param cClass the new initial class
      */
     public void setClass(CharacterClass cClass) {
-        list = new ArrayList<>();
-        list.add(cClass);
+        classList = new ArrayList<>();
+        classList.add(cClass);
         super.stateChanged = true;
     }
 
@@ -91,7 +101,7 @@ public class CharacterClassInfo extends SaveStateTracker implements Serializable
      * @param cClass the class to add
      */
     public void addClass(CharacterClass cClass) {
-        list.add(cClass);
+        classList.add(cClass);
         super.stateChanged = true;
     }
 }
