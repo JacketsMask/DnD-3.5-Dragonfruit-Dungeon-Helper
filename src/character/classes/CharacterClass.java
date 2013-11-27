@@ -56,12 +56,6 @@ public class CharacterClass implements Serializable {
         return spellList;
     }
 
-    public void setSpellList(ClassSpellList spellList) {
-        System.out.println(name + " spell list set.");
-        this.spellList = spellList;
-
-    }
-
     public int getFortSaveModifier(int level) {
         return levelDataMap.get(level).getFortSave();
     }
@@ -82,16 +76,6 @@ public class CharacterClass implements Serializable {
         return levelDataMap;
     }
 
-    public void setLevelDataMap(HashMap<Integer, CharacterClassLevelData> levelDataMap) {
-        this.levelDataMap = levelDataMap;
-
-    }
-
-    public void setAbilityUser(boolean usesAbilities) {
-        this.usesAbilities = usesAbilities;
-
-    }
-
     public boolean isAbilityUser() {
         return usesAbilities;
     }
@@ -100,54 +84,16 @@ public class CharacterClass implements Serializable {
         return restrictedAlignments;
     }
 
-    public void setRestrictedAlignments(ArrayList<Alignment> restrictedAlignments) {
-        this.restrictedAlignments = restrictedAlignments;
-
-    }
-
-    public void setArmorProficiencies(ArmorProficiency[] armorProficiencies) {
-        this.armorProficiencies = armorProficiencies;
-
-    }
-
-    public void setName(String name) {
-        this.name = name;
-
-    }
-
-    public void setWeaponProficiencies(WeaponProficiency[] weaponProficiencies) {
-        this.weaponProficiencies = weaponProficiencies;
-
-    }
-
     public Skill[] getClassSkills() {
         return classSkills;
-    }
-
-    public void setClassSkills(Skill[] classSkills) {
-        this.classSkills = classSkills;
-    }
-
-    public void setInitialSkillRankModifier(int initialSkillRankModifier) {
-        this.initialSkillRankModifier = initialSkillRankModifier;
     }
 
     public int getInitialSkillRankModifier() {
         return initialSkillRankModifier;
     }
 
-    public void setSkillRankModifier(int skillRankModifier) {
-        this.skillRankModifier = skillRankModifier;
-
-    }
-
     public int getSkillRankModifier() {
         return skillRankModifier;
-    }
-
-    public void setCasterType(CasterType casterType) {
-        this.casterType = casterType;
-
     }
 
     public CasterType getCasterType() {
@@ -156,14 +102,6 @@ public class CharacterClass implements Serializable {
 
     public int getHitDie() {
         return hitDie;
-    }
-
-    public void setHitDie(int hitDie) {
-        this.hitDie = hitDie;
-    }
-
-    public void setStartingGold(StartingGold startingGold) {
-        this.startingGold = startingGold;
     }
 
     public StartingGold getStartingGold() {
