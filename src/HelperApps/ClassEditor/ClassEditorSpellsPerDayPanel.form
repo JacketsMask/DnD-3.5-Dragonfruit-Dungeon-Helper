@@ -55,27 +55,27 @@
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="11" rowCount="20">
-                <Column editable="false" title="Class Level" type="java.lang.Object">
-                  <Data value="Class level 1"/>
-                  <Data value="Class level 2"/>
-                  <Data value="Class level 3"/>
-                  <Data value="Class level 4"/>
-                  <Data value="Class level 5"/>
-                  <Data value="Class level 6"/>
-                  <Data value="Class level 7"/>
-                  <Data value="Class level 8"/>
-                  <Data value="Class level 9"/>
-                  <Data value="Class level 10"/>
-                  <Data value="Class level 11"/>
-                  <Data value="Class level 12"/>
-                  <Data value="Class level 13"/>
-                  <Data value="Class level 14"/>
-                  <Data value="Class level 15"/>
-                  <Data value="Class level 16"/>
-                  <Data value="Class level 17"/>
-                  <Data value="Class level 18"/>
-                  <Data value="Class level 19"/>
-                  <Data value="Class level 20"/>
+                <Column editable="true" title="Class Level" type="java.lang.Integer">
+                  <Data value="1"/>
+                  <Data value="2"/>
+                  <Data value="3"/>
+                  <Data value="4"/>
+                  <Data value="5"/>
+                  <Data value="6"/>
+                  <Data value="7"/>
+                  <Data value="8"/>
+                  <Data value="9"/>
+                  <Data value="10"/>
+                  <Data value="11"/>
+                  <Data value="12"/>
+                  <Data value="13"/>
+                  <Data value="14"/>
+                  <Data value="15"/>
+                  <Data value="16"/>
+                  <Data value="17"/>
+                  <Data value="18"/>
+                  <Data value="19"/>
+                  <Data value="20"/>
                 </Column>
                 <Column editable="true" title="Spell Level 0" type="java.lang.Integer">
                   <Data value="3"/>

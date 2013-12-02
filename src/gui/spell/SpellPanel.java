@@ -4,14 +4,15 @@ import character.IntegerVerifier;
 import character.Player;
 import character.Spell;
 import character.classes.CharacterClass;
-import character.classes.ClassSpellList;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 
 /**
- * //TODO: Load in known spells at launch (in spellpanels)
+ * Displays spell information for this class.
  * @author Japhez
- */
+ */ 
 public class SpellPanel extends javax.swing.JPanel {
 
     private Player player;
@@ -35,17 +36,49 @@ public class SpellPanel extends javax.swing.JPanel {
      * level of spells.
      */
     private void initSpellLists() {
-        ClassSpellList spellList = cc.getSpellList();
+        HashMap<Integer, ArrayList<Spell>> knownSpells = player.getClassInfo().getKnownSpells(cc);
         //Create a tab each level's spells for this class
-        for (int i = 0; i <= 20; i++) {
-            ArrayList<Spell> spellsAtLevel = spellList.getSpellsAtLevel(i);
-            if (!spellsAtLevel.isEmpty()) {
-                System.out.println("loaded: " + spellsAtLevel.get(0));
-            }
+        for (int i = 0; i <= 9; i++) {
+            ArrayList<Spell> spellsAtLevel = knownSpells.get(i);
             SpellByLevelPanel panel = new SpellByLevelPanel(i, spellsAtLevel);
             spellsByLevelTabbedPane.addTab("" + i, panel);
             spellPanels.put(i, panel);
         }
+    }
+
+    /**
+     * Adds the passed spell to the appropriate spell list.
+     * @param spell 
+     */
+    private void addSpellToList(Spell spell) {
+        JList spellList = spellPanels.get(spell.getLevel()).getSpellList();
+        DefaultListModel model = (DefaultListModel) spellList.getModel();
+        model.addElement(spell);
+    }
+    
+    /**
+     * Removes the passed spell from the appropriate spell list.
+     * @param spell 
+     */
+    private void removeFromSpellList(Spell spell) {
+        JList spellList = spellPanels.get(spell.getLevel()).getSpellList();
+        DefaultListModel model = (DefaultListModel) spellList.getModel();
+        model.removeElement(spell);
+    }
+
+    /**
+     * @param spell
+     * @return true if the passed spell is already in a spell list
+     */
+    private boolean spellListed(Spell spell) {
+        JList spellList = spellPanels.get(spell.getLevel()).getSpellList();
+        DefaultListModel model = (DefaultListModel) spellList.getModel();
+        for (Object s : model.toArray()) {
+            if (s.equals(spell)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -120,7 +153,7 @@ public class SpellPanel extends javax.swing.JPanel {
 
         setName("Class Spells"); // NOI18N
 
-        learnSpellsButton.setText("Learn Spells");
+        learnSpellsButton.setText("Learn A Spell");
         learnSpellsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 learnSpellsButtonActionPerformed(evt);
@@ -559,14 +592,26 @@ public class SpellPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void unlearnSpellsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unlearnSpellsButtonActionPerformed
-        // TODO add your handling code here:
+        SpellByLevelPanel panel = (SpellByLevelPanel) spellsByLevelTabbedPane.getSelectedComponent();
+        Spell spell = panel.getSelectedSpell();
+        player.getClassInfo().unlearnSpell(cc, spell);
+        removeFromSpellList(spell);
     }//GEN-LAST:event_unlearnSpellsButtonActionPerformed
 
     private void learnSpellsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_learnSpellsButtonActionPerformed
         //List class spells
         cc.getSpellList();
+        LearnSpellDialog learnSpellDialog = new LearnSpellDialog(cc);
+        learnSpellDialog.setVisible(true);
+        Spell spell = learnSpellDialog.getSpell();
+        //If the spell isn't null and it isn't already in the list
+        if (spell != null && !spellListed(spell)) {
+            //Learn the spell
+            player.getClassInfo().learnSpell(cc, spell);
+            //Add the spell to the appropriate list
+            addSpellToList(spell);
+        }
     }//GEN-LAST:event_learnSpellsButtonActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton castSpellButton;
     private javax.swing.JButton jButton1;

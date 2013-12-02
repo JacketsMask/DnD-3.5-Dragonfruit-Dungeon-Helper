@@ -3,14 +3,13 @@ package character;
 import character.effects.EffectManager;
 import character.inventory.CharacterInventory;
 import main.SaveStateTracker;
-import java.io.Serializable;
 
 /**
  * The top level of a 3.5 character sheet. This is where the magic happens.
  *
  * @author Jacob Dorman
  */
-public class Player extends SaveStateTracker implements Serializable {
+public class Player extends SaveStateTracker {
 
     private CharacterBasicInfo basicInfo;
     private CharacterHealth health;
@@ -24,14 +23,26 @@ public class Player extends SaveStateTracker implements Serializable {
     private CharacterSkills skills;
 
     public Player() {
+    }
+
+    /**
+     * Initializes basic player data.  This is separate because there is no
+     * reason to initialize data for a player that is about to have those
+     * values read in through de-serialization soon anyways.
+     * 
+     * This method should only be called when a new player is being made, and 
+     * should be avoided for intermediate operations when loading in a player's
+     * data.
+     */
+    public void initData() {
         basicInfo = new CharacterBasicInfo();
         classInfo = new CharacterClassInfo();
         health = new CharacterHealth(this);
         abilityScore = new CharacterAbilityScore();
-        attack = new CharacterAttack();
+        attack = new CharacterAttack(this);
         defense = new CharacterDefense(this);
         proficiencies = new CharacterProficiencies();
-        inventory = new CharacterInventory();
+        inventory = new CharacterInventory(this);
         effectManager = new EffectManager(this);
         skills = new CharacterSkills(this);
     }

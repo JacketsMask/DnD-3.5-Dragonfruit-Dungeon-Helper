@@ -1,5 +1,6 @@
 package HelperApps.ClassEditor;
 
+import character.classes.ClassSpellsPerDay;
 import character.classes.CharacterClass;
 import character.classes.MutableCharacterClass;
 import character.classes.StartingGold;
@@ -8,7 +9,7 @@ import character.proficiencies.WeaponProficiency;
 import enumerations.Alignment;
 import enumerations.CasterType;
 import enumerations.Skill;
-import gui.classes.CharacterClassLevelData;
+import character.classes.CharacterClassLevelData;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.DefaultListModel;
@@ -167,14 +168,8 @@ public class ClassEditorDialog extends javax.swing.JDialog {
         for (int i = 0; i < rowCount; i++) {
             CharacterClassLevelData data = map.get(i + 1);
             //Set BAB
-            int[] baseAttackBonus = data.getBaseAttackBonus(); //FIXME: Null pointer
-            String bab = "";
-            for (Integer integer : baseAttackBonus) {
-                bab += integer + "/";
-            }
-            //Remove last slash
-            bab = bab.substring(0, bab.length() - 1);
-            classTable.setValueAt(bab, i, babColumn);
+            int baseAttackBonus = data.getBaseAttackBonus(); //FIXME: Null pointer
+            classTable.setValueAt(baseAttackBonus, i, babColumn);
             //Set saves
             classTable.setValueAt(data.getFortSave(), i, fortSaveColumn);
             classTable.setValueAt(data.getRefSave(), i, reflexSaveColumn);
@@ -413,7 +408,7 @@ public class ClassEditorDialog extends javax.swing.JDialog {
                     .addComponent(startingGoldSidesTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
                     .addComponent(startingGoldMultiplierTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(353, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         lawfulGoodCheckBox.setText("Lawful Good");
@@ -478,7 +473,7 @@ public class ClassEditorDialog extends javax.swing.JDialog {
                 .addComponent(neutralEvilCheckBox)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(chaoticEvilCheckBox)
-                .addContainerGap(98, Short.MAX_VALUE))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
 
         jLabel13.setText("Casting information:");
@@ -536,7 +531,7 @@ public class ClassEditorDialog extends javax.swing.JDialog {
                 .addComponent(divineSpellcasterRadioButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(getsDomainSpellCheckBox)
-                .addGap(47, 47, 47)
+                .addGap(18, 18, 18)
                 .addComponent(usesAbilitiesCheckBox)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -552,49 +547,52 @@ public class ClassEditorDialog extends javax.swing.JDialog {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(278, Short.MAX_VALUE))
+                .addContainerGap(171, Short.MAX_VALUE))
         );
         basicInfoPanelLayout.setVerticalGroup(
             basicInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, basicInfoPanelLayout.createSequentialGroup()
-                .addGap(0, 113, Short.MAX_VALUE)
-                .addGroup(basicInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(basicInfoPanelLayout.createSequentialGroup()
+                .addGroup(basicInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, basicInfoPanelLayout.createSequentialGroup()
+                        .addGap(0, 50, Short.MAX_VALUE)
+                        .addGroup(basicInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         mainTabbedPane.addTab("Basic class info", basicInfoPanel);
 
         classTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                { new Integer(1), "0",  new Integer(2),  new Integer(0),  new Integer(2), "Something cool happens"},
-                { new Integer(2), "1",  new Integer(3),  new Integer(0),  new Integer(3), null},
-                { new Integer(3), "2",  new Integer(3),  new Integer(1),  new Integer(3), null},
-                { new Integer(4), "3",  new Integer(4),  new Integer(1),  new Integer(4), null},
-                { new Integer(5), "3",  new Integer(4),  new Integer(1),  new Integer(4), null},
-                { new Integer(6), "4",  new Integer(5),  new Integer(2),  new Integer(5), null},
-                { new Integer(7), "5",  new Integer(5),  new Integer(2),  new Integer(5), null},
-                { new Integer(8), "6/1",  new Integer(6),  new Integer(2),  new Integer(6), null},
-                { new Integer(9), "6/1",  new Integer(6),  new Integer(3),  new Integer(6), null},
-                { new Integer(10), "7/2",  new Integer(7),  new Integer(3),  new Integer(7), null},
-                { new Integer(11), "8/3",  new Integer(7),  new Integer(3),  new Integer(7), null},
-                { new Integer(12), "9/4",  new Integer(8),  new Integer(4),  new Integer(8), null},
-                { new Integer(13), "9/4",  new Integer(8),  new Integer(4),  new Integer(8), null},
-                { new Integer(14), "10/5",  new Integer(9),  new Integer(4),  new Integer(9), null},
-                { new Integer(15), "11/6/1",  new Integer(9),  new Integer(5),  new Integer(9), null},
-                { new Integer(16), "12/7/2",  new Integer(10),  new Integer(5),  new Integer(10), null},
-                { new Integer(17), "12/7/2",  new Integer(10),  new Integer(5),  new Integer(10), null},
-                { new Integer(18), "13/8/3",  new Integer(11),  new Integer(6),  new Integer(11), null},
-                { new Integer(19), "14/9/4",  new Integer(11),  new Integer(6),  new Integer(11), null},
-                { new Integer(20), "15/10/5",  new Integer(12),  new Integer(6),  new Integer(12), null}
+                { new Integer(1),  new Integer(0),  new Integer(2),  new Integer(0),  new Integer(2), null},
+                { new Integer(2),  new Integer(1),  new Integer(3),  new Integer(0),  new Integer(3), null},
+                { new Integer(3),  new Integer(2),  new Integer(3),  new Integer(1),  new Integer(3), null},
+                { new Integer(4),  new Integer(3),  new Integer(4),  new Integer(1),  new Integer(4), null},
+                { new Integer(5),  new Integer(3),  new Integer(4),  new Integer(1),  new Integer(4), null},
+                { new Integer(6),  new Integer(4),  new Integer(5),  new Integer(2),  new Integer(5), null},
+                { new Integer(7),  new Integer(5),  new Integer(5),  new Integer(2),  new Integer(5), null},
+                { new Integer(8),  new Integer(6),  new Integer(6),  new Integer(2),  new Integer(6), null},
+                { new Integer(9),  new Integer(6),  new Integer(6),  new Integer(3),  new Integer(6), null},
+                { new Integer(10),  new Integer(7),  new Integer(7),  new Integer(3),  new Integer(7), null},
+                { new Integer(11),  new Integer(8),  new Integer(7),  new Integer(3),  new Integer(7), null},
+                { new Integer(12),  new Integer(9),  new Integer(8),  new Integer(4),  new Integer(8), null},
+                { new Integer(13),  new Integer(9),  new Integer(8),  new Integer(4),  new Integer(8), null},
+                { new Integer(14),  new Integer(10),  new Integer(9),  new Integer(4),  new Integer(9), null},
+                { new Integer(15),  new Integer(11),  new Integer(9),  new Integer(5),  new Integer(9), null},
+                { new Integer(16),  new Integer(12),  new Integer(10),  new Integer(5),  new Integer(10), null},
+                { new Integer(17),  new Integer(12),  new Integer(10),  new Integer(5),  new Integer(10), null},
+                { new Integer(18),  new Integer(13),  new Integer(11),  new Integer(6),  new Integer(11), null},
+                { new Integer(19),  new Integer(14),  new Integer(11),  new Integer(6),  new Integer(11), null},
+                { new Integer(20),  new Integer(15),  new Integer(12),  new Integer(6),  new Integer(12), null}
             },
             new String [] {
                 "Level", "Base Attack Bonus", "Fortitude Save", "Reflex Save", "Will Save", "Notes"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, true, true, true, true, true
@@ -611,6 +609,7 @@ public class ClassEditorDialog extends javax.swing.JDialog {
         classTable.setCellSelectionEnabled(true);
         classTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane1.setViewportView(classTable);
+        classTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
         javax.swing.GroupLayout tablePanelLayout = new javax.swing.GroupLayout(tablePanel);
         tablePanel.setLayout(tablePanelLayout);
@@ -618,14 +617,14 @@ public class ClassEditorDialog extends javax.swing.JDialog {
             tablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tablePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 935, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 828, Short.MAX_VALUE)
                 .addContainerGap())
         );
         tablePanelLayout.setVerticalGroup(
             tablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(tablePanelLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tablePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -672,7 +671,7 @@ public class ClassEditorDialog extends javax.swing.JDialog {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -726,7 +725,7 @@ public class ClassEditorDialog extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
                     .addComponent(skillModifierTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(276, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout skillsLayout = new javax.swing.GroupLayout(skills);
@@ -737,7 +736,7 @@ public class ClassEditorDialog extends javax.swing.JDialog {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(497, Short.MAX_VALUE))
+                .addContainerGap(390, Short.MAX_VALUE))
         );
         skillsLayout.setVerticalGroup(
             skillsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -789,7 +788,7 @@ public class ClassEditorDialog extends javax.swing.JDialog {
                     .addComponent(jLabel14))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5)
                     .addComponent(jScrollPane4))
                 .addContainerGap())
         );
@@ -857,7 +856,7 @@ public class ClassEditorDialog extends javax.swing.JDialog {
                         .addComponent(simpleWeaponsCheckBox)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(martialWeaponsCheckBox)
-                        .addGap(0, 71, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(jLabel17)
                         .addGap(18, 18, 18)
@@ -873,7 +872,7 @@ public class ClassEditorDialog extends javax.swing.JDialog {
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(275, Short.MAX_VALUE))
+                .addContainerGap(168, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -898,16 +897,16 @@ public class ClassEditorDialog extends javax.swing.JDialog {
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(386, 386, 386)
+                .addGap(282, 282, 282)
                 .addComponent(finishClassButton)
-                .addContainerGap(480, Short.MAX_VALUE))
+                .addContainerGap(477, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                .addContainerGap(253, Short.MAX_VALUE)
+                .addContainerGap(161, Short.MAX_VALUE)
                 .addComponent(finishClassButton)
-                .addGap(197, 197, 197))
+                .addGap(218, 218, 218))
         );
 
         mainTabbedPane.addTab("Finishing", jPanel9);
@@ -969,14 +968,28 @@ public class ClassEditorDialog extends javax.swing.JDialog {
         newClass.setRestrictedAlignments(alignments);
         //Casting information
         if (castsSpellsCheckBox.isSelected()) {
+            //Initialize fields for new spell data
+            newClass.initSpellCasterFields();
             if (arcaneSpellcasterRadioButton.isSelected()) {
                 newClass.setCasterType(CasterType.ARCANE_CASTER);
             } else if (divineSpellcasterRadioButton.isSelected()) {
                 newClass.setCasterType(CasterType.DIVINE_CASTER);
             }
-            //Get spells per level //TODO: Finish this
-            TableColumnModel columnModel = spellsPerDayPanel.getSpellsPerDayTable().getColumnModel();
-            int[] spellsPerDay = new int[10];
+            //Get spells per level
+            ClassSpellsPerDay classSpellsPerDay = new ClassSpellsPerDay();
+            JTable spellsPerDayTable = spellsPerDayPanel.getSpellsPerDayTable();
+            for (int columnIndex = 0; columnIndex < 10; columnIndex++) {
+                for (int rowIndex = 0; rowIndex < 20; rowIndex++) {
+                    Object valueAt = spellsPerDayTable.getValueAt(rowIndex, columnIndex);
+                    int value = 0;
+                    //Make sure it isn't null
+                    if (valueAt != null) {
+                        value = (int) valueAt;
+                    }
+                    classSpellsPerDay.setSpellsPerDay(rowIndex + 1, columnIndex + 1, value);
+                }
+            }
+            newClass.setSpellsPerDay(classSpellsPerDay);
             //Initialize spell info for class
             newClass.setSpellList(spellPanel.getSpellList());
 
@@ -1003,8 +1016,7 @@ public class ClassEditorDialog extends javax.swing.JDialog {
         //Get rest of info from each column at the same row
         for (int i = 0; i < rowCount; i++) {
             int localLevel = (int) classTable.getValueAt(i, levelColumn);
-            String bab = classTable.getValueAt(i, babColumn).toString();
-            System.out.println("BAB at level " + localLevel + ": " + bab);
+            int bab = (int) classTable.getValueAt(i, babColumn);
             int fortSave = (int) classTable.getValueAt(i, fortSaveColumn);
             int reflexSave = (int) classTable.getValueAt(i, reflexSaveColumn);
             int willSave = (int) classTable.getValueAt(i, willSaveColumn);

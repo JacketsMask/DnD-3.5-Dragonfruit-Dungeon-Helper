@@ -2,7 +2,9 @@ package character;
 
 import character.classes.CharacterClass;
 import character.classes.ClassMetaData;
+import character.classes.ClassSpellList;
 import character.classes.MutableCharacterClass;
+import enumerations.CasterType;
 import file.manipulation.FileManipulator;
 import main.SaveStateTracker;
 import java.io.Serializable;
@@ -13,6 +15,12 @@ import java.util.Set;
 /**
  * Holds information regarding character classes. This exists because of the
  * desire for multi-class support down the line.
+ * 
+ * This class also provides access to information that would require info from
+ * the character class and from class meta-data (such as known spells).
+ * 
+ * Class meta-data should only be accessed through here, and not directly 
+ * retrieved (don't give them direct access to the HashMap).
  *
  * @author Jacob Dorman
  */
@@ -24,16 +32,52 @@ public class CharacterClassInfo extends SaveStateTracker implements Serializable
     private HashMap<String, ClassMetaData> classData;
 
     public CharacterClassInfo() {
-        super();
         classList = new ArrayList<>();
         classData = new HashMap<>();
+        super.stateChanged = true;
+
     }
 
-    public HashMap<String, ClassMetaData> getClassData() {
-        return classData;
+    /**
+     * TODO: Flesh out level-up process
+     * Increase hitpoints.
+     * Gain access to new spells. (Automatically learn available spells if Divine)
+     * Gain new feat at every % 3 level.
+     * Gain new AbilityScore at every % 4 level.
+     * 
+     * 
+    Increase hit points (roll class hit die and add Con mod).
+    Increase base attack bonus
+    Increase saves
+    Allocate skill points
+    Add/advance class features
+
+     * 
+     * @param cc 
+     */
+    public void levelUp(CharacterClass cc) {
+        int prevLevel = classData.get(cc.getName()).getClassLevel();
+        classData.get(cc.getName()).setClassLevel(prevLevel + 1);
+        //Increase hitpoints
+        //Divine casters learn all their spells that they have access to immediately
+        if (cc.getCasterType().equals(CasterType.DIVINE_CASTER)) {
+            //Add all accessible spells to known list
+        }
+        super.stateChanged = true;
+    }
+
+    public void setClassLevel(CharacterClass cc, int classLevel) {
+        classData.get(cc.getName()).setClassLevel(classLevel);
+        System.out.println(cc.getName() + " now level " + classLevel);
+        super.stateChanged = true;
+    }
+
+    public int getClassLevel(CharacterClass cc) {
+        return classData.get(cc.getName()).getClassLevel();
     }
 
     public void loadClassData() {
+        System.out.println("Loading in immutable class data...");
         classList = new ArrayList<>();
         Set<String> keySet = classData.keySet();
         for (String s : keySet) {
@@ -41,11 +85,36 @@ public class CharacterClassInfo extends SaveStateTracker implements Serializable
             try {
                 MutableCharacterClass readClass = FileManipulator.readClass(s);
                 classList.add(readClass);
+                System.out.println(readClass.getName() + " loaded in...");
             } catch (Exception e) {
-                System.out.println("Unable to load class: " + s);
+                System.err.println("Unable to load class: " + s);
             }
         }
+    }
 
+    /**
+     * Returns a HashMap with keys being spell levels, and the values being
+     * ArrayLists of spells known at that level.
+     * @param cc the character class
+     * @return a HashMap of spell data
+     */
+    public HashMap<Integer, ArrayList<Spell>> getKnownSpells(CharacterClass cc) {
+        ClassSpellList spellList = cc.getSpellList();
+        HashMap<Integer, ArrayList<Spell>> spellMap = new HashMap<>();
+        HashMap<Integer, ArrayList<String>> knownSpells = classData.get(cc.getName()).getKnownSpells();
+        //For each spell level
+        for (Integer spellLevel : knownSpells.keySet()) {
+            //Create array to hold spells for this level
+            ArrayList<Spell> spellsThisLevel = new ArrayList<>();
+            //For each spell
+            for (String spellName : knownSpells.get(spellLevel)) {
+                //Get spell reference and add to the result
+                Spell spell = spellList.getSpell(spellLevel, spellName);
+                spellsThisLevel.add(spell);
+            }
+            spellMap.put(spellLevel, spellsThisLevel);
+        }
+        return spellMap;
     }
 
     /**
@@ -56,6 +125,7 @@ public class CharacterClassInfo extends SaveStateTracker implements Serializable
      */
     public void learnSpell(CharacterClass characterClass, Spell spell) {
         classData.get(characterClass.getName()).learnSpell(spell);
+        super.stateChanged = true;
     }
 
     /**
@@ -66,6 +136,8 @@ public class CharacterClassInfo extends SaveStateTracker implements Serializable
      */
     public void unlearnSpell(CharacterClass characterClass, Spell spell) {
         classData.get(characterClass.getName()).unlearnSpell(spell);
+        super.stateChanged = true;
+
     }
 
     /**
@@ -94,7 +166,10 @@ public class CharacterClassInfo extends SaveStateTracker implements Serializable
      */
     public void setClass(CharacterClass cClass) {
         classList = new ArrayList<>();
+        //Add class data
         classList.add(cClass);
+        //Add meta data
+        classData.put(cClass.getName(), new ClassMetaData(cClass.getName()));
         super.stateChanged = true;
     }
 

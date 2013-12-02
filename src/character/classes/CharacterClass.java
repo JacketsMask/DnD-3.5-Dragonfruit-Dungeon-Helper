@@ -3,7 +3,6 @@ package character.classes;
 import character.proficiencies.WeaponProficiency;
 import character.proficiencies.ArmorProficiency;
 import enumerations.*;
-import gui.classes.CharacterClassLevelData;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,12 +43,13 @@ public class CharacterClass implements Serializable {
     protected HashMap<Integer, CharacterClassLevelData> levelDataMap;
     //Class data for spells
     protected ClassSpellList spellList;
+    //Spells per day
+    protected ClassSpellsPerDay spellsPerDay;
 
     public CharacterClass(String name) {
         this.name = name;
         restrictedAlignments = new ArrayList<>();
         levelDataMap = new HashMap<>();
-        spellList = new ClassSpellList();
     }
 
     public ClassSpellList getSpellList() {
@@ -68,8 +68,13 @@ public class CharacterClass implements Serializable {
         return levelDataMap.get(level).getWillSave();
     }
 
-    public int[] getBaseAttackBonus(int level) {
-        return levelDataMap.get(level).getBaseAttackBonus();
+    public int getBaseAttackBonus(int level) {
+        //BAB only scales up to 20
+        if (level > 20) {
+            return levelDataMap.get(20).getBaseAttackBonus();
+        } else {
+            return levelDataMap.get(level).getBaseAttackBonus();
+        }
     }
 
     public HashMap<Integer, CharacterClassLevelData> getLevelDataMap() {

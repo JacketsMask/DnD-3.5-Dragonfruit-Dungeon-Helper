@@ -40,6 +40,7 @@ public class SerializationThread implements Runnable {
                         Thread.sleep(CHANGE_DELAY);
                         timesSkippedBeforeSaving++;
                     } while (player.stateChanged() || timesSkippedBeforeSaving >= MAX_SKIPS);
+                    System.out.println("SerializationThread: Player state saved.");
                     FileManipulator.writeCharacterToFile(player);
                     player.stateSaved();
                     timesSkippedBeforeSaving = 0;

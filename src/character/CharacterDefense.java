@@ -7,7 +7,6 @@ import enumerations.AbilityScore;
 import main.SaveStateTracker;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Represents an entity's defensive capabilities. This includes AC and dodge, if
@@ -21,7 +20,7 @@ public class CharacterDefense extends SaveStateTracker implements Serializable {
     //Core AC stats
     private static final long serialVersionUID = 1L;
     private static final int BASE_AC = 10;
-    private Player character;
+    private transient Player player;
     private ArrayList<Armor> equippedArmor;
     private int armorBonus;
     private int shieldBonus;
@@ -35,7 +34,7 @@ public class CharacterDefense extends SaveStateTracker implements Serializable {
 
     //Enhancement, natural, deflection, 
     public CharacterDefense(Player player) {
-        this.character = player;
+        this.player = player;
         this.equippedArmor = new ArrayList<>();
         //Set an unrealistic cap initially, update when armor is equipped
         maximumDexModifierBonus = 100;
@@ -55,8 +54,8 @@ public class CharacterDefense extends SaveStateTracker implements Serializable {
      * @return the current standard AC value
      */
     public int getAC() {
-        Size size = character.getBasicInfo().getSize();
-        int dexMod = character.getAbilityScore().getAbilityScoreModifier(AbilityScore.DEXTERITY);
+        Size size = player.getBasicInfo().getSize();
+        int dexMod = player.getAbilityScore().getAbilityScoreModifier(AbilityScore.DEXTERITY);
         int result = 10 + armorBonus + shieldBonus + dexMod + size.getAttackAndACModifier()
                 + enhancementBonuses + deflectionBonuses + naturalArmorBonuses;
         return result;
@@ -68,8 +67,8 @@ public class CharacterDefense extends SaveStateTracker implements Serializable {
      * @return the current touch AC value
      */
     public int getACVSTouch() {
-        Size size = character.getBasicInfo().getSize();
-        int dexMod = character.getAbilityScore().getAbilityScoreModifier(AbilityScore.DEXTERITY);
+        Size size = player.getBasicInfo().getSize();
+        int dexMod = player.getAbilityScore().getAbilityScoreModifier(AbilityScore.DEXTERITY);
         int result = 10 + dexMod + size.getAttackAndACModifier()
                 + enhancementBonuses + deflectionBonuses;
         return result;
@@ -82,7 +81,7 @@ public class CharacterDefense extends SaveStateTracker implements Serializable {
      * @return the current flat-footed AC value
      */
     public int getACFlatFooted() {
-        Size size = character.getBasicInfo().getSize();
+        Size size = player.getBasicInfo().getSize();
         int result = 10 + armorBonus + shieldBonus + size.getAttackAndACModifier()
                 + enhancementBonuses + deflectionBonuses + naturalArmorBonuses;
         return result;
@@ -209,15 +208,16 @@ public class CharacterDefense extends SaveStateTracker implements Serializable {
      * @return the fortitude save bonus
      */
     public int getFortitudeSaveBonus() {
+        CharacterClassInfo classInfo = player.getClassInfo();
         //Fortitude save bonuses from classes
-        ArrayList<CharacterClass> characterClasses = character.getClassInfo().getCharacterClasses();
+        ArrayList<CharacterClass> characterClasses = player.getClassInfo().getCharacterClasses();
         int fortSaveBonus = 0;
         for (CharacterClass cc : characterClasses) {
-            int classLevel = character.getClassInfo().getClassData().get(cc.getName()).getClassLevel();
+            int classLevel = classInfo.getClassLevel(cc);
             fortSaveBonus += cc.getFortSaveModifier(classLevel);
         }
         //Constitution modifier
-        int conMod = character.getAbilityScore().getAbilityScoreModifier(AbilityScore.CONSTITUTION);
+        int conMod = player.getAbilityScore().getAbilityScoreModifier(AbilityScore.CONSTITUTION);
         return fortSaveBonus + conMod;
     }
 
@@ -226,15 +226,16 @@ public class CharacterDefense extends SaveStateTracker implements Serializable {
      * @return the reflex save bonus
      */
     public int getReflexSaveBonus() {
+        CharacterClassInfo classInfo = player.getClassInfo();
         //Fortitude save bonuses from classes
-        ArrayList<CharacterClass> characterClasses = character.getClassInfo().getCharacterClasses();
+        ArrayList<CharacterClass> characterClasses = player.getClassInfo().getCharacterClasses();
         int reflexSaveBonus = 0;
         for (CharacterClass cc : characterClasses) {
-            int classLevel = character.getClassInfo().getClassData().get(cc.getName()).getClassLevel();
+            int classLevel = classInfo.getClassLevel(cc);
             reflexSaveBonus += cc.getRefSaveModifier(classLevel);
         }
         //Constitution modifier
-        int dexMod = character.getAbilityScore().getAbilityScoreModifier(AbilityScore.DEXTERITY);
+        int dexMod = player.getAbilityScore().getAbilityScoreModifier(AbilityScore.DEXTERITY);
         return reflexSaveBonus + dexMod;
     }
 
@@ -243,15 +244,16 @@ public class CharacterDefense extends SaveStateTracker implements Serializable {
      * @return the will save bonus
      */
     public int getWillSaveBonus() {
+        CharacterClassInfo classInfo = player.getClassInfo();
         //Fortitude save bonuses from classes
-        ArrayList<CharacterClass> characterClasses = character.getClassInfo().getCharacterClasses();
+        ArrayList<CharacterClass> characterClasses = player.getClassInfo().getCharacterClasses();
         int willSaveBonus = 0;
         for (CharacterClass cc : characterClasses) {
-            int classLevel = character.getClassInfo().getClassData().get(cc.getName()).getClassLevel();
+            int classLevel = classInfo.getClassLevel(cc);
             willSaveBonus += cc.getWillSaveModifier(classLevel);
         }
         //Constitution modifier
-        int wisMod = character.getAbilityScore().getAbilityScoreModifier(AbilityScore.WISDOM);
+        int wisMod = player.getAbilityScore().getAbilityScoreModifier(AbilityScore.WISDOM);
         return willSaveBonus + wisMod;
     }
 
@@ -259,7 +261,7 @@ public class CharacterDefense extends SaveStateTracker implements Serializable {
      * @return the size bonus to AC 
      */
     public int getSizeBonus() {
-        return character.getBasicInfo().getRace().getSize().getAttackAndACModifier();
+        return player.getBasicInfo().getRace().getSize().getAttackAndACModifier();
     }
 
     /**
@@ -276,6 +278,18 @@ public class CharacterDefense extends SaveStateTracker implements Serializable {
      * @return the dex modifier of this character
      */
     public int getDexBonus() {
-        return character.getAbilityScore().getAbilityScoreModifier(AbilityScore.DEXTERITY);
+        return player.getAbilityScore().getAbilityScoreModifier(AbilityScore.DEXTERITY);
+    }
+
+    /**
+     * Oh man I wish this wasn't necessary.  But it's required to get object
+     * associations right after de-serialization.
+     * 
+     * Basically this should only be called to assign the "new" player that 
+     * isn't de-serialized, but rather created at program launch.
+     * @param player 
+     */
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 }

@@ -124,7 +124,7 @@ public class WalletPanel extends javax.swing.JPanel {
 
         jLabel1.setText("Your coin pouch holds:");
 
-        weightLabel.setText("Wallet weight:");
+        weightLabel.setText("Weight:");
 
         silverLabel.setText("Silver:");
 

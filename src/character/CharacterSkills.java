@@ -16,11 +16,11 @@ import java.util.HashMap;
 public class CharacterSkills extends SaveStateTracker implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private Player player;
+    private transient Player player;
     private HashMap<Skill, Integer> skillRanks; //Base skills
     private HashMap<Skill, Integer> skillMiscModifier; //Temporary or names bonuses/penalties
     //Mapping of which ability scores affect which skills
-    private static HashMap<Skill, AbilityScore> keyAbilityModifiers;
+    private HashMap<Skill, AbilityScore> keyAbilityModifiers;
 
     public CharacterSkills(Player player) {
         this.player = player;
@@ -142,5 +142,17 @@ public class CharacterSkills extends SaveStateTracker implements Serializable {
      */
     public void setSkillModifier(Skill skill, int value) {
         skillMiscModifier.put(skill, value);
+    }
+
+    /**
+     * Oh man I wish this wasn't necessary.  But it's required to get object
+     * associations right after de-serialization.
+     * 
+     * Basically this should only be called to assign the "new" player that 
+     * isn't de-serialized, but rather created at program launch.
+     * @param player 
+     */
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 }

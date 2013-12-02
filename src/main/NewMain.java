@@ -50,7 +50,6 @@ public class NewMain {
                     }
                     //Start the serialization thread for this player
                     new Thread(new SerializationThread(player)).start();
-                    System.out.println("Serialization thread started...");
                     //Create the main frame and sub-panels
                     BaseFrame gui = new BaseFrame(player);
                     //Set the location of the new window to be determined by the OS

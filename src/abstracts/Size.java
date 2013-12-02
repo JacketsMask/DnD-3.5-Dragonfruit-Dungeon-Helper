@@ -17,6 +17,11 @@ public abstract class Size implements Serializable {
     protected int specialAttacksModifier;
     protected int hideModifier;
     protected float carryingCapacityModifer;
+    protected float quadCarryingCapacityModifer;
+
+    public float getQuadCarryingCapacityModifer() {
+        return quadCarryingCapacityModifer;
+    }
 
     @Override
     public String toString() {
@@ -58,6 +63,7 @@ public abstract class Size implements Serializable {
             name = "Fine";
             attackAndAcModifier = 8;
             carryingCapacityModifer = 0.125f;
+            quadCarryingCapacityModifer = 0.25f;
             hideModifier = 16;
             specialAttacksModifier = -16;
         }
@@ -69,6 +75,7 @@ public abstract class Size implements Serializable {
             name = "Diminutive";
             attackAndAcModifier = 4;
             carryingCapacityModifer = 0.25f;
+            quadCarryingCapacityModifer = 0.50f;
             hideModifier = 12;
             specialAttacksModifier = -12;
         }
@@ -80,6 +87,7 @@ public abstract class Size implements Serializable {
             name = "Tiny";
             attackAndAcModifier = 2;
             carryingCapacityModifer = 0.5f;
+            quadCarryingCapacityModifer = 0.75f;
             hideModifier = 8;
             specialAttacksModifier = -8;
         }
@@ -91,6 +99,7 @@ public abstract class Size implements Serializable {
             name = "Small";
             attackAndAcModifier = 1;
             carryingCapacityModifer = 0.75f;
+            quadCarryingCapacityModifer = 1f;
             hideModifier = 4;
             specialAttacksModifier = -4;
         }
@@ -102,6 +111,7 @@ public abstract class Size implements Serializable {
             name = "Medium";
             attackAndAcModifier = 0;
             carryingCapacityModifer = 1f;
+            quadCarryingCapacityModifer = 1.5f;
             hideModifier = 0;
             specialAttacksModifier = 0;
         }
@@ -113,6 +123,7 @@ public abstract class Size implements Serializable {
             name = "Large";
             attackAndAcModifier = -1;
             carryingCapacityModifer = 2f;
+            quadCarryingCapacityModifer = 3f;
             hideModifier = -4;
             specialAttacksModifier = 4;
         }
@@ -124,6 +135,7 @@ public abstract class Size implements Serializable {
             name = "Huge";
             attackAndAcModifier = -2;
             carryingCapacityModifer = 4f;
+            quadCarryingCapacityModifer = 6f;
             hideModifier = -8;
             specialAttacksModifier = 8;
         }
@@ -135,6 +147,7 @@ public abstract class Size implements Serializable {
             name = "Gargantuan";
             attackAndAcModifier = -4;
             carryingCapacityModifer = 8f;
+            quadCarryingCapacityModifer = 12f;
             hideModifier = -12;
             specialAttacksModifier = 12;
         }
@@ -146,6 +159,7 @@ public abstract class Size implements Serializable {
             name = "Colossal";
             attackAndAcModifier = -8;
             carryingCapacityModifer = 16f;
+            quadCarryingCapacityModifer = 24f;
             hideModifier = -16;
             specialAttacksModifier = 16;
         }

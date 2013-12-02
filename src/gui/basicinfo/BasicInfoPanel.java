@@ -265,6 +265,7 @@ public final class BasicInfoPanel extends javax.swing.JPanel implements Characte
         generalInformationDialog.pack();
         generalInformationDialog.setLocationRelativeTo(getRootPane());
         generalInformationDialog.setVisible(true);
+        loadInfo();
     }//GEN-LAST:event_characterInformationButtonActionPerformed
 
     @Override

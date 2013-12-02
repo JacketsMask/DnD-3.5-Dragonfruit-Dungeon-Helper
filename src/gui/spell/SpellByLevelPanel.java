@@ -28,6 +28,18 @@ public class SpellByLevelPanel extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Load spell information from the passed Array, clearing existing data.
+     * @param spellArray 
+     */
+    public void loadSpellData(ArrayList<Spell> spellArray) {
+        model.clear();
+        this.spellArray = spellArray;
+        for (Spell s : spellArray) {
+            model.addElement(s);
+        }
+    }
+
     public Spell getSelectedSpell() {
         return (Spell) spellList.getSelectedValue();
     }

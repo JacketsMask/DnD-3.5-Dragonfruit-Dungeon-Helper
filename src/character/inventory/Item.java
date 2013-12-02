@@ -1,10 +1,12 @@
 package character.inventory;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Japhez
  */
-public class Item
+public class Item implements Serializable
 {
 
     private String name;
@@ -30,8 +32,6 @@ public class Item
 
     public double getWeight()
     {
-        
-        System.out.println("weight: "+ weight);
         return weight;
     }
 

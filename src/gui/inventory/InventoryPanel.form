@@ -20,46 +20,65 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="jScrollPane1" min="-2" pref="121" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="inventoryRemoveSelectedItem" alignment="0" max="32767" attributes="0"/>
-                          <Component id="currentWeightLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="inventoryModifyCurrentlySelectedItemButton" alignment="0" max="32767" attributes="0"/>
-                          <Component id="inventoryActivateCurrentlySelectedItemButton" alignment="0" max="32767" attributes="0"/>
-                          <Component id="inventoryAddNewItemButton" alignment="0" min="-2" pref="145" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
+                  <Component id="jScrollPane1" alignment="0" min="-2" pref="121" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="itemInfoPanel" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="currentWeightLabel" alignment="0" max="32767" attributes="0"/>
+                  <Component id="addNewItemButton" alignment="0" max="32767" attributes="0"/>
+                  <Component id="modifyCurrentlySelectedItemButton" alignment="0" max="32767" attributes="0"/>
+                  <Component id="activateCurrentlySelectedItemButton" alignment="0" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="removeSelectedItem" alignment="0" max="32767" attributes="0"/>
+                  <Component id="exportItemButton" alignment="0" max="32767" attributes="0"/>
+                  <Component id="importItemButton" alignment="0" min="-2" pref="101" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="itemInfoPanel" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="itemInfoPanel" alignment="0" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="currentWeightLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="86" max="32767" attributes="0"/>
-                      <Component id="inventoryActivateCurrentlySelectedItemButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="inventoryModifyCurrentlySelectedItemButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                      <Component id="inventoryAddNewItemButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="inventoryRemoveSelectedItem" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="removeSelectedItem" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="41" pref="41" max="-2" attributes="0"/>
+                                      <Component id="importItemButton" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="exportItemButton" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="currentWeightLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="activateCurrentlySelectedItemButton" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="modifyCurrentlySelectedItemButton" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                              <Component id="addNewItemButton" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
-          <Component id="itemInfoPanel" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -94,25 +113,17 @@
         <Property name="text" type="java.lang.String" value="Current Inventory"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="inventoryAddNewItemButton">
+    <Component class="javax.swing.JButton" name="addNewItemButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Add New Item"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inventoryAddNewItemButtonActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="inventoryRemoveSelectedItem">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Remove Selected Item"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inventoryRemoveSelectedItemActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addNewItemButtonActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="currentWeightLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Current Weight: 0 "/>
+        <Property name="text" type="java.lang.String" value="Inventory Weight: 0 "/>
       </Properties>
     </Component>
     <Container class="javax.swing.JPanel" name="itemInfoPanel">
@@ -123,8 +134,8 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane5" alignment="0" pref="268" max="32767" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
+                      <Component id="jScrollPane5" pref="201" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
@@ -203,8 +214,8 @@
           <SubComponents>
             <Component class="javax.swing.JTextArea" name="currentlySelectedItemDescriptionTextArea">
               <Properties>
-                <Property name="columns" type="int" value="20"/>
                 <Property name="editable" type="boolean" value="false"/>
+                <Property name="columns" type="int" value="20"/>
                 <Property name="lineWrap" type="boolean" value="true"/>
                 <Property name="rows" type="int" value="5"/>
                 <Property name="wrapStyleWord" type="boolean" value="true"/>
@@ -218,18 +229,46 @@
         </Container>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="inventoryModifyCurrentlySelectedItemButton">
+    <Component class="javax.swing.JButton" name="modifyCurrentlySelectedItemButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Modify Selected Item"/>
+        <Property name="text" type="java.lang.String" value="Modify Item"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inventoryModifyCurrentlySelectedItemButtonActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="modifyCurrentlySelectedItemButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="inventoryActivateCurrentlySelectedItemButton">
+    <Component class="javax.swing.JButton" name="activateCurrentlySelectedItemButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Activate Selected Item"/>
+        <Property name="text" type="java.lang.String" value="Activate Item"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="exportItemButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Export Item"/>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exportItemButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="importItemButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Import Item"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="importItemButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="removeSelectedItem">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Remove Item"/>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removeSelectedItemActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

@@ -3,6 +3,8 @@ package HelperApps.ClassEditor;
 import character.IntegerVerifier;
 import character.Spell;
 import character.Spell.School;
+import file.manipulation.FileManipulator;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 /**
@@ -12,7 +14,7 @@ import javax.swing.UIManager;
 public class SpellDesignerDialog extends javax.swing.JDialog {
 
     private Spell newSpell;
-    
+
     public SpellDesignerDialog(java.awt.Frame parent, boolean modal, Spell existingSpell) {
         super(parent, modal);
         initComponents();
@@ -85,6 +87,47 @@ public class SpellDesignerDialog extends javax.swing.JDialog {
         xpTextField.setText("");
     }
 
+    /**
+     * Attempts to create a spell using the current values in the GUI.
+     * Returns null if something went wrong.
+     * 
+     * @return a new spell or null
+     */
+    private Spell createSpell() {
+        //Don't allow unnamed spells
+        if (nameTextField.getText().equals("")) {
+            return null;
+        }
+        String name = nameTextField.getText();
+        Spell spell = new Spell(name);
+        spell.setLevel(Integer.parseInt(levelTextField.getText()));
+        spell.setReference(referenceTextField.getText());
+        spell.setDescription(descriptionTextArea.getText());
+        spell.setSchool((School) schoolComboBox.getSelectedItem());
+        spell.setVerbal(verbalCheckBox.isSelected());
+        spell.setSomatic(somaticCheckBox.isSelected());
+        spell.setFocus(focusCheckBox.isSelected());
+        spell.setCastingTime(castingTimeTextField.getText());
+        spell.setTarget(targetTextField.getText());
+        spell.setDuration(durationTextField.getText());
+        spell.setSavingThrow(savingThrowTextField.getText());
+        spell.setSpellResistance(resistanceTextField.getText());
+        if (xpCheckBox.isSelected()) {
+            spell.setExperienceCost(Integer.parseInt(xpTextField.getText()));
+        } else {
+            spell.setExperienceCost(0);
+        }
+        if (gpCheckBox.isSelected()) {
+            spell.setGoldCost((Integer.parseInt(gpTextField.getText())));
+        } else {
+            spell.setGoldCost(0);
+        }
+        //Get dice roll information
+        spell.setDiceNumber(Integer.parseInt(numberOfDiceTextField.getText()));
+        spell.setDiceSides(Integer.parseInt(numberOfSidesTextField.getText()));
+        return spell;
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -138,6 +181,8 @@ public class SpellDesignerDialog extends javax.swing.JDialog {
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         numberOfSidesTextField = new javax.swing.JTextField();
+        importSpellButton = new javax.swing.JButton();
+        exportSpellButton = new javax.swing.JToggleButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
 
@@ -349,6 +394,20 @@ public class SpellDesignerDialog extends javax.swing.JDialog {
         numberOfSidesTextField.setText("0");
         numberOfSidesTextField.setInputVerifier(new IntegerVerifier(1,100));
 
+        importSpellButton.setText("Import Spell");
+        importSpellButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                importSpellButtonActionPerformed(evt);
+            }
+        });
+
+        exportSpellButton.setText("Export Spell");
+        exportSpellButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportSpellButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -358,11 +417,7 @@ public class SpellDesignerDialog extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                            .addComponent(saveSpellButton)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(resetSpellInfoButton))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -392,7 +447,15 @@ public class SpellDesignerDialog extends javax.swing.JDialog {
                             .addGap(18, 18, 18)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(numberOfSidesTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
-                                .addComponent(numberOfDiceTextField)))))
+                                .addComponent(numberOfDiceTextField)))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(resetSpellInfoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(saveSpellButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(18, 18, 18)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(importSpellButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(exportSpellButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(48, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -431,11 +494,15 @@ public class SpellDesignerDialog extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
                     .addComponent(numberOfSidesTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(saveSpellButton)
-                    .addComponent(resetSpellInfoButton))
-                .addContainerGap())
+                    .addComponent(importSpellButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(resetSpellInfoButton)
+                    .addComponent(exportSpellButton))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         jLabel12.setText("<html>Fill in whatever information about the spell that you'd like.<br>  I recommend at least filling in the spell name, level, and description, but only the spell name and level are strictly necessary.</html>");
@@ -452,7 +519,7 @@ public class SpellDesignerDialog extends javax.swing.JDialog {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 22, Short.MAX_VALUE))
+                .addGap(0, 10, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -475,10 +542,10 @@ public class SpellDesignerDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -501,44 +568,30 @@ public class SpellDesignerDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_gpCheckBoxActionPerformed
 
     private void saveSpellButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveSpellButtonActionPerformed
-        //Don't allow unnamed spells
-        if (nameTextField.getText().equals("")) {
-            return;
-        }
-        String name = nameTextField.getText();
-        Spell spell = new Spell(name);
-        spell.setLevel(Integer.parseInt(levelTextField.getText()));
-        spell.setReference(referenceTextField.getText());
-        spell.setDescription(descriptionTextArea.getText());
-        spell.setSchool((School) schoolComboBox.getSelectedItem());
-        spell.setVerbal(verbalCheckBox.isSelected());
-        spell.setSomatic(somaticCheckBox.isSelected());
-        spell.setFocus(focusCheckBox.isSelected());
-        spell.setCastingTime(castingTimeTextField.getText());
-        spell.setTarget(targetTextField.getText());
-        spell.setDuration(durationTextField.getText());
-        spell.setSavingThrow(savingThrowTextField.getText());
-        spell.setSpellResistance(resistanceTextField.getText());
-        if (xpCheckBox.isSelected()) {
-            spell.setExperienceCost(Integer.parseInt(xpTextField.getText()));
-        } else {
-            spell.setExperienceCost(0);
-        }
-        if (gpCheckBox.isSelected()) {
-            spell.setGoldCost((Integer.parseInt(gpTextField.getText())));
-        } else {
-            spell.setGoldCost(0);
-        }
-        //Get dice roll information
-        spell.setDiceNumber(Integer.parseInt(numberOfDiceTextField.getText()));
-        spell.setDiceSides(Integer.parseInt(numberOfSidesTextField.getText()));
-        this.newSpell = spell;
+        this.newSpell = createSpell();
         this.setVisible(false);
     }//GEN-LAST:event_saveSpellButtonActionPerformed
 
     private void resetSpellInfoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetSpellInfoButtonActionPerformed
         resetInputFields();
     }//GEN-LAST:event_resetSpellInfoButtonActionPerformed
+
+    private void importSpellButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importSpellButtonActionPerformed
+        Spell userSelectSpell = FileManipulator.userSelectSpell();
+        if (userSelectSpell != null) {
+            loadSpellInformation(userSelectSpell);
+        }
+    }//GEN-LAST:event_importSpellButtonActionPerformed
+
+    private void exportSpellButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportSpellButtonActionPerformed
+        Spell createSpell = createSpell();
+        if (createSpell == null) {
+            JOptionPane.showMessageDialog(this, "Invalid information.  Did you fill the bolded fields in?", "Export", JOptionPane.ERROR_MESSAGE);
+        } else {
+            FileManipulator.writeSpell(createSpell);
+            JOptionPane.showMessageDialog(this, "Export successful!", "Export", JOptionPane.PLAIN_MESSAGE);
+        }
+    }//GEN-LAST:event_exportSpellButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -580,9 +633,11 @@ public class SpellDesignerDialog extends javax.swing.JDialog {
     private javax.swing.JTextField castingTimeTextField;
     private javax.swing.JTextArea descriptionTextArea;
     private javax.swing.JTextField durationTextField;
+    private javax.swing.JToggleButton exportSpellButton;
     private javax.swing.JCheckBox focusCheckBox;
     private javax.swing.JCheckBox gpCheckBox;
     private javax.swing.JTextField gpTextField;
+    private javax.swing.JButton importSpellButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

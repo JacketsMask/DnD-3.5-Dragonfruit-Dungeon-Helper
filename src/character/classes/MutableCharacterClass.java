@@ -5,7 +5,6 @@ import character.proficiencies.WeaponProficiency;
 import enumerations.Alignment;
 import enumerations.CasterType;
 import enumerations.Skill;
-import gui.classes.CharacterClassLevelData;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,6 +19,20 @@ public class MutableCharacterClass extends CharacterClass implements Serializabl
 
     public MutableCharacterClass(String name) {
         super(name);
+    }
+
+    public void clearSpellCasterData() {
+        spellList = null;
+        spellsPerDay = null;
+    }
+
+    public void setSpellsPerDay(ClassSpellsPerDay spellsPerDay) {
+        this.spellsPerDay = spellsPerDay;
+    }
+
+    public void initSpellCasterFields() {
+        spellList = new ClassSpellList();
+        spellsPerDay = new ClassSpellsPerDay();
     }
 
     public void setName(String name) {

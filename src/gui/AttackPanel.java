@@ -2,12 +2,10 @@ package gui;
 
 import character.IntegerVerifier;
 import character.Player;
-import character.classes.CharacterClass;
 import diceroller.DiceRoll;
 import diceroller.DiceRoller;
 import enumerations.AbilityScore;
 import interfaces.CharacterInfoRetriever;
-import java.util.ArrayList;
 import javax.swing.JRadioButton;
 
 /**
@@ -28,13 +26,10 @@ public class AttackPanel extends javax.swing.JPanel implements CharacterInfoRetr
     @Override
     public void loadInfo() {
         //Prefill BAB
-        ArrayList<CharacterClass> characterClasses = player.getClassInfo().getCharacterClasses();
+        int[] bab = player.getAttack().getBAB();
         String BAB = "";
-        for (CharacterClass cc : characterClasses) {
-            int[] baseAttackBonus = cc.getBaseAttackBonus();
-            for (Integer i : baseAttackBonus) {
-                BAB += i + "/";
-            }
+        for (Integer i : bab) {
+            BAB += i + "/";
         }
         //Trim last slash
         BAB = BAB.substring(0, BAB.length() - 1);
@@ -303,18 +298,19 @@ public class AttackPanel extends javax.swing.JPanel implements CharacterInfoRetr
                     .addComponent(jLabel1)
                     .addComponent(offHandRadioButton)
                     .addComponent(mainHandRadioButton)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(baseAttackBonusTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(numDiceTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(numSidesTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(baseAttackBonusTextField))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel4)
+                            .addGap(18, 18, 18)
+                            .addComponent(numDiceTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel5)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(numSidesTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -338,7 +334,7 @@ public class AttackPanel extends javax.swing.JPanel implements CharacterInfoRetr
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(baseAttackBonusTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(calculateDamageButton)
                     .addComponent(jLabel3))
@@ -409,7 +405,7 @@ public class AttackPanel extends javax.swing.JPanel implements CharacterInfoRetr
     }
 
     private int calculateAttack() {
-        int baseAttackBonus = player.getClassInfo().getInitialClass().getBaseAttackBonus()[0]; //TODO: Account for multiple attack bonuses
+//        int baseAttackBonus = player.getClassInfo().getInitialClass().getBaseAttackBonus()[0]; //TODO: Account for multiple attack bonuses
         int abilityScoreModifier = 0;
         int sizeModifier = 0;
         int rangePenalty = 0;
@@ -428,11 +424,11 @@ public class AttackPanel extends javax.swing.JPanel implements CharacterInfoRetr
         //Calculate and return result
         int rollD20 = DiceRoller.rollD20();
         System.out.println("Attack roll breakdown: d20(" + rollD20 + "), "
-                + "base attack bonus(" + baseAttackBonus + "), "
+                + "base attack bonus(" /*+ baseAttackBonus*/ + "), "
                 + "ability score modifier(" + abilityScoreModifier + "), "
                 + "size modifier(" + sizeModifier + "), "
                 + "range penalty(" + rangePenalty + ")");
-        return rollD20 + baseAttackBonus + abilityScoreModifier + sizeModifier - rangePenalty;
+        return rollD20 + /* baseAttackBonus */ abilityScoreModifier + sizeModifier - rangePenalty;
     }
     private void calculateDamageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculateDamageButtonActionPerformed
         int attack = calculateAttack();

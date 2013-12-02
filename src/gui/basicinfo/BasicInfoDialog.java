@@ -12,6 +12,7 @@ import HelperApps.ClassEditor.ClassEditorDialog;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import main.ComponentLockableIntegerVerifier;
 
 /**
@@ -232,19 +233,6 @@ public class BasicInfoDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel26)
-                        .addGap(19, 19, 19)
-                        .addComponent(nameTextField))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel23)
-                            .addComponent(jLabel29))
-                        .addGap(11, 11, 11)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(sizeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(genderComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel30)
@@ -264,7 +252,22 @@ public class BasicInfoDialog extends javax.swing.JDialog {
                                 .addGap(18, 18, 18)
                                 .addComponent(alignmentComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(raceTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE))))
+                        .addComponent(raceTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel26)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel23)
+                                    .addComponent(jLabel29))
+                                .addGap(11, 11, 11)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(sizeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(genderComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(75, 75, 75))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -345,7 +348,6 @@ public class BasicInfoDialog extends javax.swing.JDialog {
             System.out.println("No saved classes found.");
             classComboBox.addItem("");
         }
-        classComboBox.addItem("New class");
         classComboBox.setSelectedItem("");
     }
 
@@ -358,6 +360,13 @@ public class BasicInfoDialog extends javax.swing.JDialog {
         }
         //Update class if necessary
         if (!classComboBox.getSelectedItem().equals(player.getClassInfo().getInitialClass())) {
+            //Don't allow empty classes
+            if (classComboBox.getSelectedItem().equals("")) {
+                JOptionPane.showMessageDialog(this,
+                        "You're going to need a class.  If none are listed, create one using the Class Editor App.",
+                        "That's no good", JOptionPane.QUESTION_MESSAGE);
+                return;
+            }
             player.getClassInfo().setClass((CharacterClass) classComboBox.getSelectedItem());
         }
         //Check to see if this is a supported or unsupported race
@@ -472,22 +481,7 @@ public class BasicInfoDialog extends javax.swing.JDialog {
         if (evt.getStateChange() == ItemEvent.DESELECTED) {
             return;
         }
-        //Check for new class selection
-        if (box.getSelectedItem().toString().equals("New class")) {
-            //Build a new class for the player
-            CharacterClass buildClass = buildClass();
-            if (buildClass == null) {
-                return;
-            }
-            //Update class selection list
-            box.insertItemAt(buildClass, 1);
-            box.setSelectedItem(buildClass);
-            //Save new class to file
-            FileManipulator.writeClass(buildClass);
-            //Remove empty option
-            box.removeItem("");
-            updateAlignmentChoices();
-        } else if (!box.getSelectedItem().toString().equals("")) {
+        if (!box.getSelectedItem().toString().equals("")) {
             //New non-empty selection, update alignment choices
             updateAlignmentChoices();
         }
@@ -588,7 +582,7 @@ public class BasicInfoDialog extends javax.swing.JDialog {
         Alignment alignment = player.getBasicInfo().getAlignment();
         if (alignment != null) {
             alignmentComboBox.setSelectedItem(alignment);
-            
+
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

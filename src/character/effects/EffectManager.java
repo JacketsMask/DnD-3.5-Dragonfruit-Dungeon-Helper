@@ -19,12 +19,12 @@ public class EffectManager extends SaveStateTracker implements Serializable {
     private static final long serialVersionUID = 1L;
     private ArrayList<Effect> permanentEffects;
     private ArrayList<Effect> transientEffects;
-    private Player character;
+    private transient Player player;
 
     public EffectManager(Player character) {
         permanentEffects = new ArrayList<>();
         transientEffects = new ArrayList<>();
-        this.character = character;
+        this.player = character;
         super.stateChanged = true;
 
     }
@@ -49,23 +49,23 @@ public class EffectManager extends SaveStateTracker implements Serializable {
             //Activate the effect
             AbilityScore targetAbilityScore = abilityEffect.getTargetAbilityScore();
             int modifier = abilityEffect.getModifier();
-            character.getAbilityScore().modifyAbilityScoreBonuses(targetAbilityScore, modifier);
+            player.getAbilityScore().modifyAbilityScoreBonuses(targetAbilityScore, modifier);
             return;
         }
         //The effect affects attack roll
         if (target == EffectTarget.ATTACK_ROLL) {
             //Activate the effect
-            character.getAttack();
+            player.getAttack();
             return;
         }
         //The effect affects damage roll
         if (target == EffectTarget.DAMAGE_ROLL) {
-            CharacterAttack attack = character.getAttack();
+            CharacterAttack attack = player.getAttack();
             return;
         }
         //The effect affects AC
         if (target == EffectTarget.ARMOR_CLASS) {
-            CharacterDefense defense = character.getDefense();
+            CharacterDefense defense = player.getDefense();
             return;
         }
         //The effect affects speed
@@ -102,23 +102,23 @@ public class EffectManager extends SaveStateTracker implements Serializable {
             AbilityScore targetAbilityScore = abilityEffect.getTargetAbilityScore();
             //Reverse the effect and apply it
             int modifier = -abilityEffect.getModifier();
-            character.getAbilityScore().modifyAbilityScoreBonuses(targetAbilityScore, modifier);
+            player.getAbilityScore().modifyAbilityScoreBonuses(targetAbilityScore, modifier);
             return;
         }
         //The effect affects attack roll
         if (target == EffectTarget.ATTACK_ROLL) {
             //Activate the effect
-            character.getAttack();
+            player.getAttack();
             return;
         }
         //The effect affects damage roll
         if (target == EffectTarget.DAMAGE_ROLL) {
-            character.getAttack();
+            player.getAttack();
             return;
         }
         //The effect affects AC
         if (target == EffectTarget.ARMOR_CLASS) {
-            CharacterDefense defense = character.getDefense();
+            CharacterDefense defense = player.getDefense();
             return;
         }
         //The effect affects speed
@@ -171,5 +171,17 @@ public class EffectManager extends SaveStateTracker implements Serializable {
             }
         }
         return model;
+    }
+
+    /**
+     * Oh man I wish this wasn't necessary.  But it's required to get object
+     * associations right after de-serialization.
+     * 
+     * Basically this should only be called to assign the "new" player that 
+     * isn't de-serialized, but rather created at program launch.
+     * @param player 
+     */
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 }

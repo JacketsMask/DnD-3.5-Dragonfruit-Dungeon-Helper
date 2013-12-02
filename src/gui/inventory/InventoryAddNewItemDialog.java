@@ -167,7 +167,7 @@ public class InventoryAddNewItemDialog extends javax.swing.JDialog {
 
     private void saveItemButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_saveItemButtonActionPerformed
     {//GEN-HEADEREND:event_saveItemButtonActionPerformed
-        DefaultListModel<Item> itemList = player.getInventory().getItemList();
+        DefaultListModel<Item> itemList = player.getInventory().getItemListModel();
         String name = itemNameTextField.getText();
         String description = itemDescriptionTextArea.getText();
         double weight;

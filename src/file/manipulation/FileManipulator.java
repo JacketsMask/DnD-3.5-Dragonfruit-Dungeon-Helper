@@ -15,6 +15,7 @@ import character.classes.CharacterClass;
 import character.classes.MutableCharacterClass;
 import character.effects.EffectManager;
 import character.inventory.CharacterInventory;
+import character.inventory.Item;
 import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -82,8 +83,8 @@ public class FileManipulator {
         file.mkdirs();
         //Write all applicable information to the file
         writeObject(character.getBasicInfo(), path, "basic info");
-        writeObject(character.getHealth(), path, "health");
         writeObject(character.getClassInfo(), path, "classes");
+        writeObject(character.getHealth(), path, "health");
         writeObject(character.getAbilityScore(), path, "ability score");
         writeObject(character.getAttack(), path, "attack");
         writeObject(character.getDefense(), path, "defense");
@@ -143,64 +144,98 @@ public class FileManipulator {
     /**
      * Attempts to gather character data with the passed name, and then returns
      * it.
+     * 
+     * //TODO: Document this better, this step is huge.
      */
     public static Player readCharacterFromFile(String characterName) {
         String path = (CHARACTER_PATH + File.separator + characterName + File.separator);
-        Player character = new Player();
+        Player player = new Player();
         try {
-            character.setBasicInfo((CharacterBasicInfo) readObject(path, "basic info"));
+            player.setBasicInfo((CharacterBasicInfo) readObject(path, "basic info"));
         } catch (ClassNotFoundException | IOException ex) {
             JOptionPane.showMessageDialog(null, "Basic info serialization outdated.  You'll have to re-enter a bit of data for your character. Sorry about that.", "Oops", JOptionPane.OK_OPTION);
 //            character.setBasicInfo(new CharacterBasicInfo());
         }
         try {
-            character.setHealth((CharacterHealth) readObject(path, "health"));
-        } catch (ClassNotFoundException | IOException ex) {
-            Logger.getLogger(FileManipulator.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
             CharacterClassInfo classInfo = (CharacterClassInfo) readObject(path, "classes");
             classInfo.loadClassData();
-            character.setClassInfo(classInfo);
+            player.setClassInfo(classInfo);
         } catch (ClassNotFoundException | IOException ex) {
             Logger.getLogger(FileManipulator.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            character.setAbilityScore((CharacterAbilityScore) readObject(path, "ability score"));
+            CharacterHealth health = (CharacterHealth) readObject(path, "health");
+            player.setHealth(health);
+            health.setPlayer(player);
+        } catch (ClassNotFoundException | IOException ex) {
+            Logger.getLogger(FileManipulator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            CharacterAbilityScore as = (CharacterAbilityScore) readObject(path, "ability score");
+            player.setAbilityScore(as);
         } catch (ClassNotFoundException | IOException ex) {
             JOptionPane.showMessageDialog(null, "Ability score serialization outdated.  You'll have to re-enter a bit of data for your character. Sorry about that.", "Oops", JOptionPane.OK_OPTION);
         }
         try {
-            character.setAttack((CharacterAttack) readObject(path, "attack"));
+            CharacterAttack attack = (CharacterAttack) readObject(path, "attack");
+            attack.setPlayer(player);
+            player.setAttack(attack);
         } catch (ClassNotFoundException | IOException ex) {
             Logger.getLogger(FileManipulator.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            character.setDefense((CharacterDefense) readObject(path, "defense"));
+            CharacterDefense defense = (CharacterDefense) readObject(path, "defense");
+            player.setDefense(defense);
+            defense.setPlayer(player);
         } catch (ClassNotFoundException | IOException ex) {
             Logger.getLogger(FileManipulator.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            character.setProficiencies((CharacterProficiencies) readObject(path, "proficiencies"));
+            player.setProficiencies((CharacterProficiencies) readObject(path, "proficiencies"));
         } catch (ClassNotFoundException | IOException ex) {
             Logger.getLogger(FileManipulator.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            character.setInventory((CharacterInventory) readObject(path, "inventory"));
+            player.setInventory((CharacterInventory) readObject(path, "inventory"));
         } catch (ClassNotFoundException | IOException ex) {
             Logger.getLogger(FileManipulator.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            character.setEffectManager((EffectManager) readObject(path, "effects"));
+            EffectManager effects = (EffectManager) readObject(path, "effects");
+            player.setEffectManager(effects);
+            effects.setPlayer(player);
         } catch (ClassNotFoundException | IOException ex) {
             Logger.getLogger(FileManipulator.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            character.setSkills((CharacterSkills) readObject(path, "skills"));
+            CharacterSkills skills = (CharacterSkills) readObject(path, "skills");
+            player.setSkills(skills);
+            skills.setPlayer(player);
         } catch (ClassNotFoundException | IOException ex) {
             Logger.getLogger(FileManipulator.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return character;
+        return player;
+    }
+
+    /**
+     * Allows a user to select a item from the item directory, and then
+     * returns the selected item.
+     *
+     * @return the selected item, or null if no item is selected
+     */
+    public static Item userSelectItem() {
+        //Allow the user to choose the item file.
+        File file = chooseFile(ITEM_PATH, "item");
+        if (file == null) {
+            return null;
+        }
+        try {
+            //Attempt to deserialize the item to return it.
+            return (Item) readObject(ITEM_PATH, file.getName());
+        } catch (ClassNotFoundException | IOException ex) {
+            Logger.getLogger(FileManipulator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     /**
@@ -231,6 +266,15 @@ public class FileManipulator {
      */
     public static void writeSpell(Spell spell) {
         writeObject(spell, SPELL_PATH, spell.getName() + ".spell");
+    }
+    
+    /**
+     * Writes the passed item to the preset item directory.
+     *
+     * @param item
+     */
+    public static void writeItem(Item item) {
+        writeObject(item, ITEM_PATH, item.getName() + ".item");
     }
 
     /**

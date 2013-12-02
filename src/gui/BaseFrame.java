@@ -12,6 +12,8 @@ import character.Player;
 import character.classes.CharacterClass;
 import enumerations.CasterType;
 import gui.chat.ChatPanel;
+import gui.classes.GeneralClassPanel;
+import gui.inventory.GeneralInventoryPanel;
 import gui.inventory.WalletPanel;
 import gui.spell.SpellPanel;
 import interfaces.CharacterInfoRetriever;
@@ -91,9 +93,6 @@ public final class BaseFrame extends javax.swing.JFrame {
     private void baseTabbedPaneStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_baseTabbedPaneStateChanged
         if (characterInfoTabbedPane.getSelectedComponent() instanceof CharacterInfoRetriever) {
             CharacterInfoRetriever retriever = (CharacterInfoRetriever) characterInfoTabbedPane.getSelectedComponent();
-            //TODO: Determine panel, check each character info source that the
-            //panel retrieves info from
-            //if the base info has changed, update the info in the GUI
             retriever.loadInfo();
         }
     }//GEN-LAST:event_baseTabbedPaneStateChanged
@@ -107,6 +106,7 @@ public final class BaseFrame extends javax.swing.JFrame {
      * panel below.
      */
     private void addPanels() throws IOException, IOException {
+        System.out.println("Data loaded in prior to tables.");
         characterInfoTabbedPane.addTab("General", new BasicInfoPanel(player));
         characterInfoTabbedPane.addTab("Ability Score", new AbilityScorePanel(player));
         CharacterClassInfo classInfo = player.getClassInfo();
@@ -114,6 +114,8 @@ public final class BaseFrame extends javax.swing.JFrame {
         for (CharacterClass cc : characterClasses) {
             JTabbedPane classTabs = new JTabbedPane();
             characterInfoTabbedPane.addTab(cc.getName(), classTabs);
+            //Add general info panel
+            classTabs.addTab("General", new GeneralClassPanel(player, cc));
             if (!cc.getCasterType().equals(CasterType.NON_CASTER)) {
                 classTabs.addTab("Spells", new SpellPanel(player, cc));
             }
@@ -126,13 +128,13 @@ public final class BaseFrame extends javax.swing.JFrame {
         characterInfoTabbedPane.addTab("Defense", new DefensePanel(player));
         characterInfoTabbedPane.addTab("Proficiencies", new ProficiencyPanel(player));
         JTabbedPane inventoryTabbedPane = new JTabbedPane();
+        inventoryTabbedPane.addTab("General", new GeneralInventoryPanel(player));
         inventoryTabbedPane.add("Items", new InventoryPanel(player));
-        //Tries to read in data from a file if possible, throwing an exception 
-        //shouldn't happen under normal circumstances though
         inventoryTabbedPane.add("Coin Pouch", new WalletPanel(player));
         characterInfoTabbedPane.add("Inventory", inventoryTabbedPane);
         chatTabbedPane.add("All", new ChatPanel(player));
         pack();
+        System.out.println("GUI created for " + player.getBasicInfo().getName() + ".");
     }
 
     public Player getPlayer() {

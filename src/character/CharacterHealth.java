@@ -12,7 +12,7 @@ import java.io.Serializable;
 public class CharacterHealth extends SaveStateTracker implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private Player player;
+    private transient Player player;
     private int maxHitPoints;
     private int wounds;
     private int nonlethalDamage;
@@ -62,5 +62,17 @@ public class CharacterHealth extends SaveStateTracker implements Serializable {
             wounds -= hitpoints;
         }
         super.stateChanged = true;
+    }
+
+    /**
+     * Oh man I wish this wasn't necessary.  But it's required to get object
+     * associations right after de-serialization.
+     * 
+     * Basically this should only be called to assign the "new" player that 
+     * isn't de-serialized, but rather created at program launch.
+     * @param player 
+     */
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 }

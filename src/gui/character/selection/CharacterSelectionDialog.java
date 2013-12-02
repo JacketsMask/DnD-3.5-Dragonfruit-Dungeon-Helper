@@ -167,11 +167,13 @@ public class CharacterSelectionDialog extends javax.swing.JDialog {
             return;
         }
         player = FileManipulator.readCharacterFromFile(characterName);
+        System.out.println("Loaded " + player.getBasicInfo().getName() + " from file.");
         this.setVisible(false);
     }//GEN-LAST:event_loadButtonActionPerformed
 
     private void createNewCharacterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createNewCharacterButtonActionPerformed
         Player newPlayer = new Player();
+        newPlayer.initData();
         this.player = newPlayer;
         BasicInfoDialog basicInfoDialog = new BasicInfoDialog(this, true, player);
         this.setModal(false);
@@ -242,8 +244,7 @@ public class CharacterSelectionDialog extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     /**
-     * Populates the character list by retrieving a list of characters on file,
-     * adds each one as a radio button, and groups the buttons together.
+     * Populates the character list by retrieving a list of characters on file.
      */
     private void populateList() {
         System.out.println("Repopulating character list.");
@@ -254,8 +255,6 @@ public class CharacterSelectionDialog extends javax.swing.JDialog {
             for (String s : savedCharacters) {
                 model.addElement(s);
             }
-        } else {
-            player = new Player();
         }
     }
 

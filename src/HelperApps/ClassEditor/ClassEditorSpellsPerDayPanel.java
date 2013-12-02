@@ -42,44 +42,37 @@ public class ClassEditorSpellsPerDayPanel extends javax.swing.JPanel {
 
         spellsPerDayTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Class level 1",  new Integer(3),  new Integer(1), null, null, null, null, null, null, null, null},
-                {"Class level 2",  new Integer(4),  new Integer(2), null, null, null, null, null, null, null, null},
-                {"Class level 3",  new Integer(4),  new Integer(2),  new Integer(1), null, null, null, null, null, null, null},
-                {"Class level 4",  new Integer(5),  new Integer(3),  new Integer(2), null, null, null, null, null, null, null},
-                {"Class level 5",  new Integer(5),  new Integer(3),  new Integer(2),  new Integer(1), null, null, null, null, null, null},
-                {"Class level 6",  new Integer(5),  new Integer(3),  new Integer(3),  new Integer(2), null, null, null, null, null, null},
-                {"Class level 7",  new Integer(6),  new Integer(4),  new Integer(3),  new Integer(2),  new Integer(1), null, null, null, null, null},
-                {"Class level 8",  new Integer(6),  new Integer(4),  new Integer(3),  new Integer(3),  new Integer(2), null, null, null, null, null},
-                {"Class level 9",  new Integer(6),  new Integer(4),  new Integer(4),  new Integer(3),  new Integer(2),  new Integer(1), null, null, null, null},
-                {"Class level 10",  new Integer(6),  new Integer(4),  new Integer(4),  new Integer(3),  new Integer(3),  new Integer(2), null, null, null, null},
-                {"Class level 11",  new Integer(6),  new Integer(5),  new Integer(4),  new Integer(4),  new Integer(3),  new Integer(2),  new Integer(1), null, null, null},
-                {"Class level 12",  new Integer(6),  new Integer(5),  new Integer(4),  new Integer(4),  new Integer(3),  new Integer(3),  new Integer(2), null, null, null},
-                {"Class level 13",  new Integer(6),  new Integer(5),  new Integer(5),  new Integer(4),  new Integer(4),  new Integer(3),  new Integer(2),  new Integer(1), null, null},
-                {"Class level 14",  new Integer(6),  new Integer(5),  new Integer(5),  new Integer(4),  new Integer(4),  new Integer(3),  new Integer(3),  new Integer(2), null, null},
-                {"Class level 15",  new Integer(6),  new Integer(5),  new Integer(5),  new Integer(5),  new Integer(4),  new Integer(4),  new Integer(3),  new Integer(2),  new Integer(1), null},
-                {"Class level 16",  new Integer(6),  new Integer(5),  new Integer(5),  new Integer(5),  new Integer(4),  new Integer(4),  new Integer(3),  new Integer(3),  new Integer(2), null},
-                {"Class level 17",  new Integer(6),  new Integer(5),  new Integer(5),  new Integer(5),  new Integer(5),  new Integer(4),  new Integer(4),  new Integer(3),  new Integer(2),  new Integer(1)},
-                {"Class level 18",  new Integer(6),  new Integer(5),  new Integer(5),  new Integer(5),  new Integer(5),  new Integer(4),  new Integer(4),  new Integer(3),  new Integer(3),  new Integer(2)},
-                {"Class level 19",  new Integer(6),  new Integer(5),  new Integer(5),  new Integer(5),  new Integer(5),  new Integer(5),  new Integer(4),  new Integer(4),  new Integer(3),  new Integer(3)},
-                {"Class level 20",  new Integer(6),  new Integer(5),  new Integer(5),  new Integer(5),  new Integer(5),  new Integer(5),  new Integer(4),  new Integer(4),  new Integer(4),  new Integer(4)}
+                { new Integer(1),  new Integer(3),  new Integer(1), null, null, null, null, null, null, null, null},
+                { new Integer(2),  new Integer(4),  new Integer(2), null, null, null, null, null, null, null, null},
+                { new Integer(3),  new Integer(4),  new Integer(2),  new Integer(1), null, null, null, null, null, null, null},
+                { new Integer(4),  new Integer(5),  new Integer(3),  new Integer(2), null, null, null, null, null, null, null},
+                { new Integer(5),  new Integer(5),  new Integer(3),  new Integer(2),  new Integer(1), null, null, null, null, null, null},
+                { new Integer(6),  new Integer(5),  new Integer(3),  new Integer(3),  new Integer(2), null, null, null, null, null, null},
+                { new Integer(7),  new Integer(6),  new Integer(4),  new Integer(3),  new Integer(2),  new Integer(1), null, null, null, null, null},
+                { new Integer(8),  new Integer(6),  new Integer(4),  new Integer(3),  new Integer(3),  new Integer(2), null, null, null, null, null},
+                { new Integer(9),  new Integer(6),  new Integer(4),  new Integer(4),  new Integer(3),  new Integer(2),  new Integer(1), null, null, null, null},
+                { new Integer(10),  new Integer(6),  new Integer(4),  new Integer(4),  new Integer(3),  new Integer(3),  new Integer(2), null, null, null, null},
+                { new Integer(11),  new Integer(6),  new Integer(5),  new Integer(4),  new Integer(4),  new Integer(3),  new Integer(2),  new Integer(1), null, null, null},
+                { new Integer(12),  new Integer(6),  new Integer(5),  new Integer(4),  new Integer(4),  new Integer(3),  new Integer(3),  new Integer(2), null, null, null},
+                { new Integer(13),  new Integer(6),  new Integer(5),  new Integer(5),  new Integer(4),  new Integer(4),  new Integer(3),  new Integer(2),  new Integer(1), null, null},
+                { new Integer(14),  new Integer(6),  new Integer(5),  new Integer(5),  new Integer(4),  new Integer(4),  new Integer(3),  new Integer(3),  new Integer(2), null, null},
+                { new Integer(15),  new Integer(6),  new Integer(5),  new Integer(5),  new Integer(5),  new Integer(4),  new Integer(4),  new Integer(3),  new Integer(2),  new Integer(1), null},
+                { new Integer(16),  new Integer(6),  new Integer(5),  new Integer(5),  new Integer(5),  new Integer(4),  new Integer(4),  new Integer(3),  new Integer(3),  new Integer(2), null},
+                { new Integer(17),  new Integer(6),  new Integer(5),  new Integer(5),  new Integer(5),  new Integer(5),  new Integer(4),  new Integer(4),  new Integer(3),  new Integer(2),  new Integer(1)},
+                { new Integer(18),  new Integer(6),  new Integer(5),  new Integer(5),  new Integer(5),  new Integer(5),  new Integer(4),  new Integer(4),  new Integer(3),  new Integer(3),  new Integer(2)},
+                { new Integer(19),  new Integer(6),  new Integer(5),  new Integer(5),  new Integer(5),  new Integer(5),  new Integer(5),  new Integer(4),  new Integer(4),  new Integer(3),  new Integer(3)},
+                { new Integer(20),  new Integer(6),  new Integer(5),  new Integer(5),  new Integer(5),  new Integer(5),  new Integer(5),  new Integer(4),  new Integer(4),  new Integer(4),  new Integer(4)}
             },
             new String [] {
                 "Class Level", "Spell Level 0", "Spell Level 1", "Spell Level 2", "Spell Level 3", "Spell Level 4", "Spell Level 5", "Spell Level 6", "Spell Level 7", "Spell Level 8", "Spell Level 9"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, true, true, true, true, true, true, true, true, true, true
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(spellsPerDayTable);
