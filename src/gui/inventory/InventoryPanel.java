@@ -272,10 +272,10 @@ public class InventoryPanel extends javax.swing.JPanel implements CharacterInfoR
     private void importItemButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importItemButtonActionPerformed
         Item userSelectItem = FileManipulator.userSelectItem();
         if (userSelectItem != null) {
+            //TODO: Move inventory adding into the actual class
             itemListModel.addElement(userSelectItem);
         }
     }//GEN-LAST:event_importItemButtonActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton activateCurrentlySelectedItemButton;
     private javax.swing.JButton addNewItemButton;

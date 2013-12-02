@@ -3,12 +3,13 @@ package gui.inventory;
 import character.Player;
 import character.inventory.CarryingCapacity;
 import character.inventory.CharacterInventory;
+import interfaces.CharacterInfoRetriever;
 
 /**
  *
  * @author Jacob
  */
-public class GeneralInventoryPanel extends javax.swing.JPanel {
+public class GeneralInventoryPanel extends javax.swing.JPanel implements CharacterInfoRetriever {
 
     private CharacterInventory inventory;
 
@@ -16,10 +17,11 @@ public class GeneralInventoryPanel extends javax.swing.JPanel {
     public GeneralInventoryPanel(Player player) {
         this.inventory = player.getInventory();
         initComponents();
-        updateValues();
+        loadInfo();
     }
 
-    public void updateValues() {
+    @Override
+    public void loadInfo() {
         double inventoryWeight = inventory.getInventoryWeight();
         inventoryWeightLabel.setText("" + inventoryWeight);
         double walletWeight = inventory.getWallet().getWeight();
@@ -30,7 +32,7 @@ public class GeneralInventoryPanel extends javax.swing.JPanel {
         mediumLoadLabel.setText("" + currentLoadThresholds.getMedium());
         heavyLoadLabel.setText("" + currentLoadThresholds.getHeavy());
         CarryingCapacity.Load currentLoad = inventory.getCurrentLoad();
-        currentLoadLabel.setText("" + currentLoad); 
+        currentLoadLabel.setText("" + currentLoad);
     }
 
     /** This method is called from within the constructor to
@@ -83,20 +85,21 @@ public class GeneralInventoryPanel extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
                             .addComponent(jLabel2)
                             .addComponent(jLabel6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(25, 25, 25)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(heavyLoadLabel)
-                            .addComponent(lightLoadLabel)
-                            .addComponent(mediumLoadLabel)))
+                            .addComponent(heavyLoadLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lightLoadLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(mediumLoadLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel10)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(currentLoadLabel)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );

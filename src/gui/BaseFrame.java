@@ -91,8 +91,9 @@ public final class BaseFrame extends javax.swing.JFrame {
      * @param evt
      */
     private void baseTabbedPaneStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_baseTabbedPaneStateChanged
-        if (characterInfoTabbedPane.getSelectedComponent() instanceof CharacterInfoRetriever) {
-            CharacterInfoRetriever retriever = (CharacterInfoRetriever) characterInfoTabbedPane.getSelectedComponent();
+        JTabbedPane source = (JTabbedPane) evt.getSource();
+        if (source.getSelectedComponent() instanceof CharacterInfoRetriever) {
+            CharacterInfoRetriever retriever = (CharacterInfoRetriever) source.getSelectedComponent();
             retriever.loadInfo();
         }
     }//GEN-LAST:event_baseTabbedPaneStateChanged
@@ -127,10 +128,17 @@ public final class BaseFrame extends javax.swing.JFrame {
         characterInfoTabbedPane.addTab("Attack", new AttackPanel(player));
         characterInfoTabbedPane.addTab("Defense", new DefensePanel(player));
         characterInfoTabbedPane.addTab("Proficiencies", new ProficiencyPanel(player));
+        //Inventory
         JTabbedPane inventoryTabbedPane = new JTabbedPane();
         inventoryTabbedPane.addTab("General", new GeneralInventoryPanel(player));
         inventoryTabbedPane.add("Items", new InventoryPanel(player));
         inventoryTabbedPane.add("Coin Pouch", new WalletPanel(player));
+        inventoryTabbedPane.addChangeListener(new javax.swing.event.ChangeListener() {
+            @Override
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                baseTabbedPaneStateChanged(evt);
+            }
+        });
         characterInfoTabbedPane.add("Inventory", inventoryTabbedPane);
         chatTabbedPane.add("All", new ChatPanel(player));
         pack();

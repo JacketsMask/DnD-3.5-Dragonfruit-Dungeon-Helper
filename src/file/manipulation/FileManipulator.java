@@ -196,7 +196,9 @@ public class FileManipulator {
             Logger.getLogger(FileManipulator.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            player.setInventory((CharacterInventory) readObject(path, "inventory"));
+            CharacterInventory inventory = (CharacterInventory) readObject(path, "inventory");
+            player.setInventory(inventory);
+            inventory.setPlayer(player);
         } catch (ClassNotFoundException | IOException ex) {
             Logger.getLogger(FileManipulator.class.getName()).log(Level.SEVERE, null, ex);
         }
