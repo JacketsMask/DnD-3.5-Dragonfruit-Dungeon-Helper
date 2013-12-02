@@ -6,7 +6,7 @@ import character.classes.ClassSpellList;
 import character.classes.MutableCharacterClass;
 import enumerations.CasterType;
 import file.manipulation.FileManipulator;
-import main.SaveStateTracker;
+import main.SaveStateSender;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +24,7 @@ import java.util.Set;
  *
  * @author Jacob Dorman
  */
-public class CharacterClassInfo extends SaveStateTracker implements Serializable {
+public class CharacterClassInfo extends SaveStateSender implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private transient ArrayList<CharacterClass> classList;
@@ -34,7 +34,7 @@ public class CharacterClassInfo extends SaveStateTracker implements Serializable
     public CharacterClassInfo() {
         classList = new ArrayList<>();
         classData = new HashMap<>();
-        super.stateChanged = true;
+        super.stateChanged();
 
     }
 
@@ -63,13 +63,13 @@ public class CharacterClassInfo extends SaveStateTracker implements Serializable
         if (cc.getCasterType().equals(CasterType.DIVINE_CASTER)) {
             //Add all accessible spells to known list
         }
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     public void setClassLevel(CharacterClass cc, int classLevel) {
         classData.get(cc.getName()).setClassLevel(classLevel);
         System.out.println(cc.getName() + " now level " + classLevel);
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     public int getClassLevel(CharacterClass cc) {
@@ -125,7 +125,7 @@ public class CharacterClassInfo extends SaveStateTracker implements Serializable
      */
     public void learnSpell(CharacterClass characterClass, Spell spell) {
         classData.get(characterClass.getName()).learnSpell(spell);
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     /**
@@ -136,7 +136,7 @@ public class CharacterClassInfo extends SaveStateTracker implements Serializable
      */
     public void unlearnSpell(CharacterClass characterClass, Spell spell) {
         classData.get(characterClass.getName()).unlearnSpell(spell);
-        super.stateChanged = true;
+        super.stateChanged();
 
     }
 
@@ -170,7 +170,7 @@ public class CharacterClassInfo extends SaveStateTracker implements Serializable
         classList.add(cClass);
         //Add meta data
         classData.put(cClass.getName(), new ClassMetaData(cClass.getName()));
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     /**
@@ -181,6 +181,6 @@ public class CharacterClassInfo extends SaveStateTracker implements Serializable
      */
     public void addClass(CharacterClass cClass) {
         classList.add(cClass);
-        super.stateChanged = true;
+        super.stateChanged();
     }
 }

@@ -7,13 +7,13 @@ package gui.basicinfo;
 import character.CharacterBasicInfo;
 import character.Player;
 import enumerations.Alignment;
-import interfaces.CharacterInfoRetriever;
+import interfaces.SaveStateReader;
 
 /**
  *
  * @author Japhez
  */
-public final class BasicInfoPanel extends javax.swing.JPanel implements CharacterInfoRetriever {
+public final class BasicInfoPanel extends javax.swing.JPanel implements SaveStateReader {
 
     private Player player;
 

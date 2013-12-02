@@ -9,7 +9,7 @@ import character.proficiencies.ArmorProficiency;
 import character.proficiencies.WeaponProficiency;
 import gui.proficiency.AddArmorProficiencyDialog;
 import gui.proficiency.AddWeaponProficiencyDialog;
-import interfaces.CharacterInfoRetriever;
+import interfaces.SaveStateReader;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 
@@ -17,7 +17,7 @@ import javax.swing.DefaultListModel;
  *
  * @author Japhez
  */
-public class ProficiencyPanel extends javax.swing.JPanel implements CharacterInfoRetriever {
+public class ProficiencyPanel extends javax.swing.JPanel implements SaveStateReader {
 
     private Player player;
 

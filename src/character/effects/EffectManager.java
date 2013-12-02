@@ -4,7 +4,7 @@ import character.CharacterAttack;
 import character.CharacterDefense;
 import character.Player;
 import enumerations.AbilityScore;
-import main.SaveStateTracker;
+import main.SaveStateSender;
 import java.io.Serializable;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
@@ -14,7 +14,7 @@ import javax.swing.DefaultListModel;
  *
  * @author Jacob Dorman
  */
-public class EffectManager extends SaveStateTracker implements Serializable {
+public class EffectManager extends SaveStateSender implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private ArrayList<Effect> permanentEffects;
@@ -25,7 +25,7 @@ public class EffectManager extends SaveStateTracker implements Serializable {
         permanentEffects = new ArrayList<>();
         transientEffects = new ArrayList<>();
         this.player = character;
-        super.stateChanged = true;
+        super.stateChanged();
 
     }
 
@@ -84,7 +84,7 @@ public class EffectManager extends SaveStateTracker implements Serializable {
         if (target == EffectTarget.CHARACTER_CONDITION) {
             return;
         }
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     public void deactivate(Effect effect) {
@@ -137,12 +137,12 @@ public class EffectManager extends SaveStateTracker implements Serializable {
         if (target == EffectTarget.CHARACTER_CONDITION) {
             return;
         }
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     public void roundsPassed(int rounds) {
         //Update each transient effect for the passed rounds
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     /**

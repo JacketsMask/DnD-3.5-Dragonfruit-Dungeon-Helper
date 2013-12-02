@@ -4,7 +4,7 @@ import abstracts.Size;
 import character.races.Race;
 import enumerations.Alignment;
 import enumerations.Gender;
-import main.SaveStateTracker;
+import main.SaveStateSender;
 import java.io.Serializable;
 import java.util.Random;
 
@@ -13,7 +13,7 @@ import java.util.Random;
  *
  * @author Jacob Dorman
  */
-public class CharacterBasicInfo extends SaveStateTracker implements Serializable {
+public class CharacterBasicInfo extends SaveStateSender implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private final String[] FIRST_NAMES = {
@@ -56,7 +56,7 @@ public class CharacterBasicInfo extends SaveStateTracker implements Serializable
 
     public void setHeightFeet(int heightFeet) {
         this.heightFeet = heightFeet;
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     public int getHeightInches() {
@@ -65,7 +65,7 @@ public class CharacterBasicInfo extends SaveStateTracker implements Serializable
 
     public void setHeightInches(int heightInches) {
         this.heightInches = heightInches;
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     public String getSkinColor() {
@@ -74,12 +74,12 @@ public class CharacterBasicInfo extends SaveStateTracker implements Serializable
 
     public void setSkinColor(String skinColor) {
         this.skinColor = skinColor;
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     public void setWeight(int weight) {
         this.weight = weight;
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     public int getWeight() {
@@ -92,7 +92,7 @@ public class CharacterBasicInfo extends SaveStateTracker implements Serializable
 
     public void setEyeColor(String eyeColor) {
         this.eyeColor = eyeColor;
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     public String getHairColor() {
@@ -101,7 +101,7 @@ public class CharacterBasicInfo extends SaveStateTracker implements Serializable
 
     public void setHairColor(String hairColor) {
         this.hairColor = hairColor;
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     /**
@@ -111,7 +111,7 @@ public class CharacterBasicInfo extends SaveStateTracker implements Serializable
      */
     public void setRace(Race newRace) {
         race = newRace;
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     public String getName() {
@@ -120,7 +120,7 @@ public class CharacterBasicInfo extends SaveStateTracker implements Serializable
 
     public void setName(String name) {
         this.name = name;
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     public Race getRace() {
@@ -149,29 +149,29 @@ public class CharacterBasicInfo extends SaveStateTracker implements Serializable
 
     public void setAge(int age) {
         this.age = age;
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     public void setAlignment(Alignment alignment) {
         this.alignment = alignment;
-        super.stateChanged = true;
+        super.stateChanged();
 
     }
 
     public void setDeity(String deity) {
         this.deity = deity;
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     public void setGender(Gender gender) {
         this.gender = gender;
-        super.stateChanged = true;
+        super.stateChanged();
 
     }
 
     public void setSize(Size size) {
         this.size = size;
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     /**
@@ -193,6 +193,6 @@ public class CharacterBasicInfo extends SaveStateTracker implements Serializable
         eyeColor = "Auburn";
         hairColor = "Brown";
         skinColor = "Tan";
-        super.stateChanged = true;
+        super.stateChanged();
     }
 }

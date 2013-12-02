@@ -3,13 +3,13 @@ package gui.defense;
 import character.IntegerVerifier;
 import character.Player;
 import diceroller.DiceRoller;
-import interfaces.CharacterInfoRetriever;
+import interfaces.SaveStateReader;
 
 /**
  *
  * @author Japhez
  */
-public final class DefensePanel extends javax.swing.JPanel implements CharacterInfoRetriever {
+public final class DefensePanel extends javax.swing.JPanel implements SaveStateReader {
 
     private Player player;
 

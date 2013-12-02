@@ -4,13 +4,13 @@ import character.Spell;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-import main.SaveStateTracker;
+import main.SaveStateSender;
 
 /**
  * This is used to store spell data for a class.
  * @author Japhez
  */
-public class ClassSpellList extends SaveStateTracker implements Serializable {
+public class ClassSpellList extends SaveStateSender implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private HashMap<Integer, ArrayList<Spell>> spellMap;
@@ -48,12 +48,12 @@ public class ClassSpellList extends SaveStateTracker implements Serializable {
     public void addSpell(Spell spell, int level) {
         System.out.println("Spell created: " + spell + ", level: " + spell.getLevel());
         spellMap.get(level).add(spell);
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     public void removeSpell(Spell spell, int level) {
         spellMap.get(level).remove(spell);
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     /**

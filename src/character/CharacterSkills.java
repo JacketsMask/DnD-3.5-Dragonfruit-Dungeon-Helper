@@ -2,7 +2,7 @@ package character;
 
 import enumerations.AbilityScore;
 import enumerations.Skill;
-import main.SaveStateTracker;
+import main.SaveStateSender;
 import java.io.Serializable;
 import java.util.HashMap;
 
@@ -13,7 +13,7 @@ import java.util.HashMap;
  *
  * @author Jacob Dorman
  */
-public class CharacterSkills extends SaveStateTracker implements Serializable {
+public class CharacterSkills extends SaveStateSender implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private transient Player player;
@@ -29,7 +29,7 @@ public class CharacterSkills extends SaveStateTracker implements Serializable {
         keyAbilityModifiers = new HashMap<>();
         initializeSkills();
         linkKeyAbilityModifiers();
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     private void linkKeyAbilityModifiers() {
@@ -102,7 +102,7 @@ public class CharacterSkills extends SaveStateTracker implements Serializable {
      */
     public void setSkillsBase(HashMap<Skill, Integer> skillsBase) {
         this.skillRanks = skillsBase;
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     /**
@@ -114,7 +114,7 @@ public class CharacterSkills extends SaveStateTracker implements Serializable {
     public void modifyMiscSkillModifier(Skill skill, int value) {
         int origValue = skillMiscModifier.get(skill);
         skillMiscModifier.put(skill, origValue + value);
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     /**

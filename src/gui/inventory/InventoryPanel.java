@@ -3,7 +3,7 @@ package gui.inventory;
 import character.Player;
 import character.inventory.Item;
 import file.manipulation.FileManipulator;
-import interfaces.CharacterInfoRetriever;
+import interfaces.SaveStateReader;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
  *
  * @author Japhez
  */
-public class InventoryPanel extends javax.swing.JPanel implements CharacterInfoRetriever {
+public class InventoryPanel extends javax.swing.JPanel implements SaveStateReader {
 
     private Player player;
     private DefaultListModel itemListModel;

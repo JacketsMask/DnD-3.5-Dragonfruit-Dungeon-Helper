@@ -4,7 +4,7 @@ import abstracts.Size;
 import character.classes.CharacterClass;
 import character.inventory.Armor;
 import enumerations.AbilityScore;
-import main.SaveStateTracker;
+import main.SaveStateSender;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -14,7 +14,7 @@ import java.util.ArrayList;
  *
  * @author Jacob Dorman
  */
-public class CharacterDefense extends SaveStateTracker implements Serializable {
+public class CharacterDefense extends SaveStateSender implements Serializable {
     //AC = 10 + armor bonus + shield bonus + AbilityScore modifier + size modifier
 
     //Core AC stats
@@ -38,7 +38,7 @@ public class CharacterDefense extends SaveStateTracker implements Serializable {
         this.equippedArmor = new ArrayList<>();
         //Set an unrealistic cap initially, update when armor is equipped
         maximumDexModifierBonus = 100;
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     /**
@@ -109,7 +109,7 @@ public class CharacterDefense extends SaveStateTracker implements Serializable {
             }
             armorBonus += armor.getAcBonus();
         }
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     /**
@@ -126,7 +126,7 @@ public class CharacterDefense extends SaveStateTracker implements Serializable {
                 recalculateMaxDexBonus();
             }
         }
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     public int getDeflectionBonuses() {
@@ -135,12 +135,12 @@ public class CharacterDefense extends SaveStateTracker implements Serializable {
 
     public void modifyDeflectionBonuses(int value) {
         deflectionBonuses += value;
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     public void setDeflectionBonus(int deflectionBonuses) {
         this.deflectionBonuses = deflectionBonuses;
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     public int getEnhancementBonus() {
@@ -149,12 +149,12 @@ public class CharacterDefense extends SaveStateTracker implements Serializable {
 
     public void modifyEnhancementBonuses(int value) {
         enhancementBonuses += value;
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     public void setEnhancementBonus(int enhancementBonuses) {
         this.enhancementBonuses = enhancementBonuses;
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     public int getNaturalArmorBonuses() {
@@ -163,7 +163,7 @@ public class CharacterDefense extends SaveStateTracker implements Serializable {
 
     public void setNaturalArmorBonus(int naturalArmorBonuses) {
         this.naturalArmorBonuses = naturalArmorBonuses;
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     public int getShieldBonus() {
@@ -172,7 +172,7 @@ public class CharacterDefense extends SaveStateTracker implements Serializable {
 
     public void setShieldBonus(int shieldBonus) {
         this.shieldBonus = shieldBonus;
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     public int getDodgeBonus() {
@@ -181,12 +181,12 @@ public class CharacterDefense extends SaveStateTracker implements Serializable {
 
     public void modifyDodgeBonus(int value) {
         dodgeBonus += value;
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     public void setDodgeBonus(int dodgeBonus) {
         this.dodgeBonus = dodgeBonus;
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     /**
@@ -199,7 +199,7 @@ public class CharacterDefense extends SaveStateTracker implements Serializable {
                 maximumDexModifierBonus = a.getMaxDexBonus();
             }
         }
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     /**

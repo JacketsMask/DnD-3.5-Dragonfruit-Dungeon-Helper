@@ -7,7 +7,7 @@ package character;
 import character.classes.CharacterClass;
 import character.proficiencies.ArmorProficiency;
 import character.proficiencies.WeaponProficiency;
-import main.SaveStateTracker;
+import main.SaveStateSender;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -15,7 +15,7 @@ import java.util.ArrayList;
  *
  * @author Japhez
  */
-public class CharacterProficiencies extends SaveStateTracker implements Serializable {
+public class CharacterProficiencies extends SaveStateSender implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private ArrayList<ArmorProficiency> armorProficiencyList;
@@ -38,24 +38,24 @@ public class CharacterProficiencies extends SaveStateTracker implements Serializ
         if (!armorProficiencyList.contains(proficiency)) {
             armorProficiencyList.add(proficiency);
         }
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     public void addWeaponProficiency(WeaponProficiency proficiency) {
         if (!weaponProficiencyList.contains(proficiency)) {
             weaponProficiencyList.add(proficiency);
         }
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     public void removeWeaponProficiency(WeaponProficiency proficiency) {
         weaponProficiencyList.remove(proficiency);
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     public void removeArmorProficiency(ArmorProficiency proficiency) {
         armorProficiencyList.remove(proficiency);
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     public boolean hasArmorProficiency(ArmorProficiency proficiency) {

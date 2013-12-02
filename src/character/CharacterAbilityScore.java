@@ -2,7 +2,7 @@ package character;
 
 import diceroller.DiceRoller;
 import enumerations.AbilityScore;
-import main.SaveStateTracker;
+import main.SaveStateSender;
 import java.io.Serializable;
 import java.util.HashMap;
 
@@ -13,7 +13,7 @@ import java.util.HashMap;
  *
  * @author Jacob Dorman
  */
-public final class CharacterAbilityScore extends SaveStateTracker implements Serializable {
+public final class CharacterAbilityScore extends SaveStateSender implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private HashMap<AbilityScore, Integer> abilityScoreBases;
@@ -44,7 +44,7 @@ public final class CharacterAbilityScore extends SaveStateTracker implements Ser
         abilityScoreModifiers.put(AbilityScore.WISDOM, 0);
         abilityScoreModifiers.put(AbilityScore.INTELLIGENCE, 0);
         abilityScoreModifiers.put(AbilityScore.CHARISMA, 0);
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     /**
@@ -55,7 +55,7 @@ public final class CharacterAbilityScore extends SaveStateTracker implements Ser
      */
     public void modifyAbilityScoreBonuses(AbilityScore as, int value) {
         abilityScoreBonuses.put(as, (abilityScoreBonuses.get(as) + value));
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     /**
@@ -66,7 +66,7 @@ public final class CharacterAbilityScore extends SaveStateTracker implements Ser
      */
     public void modifyAbilityScoreBases(AbilityScore as, int value) {
         abilityScoreBases.put(as, (abilityScoreBases.get(as) + value));
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     /**
@@ -92,7 +92,7 @@ public final class CharacterAbilityScore extends SaveStateTracker implements Ser
 
     public void setStatModifier(AbilityScore abilityScore, int value) {
         abilityScoreModifiers.put(abilityScore, value);
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     /**
@@ -107,7 +107,7 @@ public final class CharacterAbilityScore extends SaveStateTracker implements Ser
         abilityScoreBases.put(AbilityScore.WISDOM, DiceRoller.rollAbilityScore());
         abilityScoreBases.put(AbilityScore.INTELLIGENCE, DiceRoller.rollAbilityScore());
         abilityScoreBases.put(AbilityScore.CHARISMA, DiceRoller.rollAbilityScore());
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     /**
@@ -118,7 +118,7 @@ public final class CharacterAbilityScore extends SaveStateTracker implements Ser
      */
     public void setBonusAbilityScore(AbilityScore abilityScore, int value) {
         abilityScoreBonuses.put(abilityScore, value);
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     /**
@@ -129,7 +129,7 @@ public final class CharacterAbilityScore extends SaveStateTracker implements Ser
      */
     public void setBaseAbilityScore(AbilityScore abilityScore, int value) {
         abilityScoreBases.put(abilityScore, value);
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     /**

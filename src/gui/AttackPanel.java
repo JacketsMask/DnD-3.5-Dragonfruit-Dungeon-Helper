@@ -5,14 +5,14 @@ import character.Player;
 import diceroller.DiceRoll;
 import diceroller.DiceRoller;
 import enumerations.AbilityScore;
-import interfaces.CharacterInfoRetriever;
+import interfaces.SaveStateReader;
 import javax.swing.JRadioButton;
 
 /**
  *
  * @author Japhez
  */
-public class AttackPanel extends javax.swing.JPanel implements CharacterInfoRetriever {
+public class AttackPanel extends javax.swing.JPanel implements SaveStateReader {
 
     private Player player;
 

@@ -1,7 +1,7 @@
 package character;
 
 import diceroller.DiceRoller;
-import main.SaveStateTracker;
+import main.SaveStateSender;
 import java.io.Serializable;
 
 /**
@@ -9,7 +9,7 @@ import java.io.Serializable;
  *
  * @author Japhez
  */
-public class CharacterHealth extends SaveStateTracker implements Serializable {
+public class CharacterHealth extends SaveStateSender implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private transient Player player;
@@ -21,37 +21,37 @@ public class CharacterHealth extends SaveStateTracker implements Serializable {
         this.player = player;
         wounds = 0;
         nonlethalDamage = 0;
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     //Roll initial hitpoints based off of character class
     public void rollInitialHitPoints() {
         maxHitPoints = DiceRoller.rollDice(1, player.getClassInfo().getInitialClass().getHitDie()).getTotalRoll();
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     public int getMaxHitPoints() {
-        super.stateChanged = true;
+        super.stateChanged();
         return maxHitPoints;
     }
 
     public void takeDamage(int damage) {
         wounds += damage;
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     public void takeNonlethalDamage(int damage) {
         nonlethalDamage += damage;
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     public int getCurrentHealth() {
-        super.stateChanged = true;
+        super.stateChanged();
         return maxHitPoints - wounds;
     }
 
     public int getNonlethalDamage() {
-        super.stateChanged = true;
+        super.stateChanged();
         return nonlethalDamage;
     }
 
@@ -61,7 +61,7 @@ public class CharacterHealth extends SaveStateTracker implements Serializable {
         } else {
             wounds -= hitpoints;
         }
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     /**

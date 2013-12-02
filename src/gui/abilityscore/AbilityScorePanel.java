@@ -4,7 +4,7 @@ import character.Player;
 import character.CharacterAbilityScore;
 import character.IntegerVerifier;
 import enumerations.AbilityScore;
-import interfaces.CharacterInfoRetriever;
+import interfaces.SaveStateReader;
 import java.util.HashMap;
 import javax.swing.JTextField;
 
@@ -12,7 +12,7 @@ import javax.swing.JTextField;
  *
  * @author Japhez
  */
-public final class AbilityScorePanel extends javax.swing.JPanel implements CharacterInfoRetriever {
+public final class AbilityScorePanel extends javax.swing.JPanel implements SaveStateReader {
 
     private Player player;
 

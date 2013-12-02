@@ -2,14 +2,15 @@ package character;
 
 import character.effects.EffectManager;
 import character.inventory.CharacterInventory;
-import main.SaveStateTracker;
+import main.SaveStateSender;
+import java.io.Serializable;
 
 /**
  * The top level of a 3.5 character sheet. This is where the magic happens.
  *
  * @author Jacob Dorman
  */
-public class Player extends SaveStateTracker {
+public class Player extends SaveStateSender implements Serializable {
 
     private CharacterBasicInfo basicInfo;
     private CharacterHealth health;
@@ -25,15 +26,6 @@ public class Player extends SaveStateTracker {
     public Player() {
     }
 
-    /**
-     * Initializes basic player data.  This is separate because there is no
-     * reason to initialize data for a player that is about to have those
-     * values read in through de-serialization soon anyways.
-     * 
-     * This method should only be called when a new player is being made, and 
-     * should be avoided for intermediate operations when loading in a player's
-     * data.
-     */
     public void initData() {
         basicInfo = new CharacterBasicInfo();
         classInfo = new CharacterClassInfo();
@@ -144,12 +136,12 @@ public class Player extends SaveStateTracker {
      * @return true if character data has been changed.
      */
     @Override
-    public boolean stateChanged() {
-        return (basicInfo.stateChanged() || health.stateChanged() || classInfo.stateChanged()
-                || abilityScore.stateChanged() || attack.stateChanged()
-                || defense.stateChanged() || proficiencies.stateChanged()
-                || inventory.stateChanged() || effectManager.stateChanged()
-                || skills.stateChanged());
+    public boolean isStateChanged() {
+        return (basicInfo.isStateChanged() || health.isStateChanged() || classInfo.isStateChanged()
+                || abilityScore.isStateChanged() || attack.isStateChanged()
+                || defense.isStateChanged() || proficiencies.isStateChanged()
+                || inventory.isStateChanged() || effectManager.isStateChanged()
+                || skills.isStateChanged());
     }
 
     @Override

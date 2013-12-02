@@ -33,13 +33,13 @@ public class SerializationThread implements Runnable {
         while (!Thread.interrupted()) {
             try {
                 //Check to see if the state has changed
-                if (player.stateChanged()) {
+                if (player.isStateChanged()) {
                     do {
                         player.stateSaved();
                         System.out.println("SerializationThread: Player state change detected");
                         Thread.sleep(CHANGE_DELAY);
                         timesSkippedBeforeSaving++;
-                    } while (player.stateChanged() || timesSkippedBeforeSaving >= MAX_SKIPS);
+                    } while (player.isStateChanged() || timesSkippedBeforeSaving >= MAX_SKIPS);
                     System.out.println("SerializationThread: Player state saved.");
                     FileManipulator.writeCharacterToFile(player);
                     player.stateSaved();

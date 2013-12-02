@@ -1,13 +1,13 @@
 package gui.classes;
 
 import character.Player;
-import interfaces.CharacterInfoRetriever;
+import interfaces.SaveStateReader;
 
 /**
  *
  * @author Japhez
  */
-public class AbilityPanel extends javax.swing.JPanel implements CharacterInfoRetriever {
+public class AbilityPanel extends javax.swing.JPanel implements SaveStateReader {
 
     private Player player;
 

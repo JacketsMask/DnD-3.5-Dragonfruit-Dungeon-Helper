@@ -4,7 +4,7 @@ import character.classes.CharacterClass;
 import character.inventory.Weapon;
 import diceroller.DiceRoll;
 import diceroller.DiceRoller;
-import main.SaveStateTracker;
+import main.SaveStateSender;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -14,7 +14,7 @@ import java.util.ArrayList;
  *
  * @author Japhez
  */
-public class CharacterAttack extends SaveStateTracker implements Serializable {
+public class CharacterAttack extends SaveStateSender implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private transient Player player;
@@ -63,7 +63,7 @@ public class CharacterAttack extends SaveStateTracker implements Serializable {
         if (!equippedWeapons.contains(weapon)) {
             equippedWeapons.add(weapon);
         }
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     /**
@@ -75,7 +75,7 @@ public class CharacterAttack extends SaveStateTracker implements Serializable {
         if (equippedWeapons.contains(weapon)) {
             equippedWeapons.remove(weapon);
         }
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     /**

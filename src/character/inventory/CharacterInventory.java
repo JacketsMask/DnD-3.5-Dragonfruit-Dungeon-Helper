@@ -2,7 +2,7 @@ package character.inventory;
 
 import character.Player;
 import enumerations.AbilityScore;
-import main.SaveStateTracker;
+import main.SaveStateSender;
 import java.io.Serializable;
 import javax.swing.DefaultListModel;
 
@@ -12,7 +12,7 @@ import javax.swing.DefaultListModel;
  *
  * @author Jacob Dorman
  */
-public class CharacterInventory extends SaveStateTracker implements Serializable {
+public class CharacterInventory extends SaveStateSender implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private transient Player player;
@@ -23,7 +23,7 @@ public class CharacterInventory extends SaveStateTracker implements Serializable
         this.player = player;
         wallet = new Wallet();
         itemListModel = new DefaultListModel<>();
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     public CarryingCapacity.Load getCurrentLoad() {
@@ -50,7 +50,7 @@ public class CharacterInventory extends SaveStateTracker implements Serializable
 
     public void setWallet(Wallet wallet) {
         this.wallet = wallet;
-        super.stateChanged = true;
+        super.stateChanged();
     }
 
     public DefaultListModel<Item> getItemListModel() {
