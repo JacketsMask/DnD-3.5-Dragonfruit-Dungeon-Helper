@@ -433,11 +433,12 @@ public class BasicInfoDialog extends javax.swing.JDialog {
         player.getProficiencies().updateProficienciesFromClasses(player.getClassInfo().getCharacterClasses());
         commitChanges = true;
         this.setVisible(false);
-        //If the parent component is the panel, reload visible data
-        if (parent instanceof BasicInfoPanel) {
-            BasicInfoPanel panel = (BasicInfoPanel) parent;
-            panel.loadInfo();
-        }
+        //TODO: Determine if this is necessary
+//        //If the parent component is the panel, reload visible data
+//        if (parent instanceof BasicInfoPanel) {
+//            BasicInfoPanel panel = (BasicInfoPanel) parent;
+//            panel.loadInfo();
+//        }
     }//GEN-LAST:event_dialogCharacterCommitButtonActionPerformed
 
     public boolean isChangeCommitted() {

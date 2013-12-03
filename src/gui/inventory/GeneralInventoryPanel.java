@@ -27,14 +27,22 @@ public class GeneralInventoryPanel extends javax.swing.JPanel implements SaveSta
 
     @Override
     public void loadInfo() {
-        //If new data needs to be read
+        boolean needToLoad = false;
+        //If data from inventory needs to be loaded
         if (DataRetrievalManager.isDataChanged(inventory, this)) {
-            loadData();
+            needToLoad = true;
             //Mark the data as read for this reader
             DataRetrievalManager.dataRead(inventory, this);
-        } else if (DataRetrievalManager.isDataChanged(inventory.getWallet(), this)) {
-            loadData();
+        }
+        //If data from wallet needs to be loaded
+        if (DataRetrievalManager.isDataChanged(inventory.getWallet(), this)) {
+            needToLoad = true;
+            //Mark the data as read for this reader
             DataRetrievalManager.dataRead(inventory.getWallet(), this);
+        }
+        //If either needed to be loaded
+        if (needToLoad) {
+            loadData();
         }
     }
 

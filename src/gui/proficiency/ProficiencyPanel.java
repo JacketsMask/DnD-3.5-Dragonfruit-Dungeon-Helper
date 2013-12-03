@@ -1,17 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui.proficiency;
 
+import character.CharacterProficiencies;
 import character.Player;
 import character.proficiencies.ArmorProficiency;
 import character.proficiencies.WeaponProficiency;
-import gui.proficiency.AddArmorProficiencyDialog;
-import gui.proficiency.AddWeaponProficiencyDialog;
 import main.SaveStateReader;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import main.DataRetrievalManager;
 
 /**
  *
@@ -20,6 +16,7 @@ import javax.swing.DefaultListModel;
 public class ProficiencyPanel extends javax.swing.JPanel implements SaveStateReader {
 
     private Player player;
+    private CharacterProficiencies proficiencies;
 
     /**
      * Creates new form ProficiencyPanel
@@ -27,8 +24,10 @@ public class ProficiencyPanel extends javax.swing.JPanel implements SaveStateRea
     public ProficiencyPanel(Player player) {
         initComponents();
         this.player = player;
+        this.proficiencies = player.getProficiencies();
         initializeArmorProficiencyList();
         initializeWeaponProficiencyList();
+        DataRetrievalManager.linkReader(this, proficiencies);
     }
 
     /**
@@ -161,7 +160,6 @@ public class ProficiencyPanel extends javax.swing.JPanel implements SaveStateRea
     }
 
     private void initializeWeaponProficiencyList() {
-
         DefaultListModel<WeaponProficiency> model = new DefaultListModel<>();
         ArrayList<WeaponProficiency> profList = player.getProficiencies().getWeaponProficiencyList();
         for (WeaponProficiency ap : profList) {
@@ -210,7 +208,10 @@ public class ProficiencyPanel extends javax.swing.JPanel implements SaveStateRea
 
     @Override
     public void loadInfo() {
-        initializeArmorProficiencyList();
-        initializeWeaponProficiencyList();
+        if (DataRetrievalManager.isDataChanged(proficiencies, this)) {
+            initializeArmorProficiencyList();
+            initializeWeaponProficiencyList();
+            DataRetrievalManager.dataRead(proficiencies, this);
+        }
     }
 }

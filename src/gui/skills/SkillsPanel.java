@@ -12,6 +12,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
+import main.DataRetrievalManager;
 import main.FilteredTableModel;
 
 /**
@@ -21,6 +22,7 @@ import main.FilteredTableModel;
 public class SkillsPanel extends javax.swing.JPanel implements SaveStateReader {
 
     private Player player;
+    private CharacterSkills skills;
     private FilteredTableModel skillTableModel;
 
     /**
@@ -28,6 +30,7 @@ public class SkillsPanel extends javax.swing.JPanel implements SaveStateReader {
      */
     public SkillsPanel(Player player) {
         this.player = player;
+        this.skills = player.getSkills();
         initComponents();
         //Create the model for the table data
         skillTableModel = new FilteredTableModel(skillFilterTextField, 4,
@@ -59,8 +62,7 @@ public class SkillsPanel extends javax.swing.JPanel implements SaveStateReader {
                 }
             }
         });
-        //Finally, load player data into the table
-//        loadInfo();
+        DataRetrievalManager.linkReader(this, skills);
     }
 
     /**
@@ -209,7 +211,7 @@ public class SkillsPanel extends javax.swing.JPanel implements SaveStateReader {
         int characterValue = (int) row.get(1);
         int customModifier = Integer.parseInt(skillModifierTextField.getText());
         int roll = DiceRoller.rollD20();
-        int ASModifier = player.getSkills().getKeyModifierValue(skill);
+        int ASModifier = skills.getKeyModifierValue(skill);
         System.out.println("Character: " + characterValue);
         System.out.println("TextField Modifier: " + customModifier);
         System.out.println("Roll: " + roll);
@@ -238,14 +240,16 @@ public class SkillsPanel extends javax.swing.JPanel implements SaveStateReader {
 
     @Override
     public void loadInfo() {
-        skillTableModel.clearRows();
-        CharacterSkills skills = player.getSkills();
-        //Add all skills and player values to the table
-        for (Skill s : Skill.getAllSkills()) {
-            int ranks = skills.getSkillRank(s);
-            int keyModifier = skills.getKeyModifierValue(s);
-            skillTableModel.addRow(new Object[]{s, ranks, keyModifier, (ranks + keyModifier)});
-            skillTableModel.fireTableDataChanged();
+        if (DataRetrievalManager.isDataChanged(skills, this)) {
+            skillTableModel.clearRows();
+            //Add all skills and player values to the table
+            for (Skill s : Skill.getAllSkills()) {
+                int ranks = skills.getSkillRank(s);
+                int keyModifier = skills.getKeyModifierValue(s);
+                skillTableModel.addRow(new Object[]{s, ranks, keyModifier, (ranks + keyModifier)});
+                skillTableModel.fireTableDataChanged();
+            }
+            DataRetrievalManager.dataRead(skills, this);
         }
     }
 }

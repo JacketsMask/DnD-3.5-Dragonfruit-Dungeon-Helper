@@ -1,7 +1,6 @@
 package character.inventory;
 
 import java.io.Serializable;
-import main.DataRetrievalManager;
 import main.SaveStateSender;
 
 /**

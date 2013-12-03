@@ -64,12 +64,19 @@ public abstract class DataRetrievalManager {
      * passed source.
      */
     public static boolean isDataChanged(SaveStateSender source, SaveStateReader reader) {
-        return (currentList.get(source).contains(reader));
+        //Add source to master list if it hasn't been added yet
+        if (masterList.get(source) == null) {
+            masterList.put(source, new ArrayList<SaveStateReader>());
+        }
+        if (masterList.get(source).contains(reader)) {
+            return (currentList.get(source).contains(reader));
+        }
+        throw new RuntimeException("Unlinked reader " + reader.getClass() + " wants source " + source.getClass());
     }
 
     /**
-     * Links the passed SaveStateReader to the passed SaveStateTracker.
-     * After linking, the reader can use the isDataChanged() method to determine
+     * Links the passed SaveStateReader to the passed SaveStateTracker. After
+     * linking, the reader can use the isDataChanged() method to determine
      * whether they need to retrieve new data or not.
      *
      * @param reader
