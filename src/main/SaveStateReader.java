@@ -1,4 +1,4 @@
-package interfaces;
+package main;
 
 /**
  * This interface is for classes that need to retrieve information stored within

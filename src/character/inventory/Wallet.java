@@ -1,6 +1,8 @@
 package character.inventory;
 
 import java.io.Serializable;
+import main.DataRetrievalManager;
+import main.SaveStateSender;
 
 /**
  * Stores a player's wallet information.
@@ -8,7 +10,7 @@ import java.io.Serializable;
  * @author Jacob Dorman
  * @version Dec 3, 2012
  */
-public class Wallet implements Serializable {
+public class Wallet extends SaveStateSender implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private static final int COPPER_PER_PLATINUM = 1000;
@@ -19,7 +21,6 @@ public class Wallet implements Serializable {
     private int copper;
     private int silver;
     private int gold;
-    private boolean saved;
 
     /**
      * Creates a new wallet that contains no coins.
@@ -28,6 +29,7 @@ public class Wallet implements Serializable {
         gold = 0;
         silver = 0;
         copper = 0;
+        super.stateChanged();
     }
 
     /**
@@ -65,6 +67,7 @@ public class Wallet implements Serializable {
      */
     public void setPlatinum(int platinum) {
         this.platinum = platinum;
+        super.stateChanged();
     }
 
     /**
@@ -74,6 +77,7 @@ public class Wallet implements Serializable {
      */
     public void setCopper(int copper) {
         this.copper = copper;
+        super.stateChanged();
     }
 
     /**
@@ -83,6 +87,7 @@ public class Wallet implements Serializable {
      */
     public void setGold(int gold) {
         this.gold = gold;
+        super.stateChanged();
     }
 
     /**
@@ -92,6 +97,7 @@ public class Wallet implements Serializable {
      */
     public void setSilver(int silver) {
         this.silver = silver;
+        super.stateChanged();
     }
 
     /**
@@ -136,7 +142,7 @@ public class Wallet implements Serializable {
         }
         //If necessary, deduct the cost in platinum as well
         deductPlatinum(totalCostInCopper);
-
+        super.stateChanged();
     }
 
     public int deductCopper(int totalValueToDeductInCopper) {
@@ -275,6 +281,7 @@ public class Wallet implements Serializable {
         this.gold += gold;
         this.silver += silver;
         this.copper += copper;
+        super.stateChanged();
     }
 
     /**
@@ -291,23 +298,5 @@ public class Wallet implements Serializable {
      */
     public double getWeight() {
         return (double) (copper + silver + gold + platinum) / COINS_PER_POUND;
-    }
-
-    /**
-     * Sets the saved state of the wallet. This should be set to false if the
-     * data is changed so that it can be re-serialized at next save.
-     *
-     * @param saved
-     */
-    public void setSaved(boolean saved) {
-        this.saved = false;
-    }
-
-    /**
-     * @return true if the serialized version of this wallet is currently up to
-     * date
-     */
-    public boolean isSaved() {
-        return saved;
     }
 }

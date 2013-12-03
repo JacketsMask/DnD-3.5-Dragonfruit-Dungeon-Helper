@@ -9,7 +9,7 @@ import character.proficiencies.ArmorProficiency;
 import character.proficiencies.WeaponProficiency;
 import gui.proficiency.AddArmorProficiencyDialog;
 import gui.proficiency.AddWeaponProficiencyDialog;
-import interfaces.SaveStateReader;
+import main.SaveStateReader;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 

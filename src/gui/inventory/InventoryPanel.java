@@ -1,11 +1,13 @@
 package gui.inventory;
 
 import character.Player;
+import character.inventory.CharacterInventory;
 import character.inventory.Item;
 import file.manipulation.FileManipulator;
-import interfaces.SaveStateReader;
+import main.SaveStateReader;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import main.DataRetrievalManager;
 
 /**
  *
@@ -13,19 +15,24 @@ import javax.swing.JOptionPane;
  */
 public class InventoryPanel extends javax.swing.JPanel implements SaveStateReader {
 
-    private Player player;
+    private CharacterInventory inventory;
     private DefaultListModel itemListModel;
 
     /**
      * Creates new form InventoryPanel
      */
     public InventoryPanel(Player player) {
-        this.player = player;
-        this.itemListModel = player.getInventory().getItemListModel();
+        this.inventory = player.getInventory();
+        this.itemListModel = new DefaultListModel();
+        for (Item i : inventory.getItems()) {
+            itemListModel.addElement(i);
+        }
         initComponents();
-        inventoryList.setModel(player.getInventory().getItemListModel());
+        inventoryList.setModel(this.itemListModel);
         //Info should be hidden by default, since no item is selected
         itemInfoPanel.setVisible(false);
+        //Link to inventory
+        DataRetrievalManager.linkReader(this, player.getInventory());
     }
 
     /**
@@ -248,13 +255,28 @@ public class InventoryPanel extends javax.swing.JPanel implements SaveStateReade
 
     private void addNewItemButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_addNewItemButtonActionPerformed
     {//GEN-HEADEREND:event_addNewItemButtonActionPerformed
-        new InventoryAddNewItemDialog(this, false, player).setVisible(true);
+        InventoryAddNewItemDialog inventoryAddNewItemDialog = new InventoryAddNewItemDialog(this, true);
+        inventoryAddNewItemDialog.setVisible(true);
+        Item item = inventoryAddNewItemDialog.getItem();
+        if (item != null) {
+            System.out.println("New item created: " + item.getName());
+            inventory.addItem(item);
+            itemListModel.addElement(item);
+            updateInventoryDisplayedTotalWeight();
+        } else {
+            System.out.println("Item creation canceled.");
+        }
     }//GEN-LAST:event_addNewItemButtonActionPerformed
 
     private void removeSelectedItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_removeSelectedItemActionPerformed
     {//GEN-HEADEREND:event_removeSelectedItemActionPerformed
-        player.getInventory().getItemListModel().removeElement(inventoryList.getSelectedValue());
+        //Remove item from inventory
+        inventory.removeItem((Item) inventoryList.getSelectedValue());
+        //Remove item from this list
+        itemListModel.removeElement(inventoryList.getSelectedValue());
         updateInventoryDisplayedTotalWeight();
+        //Set data as already up to date in the UI
+        DataRetrievalManager.dataRead(inventory, this);
     }//GEN-LAST:event_removeSelectedItemActionPerformed
 
     private void modifyCurrentlySelectedItemButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_modifyCurrentlySelectedItemButtonActionPerformed
@@ -272,8 +294,11 @@ public class InventoryPanel extends javax.swing.JPanel implements SaveStateReade
     private void importItemButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importItemButtonActionPerformed
         Item userSelectItem = FileManipulator.userSelectItem();
         if (userSelectItem != null) {
-            //TODO: Move inventory adding into the actual class
+            inventory.addItem(userSelectItem);
             itemListModel.addElement(userSelectItem);
+            updateInventoryDisplayedTotalWeight();
+            //Set data as already up to date in the UI
+            DataRetrievalManager.dataRead(inventory, this);
         }
     }//GEN-LAST:event_importItemButtonActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -313,12 +338,15 @@ public class InventoryPanel extends javax.swing.JPanel implements SaveStateReade
     }
 
     public void updateInventoryDisplayedTotalWeight() {
-        currentWeightLabel.setText("Current weight: " + player.getInventory().getInventoryWeight());
+        currentWeightLabel.setText("Current weight: " + inventory.getInventoryWeight());
     }
 
     @Override
     public void loadInfo() {
-        updateInventoryDisplayedInfo();
-        updateInventoryDisplayedTotalWeight();
+        if (DataRetrievalManager.isDataChanged(inventory, this)) {
+            updateInventoryDisplayedInfo();
+            updateInventoryDisplayedTotalWeight();
+            DataRetrievalManager.dataRead(inventory, this);
+        }
     }
 }

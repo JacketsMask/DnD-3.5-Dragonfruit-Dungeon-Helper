@@ -7,7 +7,7 @@ package gui.basicinfo;
 import character.CharacterBasicInfo;
 import character.Player;
 import enumerations.Alignment;
-import interfaces.SaveStateReader;
+import main.SaveStateReader;
 
 /**
  *

@@ -1,13 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui.inventory;
 
 import character.DoubleVerifier;
-import character.Player;
 import character.inventory.Item;
-import javax.swing.DefaultListModel;
 import javax.swing.FocusManager;
 
 /**
@@ -16,16 +10,19 @@ import javax.swing.FocusManager;
  */
 public class InventoryAddNewItemDialog extends javax.swing.JDialog {
 
-    private InventoryPanel parent;
-    private Player player;
+    private Item item;
 
     /**
      * Creates new form InventoryAddNewItemDialog
      */
-    public InventoryAddNewItemDialog(InventoryPanel parent, boolean modal, Player player) {
-        this.parent = parent;
-        this.player = player;
+    public InventoryAddNewItemDialog(InventoryPanel parent, boolean modal) {
+        super();
+        setModal(modal);
         initComponents();
+    }
+
+    public Item getItem() {
+        return item;
     }
 
     /**
@@ -167,7 +164,6 @@ public class InventoryAddNewItemDialog extends javax.swing.JDialog {
 
     private void saveItemButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_saveItemButtonActionPerformed
     {//GEN-HEADEREND:event_saveItemButtonActionPerformed
-        DefaultListModel<Item> itemList = player.getInventory().getItemListModel();
         String name = itemNameTextField.getText();
         String description = itemDescriptionTextArea.getText();
         double weight;
@@ -176,8 +172,7 @@ public class InventoryAddNewItemDialog extends javax.swing.JDialog {
         } catch (NumberFormatException e) {
             weight = 0;
         }
-        itemList.addElement(new Item(name, description, weight));
-        parent.updateInventoryDisplayedTotalWeight();
+        item = new Item(name, description, weight);
         this.setVisible(false);
     }//GEN-LAST:event_saveItemButtonActionPerformed
 

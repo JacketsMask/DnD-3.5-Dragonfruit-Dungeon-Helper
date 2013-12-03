@@ -3,7 +3,7 @@ package gui.defense;
 import character.IntegerVerifier;
 import character.Player;
 import diceroller.DiceRoller;
-import interfaces.SaveStateReader;
+import main.SaveStateReader;
 
 /**
  *

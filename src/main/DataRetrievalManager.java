@@ -1,7 +1,6 @@
 package main;
 
 import character.CharacterBasicInfo;
-import interfaces.SaveStateReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -28,7 +27,11 @@ public abstract class DataRetrievalManager {
      * @param reader
      */
     public static void dataRead(SaveStateSender sender, SaveStateReader reader) {
-        currentList.get(sender).remove(reader);
+        System.out.println(reader.getClass() + " acknowledges data from " + sender.getClass());
+        boolean remove = currentList.get(sender).remove(reader);
+        if (!remove) {
+            System.out.println("...but was it necessary?");
+        }
     }
 
     /**
@@ -47,7 +50,9 @@ public abstract class DataRetrievalManager {
         currentList.get(sender).clear();
         //Add each reader from the master list to current list
         ArrayList<SaveStateReader> get = masterList.get(sender);
+        System.out.println(sender.getClass() + " was changed...");
         for (SaveStateReader infoReader : get) {
+            System.out.println("..." + infoReader.getClass() + " should be updated.");
             currentList.get(sender).add(infoReader);
         }
     }
@@ -72,6 +77,7 @@ public abstract class DataRetrievalManager {
      */
     public static void linkReader(SaveStateReader reader, SaveStateSender source) {
         if (masterList.get(source) == null) {
+            System.out.println(reader.getClass() + " linked to " + source.getClass());
             masterList.put(source, new ArrayList<SaveStateReader>());
             currentList.put(source, new ArrayList<SaveStateReader>());
         }

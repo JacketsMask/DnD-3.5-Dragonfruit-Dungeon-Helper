@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui.inventory;
 
 import character.IntegerVerifier;
@@ -16,6 +12,7 @@ import javax.swing.*;
 public class WalletPanel extends javax.swing.JPanel {
 
     private Wallet wallet;
+
     /**
      * Creates new form WalletPanel
      */
@@ -86,11 +83,6 @@ public class WalletPanel extends javax.swing.JPanel {
                 walletTotalFocusLost(evt);
             }
         });
-        pouchCopper.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                walletTotalKeyTyped(evt);
-            }
-        });
 
         pouchGold.setColumns(5);
         pouchGold.setText("jTextField1");
@@ -98,11 +90,6 @@ public class WalletPanel extends javax.swing.JPanel {
         pouchGold.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 walletTotalFocusLost(evt);
-            }
-        });
-        pouchGold.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                walletTotalKeyTyped(evt);
             }
         });
 
@@ -114,11 +101,6 @@ public class WalletPanel extends javax.swing.JPanel {
         pouchSilver.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 walletTotalFocusLost(evt);
-            }
-        });
-        pouchSilver.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                walletTotalKeyTyped(evt);
             }
         });
 
@@ -136,11 +118,6 @@ public class WalletPanel extends javax.swing.JPanel {
         pouchPlatinum.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 walletTotalFocusLost(evt);
-            }
-        });
-        pouchPlatinum.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                walletTotalKeyTyped(evt);
             }
         });
 
@@ -406,7 +383,6 @@ public class WalletPanel extends javax.swing.JPanel {
         receievedGold.setText("0");
         receievedPlatinum.setText("0");
         updateVisibleTotal();
-        wallet.setSaved(false);
     }//GEN-LAST:event_receiveButtonActionPerformed
 
     private void purchaseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_purchaseButtonActionPerformed
@@ -421,12 +397,7 @@ public class WalletPanel extends javax.swing.JPanel {
         purchaseGold.setText("0");
         purchasePlatinum.setText("0");
         updateVisibleTotal();
-        wallet.setSaved(false);
     }//GEN-LAST:event_purchaseButtonActionPerformed
-
-    private void walletTotalKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_walletTotalKeyTyped
-        wallet.setSaved(false);
-    }//GEN-LAST:event_walletTotalKeyTyped
 
     private void walletTotalFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_walletTotalFocusLost
         JTextField field = (JTextField) evt.getSource();
@@ -434,14 +405,23 @@ public class WalletPanel extends javax.swing.JPanel {
         if (!verifier.isValueChanged()) {
             return;
         }
+        int newValue = Integer.parseInt(field.getText());
         if (field.equals(pouchPlatinum)) {
-            wallet.setPlatinum(Integer.parseInt(pouchPlatinum.getText()));
+            if (newValue != wallet.getPlatinum()) {
+                wallet.setPlatinum(newValue);
+            }
         } else if (field.equals(pouchGold)) {
-            wallet.setGold(Integer.parseInt(pouchGold.getText()));
+            if (newValue != wallet.getGold()) {
+                wallet.setGold(newValue);
+            }
         } else if (field.equals(pouchSilver)) {
-            wallet.setSilver(Integer.parseInt(pouchSilver.getText()));
+            if (newValue != wallet.getSilver()) {
+                wallet.setSilver(newValue);
+            }
         } else if (field.equals(pouchCopper)) {
-            wallet.setCopper(Integer.parseInt(pouchCopper.getText()));
+            if (newValue != wallet.getCopper()) {
+                wallet.setCopper(newValue);
+            }
         }
         updateVisibleTotal();
     }//GEN-LAST:event_walletTotalFocusLost

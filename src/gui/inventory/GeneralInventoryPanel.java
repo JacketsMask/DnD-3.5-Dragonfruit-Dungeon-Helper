@@ -3,7 +3,7 @@ package gui.inventory;
 import character.Player;
 import character.inventory.CarryingCapacity;
 import character.inventory.CharacterInventory;
-import interfaces.SaveStateReader;
+import main.SaveStateReader;
 import main.DataRetrievalManager;
 
 /**
@@ -22,27 +22,34 @@ public class GeneralInventoryPanel extends javax.swing.JPanel implements SaveSta
         initComponents();
         //Link this to load info from the inventory when this panel is selected and the data needs updating
         DataRetrievalManager.linkReader(this, inventory);
+        DataRetrievalManager.linkReader(this, inventory.getWallet());
     }
 
     @Override
     public void loadInfo() {
         //If new data needs to be read
         if (DataRetrievalManager.isDataChanged(inventory, this)) {
-            System.out.println("General inventory data updating.");
-            double inventoryWeight = inventory.getInventoryWeight();
-            inventoryWeightLabel.setText("" + inventoryWeight);
-            double walletWeight = inventory.getWallet().getWeight();
-            walletWeightLabel.setText("" + walletWeight);
-            totalWeightLabel.setText("" + (inventoryWeight + walletWeight));
-            CarryingCapacity.LoadThresholds currentLoadThresholds = inventory.getCurrentLoadThresholds();
-            lightLoadLabel.setText("" + currentLoadThresholds.getLight());
-            mediumLoadLabel.setText("" + currentLoadThresholds.getMedium());
-            heavyLoadLabel.setText("" + currentLoadThresholds.getHeavy());
-            CarryingCapacity.Load currentLoad = inventory.getCurrentLoad();
-            currentLoadLabel.setText("" + currentLoad);
+            loadData();
+            //Mark the data as read for this reader
+            DataRetrievalManager.dataRead(inventory, this);
+        } else if (DataRetrievalManager.isDataChanged(inventory.getWallet(), this)) {
+            loadData();
+            DataRetrievalManager.dataRead(inventory.getWallet(), this);
         }
-        //Mark the data as read for this reader
-        DataRetrievalManager.dataRead(inventory, this);
+    }
+
+    private void loadData() {
+        double inventoryWeight = inventory.getInventoryWeight();
+        inventoryWeightLabel.setText("" + inventoryWeight);
+        double walletWeight = inventory.getWallet().getWeight();
+        walletWeightLabel.setText("" + walletWeight);
+        totalWeightLabel.setText("" + (inventoryWeight + walletWeight));
+        CarryingCapacity.LoadThresholds currentLoadThresholds = inventory.getCurrentLoadThresholds();
+        lightLoadLabel.setText("" + currentLoadThresholds.getLight());
+        mediumLoadLabel.setText("" + currentLoadThresholds.getMedium());
+        heavyLoadLabel.setText("" + currentLoadThresholds.getHeavy());
+        CarryingCapacity.Load currentLoad = inventory.getCurrentLoad();
+        currentLoadLabel.setText("" + currentLoad);
     }
 
     /**

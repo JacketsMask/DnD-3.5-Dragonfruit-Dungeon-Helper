@@ -4,7 +4,7 @@ import character.Player;
 import character.CharacterAbilityScore;
 import character.IntegerVerifier;
 import enumerations.AbilityScore;
-import interfaces.SaveStateReader;
+import main.SaveStateReader;
 import java.util.HashMap;
 import javax.swing.JTextField;
 

@@ -5,7 +5,7 @@ import character.Player;
 import diceroller.DiceRoll;
 import diceroller.DiceRoller;
 import enumerations.AbilityScore;
-import interfaces.SaveStateReader;
+import main.SaveStateReader;
 import javax.swing.JRadioButton;
 
 /**

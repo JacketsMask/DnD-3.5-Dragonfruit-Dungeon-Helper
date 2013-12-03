@@ -18,8 +18,7 @@ public class SerializationThread implements Runnable {
 
     private Player player;
     private final int CHECK_DELAY = 1000;
-//    private final int CHANGE_DELAY = 5000;
-    private final int CHANGE_DELAY = 1;
+    private final int CHANGE_DELAY = 5000;
     private int timesSkippedBeforeSaving;
     private final int MAX_SKIPS = 3;
 

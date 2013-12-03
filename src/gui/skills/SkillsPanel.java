@@ -5,7 +5,7 @@ import character.IntegerVerifier;
 import character.Player;
 import diceroller.DiceRoller;
 import enumerations.Skill;
-import interfaces.SaveStateReader;
+import main.SaveStateReader;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.ListSelectionModel;

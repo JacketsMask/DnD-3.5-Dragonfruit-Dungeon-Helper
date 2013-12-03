@@ -77,7 +77,6 @@ public class CharacterClassInfo extends SaveStateSender implements Serializable 
     }
 
     public void loadClassData() {
-        System.out.println("Loading in immutable class data...");
         classList = new ArrayList<>();
         Set<String> keySet = classData.keySet();
         for (String s : keySet) {
@@ -85,7 +84,6 @@ public class CharacterClassInfo extends SaveStateSender implements Serializable 
             try {
                 MutableCharacterClass readClass = FileManipulator.readClass(s);
                 classList.add(readClass);
-                System.out.println(readClass.getName() + " loaded in...");
             } catch (Exception e) {
                 System.err.println("Unable to load class: " + s);
             }

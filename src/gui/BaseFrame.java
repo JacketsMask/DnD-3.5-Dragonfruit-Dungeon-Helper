@@ -16,7 +16,7 @@ import gui.classes.GeneralClassPanel;
 import gui.inventory.GeneralInventoryPanel;
 import gui.inventory.WalletPanel;
 import gui.spell.SpellPanel;
-import interfaces.SaveStateReader;
+import main.SaveStateReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JTabbedPane;
@@ -117,7 +117,6 @@ public final class BaseFrame extends javax.swing.JFrame {
      * panel below.
      */
     private void addPanels() throws IOException, IOException {
-        System.out.println("Data loaded in prior to tables.");
         characterInfoTabbedPane.addTab("General", new BasicInfoPanel(player));
         characterInfoTabbedPane.addTab("Ability Score", new AbilityScorePanel(player));
         CharacterClassInfo classInfo = player.getClassInfo();
@@ -152,7 +151,6 @@ public final class BaseFrame extends javax.swing.JFrame {
         characterInfoTabbedPane.add("Inventory", inventoryTabbedPane);
         chatTabbedPane.add("All", new ChatPanel(player));
         pack();
-        System.out.println("GUI created for " + player.getBasicInfo().getName() + ".");
     }
 
     public Player getPlayer() {
