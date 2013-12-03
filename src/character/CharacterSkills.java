@@ -2,7 +2,7 @@ package character;
 
 import enumerations.AbilityScore;
 import enumerations.Skill;
-import main.SaveStateSender;
+import savestate.SaveStateSender;
 import java.io.Serializable;
 import java.util.HashMap;
 

@@ -2,7 +2,7 @@ package character;
 
 import diceroller.DiceRoller;
 import enumerations.AbilityScore;
-import main.SaveStateSender;
+import savestate.SaveStateSender;
 import java.io.Serializable;
 import java.util.HashMap;
 

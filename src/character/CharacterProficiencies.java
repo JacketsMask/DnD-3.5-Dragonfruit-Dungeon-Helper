@@ -7,7 +7,7 @@ package character;
 import character.classes.CharacterClass;
 import character.proficiencies.ArmorProficiency;
 import character.proficiencies.WeaponProficiency;
-import main.SaveStateSender;
+import savestate.SaveStateSender;
 import java.io.Serializable;
 import java.util.ArrayList;
 

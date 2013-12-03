@@ -5,9 +5,9 @@ import character.Player;
 import diceroller.DiceRoll;
 import diceroller.DiceRoller;
 import enumerations.AbilityScore;
-import main.SaveStateReader;
+import savestate.SaveStateReader;
 import javax.swing.JRadioButton;
-import main.DataRetrievalManager;
+import savestate.DataRetrievalManager;
 
 /**
  *

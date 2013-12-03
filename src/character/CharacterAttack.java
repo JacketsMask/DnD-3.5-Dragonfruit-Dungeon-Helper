@@ -4,7 +4,7 @@ import character.classes.CharacterClass;
 import character.inventory.Weapon;
 import diceroller.DiceRoll;
 import diceroller.DiceRoller;
-import main.SaveStateSender;
+import savestate.SaveStateSender;
 import java.io.Serializable;
 import java.util.ArrayList;
 

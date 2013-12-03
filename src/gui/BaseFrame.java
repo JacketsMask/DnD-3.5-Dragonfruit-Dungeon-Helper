@@ -16,7 +16,7 @@ import gui.classes.GeneralClassPanel;
 import gui.inventory.GeneralInventoryPanel;
 import gui.inventory.WalletPanel;
 import gui.spell.SpellPanel;
-import main.SaveStateReader;
+import savestate.SaveStateReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JTabbedPane;

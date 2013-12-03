@@ -4,10 +4,10 @@ import character.Player;
 import character.inventory.CharacterInventory;
 import character.inventory.Item;
 import file.manipulation.FileManipulator;
-import main.SaveStateReader;
+import savestate.SaveStateReader;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import main.DataRetrievalManager;
+import savestate.DataRetrievalManager;
 
 /**
  *

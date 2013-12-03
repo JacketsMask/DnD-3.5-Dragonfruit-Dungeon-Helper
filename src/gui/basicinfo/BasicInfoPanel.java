@@ -7,8 +7,8 @@ package gui.basicinfo;
 import character.CharacterBasicInfo;
 import character.Player;
 import enumerations.Alignment;
-import main.DataRetrievalManager;
-import main.SaveStateReader;
+import savestate.DataRetrievalManager;
+import savestate.SaveStateReader;
 
 /**
  *

@@ -5,14 +5,14 @@ import character.IntegerVerifier;
 import character.Player;
 import diceroller.DiceRoller;
 import enumerations.Skill;
-import main.SaveStateReader;
+import savestate.SaveStateReader;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
-import main.DataRetrievalManager;
+import savestate.DataRetrievalManager;
 import main.FilteredTableModel;
 
 /**

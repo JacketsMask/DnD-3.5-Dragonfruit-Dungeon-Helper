@@ -4,10 +4,10 @@ import character.Player;
 import character.CharacterAbilityScore;
 import character.IntegerVerifier;
 import enumerations.AbilityScore;
-import main.SaveStateReader;
+import savestate.SaveStateReader;
 import java.util.HashMap;
 import javax.swing.JTextField;
-import main.DataRetrievalManager;
+import savestate.DataRetrievalManager;
 
 /**
  *

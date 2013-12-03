@@ -4,10 +4,10 @@ import character.CharacterProficiencies;
 import character.Player;
 import character.proficiencies.ArmorProficiency;
 import character.proficiencies.WeaponProficiency;
-import main.SaveStateReader;
+import savestate.SaveStateReader;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
-import main.DataRetrievalManager;
+import savestate.DataRetrievalManager;
 
 /**
  *

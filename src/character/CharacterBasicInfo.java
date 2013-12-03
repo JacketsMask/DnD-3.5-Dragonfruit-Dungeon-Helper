@@ -4,7 +4,7 @@ import abstracts.Size;
 import character.races.Race;
 import enumerations.Alignment;
 import enumerations.Gender;
-import main.SaveStateSender;
+import savestate.SaveStateSender;
 import java.io.Serializable;
 import java.util.Random;
 

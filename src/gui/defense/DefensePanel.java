@@ -4,8 +4,8 @@ import character.CharacterDefense;
 import character.IntegerVerifier;
 import character.Player;
 import diceroller.DiceRoller;
-import main.DataRetrievalManager;
-import main.SaveStateReader;
+import savestate.DataRetrievalManager;
+import savestate.SaveStateReader;
 
 /**
  *

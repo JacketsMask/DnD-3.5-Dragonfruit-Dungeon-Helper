@@ -4,6 +4,7 @@
  */
 package main;
 
+import savestate.SerializationThread;
 import character.Player;
 import file.manipulation.FileManipulator;
 import gui.BaseFrame;

@@ -3,8 +3,8 @@ package gui.inventory;
 import character.Player;
 import character.inventory.CarryingCapacity;
 import character.inventory.CharacterInventory;
-import main.SaveStateReader;
-import main.DataRetrievalManager;
+import savestate.SaveStateReader;
+import savestate.DataRetrievalManager;
 
 /**
  *
