@@ -1,8 +1,7 @@
 package character.inventory;
 
 import java.io.Serializable;
-import main.DataRetrievalManager;
-import main.SaveStateSender;
+import savestate.SaveStateSender;
 
 /**
  * Stores a player's wallet information.

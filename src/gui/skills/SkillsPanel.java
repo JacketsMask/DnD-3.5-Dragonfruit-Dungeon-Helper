@@ -5,13 +5,14 @@ import character.IntegerVerifier;
 import character.Player;
 import diceroller.DiceRoller;
 import enumerations.Skill;
-import main.SaveStateReader;
+import savestate.SaveStateReader;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
+import savestate.DataRetrievalManager;
 import main.FilteredTableModel;
 
 /**
@@ -21,6 +22,7 @@ import main.FilteredTableModel;
 public class SkillsPanel extends javax.swing.JPanel implements SaveStateReader {
 
     private Player player;
+    private CharacterSkills skills;
     private FilteredTableModel skillTableModel;
 
     /**
@@ -28,6 +30,7 @@ public class SkillsPanel extends javax.swing.JPanel implements SaveStateReader {
      */
     public SkillsPanel(Player player) {
         this.player = player;
+        this.skills = player.getSkills();
         initComponents();
         //Create the model for the table data
         skillTableModel = new FilteredTableModel(skillFilterTextField, 4,
@@ -59,8 +62,7 @@ public class SkillsPanel extends javax.swing.JPanel implements SaveStateReader {
                 }
             }
         });
-        //Finally, load player data into the table
-//        loadInfo();
+        DataRetrievalManager.linkReader(this, skills);
     }
 
     /**
@@ -80,6 +82,8 @@ public class SkillsPanel extends javax.swing.JPanel implements SaveStateReader {
         tableScrollPane = new javax.swing.JScrollPane();
         skillTable = new javax.swing.JTable();
         changeSkillValuesButton = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         rollButton.setText("Roll Selected Skill");
         rollButton.setEnabled(false);
@@ -154,6 +158,11 @@ public class SkillsPanel extends javax.swing.JPanel implements SaveStateReader {
             }
         });
 
+        jLabel3.setText("Unused Skill Points:");
+
+        jButton1.setText("Improve Skill");
+        jButton1.setEnabled(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -169,8 +178,10 @@ public class SkillsPanel extends javax.swing.JPanel implements SaveStateReader {
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(skillModifierTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(rollButton, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
-                            .addComponent(changeSkillValuesButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(rollButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(changeSkillValuesButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel3)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addComponent(skillFilterTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -196,7 +207,11 @@ public class SkillsPanel extends javax.swing.JPanel implements SaveStateReader {
                         .addComponent(rollButton)
                         .addGap(18, 18, 18)
                         .addComponent(changeSkillValuesButton)
-                        .addGap(0, 109, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)
+                        .addGap(0, 33, Short.MAX_VALUE))
                     .addComponent(tableScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -209,7 +224,7 @@ public class SkillsPanel extends javax.swing.JPanel implements SaveStateReader {
         int characterValue = (int) row.get(1);
         int customModifier = Integer.parseInt(skillModifierTextField.getText());
         int roll = DiceRoller.rollD20();
-        int ASModifier = player.getSkills().getKeyModifierValue(skill);
+        int ASModifier = skills.getKeyModifierValue(skill);
         System.out.println("Character: " + characterValue);
         System.out.println("TextField Modifier: " + customModifier);
         System.out.println("Roll: " + roll);
@@ -227,8 +242,10 @@ public class SkillsPanel extends javax.swing.JPanel implements SaveStateReader {
     }//GEN-LAST:event_changeSkillValuesButtonActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton changeSkillValuesButton;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JButton rollButton;
     private javax.swing.JTextField skillFilterTextField;
     private javax.swing.JTextField skillModifierTextField;
@@ -238,14 +255,16 @@ public class SkillsPanel extends javax.swing.JPanel implements SaveStateReader {
 
     @Override
     public void loadInfo() {
-        skillTableModel.clearRows();
-        CharacterSkills skills = player.getSkills();
-        //Add all skills and player values to the table
-        for (Skill s : Skill.getAllSkills()) {
-            int ranks = skills.getSkillRank(s);
-            int keyModifier = skills.getKeyModifierValue(s);
-            skillTableModel.addRow(new Object[]{s, ranks, keyModifier, (ranks + keyModifier)});
-            skillTableModel.fireTableDataChanged();
+        if (DataRetrievalManager.isDataChanged(skills, this)) {
+            skillTableModel.clearRows();
+            //Add all skills and player values to the table
+            for (Skill s : Skill.getAllSkills()) {
+                int ranks = skills.getSkillRank(s);
+                int keyModifier = skills.getKeyModifierValue(s);
+                skillTableModel.addRow(new Object[]{s, ranks, keyModifier, (ranks + keyModifier)});
+                skillTableModel.fireTableDataChanged();
+            }
+            DataRetrievalManager.dataRead(skills, this);
         }
     }
 }

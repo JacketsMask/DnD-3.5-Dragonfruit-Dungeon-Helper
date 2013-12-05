@@ -1,9 +1,11 @@
 package gui.defense;
 
+import character.CharacterDefense;
 import character.IntegerVerifier;
 import character.Player;
 import diceroller.DiceRoller;
-import main.SaveStateReader;
+import savestate.DataRetrievalManager;
+import savestate.SaveStateReader;
 
 /**
  *
@@ -12,10 +14,13 @@ import main.SaveStateReader;
 public final class DefensePanel extends javax.swing.JPanel implements SaveStateReader {
 
     private Player player;
+    private CharacterDefense defense;
 
     public DefensePanel(Player player) {
         initComponents();
         this.player = player;
+        this.defense = player.getDefense();
+        DataRetrievalManager.linkReader(this, defense);
     }
 
     /**
@@ -295,13 +300,16 @@ public final class DefensePanel extends javax.swing.JPanel implements SaveStateR
 
     @Override
     public void loadInfo() {
-        //Armor class
-        armorClassTextField.setText("" + player.getDefense().getAC());
-        touchArmorClassTextField.setText("" + player.getDefense().getACVSTouch());
-        flatFootedArmorClassTextField.setText("" + player.getDefense().getACFlatFooted());
-        //Saves
-        fortitudeSaveTextField.setText("" + player.getDefense().getFortitudeSaveBonus());
-        reflexSaveTextField.setText("" + player.getDefense().getReflexSaveBonus());
-        willSaveTextField.setText("" + player.getDefense().getWillSaveBonus());
+        if (DataRetrievalManager.isDataChanged(defense, this)) {
+            //Armor class
+            armorClassTextField.setText("" + defense.getAC());
+            touchArmorClassTextField.setText("" + defense.getACVSTouch());
+            flatFootedArmorClassTextField.setText("" + defense.getACFlatFooted());
+            //Saves
+            fortitudeSaveTextField.setText("" + defense.getFortitudeSaveBonus());
+            reflexSaveTextField.setText("" + defense.getReflexSaveBonus());
+            willSaveTextField.setText("" + defense.getWillSaveBonus());
+            DataRetrievalManager.dataRead(defense, this);
+        }
     }
 }

@@ -4,7 +4,7 @@ import character.CharacterAttack;
 import character.CharacterDefense;
 import character.Player;
 import enumerations.AbilityScore;
-import main.SaveStateSender;
+import savestate.SaveStateSender;
 import java.io.Serializable;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;

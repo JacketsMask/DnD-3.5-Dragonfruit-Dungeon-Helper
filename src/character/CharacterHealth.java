@@ -1,7 +1,7 @@
 package character;
 
 import diceroller.DiceRoller;
-import main.SaveStateSender;
+import savestate.SaveStateSender;
 import java.io.Serializable;
 
 /**

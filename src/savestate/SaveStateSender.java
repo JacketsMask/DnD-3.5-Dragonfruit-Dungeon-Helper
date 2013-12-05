@@ -1,4 +1,4 @@
-package main;
+package savestate;
 
 /**
  * This class holds data about a mutable state.

@@ -1,4 +1,4 @@
-package main;
+package savestate;
 
 import character.Player;
 import character.Spell;

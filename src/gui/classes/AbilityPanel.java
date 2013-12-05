@@ -1,7 +1,7 @@
 package gui.classes;
 
 import character.Player;
-import main.SaveStateReader;
+import savestate.SaveStateReader;
 
 /**
  *

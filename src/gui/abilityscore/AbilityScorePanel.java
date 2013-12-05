@@ -4,9 +4,10 @@ import character.Player;
 import character.CharacterAbilityScore;
 import character.IntegerVerifier;
 import enumerations.AbilityScore;
-import main.SaveStateReader;
+import savestate.SaveStateReader;
 import java.util.HashMap;
 import javax.swing.JTextField;
+import savestate.DataRetrievalManager;
 
 /**
  *
@@ -27,6 +28,8 @@ public final class AbilityScorePanel extends javax.swing.JPanel implements SaveS
         updateVisibleAbilityScoreBonus();
         updateVisibleAbilityScoreTotal();
         updateVisibleAbilityScoreModifiers();
+        //TODO: Create field for ability score
+        DataRetrievalManager.linkReader(this, player.getAbilityScore());
     }
 
     /**
@@ -603,10 +606,13 @@ public final class AbilityScorePanel extends javax.swing.JPanel implements SaveS
 
     @Override
     public void loadInfo() {
-        updateVisibleAbilityScoreBase();
-        updateVisibleAbilityScoreBonus();
-        updateVisibleAbilityScoreModifiers();
-        updateVisibleAbilityScoreTotal();
+        if (DataRetrievalManager.isDataChanged(player.getAbilityScore(), this)) {
+            updateVisibleAbilityScoreBase();
+            updateVisibleAbilityScoreBonus();
+            updateVisibleAbilityScoreModifiers();
+            updateVisibleAbilityScoreTotal();
+            DataRetrievalManager.dataRead(player.getAbilityScore(), this);
+        }
     }
 
     /**

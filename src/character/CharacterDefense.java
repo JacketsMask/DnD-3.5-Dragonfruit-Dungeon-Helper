@@ -4,7 +4,7 @@ import abstracts.Size;
 import character.classes.CharacterClass;
 import character.inventory.Armor;
 import enumerations.AbilityScore;
-import main.SaveStateSender;
+import savestate.SaveStateSender;
 import java.io.Serializable;
 import java.util.ArrayList;
 

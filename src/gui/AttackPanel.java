@@ -5,36 +5,41 @@ import character.Player;
 import diceroller.DiceRoll;
 import diceroller.DiceRoller;
 import enumerations.AbilityScore;
-import main.SaveStateReader;
+import savestate.SaveStateReader;
 import javax.swing.JRadioButton;
+import savestate.DataRetrievalManager;
 
 /**
  *
  * @author Japhez
  */
 public class AttackPanel extends javax.swing.JPanel implements SaveStateReader {
-
+    
     private Player player;
-
+    
     public AttackPanel(Player player) {
         initComponents();
         this.player = player;
         modiferButtonGroup.setSelected(strengthRadioButton.getModel(), true);
         meleeRadioButton.doClick();
+        DataRetrievalManager.linkReader(this, player.getAttack());
     }
-
+    
     @Override
     public void loadInfo() {
-        //Prefill BAB
-        int[] bab = player.getAttack().getBAB();
-        String BAB = "";
-        for (Integer i : bab) {
-            BAB += i + "/";
+        if (DataRetrievalManager.isDataChanged(player.getAttack(), this)) {
+            //Prefill BAB
+            int[] bab = player.getAttack().getBAB();
+            String BAB = "";
+            for (Integer i : bab) {
+                BAB += i + "/";
+            }
+            //Trim last slash
+            BAB = BAB.substring(0, BAB.length() - 1);
+            //Calculate number of attacks granted from BAB
+            baseAttackBonusTextField.setText("" + BAB);
+            DataRetrievalManager.dataRead(player.getAttack(), this);
         }
-        //Trim last slash
-        BAB = BAB.substring(0, BAB.length() - 1);
-        //Calculate number of attacks granted from BAB
-        baseAttackBonusTextField.setText("" + BAB);
     }
 
     /**
@@ -403,7 +408,7 @@ public class AttackPanel extends javax.swing.JPanel implements SaveStateReader {
         System.out.println("");
         return damage;
     }
-
+    
     private int calculateAttack() {
 //        int baseAttackBonus = player.getClassInfo().getInitialClass().getBaseAttackBonus()[0]; //TODO: Account for multiple attack bonuses
         int abilityScoreModifier = 0;
@@ -436,7 +441,7 @@ public class AttackPanel extends javax.swing.JPanel implements SaveStateReader {
         System.out.println("Attack roll: " + attack);
         System.out.println("Damage roll: " + damage);
     }//GEN-LAST:event_calculateDamageButtonActionPerformed
-
+    
     private void weaponTypeSelected(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_weaponTypeSelected
         JRadioButton button = (JRadioButton) evt.getSource();
         //Weapon types that would usually use strength
@@ -473,7 +478,7 @@ public class AttackPanel extends javax.swing.JPanel implements SaveStateReader {
             updatePenaltyButton.setEnabled(false);
         }
     }//GEN-LAST:event_weaponTypeSelected
-
+    
     private void updateRangedPenalty(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateRangedPenalty
         int rangeIncrement = Integer.parseInt(rangeIncrementTextField.getText());
         int targetRange = Integer.parseInt(targetRangeTextField.getText());
@@ -495,7 +500,7 @@ public class AttackPanel extends javax.swing.JPanel implements SaveStateReader {
         }
         updatePenaltyButton.setEnabled(false);
     }//GEN-LAST:event_updateRangedPenalty
-
+    
     private void rangeInfoChanged(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rangeInfoChanged
         updatePenaltyButton.setEnabled(true);
     }//GEN-LAST:event_rangeInfoChanged

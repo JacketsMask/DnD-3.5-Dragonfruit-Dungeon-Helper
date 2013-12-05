@@ -2,7 +2,7 @@ package character;
 
 import character.effects.EffectManager;
 import character.inventory.CharacterInventory;
-import main.SaveStateSender;
+import savestate.SaveStateSender;
 import java.io.Serializable;
 
 /**

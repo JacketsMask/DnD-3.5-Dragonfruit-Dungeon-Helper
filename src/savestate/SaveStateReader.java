@@ -1,4 +1,4 @@
-package main;
+package savestate;
 
 /**
  * This interface is for classes that need to retrieve information stored within

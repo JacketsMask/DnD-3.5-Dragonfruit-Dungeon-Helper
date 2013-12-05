@@ -4,7 +4,7 @@ import character.Spell;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-import main.SaveStateSender;
+import savestate.SaveStateSender;
 
 /**
  * This is used to store spell data for a class.

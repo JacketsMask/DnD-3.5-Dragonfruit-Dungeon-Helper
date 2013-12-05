@@ -6,7 +6,7 @@ import character.classes.ClassSpellList;
 import character.classes.MutableCharacterClass;
 import enumerations.CasterType;
 import file.manipulation.FileManipulator;
-import main.SaveStateSender;
+import savestate.SaveStateSender;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;

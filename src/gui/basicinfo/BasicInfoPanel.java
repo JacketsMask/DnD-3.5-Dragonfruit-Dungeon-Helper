@@ -7,7 +7,8 @@ package gui.basicinfo;
 import character.CharacterBasicInfo;
 import character.Player;
 import enumerations.Alignment;
-import main.SaveStateReader;
+import savestate.DataRetrievalManager;
+import savestate.SaveStateReader;
 
 /**
  *
@@ -16,6 +17,7 @@ import main.SaveStateReader;
 public final class BasicInfoPanel extends javax.swing.JPanel implements SaveStateReader {
 
     private Player player;
+    private CharacterBasicInfo info;
 
     /**
      * Creates new form GeneralPanel
@@ -26,7 +28,9 @@ public final class BasicInfoPanel extends javax.swing.JPanel implements SaveStat
         if (player == null) {
             System.exit(0);
         }
+        this.info = player.getBasicInfo();
         initComponents();
+        DataRetrievalManager.linkReader(this, info);
     }
 
     /**
@@ -270,36 +274,38 @@ public final class BasicInfoPanel extends javax.swing.JPanel implements SaveStat
 
     @Override
     public void loadInfo() {
-        CharacterBasicInfo info = player.getBasicInfo();
-        characterInfoNameLabel.setText("" + info.getName());
-        if (player.getClassInfo().getInitialClass() != null) {
-            characterClassLabel.setText(player.getClassInfo().getInitialClass().getName());
-        } else {
-            characterClassLabel.setText("Jobless layabout");
+        if (DataRetrievalManager.isDataChanged(info, this)) {
+            characterInfoNameLabel.setText("" + info.getName());
+            if (player.getClassInfo().getInitialClass() != null) {
+                characterClassLabel.setText(player.getClassInfo().getInitialClass().getName());
+            } else {
+                characterClassLabel.setText("Jobless layabout");
+            }
+            characterInfoAgeLabel.setText("" + info.getAge());
+            if (info.getAlignment().equals(Alignment.TRUE_NEUTRAL)) {
+                characterInfoAlignmentLabel.setText("True Neutral");
+            } else {
+                characterInfoAlignmentLabel.setText("" + info.getAlignment());
+            }
+            characterInfoDeityLabel.setText("" + info.getDeity());
+            characterInfoGenderLabel.setText("" + info.getGender());
+            characterInfoRaceLabel.setText("" + info.getRace());
+            characterInfoSizeLabel.setText("" + info.getSize());
+            characterInfoSpeedLabel.setText("" + info.getSpeed());
+            String height = "";
+            if (info.getHeightFeet() != 0) {
+                height += info.getHeightFeet() + " ft.";
+            }
+            if (info.getHeightInches() != 0) {
+                height += " " + info.getHeightInches() + " in.";
+            }
+            characterInfoHeightLabel.setText(height);
+            characterInfoWeightLabel.setText("" + info.getWeight());
+            characterInfoEyesLabel.setText("" + info.getEyeColor());
+            characterInfoHairLabel.setText("" + info.getHairColor());
+            characterInfoSkinLabel.setText("" + info.getSkinColor());
+            DataRetrievalManager.dataRead(info, this);
         }
-        characterInfoAgeLabel.setText("" + info.getAge());
-        if (info.getAlignment().equals(Alignment.TRUE_NEUTRAL)) {
-            characterInfoAlignmentLabel.setText("True Neutral");
-        } else {
-            characterInfoAlignmentLabel.setText("" + info.getAlignment());
-        }
-        characterInfoDeityLabel.setText("" + info.getDeity());
-        characterInfoGenderLabel.setText("" + info.getGender());
-        characterInfoRaceLabel.setText("" + info.getRace());
-        characterInfoSizeLabel.setText("" + info.getSize());
-        characterInfoSpeedLabel.setText("" + info.getSpeed());
-        String height = "";
-        if (info.getHeightFeet() != 0) {
-            height += info.getHeightFeet() + " ft.";
-        }
-        if (info.getHeightInches() != 0) {
-            height += " " + info.getHeightInches() + " in.";
-        }
-        characterInfoHeightLabel.setText(height);
-        characterInfoWeightLabel.setText("" + info.getWeight());
-        characterInfoEyesLabel.setText("" + info.getEyeColor());
-        characterInfoHairLabel.setText("" + info.getHairColor());
-        characterInfoSkinLabel.setText("" + info.getSkinColor());
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel characterClassLabel;
