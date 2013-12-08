@@ -1,6 +1,5 @@
 package gui.spell;
 
-import character.IntegerVerifier;
 import character.Player;
 import character.Spell;
 import character.classes.CharacterClass;
@@ -34,9 +33,9 @@ public class SpellPanel extends javax.swing.JPanel implements SaveStateReader {
         initComponents();
         preparedSpellsList.setModel(new DefaultListModel());
         initSpellLists();
+        initPreparedSpellList();
         //Innate casters don't learn spells, they are granted
         if (cc.getCasterType().equals(CasterType.INNATE)) {
-            System.out.println("INNATE CASTER NO LEARN");
             learnSpellsButton.setVisible(false);
             unlearnSpellsButton.setVisible(false);
             this.validate();
@@ -73,7 +72,7 @@ public class SpellPanel extends javax.swing.JPanel implements SaveStateReader {
         for (int i = 0; i <= spellCasterLevel; i++) {
             ArrayList<Spell> spellsAtLevel = knownSpells.get(i);
             SpellByLevelPanel panel = new SpellByLevelPanel(i, spellsAtLevel);
-            spellsByLevelTabbedPane.addTab("" + i, panel);
+            spellsByLevelTabbedPane.addTab("" + Spell.getSymbol(i), panel);
             spellPanels.put(i, panel);
         }
     }
