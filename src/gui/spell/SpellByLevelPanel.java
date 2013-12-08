@@ -18,14 +18,11 @@ public class SpellByLevelPanel extends javax.swing.JPanel {
     /** Creates new form SpellByLevelPanel */
     public SpellByLevelPanel(int level, ArrayList<Spell> spellArray) {
         initComponents();
-        spellsLevelLabel.setText("Level " + level + " spells:");
+        spellsLevelLabel.setText("Level " + Spell.getSymbol(level) + " spells:");
         model = new DefaultListModel();
         spellList.setModel(model);
         this.spellArray = spellArray;
         initSpellList();
-        if (!spellArray.isEmpty()) {
-            System.out.println("found spell: " + spellArray.get(0));
-        }
     }
 
     /**
