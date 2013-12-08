@@ -20,6 +20,8 @@ import savestate.SaveStateReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JTabbedPane;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  *
@@ -96,7 +98,6 @@ public final class BaseFrame extends javax.swing.JFrame {
             SaveStateReader retriever = (SaveStateReader) source.getSelectedComponent();
             retriever.loadInfo();
         } //Check to see if there's a tabbed Pane within a tabbed pane
-        //TODO: Consider making this a while to jump through any TabbedPanes, rather than just 2 deep
         else if (source.getSelectedComponent() instanceof JTabbedPane) {
             //Get the inner tab
             JTabbedPane innerTab = (JTabbedPane) source.getSelectedComponent();
@@ -132,6 +133,14 @@ public final class BaseFrame extends javax.swing.JFrame {
             if (cc.isAbilityUser()) {
                 classTabs.addTab("Abilities", new AbilityPanel(player));
             }
+            //Register listener
+            classTabs.addChangeListener(new ChangeListener() {
+
+                @Override
+                public void stateChanged(ChangeEvent e) {
+                    baseTabbedPaneStateChanged(e);
+                }
+            });
         }
         characterInfoTabbedPane.addTab("Skills", new SkillsPanel(player));
         characterInfoTabbedPane.addTab("Attack", new AttackPanel(player));

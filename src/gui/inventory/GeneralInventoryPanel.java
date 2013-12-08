@@ -85,6 +85,8 @@ public class GeneralInventoryPanel extends javax.swing.JPanel implements SaveSta
         inventoryWeightLabel = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        currentLoadInfoTextArea = new javax.swing.JTextArea();
 
         setPreferredSize(new java.awt.Dimension(456, 200));
 
@@ -200,6 +202,11 @@ public class GeneralInventoryPanel extends javax.swing.JPanel implements SaveSta
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        currentLoadInfoTextArea.setEditable(false);
+        currentLoadInfoTextArea.setColumns(20);
+        currentLoadInfoTextArea.setRows(5);
+        jScrollPane1.setViewportView(currentLoadInfoTextArea);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -209,19 +216,23 @@ public class GeneralInventoryPanel extends javax.swing.JPanel implements SaveSta
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(141, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea currentLoadInfoTextArea;
     private javax.swing.JLabel currentLoadLabel;
     private javax.swing.JLabel heavyLoadLabel;
     private javax.swing.JLabel inventoryWeightLabel;
@@ -234,6 +245,7 @@ public class GeneralInventoryPanel extends javax.swing.JPanel implements SaveSta
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lightLoadLabel;
     private javax.swing.JLabel mediumLoadLabel;
     private javax.swing.JLabel totalWeightLabel;

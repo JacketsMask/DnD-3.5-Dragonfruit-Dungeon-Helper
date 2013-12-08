@@ -348,14 +348,12 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel10" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" alignment="0" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel10" alignment="1" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="resistanceTextField" alignment="0" pref="196" max="32767" attributes="0"/>
                               <Component id="savingThrowTextField" alignment="0" max="32767" attributes="0"/>

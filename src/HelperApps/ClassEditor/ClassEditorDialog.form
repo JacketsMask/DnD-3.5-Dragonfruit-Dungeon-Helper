@@ -57,27 +57,27 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jPanel3" min="-2" pref="174" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="225" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="jPanel3" alignment="0" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
                               <EmptySpace min="0" pref="50" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="jPanel4" max="32767" attributes="0"/>
-                                  <Component id="jPanel5" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jPanel5" alignment="1" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Component id="jPanel3" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -93,35 +93,31 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="startingGoldNumDieTextField" min="-2" pref="20" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="nameTextField" pref="118" max="32767" attributes="0"/>
-                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="startingGoldSidesTextField" min="-2" pref="20" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="startingGoldMultiplierTextField" min="-2" pref="20" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="startingGoldNumDieTextField" min="-2" pref="20" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="startingGoldSidesTextField" min="-2" pref="20" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="startingGoldMultiplierTextField" min="-2" pref="20" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="hitDieTextField" min="-2" pref="20" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="hitDieTextField" min="-2" pref="20" max="-2" attributes="0"/>
                               </Group>
                           </Group>
+                          <EmptySpace max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="nameTextField" min="-2" pref="152" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -129,11 +125,10 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="nameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="nameTextField" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="hitDieTextField" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -315,25 +310,28 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel19" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="castsSpellsCheckBox" min="-2" max="-2" attributes="0"/>
-                              <Component id="usesAbilitiesCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="21" pref="21" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="innateSpellcasterRadioButton" min="-2" max="-2" attributes="0"/>
                                       <Component id="learnedSpellcasterRadioButton" min="-2" max="-2" attributes="0"/>
                                       <Component id="getsDomainSpellCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel18" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                          <Component id="primaryAttributeComboBox" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                               </Group>
+                              <Component id="usesAbilitiesCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="186" max="32767" attributes="0"/>
+                          <EmptySpace pref="20" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -351,8 +349,14 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="getsDomainSpellCheckBox" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="primaryAttributeComboBox" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="usesAbilitiesCheckBox" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="89" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -381,7 +385,7 @@
                     <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                       <ComponentRef name="casterTypeButtonGroup"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Learned: Learns spells individually, once they are preparable"/>
+                    <Property name="text" type="java.lang.String" value="Learned: Learns spells individually up to current spell level"/>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
@@ -390,7 +394,7 @@
                     <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                       <ComponentRef name="casterTypeButtonGroup"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Innate: Knows all spells are that preparable"/>
+                    <Property name="text" type="java.lang.String" value="Innate: Knows all spells up to current spell level"/>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
@@ -398,6 +402,23 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Gets domain spell"/>
                     <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel18">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Primary attribute (determines bonus spells):"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel19">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Ability information:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="primaryAttributeComboBox">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="0"/>
+                    </Property>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -555,7 +576,28 @@
                           <Data value="11"/>
                           <Data value="12"/>
                         </Column>
-                        <Column editable="true" title="Notes" type="java.lang.String"/>
+                        <Column editable="true" title="Notes" type="java.lang.String">
+                          <Data value=" &#x9;Turn or Rebuke Undead"/>
+                          <Data value="null"/>
+                          <Data value="null"/>
+                          <Data value="null"/>
+                          <Data value="null"/>
+                          <Data value="null"/>
+                          <Data value="null"/>
+                          <Data value="null"/>
+                          <Data value="null"/>
+                          <Data value="null"/>
+                          <Data value="null"/>
+                          <Data value="null"/>
+                          <Data value="null"/>
+                          <Data value="null"/>
+                          <Data value="null"/>
+                          <Data value="null"/>
+                          <Data value="null"/>
+                          <Data value="null"/>
+                          <Data value="null"/>
+                          <Data value="null"/>
+                        </Column>
                       </Table>
                     </Property>
                     <Property name="cellSelectionEnabled" type="boolean" value="true"/>

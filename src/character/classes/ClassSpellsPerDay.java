@@ -10,21 +10,21 @@ import java.util.HashMap;
 public class ClassSpellsPerDay implements Serializable {
 
     //            Class level     Spell level  Spell count
-    private HashMap<Integer, HashMap<Integer, Integer>> levelsPerDay;
+    private HashMap<Integer, HashMap<Integer, Integer>> spellsPerDay;
 
     public ClassSpellsPerDay() {
-        levelsPerDay = new HashMap<>();
+        spellsPerDay = new HashMap<>();
         //Add maps for class levels
         for (int i = 1; i <= 20; i++) {
-            levelsPerDay.put(i, new HashMap<Integer, Integer>());
+            spellsPerDay.put(i, new HashMap<Integer, Integer>());
         }
     }
 
     public void setSpellsPerDay(int classLevel, int spellLevel, int numSpells) {
-        levelsPerDay.get(classLevel).put(spellLevel, numSpells);
+        spellsPerDay.get(classLevel).put(spellLevel, numSpells);
     }
 
     public int getSpellsPerDay(int classLevel, int spellLevel) {
-        return levelsPerDay.get(classLevel).get(spellLevel);
+        return spellsPerDay.get(classLevel).get(spellLevel);
     }
 }

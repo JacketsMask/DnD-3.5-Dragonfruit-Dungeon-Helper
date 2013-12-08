@@ -28,7 +28,7 @@ public class Player extends SaveStateSender implements Serializable {
 
     public void initData() {
         basicInfo = new CharacterBasicInfo();
-        classInfo = new CharacterClassInfo();
+        classInfo = new CharacterClassInfo(this);
         health = new CharacterHealth(this);
         abilityScore = new CharacterAbilityScore();
         attack = new CharacterAttack(this);

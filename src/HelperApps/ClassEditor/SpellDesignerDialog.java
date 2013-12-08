@@ -39,6 +39,7 @@ public class SpellDesignerDialog extends javax.swing.JDialog {
      */
     private void loadSpellInformation(Spell spell) {
         nameTextField.setText(spell.getName());
+        levelTextField.setText("" + spell.getLevel());
         schoolComboBox.setSelectedItem(spell.getSchool().toString());
         verbalCheckBox.setSelected(spell.isVerbal());
         xpCheckBox.setSelected(spell.getExperienceCost() != 0);

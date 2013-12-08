@@ -10,6 +10,7 @@ import enumerations.Alignment;
 import enumerations.CasterType;
 import enumerations.Skill;
 import character.classes.CharacterClassLevelData;
+import enumerations.AbilityScore;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.DefaultListModel;
@@ -39,6 +40,7 @@ public class ClassEditorDialog extends javax.swing.JDialog {
         initComponents();
         initSkillLists();
         initProficiencyLists();
+        initPrimaryAttributes();
         new TableColumnAdjuster(classTable).adjustColumns();
         classDone = false;
     }
@@ -55,7 +57,14 @@ public class ClassEditorDialog extends javax.swing.JDialog {
         initComponents();
         newClass = initialClass;
         loadInInitialData();
+        initPrimaryAttributes();
         classDone = false;
+    }
+
+    private void initPrimaryAttributes() {
+        for (AbilityScore as : AbilityScore.getAbilityScores()) {
+            primaryAttributeComboBox.addItem(as);
+        }
     }
 
     public boolean isClassDone() {
@@ -295,6 +304,9 @@ public class ClassEditorDialog extends javax.swing.JDialog {
         learnedSpellcasterRadioButton = new javax.swing.JRadioButton();
         innateSpellcasterRadioButton = new javax.swing.JRadioButton();
         getsDomainSpellCheckBox = new javax.swing.JCheckBox();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        primaryAttributeComboBox = new javax.swing.JComboBox();
         tablePanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         classTable = new javax.swing.JTable();
@@ -366,9 +378,7 @@ public class ClassEditorDialog extends javax.swing.JDialog {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(nameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
-                        .addGap(10, 10, 10))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
@@ -387,15 +397,19 @@ public class ClassEditorDialog extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(hitDieTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(hitDieTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -488,35 +502,42 @@ public class ClassEditorDialog extends javax.swing.JDialog {
         usesAbilitiesCheckBox.setText("Uses Abilities");
 
         casterTypeButtonGroup.add(learnedSpellcasterRadioButton);
-        learnedSpellcasterRadioButton.setText("Learned: Learns spells individually, once they are preparable");
+        learnedSpellcasterRadioButton.setText("Learned: Learns spells individually up to current spell level");
         learnedSpellcasterRadioButton.setEnabled(false);
 
         casterTypeButtonGroup.add(innateSpellcasterRadioButton);
-        innateSpellcasterRadioButton.setText("Innate: Knows all spells are that preparable");
+        innateSpellcasterRadioButton.setText("Innate: Knows all spells up to current spell level");
         innateSpellcasterRadioButton.setEnabled(false);
 
         getsDomainSpellCheckBox.setText("Gets domain spell");
         getsDomainSpellCheckBox.setEnabled(false);
+
+        jLabel18.setText("Primary attribute (determines bonus spells):");
+
+        jLabel19.setText("Ability information:");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jLabel13)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel19)
                     .addComponent(castsSpellsCheckBox)
-                    .addComponent(usesAbilitiesCheckBox)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(innateSpellcasterRadioButton)
                             .addComponent(learnedSpellcasterRadioButton)
-                            .addComponent(getsDomainSpellCheckBox))))
-                .addContainerGap(186, Short.MAX_VALUE))
+                            .addComponent(getsDomainSpellCheckBox)
+                            .addComponent(jLabel18)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(primaryAttributeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(usesAbilitiesCheckBox))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -532,8 +553,14 @@ public class ClassEditorDialog extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(getsDomainSpellCheckBox)
                 .addGap(18, 18, 18)
+                .addComponent(jLabel18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(primaryAttributeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel19)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(usesAbilitiesCheckBox)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout basicInfoPanelLayout = new javax.swing.GroupLayout(basicInfoPanel);
@@ -542,23 +569,23 @@ public class ClassEditorDialog extends javax.swing.JDialog {
             basicInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(basicInfoPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(225, Short.MAX_VALUE))
         );
         basicInfoPanelLayout.setVerticalGroup(
             basicInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(basicInfoPanelLayout.createSequentialGroup()
-                .addGroup(basicInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, basicInfoPanelLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, basicInfoPanelLayout.createSequentialGroup()
+                .addGroup(basicInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(basicInfoPanelLayout.createSequentialGroup()
                         .addGap(0, 50, Short.MAX_VALUE)
-                        .addGroup(basicInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(basicInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
 
@@ -566,7 +593,7 @@ public class ClassEditorDialog extends javax.swing.JDialog {
 
         classTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                { new Integer(1),  new Integer(0),  new Integer(2),  new Integer(0),  new Integer(2), null},
+                { new Integer(1),  new Integer(0),  new Integer(2),  new Integer(0),  new Integer(2), " 	Turn or Rebuke Undead"},
                 { new Integer(2),  new Integer(1),  new Integer(3),  new Integer(0),  new Integer(3), null},
                 { new Integer(3),  new Integer(2),  new Integer(3),  new Integer(1),  new Integer(3), null},
                 { new Integer(4),  new Integer(3),  new Integer(4),  new Integer(1),  new Integer(4), null},
@@ -975,18 +1002,24 @@ public class ClassEditorDialog extends javax.swing.JDialog {
             } else if (innateSpellcasterRadioButton.isSelected()) {
                 newClass.setCasterType(CasterType.INNATE);
             }
+            //Set primary attribute
+            newClass.setPrimaryAttribute((AbilityScore) primaryAttributeComboBox.getSelectedItem());
             //Get spells per level
             ClassSpellsPerDay classSpellsPerDay = new ClassSpellsPerDay();
             JTable spellsPerDayTable = spellsPerDayPanel.getSpellsPerDayTable();
-            for (int columnIndex = 0; columnIndex < 10; columnIndex++) {
+            for (int columnIndex = 1; columnIndex <= 10; columnIndex++) {
                 for (int rowIndex = 0; rowIndex < 20; rowIndex++) {
+                    //Class level column doesn't change
+                    int classLevel = (int) spellsPerDayTable.getValueAt(rowIndex, 0);
+                    int spellLevel = columnIndex - 1;
                     Object valueAt = spellsPerDayTable.getValueAt(rowIndex, columnIndex);
                     int value = 0;
                     //Make sure it isn't null
                     if (valueAt != null) {
                         value = (int) valueAt;
                     }
-                    classSpellsPerDay.setSpellsPerDay(rowIndex + 1, columnIndex + 1, value);
+                    classSpellsPerDay.setSpellsPerDay(classLevel, spellLevel, value);
+                    System.out.println("Spells at level: " + classLevel + " - spell level: " + spellLevel + " = " + value);
                 }
             }
             newClass.setSpellsPerDay(classSpellsPerDay);
@@ -1063,6 +1096,8 @@ public class ClassEditorDialog extends javax.swing.JDialog {
             casterTypeButtonGroup.setSelected(innateSpellcasterRadioButton.getModel(), true);
             innateSpellcasterRadioButton.setEnabled(true);
             getsDomainSpellCheckBox.setEnabled(true);
+            //Allow selection of primary attribute
+            primaryAttributeComboBox.setEnabled(true);
             //Add spells per day tab
             //Initialize if necessary
             if (spellsPerDayPanel == null) {
@@ -1083,6 +1118,8 @@ public class ClassEditorDialog extends javax.swing.JDialog {
             innateSpellcasterRadioButton.setEnabled(false);
             getsDomainSpellCheckBox.setEnabled(false);
             getsDomainSpellCheckBox.setSelected(false);
+            //Disallow selection of primary attribute
+            primaryAttributeComboBox.setEnabled(false);
             casterTypeButtonGroup.clearSelection();
             //Remove spells per day tab
             mainTabbedPane.remove(3);
@@ -1230,6 +1267,8 @@ public class ClassEditorDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1265,6 +1304,7 @@ public class ClassEditorDialog extends javax.swing.JDialog {
     private javax.swing.JTextField nameTextField;
     private javax.swing.JCheckBox neutralEvilCheckBox;
     private javax.swing.JCheckBox neutralGoodCheckBox;
+    private javax.swing.JComboBox primaryAttributeComboBox;
     private javax.swing.JCheckBox simpleWeaponsCheckBox;
     private javax.swing.JTextField skillInitialModifierTextField;
     private javax.swing.JTextField skillModifierTextField;

@@ -160,6 +160,7 @@ public class FileManipulator {
             CharacterClassInfo classInfo = (CharacterClassInfo) readObject(path, "classes");
             classInfo.loadClassData();
             player.setClassInfo(classInfo);
+            classInfo.setPlayer(player);
         } catch (ClassNotFoundException | IOException ex) {
             Logger.getLogger(FileManipulator.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -2,6 +2,7 @@ package character.classes;
 
 import character.proficiencies.ArmorProficiency;
 import character.proficiencies.WeaponProficiency;
+import enumerations.AbilityScore;
 import enumerations.Alignment;
 import enumerations.CasterType;
 import enumerations.Skill;
@@ -19,6 +20,10 @@ public class MutableCharacterClass extends CharacterClass implements Serializabl
 
     public MutableCharacterClass(String name) {
         super(name);
+    }
+
+    public void setPrimaryAttribute(AbilityScore primaryAttribute) {
+        this.primaryAttribute = primaryAttribute;
     }
 
     public void clearSpellCasterData() {

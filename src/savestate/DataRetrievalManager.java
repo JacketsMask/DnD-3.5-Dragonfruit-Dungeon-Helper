@@ -1,7 +1,5 @@
 package savestate;
 
-import savestate.SaveStateSender;
-import savestate.SaveStateReader;
 import character.CharacterBasicInfo;
 import java.util.ArrayList;
 import java.util.HashMap;

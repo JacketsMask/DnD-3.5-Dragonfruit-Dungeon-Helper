@@ -369,7 +369,7 @@ public final class AbilityScorePanel extends javax.swing.JPanel implements SaveS
                     .addComponent(bonusValueCha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(abilityScoreModifyBonusesAndPenaltiesButton)
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Ability Score Values", jPanel4);
@@ -469,7 +469,7 @@ public final class AbilityScorePanel extends javax.swing.JPanel implements SaveS
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel22)
                                 .addComponent(chaModifier)))))
-                .addContainerGap(188, Short.MAX_VALUE))
+                .addContainerGap(133, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Ability Score Modifiers", jPanel3);
@@ -478,11 +478,11 @@ public final class AbilityScorePanel extends javax.swing.JPanel implements SaveS
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 

@@ -3,7 +3,9 @@ package character;
 import character.classes.CharacterClass;
 import character.classes.ClassMetaData;
 import character.classes.ClassSpellList;
+import character.classes.ClassSpellsPerDay;
 import character.classes.MutableCharacterClass;
+import enumerations.AbilityScore;
 import enumerations.CasterType;
 import file.manipulation.FileManipulator;
 import savestate.SaveStateSender;
@@ -27,43 +29,103 @@ import java.util.Set;
 public class CharacterClassInfo extends SaveStateSender implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    private transient Player player;
     private transient ArrayList<CharacterClass> classList;
     //class name:data
     private HashMap<String, ClassMetaData> classData;
 
-    public CharacterClassInfo() {
+    public CharacterClassInfo(Player player) {
+        this.player = player;
         classList = new ArrayList<>();
         classData = new HashMap<>();
         super.stateChanged();
-
     }
 
     /**
-     * TODO: Flesh out level-up process
-     * Increase hitpoints.
-     * Gain access to new spells. (Automatically learn available spells if Divine)
-     * Gain new feat at every % 3 level.
-     * Gain new AbilityScore at every % 4 level.
-     * 
-     * 
-    Increase hit points (roll class hit die and add Con mod).
-    Increase base attack bonus
-    Increase saves
-    Allocate skill points
-    Add/advance class features
+     * @param cc the character class
+     * @return the spell casting level (maximum level of spell that can be cast)
+     * for the current level of the passed character class.
+     */
+    public int getSpellCasterLevel(CharacterClass cc) {
+        return classData.get(cc.getName()).getSpellCasterLevel();
+    }
 
+    /**
+     * Calculates and returns the maximum prepared spells for the passed level 
+     * of spell for the passed class at its current level.
+     * @param cc the class
+     * @param spellLevel the level of spell
+     * @return the maximum number of spells that are preparable
+     */
+    public int getMaxPreparedSpells(CharacterClass cc, int spellLevel) {
+        int classLevel = classData.get(cc.getName()).getClassLevel();
+        int total = 0;
+        //Find out base value
+        total += cc.getSpellsPerDay().getSpellsPerDay(classLevel, spellLevel);
+        System.out.println(total + " base");
+        //Find out bonus value
+        AbilityScore as = cc.getPrimaryAttribute();
+        int modifier = player.getAbilityScore().getAbilityScoreModifier(as);
+        int bonus = (int) Math.ceil(((double) 1 + modifier - spellLevel) / 4);
+        System.out.println(bonus + " bonus");
+        //Make sure there's a base value, the spell level isn't zero, and the bonus is greater than 0
+        if (total != 0 && spellLevel != 0 && bonus > 0) {
+            total += bonus;
+        }
+        System.out.println(cc.getName() + " can cast " + total + " level " + spellLevel + " spells at level " + classLevel);
+        return total;
+    }
+
+    /**
+     * Increase BAB (implicit).
+     * Increase saves (implicit).
+     * Gain ability to prepare new spells possibly (implicit).
+     * Gain access to new spells. (Automatically learn available spells if innate)
+     * //TODO: Gain any Ability available at the current level.
      * 
      * @param cc 
      */
     public void levelUp(CharacterClass cc) {
-        int prevLevel = classData.get(cc.getName()).getClassLevel();
-        classData.get(cc.getName()).setClassLevel(prevLevel + 1);
-        //Increase hitpoints
-        //Divine casters learn all their spells that they have access to immediately
-        if (cc.getCasterType().equals(CasterType.INNATE)) {
-            //Add all accessible spells to known list
+        System.out.println(cc.getName() + " leveling up.");
+        ClassMetaData data = classData.get(cc.getName());
+        int prevLevel = data.getClassLevel();
+        int nextLevel = prevLevel + 1;
+        int prevCasterLevel = data.getSpellCasterLevel();
+        data.setClassLevel(nextLevel);
+        //If the caster is just being created, set their spell level to 0
+        if (data.getSpellCasterLevel() == -1) {
+            data.setSpellCasterLevel(0);
+        } else {
+            //Find out if the player can cast higher level spells
+            int maxPreparedSpells = getMaxPreparedSpells(cc, prevCasterLevel + 1);
+            //If they can prepare spells at that level, increase their caster level
+            if (maxPreparedSpells > 0) {
+                data.setSpellCasterLevel(prevCasterLevel + 1);
+            }
+        }
+        //Innate casters learn all their spells that they have access to immediately
+        //Make sure they actually gained a caster level to prevent loading in duplicates
+        if (cc.getCasterType().equals(CasterType.INNATE) && data.getSpellCasterLevel() != prevCasterLevel) {
+            updateInnateSpellList(cc);
         }
         super.stateChanged();
+    }
+
+    private void updateInnateSpellList(CharacterClass cc) {
+        //Clear know data first
+        ClassMetaData data = classData.get(cc.getName());
+        data.getKnownSpells().clear();
+        //Get the current caster level
+        int spellCasterLevel = data.getSpellCasterLevel();
+        //Incrementally add all know spells to list up to the caster level
+        for (int i = 0; i <= spellCasterLevel; i++) {
+            System.out.println("Granting spells at level: " + i);
+            ArrayList<Spell> spellsAtLevel = cc.getSpellList().getSpellsAtLevel(i);
+            //Add all accessible spells to known list
+            for (Spell s : spellsAtLevel) {
+                learnSpell(cc, s);
+            }
+        }
     }
 
     public void setClassLevel(CharacterClass cc, int classLevel) {
@@ -113,6 +175,18 @@ public class CharacterClassInfo extends SaveStateSender implements Serializable 
             spellMap.put(spellLevel, spellsThisLevel);
         }
         return spellMap;
+    }
+
+    public HashMap<Integer, ArrayList<String>> getPreparedSpells(CharacterClass cc) {
+        return classData.get(cc.getName()).getPreparedSpells();
+    }
+
+    public void prepareSpell(CharacterClass cc, Spell spell) {
+        classData.get(cc.getName()).prepareSpell(spell);
+    }
+
+    public void unprepareSpell(CharacterClass cc, Spell spell) {
+        classData.get(cc.getName()).unprepareSpell(spell);
     }
 
     /**
@@ -168,6 +242,8 @@ public class CharacterClassInfo extends SaveStateSender implements Serializable 
         classList.add(cClass);
         //Add meta data
         classData.put(cClass.getName(), new ClassMetaData(cClass.getName()));
+        //Bring to level 1
+        levelUp(cClass);
         super.stateChanged();
     }
 
@@ -180,5 +256,9 @@ public class CharacterClassInfo extends SaveStateSender implements Serializable 
     public void addClass(CharacterClass cClass) {
         classList.add(cClass);
         super.stateChanged();
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 }

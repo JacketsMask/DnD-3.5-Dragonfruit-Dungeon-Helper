@@ -2,6 +2,7 @@ package gui.classes;
 
 import character.Player;
 import character.classes.CharacterClass;
+import gui.level.up.LevelUpDialog;
 
 /**
  *
@@ -144,8 +145,8 @@ public class GeneralClassPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void levelUpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_levelUpButtonActionPerformed
-        int newClassLevel = player.getClassInfo().getClassLevel(cc) + 1;
-        player.getClassInfo().setClassLevel(cc, newClassLevel);
+        LevelUpDialog levelUpDialog = new LevelUpDialog(null, true, player, cc);
+        levelUpDialog.setVisible(true);
         updateDisplayedData();
     }//GEN-LAST:event_levelUpButtonActionPerformed
 

@@ -20,6 +20,8 @@ public class CharacterClass implements Serializable {
     private static final long serialVersionUID = 1L;
     //The name of this class
     protected String name;
+    //Primary attribute
+    protected AbilityScore primaryAttribute;
     //Hit die
     protected int hitDie;
     //The class skills of that this class provides
@@ -50,6 +52,14 @@ public class CharacterClass implements Serializable {
         this.name = name;
         restrictedAlignments = new ArrayList<>();
         levelDataMap = new HashMap<>();
+    }
+
+    public ClassSpellsPerDay getSpellsPerDay() {
+        return spellsPerDay;
+    }
+
+    public AbilityScore getPrimaryAttribute() {
+        return primaryAttribute;
     }
 
     public ClassSpellList getSpellList() {
