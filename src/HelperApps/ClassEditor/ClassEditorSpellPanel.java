@@ -1,7 +1,6 @@
 package HelperApps.ClassEditor;
 
 import gui.spell.*;
-import character.IntegerVerifier;
 import character.Spell;
 import character.classes.CharacterClass;
 import character.classes.ClassSpellList;
@@ -40,13 +39,13 @@ public class ClassEditorSpellPanel extends javax.swing.JPanel {
      */
     private void initSpellLists() {
         //Create a tab each level's spells for this class
-        for (int i = 0; i <= 20; i++) {
+        for (int i = 0; i <= 9; i++) {
             ArrayList<Spell> spellsAtLevel = spellList.getSpellsAtLevel(i);
             if (!spellsAtLevel.isEmpty()) {
                 System.out.println("loaded: " + spellsAtLevel.get(0));
             }
             SpellByLevelPanel panel = new SpellByLevelPanel(i, spellsAtLevel);
-            spellsByLevelTabbedPane.addTab("" + i, panel);
+            spellsByLevelTabbedPane.addTab("" + Spell.getSymbol(i), panel);
             spellPanels.put(i, panel);
         }
     }
@@ -96,13 +95,14 @@ public class ClassEditorSpellPanel extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(spellsByLevelTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 692, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(spellsAddSpellButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(spellsRemoveSpellbutton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(modifySpellButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGap(8, 8, 8))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
