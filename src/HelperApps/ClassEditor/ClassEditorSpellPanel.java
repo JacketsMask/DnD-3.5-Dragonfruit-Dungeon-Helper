@@ -141,10 +141,12 @@ public class ClassEditorSpellPanel extends javax.swing.JPanel {
         spellDesignerDialog.setVisible(true);
         //Get the resulting spell
         Spell spell = spellDesignerDialog.getSpell();
-        //Add the spell to the spell list
-        spellList.addSpell(spell, spell.getLevel());
-        //Reload displayed spell list
-        spellPanels.get(spell.getLevel()).reloadSpells();
+        if (spell != null) {
+            //Add the spell to the spell list
+            spellList.addSpell(spell, spell.getLevel());
+            //Reload displayed spell list
+            spellPanels.get(spell.getLevel()).reloadSpells();
+        }
     }//GEN-LAST:event_spellsAddSpellButtonActionPerformed
 
     private void spellsRemoveSpellbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_spellsRemoveSpellbuttonActionPerformed
