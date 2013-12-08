@@ -296,6 +296,37 @@ public class Spell implements Serializable {
         }
     }
 
+    /**
+     * @param level
+     * @return a prettier symbol to represent the spell level
+     */
+    public static String getSymbol(int level) {
+        switch (level) {
+            case 0:
+                return "Ø";
+            case 1:
+                return "I";
+            case 2:
+                return "II";
+            case 3:
+                return "III";
+            case 4:
+                return "IV";
+            case 5:
+                return "V";
+            case 6:
+                return "VI";
+            case 7:
+                return "VII";
+            case 8:
+                return "VIII";
+            case 9:
+                return "IX";
+            default:
+                return "Nope.";
+        }
+    }
+
     @Override
     public String toString() {
         return name;
