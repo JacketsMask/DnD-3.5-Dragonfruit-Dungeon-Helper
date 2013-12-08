@@ -3,7 +3,6 @@ package character;
 import character.classes.CharacterClass;
 import character.classes.ClassMetaData;
 import character.classes.ClassSpellList;
-import character.classes.ClassSpellsPerDay;
 import character.classes.MutableCharacterClass;
 import enumerations.AbilityScore;
 import enumerations.CasterType;
@@ -126,6 +125,7 @@ public class CharacterClassInfo extends SaveStateSender implements Serializable 
                 learnSpell(cc, s);
             }
         }
+        super.stateChanged();
     }
 
     public void setClassLevel(CharacterClass cc, int classLevel) {
@@ -183,10 +183,12 @@ public class CharacterClassInfo extends SaveStateSender implements Serializable 
 
     public void prepareSpell(CharacterClass cc, Spell spell) {
         classData.get(cc.getName()).prepareSpell(spell);
+        super.stateChanged();
     }
 
     public void unprepareSpell(CharacterClass cc, Spell spell) {
         classData.get(cc.getName()).unprepareSpell(spell);
+        super.stateChanged();
     }
 
     /**
