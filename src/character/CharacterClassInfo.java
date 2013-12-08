@@ -61,17 +61,14 @@ public class CharacterClassInfo extends SaveStateSender implements Serializable 
         int total = 0;
         //Find out base value
         total += cc.getSpellsPerDay().getSpellsPerDay(classLevel, spellLevel);
-        System.out.println(total + " base");
         //Find out bonus value
         AbilityScore as = cc.getPrimaryAttribute();
         int modifier = player.getAbilityScore().getAbilityScoreModifier(as);
         int bonus = (int) Math.ceil(((double) 1 + modifier - spellLevel) / 4);
-        System.out.println(bonus + " bonus");
         //Make sure there's a base value, the spell level isn't zero, and the bonus is greater than 0
         if (total != 0 && spellLevel != 0 && bonus > 0) {
             total += bonus;
         }
-        System.out.println(cc.getName() + " can cast " + total + " level " + spellLevel + " spells at level " + classLevel);
         return total;
     }
 
