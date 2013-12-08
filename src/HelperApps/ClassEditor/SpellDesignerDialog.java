@@ -70,21 +70,29 @@ public class SpellDesignerDialog extends javax.swing.JDialog {
      * Resets all the input fields to allow for a new spell to be created.
      */
     private void resetInputFields() {
-        castingTimeTextField.setText("");
-        durationTextField.setText("");
-        focusCheckBox.setSelected(false);
-        gpCheckBox.setSelected(false);
-        gpTextField.setText("");
         nameTextField.setText("");
-        savingThrowTextField.setText("");
+        levelTextField.setText("");
+        referenceTextField.setText("");
+        pageTextField.setText("");
         schoolComboBox.setSelectedIndex(0);
-        somaticCheckBox.setSelected(false);
-        descriptionTextArea.setText("");
-        resistanceTextField.setText("");
-        targetTextField.setText("");
         verbalCheckBox.setSelected(false);
+        somaticCheckBox.setSelected(false);
+        focusCheckBox.setSelected(false);
         xpCheckBox.setSelected(false);
+        gpCheckBox.setSelected(false);
         xpTextField.setText("");
+        gpTextField.setText("");
+        typeButtonGroup.clearSelection();
+        castingTimeTextField.setText("");
+        rangeTextField.setText("");
+        targetTextField.setText("");
+        effectTextField.setText("");
+        durationTextField.setText("");
+        savingThrowTextField.setText("");
+        resistanceTextField.setText("");
+        descriptionTextArea.setText("");
+        numberOfDiceTextField.setText("0");
+        numberOfSidesTextField.setText("0");
     }
 
     /**
@@ -103,15 +111,11 @@ public class SpellDesignerDialog extends javax.swing.JDialog {
         spell.setLevel(Integer.parseInt(levelTextField.getText()));
         spell.setReference(referenceTextField.getText());
         spell.setDescription(descriptionTextArea.getText());
+        spell.setPage(Integer.parseInt(pageTextField.getText()));
         spell.setSchool((School) schoolComboBox.getSelectedItem());
         spell.setVerbal(verbalCheckBox.isSelected());
         spell.setSomatic(somaticCheckBox.isSelected());
         spell.setFocus(focusCheckBox.isSelected());
-        spell.setCastingTime(castingTimeTextField.getText());
-        spell.setTarget(targetTextField.getText());
-        spell.setDuration(durationTextField.getText());
-        spell.setSavingThrow(savingThrowTextField.getText());
-        spell.setSpellResistance(resistanceTextField.getText());
         if (xpCheckBox.isSelected()) {
             spell.setExperienceCost(Integer.parseInt(xpTextField.getText()));
         } else {
@@ -122,6 +126,14 @@ public class SpellDesignerDialog extends javax.swing.JDialog {
         } else {
             spell.setGoldCost(0);
         }
+
+        spell.setCastingTime(castingTimeTextField.getText());
+        spell.setRange(rangeTextField.getText());
+        spell.setTarget(targetTextField.getText());
+        spell.setEffect(effectTextField.getText());
+        spell.setDuration(durationTextField.getText());
+        spell.setSavingThrow(savingThrowTextField.getText());
+        spell.setSpellResistance(resistanceTextField.getText());
         //Get dice roll information
         spell.setDiceNumber(Integer.parseInt(numberOfDiceTextField.getText()));
         spell.setDiceSides(Integer.parseInt(numberOfSidesTextField.getText()));
@@ -137,6 +149,7 @@ public class SpellDesignerDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        typeButtonGroup = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         nameTextField = new javax.swing.JTextField();
@@ -153,7 +166,7 @@ public class SpellDesignerDialog extends javax.swing.JDialog {
         jLabel15 = new javax.swing.JLabel();
         referenceTextField = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        pageTextField = new javax.swing.JTextField();
         jRadioButton1 = new javax.swing.JRadioButton();
         jLabel4 = new javax.swing.JLabel();
         jRadioButton2 = new javax.swing.JRadioButton();
@@ -174,17 +187,22 @@ public class SpellDesignerDialog extends javax.swing.JDialog {
         savingThrowTextField = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         resistanceTextField = new javax.swing.JTextField();
-        saveSpellButton = new javax.swing.JButton();
-        resetSpellInfoButton = new javax.swing.JButton();
-        jLabel11 = new javax.swing.JLabel();
-        numberOfDiceTextField = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        numberOfSidesTextField = new javax.swing.JTextField();
-        importSpellButton = new javax.swing.JButton();
-        exportSpellButton = new javax.swing.JToggleButton();
+        rangeTextField = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
+        effectTextField = new javax.swing.JTextField();
+        jLabel19 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        resetSpellInfoButton = new javax.swing.JButton();
+        saveSpellButton = new javax.swing.JButton();
+        importSpellButton = new javax.swing.JButton();
+        exportSpellButton = new javax.swing.JToggleButton();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        numberOfDiceTextField = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        numberOfSidesTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Spell creation");
@@ -227,19 +245,21 @@ public class SpellDesignerDialog extends javax.swing.JDialog {
 
         jLabel15.setText("Reference:");
 
-        referenceTextField.setEnabled(false);
-
         jLabel16.setText("Page:");
 
-        jTextField2.setColumns(5);
-        jTextField2.setEnabled(false);
+        pageTextField.setColumns(5);
+        pageTextField.setText("0");
+        pageTextField.setInputVerifier(new IntegerVerifier(0,9999));
 
+        typeButtonGroup.add(jRadioButton1);
         jRadioButton1.setText("Offensive");
 
         jLabel4.setText("Spell type:");
 
+        typeButtonGroup.add(jRadioButton2);
         jRadioButton2.setText("Defensive");
 
+        typeButtonGroup.add(jRadioButton3);
         jRadioButton3.setText("Utility");
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -247,7 +267,7 @@ public class SpellDesignerDialog extends javax.swing.JDialog {
 
         levelTextField.setColumns(5);
         levelTextField.setText("0");
-        levelTextField.setInputVerifier(new IntegerVerifier(0,20));
+        levelTextField.setInputVerifier(new IntegerVerifier(0,9));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -268,7 +288,7 @@ public class SpellDesignerDialog extends javax.swing.JDialog {
                                 .addComponent(jLabel16)))
                         .addGap(24, 24, 24)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(referenceTextField)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -319,7 +339,7 @@ public class SpellDesignerDialog extends javax.swing.JDialog {
                 .addGap(9, 9, 9)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(schoolComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -360,7 +380,7 @@ public class SpellDesignerDialog extends javax.swing.JDialog {
 
         jLabel6.setText("Casting time:");
 
-        jLabel7.setText("Target:");
+        jLabel7.setText("Target/Area:");
 
         jLabel8.setText("Duration:");
 
@@ -368,45 +388,9 @@ public class SpellDesignerDialog extends javax.swing.JDialog {
 
         jLabel10.setText("Spell resistance:");
 
-        saveSpellButton.setText("Save spell");
-        saveSpellButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveSpellButtonActionPerformed(evt);
-            }
-        });
+        jLabel18.setText("Range:");
 
-        resetSpellInfoButton.setText("Reset spell info");
-        resetSpellInfoButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                resetSpellInfoButtonActionPerformed(evt);
-            }
-        });
-
-        jLabel11.setText("Base roll without modifiers:");
-
-        numberOfDiceTextField.setText("0");
-        numberOfDiceTextField.setInputVerifier(new IntegerVerifier(1,100));
-
-        jLabel13.setText("Number of dice:");
-
-        jLabel14.setText("Number of sides:");
-
-        numberOfSidesTextField.setText("0");
-        numberOfSidesTextField.setInputVerifier(new IntegerVerifier(1,100));
-
-        importSpellButton.setText("Import Spell");
-        importSpellButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                importSpellButtonActionPerformed(evt);
-            }
-        });
-
-        exportSpellButton.setText("Export Spell");
-        exportSpellButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exportSpellButtonActionPerformed(evt);
-            }
-        });
+        jLabel19.setText("Effect:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -417,46 +401,36 @@ public class SpellDesignerDialog extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(jPanel2Layout.createSequentialGroup()
-                                            .addComponent(jLabel6)
-                                            .addGap(33, 33, 33))
-                                        .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING))
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel9)
-                                        .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING))
-                                    .addGap(18, 18, 18)))
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(resistanceTextField)
-                                .addComponent(savingThrowTextField)
-                                .addComponent(durationTextField, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(castingTimeTextField)
-                                .addComponent(targetTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGap(18, 18, 18)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(resistanceTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
+                            .addComponent(savingThrowTextField)
+                            .addComponent(durationTextField, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel11)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel14)
-                                .addComponent(jLabel13))
-                            .addGap(18, 18, 18)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(numberOfSidesTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
-                                .addComponent(numberOfDiceTextField)))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(resetSpellInfoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(saveSpellButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(18, 18, 18)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(importSpellButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(exportSpellButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(48, Short.MAX_VALUE))
+                            .addComponent(jLabel19)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(effectTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel7)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(targetTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel18)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(rangeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel6)
+                            .addGap(33, 33, 33)
+                            .addComponent(castingTimeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -471,8 +445,16 @@ public class SpellDesignerDialog extends javax.swing.JDialog {
                     .addComponent(jLabel6))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(targetTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
+                    .addComponent(rangeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel18))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(targetTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel19)
+                    .addComponent(effectTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(durationTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -485,24 +467,7 @@ public class SpellDesignerDialog extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(resistanceTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel13)
-                    .addComponent(numberOfDiceTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(1, 1, 1)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(numberOfSidesTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(saveSpellButton)
-                    .addComponent(importSpellButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(resetSpellInfoButton)
-                    .addComponent(exportSpellButton))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel12.setText("<html>Fill in whatever information about the spell that you'd like.<br>  I recommend at least filling in the spell name, level, and description, but only the spell name and level are strictly necessary.</html>");
@@ -522,18 +487,111 @@ public class SpellDesignerDialog extends javax.swing.JDialog {
                 .addGap(0, 10, Short.MAX_VALUE))
         );
 
+        resetSpellInfoButton.setText("Reset spell info");
+        resetSpellInfoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetSpellInfoButtonActionPerformed(evt);
+            }
+        });
+
+        saveSpellButton.setText("Save spell");
+        saveSpellButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveSpellButtonActionPerformed(evt);
+            }
+        });
+
+        importSpellButton.setText("Import Spell");
+        importSpellButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                importSpellButtonActionPerformed(evt);
+            }
+        });
+
+        exportSpellButton.setText("Export Spell");
+        exportSpellButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportSpellButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel14.setText("Number of sides:");
+
+        jLabel13.setText("Number of dice:");
+
+        numberOfDiceTextField.setText("0");
+        numberOfDiceTextField.setInputVerifier(new IntegerVerifier(1,100));
+
+        jLabel11.setText("Base roll without modifiers:");
+
+        numberOfSidesTextField.setText("0");
+        numberOfSidesTextField.setInputVerifier(new IntegerVerifier(1,100));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(resetSpellInfoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(saveSpellButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(importSpellButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(exportSpellButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel13))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(numberOfSidesTextField)
+                            .addComponent(numberOfDiceTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 10, Short.MAX_VALUE)))
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel13)
+                    .addComponent(numberOfDiceTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(1, 1, 1)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(numberOfSidesTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(saveSpellButton)
+                    .addComponent(importSpellButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(resetSpellInfoButton)
+                    .addComponent(exportSpellButton))
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -543,6 +601,7 @@ public class SpellDesignerDialog extends javax.swing.JDialog {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -633,6 +692,7 @@ public class SpellDesignerDialog extends javax.swing.JDialog {
     private javax.swing.JTextField castingTimeTextField;
     private javax.swing.JTextArea descriptionTextArea;
     private javax.swing.JTextField durationTextField;
+    private javax.swing.JTextField effectTextField;
     private javax.swing.JToggleButton exportSpellButton;
     private javax.swing.JCheckBox focusCheckBox;
     private javax.swing.JCheckBox gpCheckBox;
@@ -647,6 +707,8 @@ public class SpellDesignerDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -658,15 +720,17 @@ public class SpellDesignerDialog extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField levelTextField;
     private javax.swing.JTextField nameTextField;
     private javax.swing.JTextField numberOfDiceTextField;
     private javax.swing.JTextField numberOfSidesTextField;
+    private javax.swing.JTextField pageTextField;
+    private javax.swing.JTextField rangeTextField;
     private javax.swing.JTextField referenceTextField;
     private javax.swing.JButton resetSpellInfoButton;
     private javax.swing.JTextField resistanceTextField;
@@ -675,6 +739,7 @@ public class SpellDesignerDialog extends javax.swing.JDialog {
     private javax.swing.JComboBox schoolComboBox;
     private javax.swing.JCheckBox somaticCheckBox;
     private javax.swing.JTextField targetTextField;
+    private javax.swing.ButtonGroup typeButtonGroup;
     private javax.swing.JCheckBox verbalCheckBox;
     private javax.swing.JCheckBox xpCheckBox;
     private javax.swing.JTextField xpTextField;
