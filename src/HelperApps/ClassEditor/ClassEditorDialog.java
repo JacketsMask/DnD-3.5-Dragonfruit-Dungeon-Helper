@@ -189,12 +189,12 @@ public class ClassEditorDialog extends javax.swing.JDialog {
 
     private void loadCasterData() {
         //Casting info
-        if (newClass.getCasterType() == CasterType.ARCANE_CASTER) {
+        if (newClass.getCasterType() == CasterType.LEARNED) {
             castsSpellsCheckBox.setSelected(true);
-            arcaneSpellcasterRadioButton.setSelected(true);
-        } else if (newClass.getCasterType() == CasterType.DIVINE_CASTER) {
+            learnedSpellcasterRadioButton.setSelected(true);
+        } else if (newClass.getCasterType() == CasterType.INNATE) {
             castsSpellsCheckBox.setSelected(true);
-            divineSpellcasterRadioButton.setSelected(true);
+            innateSpellcasterRadioButton.setSelected(true);
         } else if (newClass.getCasterType() == CasterType.NON_CASTER) {
             castsSpellsCheckBox.setSelected(false);
         }
@@ -292,8 +292,8 @@ public class ClassEditorDialog extends javax.swing.JDialog {
         jLabel13 = new javax.swing.JLabel();
         castsSpellsCheckBox = new javax.swing.JCheckBox();
         usesAbilitiesCheckBox = new javax.swing.JCheckBox();
-        arcaneSpellcasterRadioButton = new javax.swing.JRadioButton();
-        divineSpellcasterRadioButton = new javax.swing.JRadioButton();
+        learnedSpellcasterRadioButton = new javax.swing.JRadioButton();
+        innateSpellcasterRadioButton = new javax.swing.JRadioButton();
         getsDomainSpellCheckBox = new javax.swing.JCheckBox();
         tablePanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -487,13 +487,13 @@ public class ClassEditorDialog extends javax.swing.JDialog {
 
         usesAbilitiesCheckBox.setText("Uses Abilities");
 
-        casterTypeButtonGroup.add(arcaneSpellcasterRadioButton);
-        arcaneSpellcasterRadioButton.setText("Arcane spellcaster");
-        arcaneSpellcasterRadioButton.setEnabled(false);
+        casterTypeButtonGroup.add(learnedSpellcasterRadioButton);
+        learnedSpellcasterRadioButton.setText("Learned: Learns spells individually, once they are preparable");
+        learnedSpellcasterRadioButton.setEnabled(false);
 
-        casterTypeButtonGroup.add(divineSpellcasterRadioButton);
-        divineSpellcasterRadioButton.setText("Divine spellcaster");
-        divineSpellcasterRadioButton.setEnabled(false);
+        casterTypeButtonGroup.add(innateSpellcasterRadioButton);
+        innateSpellcasterRadioButton.setText("Innate: Knows all spells are that preparable");
+        innateSpellcasterRadioButton.setEnabled(false);
 
         getsDomainSpellCheckBox.setText("Gets domain spell");
         getsDomainSpellCheckBox.setEnabled(false);
@@ -513,8 +513,8 @@ public class ClassEditorDialog extends javax.swing.JDialog {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(divineSpellcasterRadioButton)
-                            .addComponent(arcaneSpellcasterRadioButton)
+                            .addComponent(innateSpellcasterRadioButton)
+                            .addComponent(learnedSpellcasterRadioButton)
                             .addComponent(getsDomainSpellCheckBox))))
                 .addContainerGap(186, Short.MAX_VALUE))
         );
@@ -526,9 +526,9 @@ public class ClassEditorDialog extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(castsSpellsCheckBox)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(arcaneSpellcasterRadioButton)
+                .addComponent(learnedSpellcasterRadioButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(divineSpellcasterRadioButton)
+                .addComponent(innateSpellcasterRadioButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(getsDomainSpellCheckBox)
                 .addGap(18, 18, 18)
@@ -547,7 +547,7 @@ public class ClassEditorDialog extends javax.swing.JDialog {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(171, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         basicInfoPanelLayout.setVerticalGroup(
             basicInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -617,7 +617,7 @@ public class ClassEditorDialog extends javax.swing.JDialog {
             tablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tablePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 828, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 871, Short.MAX_VALUE)
                 .addContainerGap())
         );
         tablePanelLayout.setVerticalGroup(
@@ -736,7 +736,7 @@ public class ClassEditorDialog extends javax.swing.JDialog {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(390, Short.MAX_VALUE))
+                .addContainerGap(433, Short.MAX_VALUE))
         );
         skillsLayout.setVerticalGroup(
             skillsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -872,7 +872,7 @@ public class ClassEditorDialog extends javax.swing.JDialog {
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(168, Short.MAX_VALUE))
+                .addContainerGap(211, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -899,7 +899,7 @@ public class ClassEditorDialog extends javax.swing.JDialog {
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addGap(282, 282, 282)
                 .addComponent(finishClassButton)
-                .addContainerGap(477, Short.MAX_VALUE))
+                .addContainerGap(520, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -970,10 +970,10 @@ public class ClassEditorDialog extends javax.swing.JDialog {
         if (castsSpellsCheckBox.isSelected()) {
             //Initialize fields for new spell data
             newClass.initSpellCasterFields();
-            if (arcaneSpellcasterRadioButton.isSelected()) {
-                newClass.setCasterType(CasterType.ARCANE_CASTER);
-            } else if (divineSpellcasterRadioButton.isSelected()) {
-                newClass.setCasterType(CasterType.DIVINE_CASTER);
+            if (learnedSpellcasterRadioButton.isSelected()) {
+                newClass.setCasterType(CasterType.LEARNED);
+            } else if (innateSpellcasterRadioButton.isSelected()) {
+                newClass.setCasterType(CasterType.INNATE);
             }
             //Get spells per level
             ClassSpellsPerDay classSpellsPerDay = new ClassSpellsPerDay();
@@ -1059,9 +1059,9 @@ public class ClassEditorDialog extends javax.swing.JDialog {
 
     private void castsSpellsCheckBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_castsSpellsCheckBoxItemStateChanged
         if (castsSpellsCheckBox.isSelected()) {
-            arcaneSpellcasterRadioButton.setEnabled(true);
-            casterTypeButtonGroup.setSelected(divineSpellcasterRadioButton.getModel(), true);
-            divineSpellcasterRadioButton.setEnabled(true);
+            learnedSpellcasterRadioButton.setEnabled(true);
+            casterTypeButtonGroup.setSelected(innateSpellcasterRadioButton.getModel(), true);
+            innateSpellcasterRadioButton.setEnabled(true);
             getsDomainSpellCheckBox.setEnabled(true);
             //Add spells per day tab
             //Initialize if necessary
@@ -1079,8 +1079,8 @@ public class ClassEditorDialog extends javax.swing.JDialog {
             mainTabbedPane.add(spellPanel, 4);
 
         } else {
-            arcaneSpellcasterRadioButton.setEnabled(false);
-            divineSpellcasterRadioButton.setEnabled(false);
+            learnedSpellcasterRadioButton.setEnabled(false);
+            innateSpellcasterRadioButton.setEnabled(false);
             getsDomainSpellCheckBox.setEnabled(false);
             getsDomainSpellCheckBox.setSelected(false);
             casterTypeButtonGroup.clearSelection();
@@ -1208,7 +1208,6 @@ public class ClassEditorDialog extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JRadioButton arcaneSpellcasterRadioButton;
     private javax.swing.JPanel basicInfoPanel;
     private javax.swing.ButtonGroup casterTypeButtonGroup;
     private javax.swing.JCheckBox castsSpellsCheckBox;
@@ -1218,10 +1217,10 @@ public class ClassEditorDialog extends javax.swing.JDialog {
     private javax.swing.JList classSkillsList;
     private javax.swing.JTable classTable;
     private javax.swing.JList crossClassSkillsList;
-    private javax.swing.JRadioButton divineSpellcasterRadioButton;
     private javax.swing.JButton finishClassButton;
     private javax.swing.JCheckBox getsDomainSpellCheckBox;
     private javax.swing.JTextField hitDieTextField;
+    private javax.swing.JRadioButton innateSpellcasterRadioButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1260,6 +1259,7 @@ public class ClassEditorDialog extends javax.swing.JDialog {
     private javax.swing.JCheckBox lawfulEvilCheckBox;
     private javax.swing.JCheckBox lawfulGoodCheckBox;
     private javax.swing.JCheckBox lawfulNeutralCheckBox;
+    private javax.swing.JRadioButton learnedSpellcasterRadioButton;
     private javax.swing.JTabbedPane mainTabbedPane;
     private javax.swing.JCheckBox martialWeaponsCheckBox;
     private javax.swing.JTextField nameTextField;

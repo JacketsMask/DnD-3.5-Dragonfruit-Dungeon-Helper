@@ -62,7 +62,7 @@
                       <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="171" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -327,8 +327,8 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="21" pref="21" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="divineSpellcasterRadioButton" min="-2" max="-2" attributes="0"/>
-                                      <Component id="arcaneSpellcasterRadioButton" min="-2" max="-2" attributes="0"/>
+                                      <Component id="innateSpellcasterRadioButton" min="-2" max="-2" attributes="0"/>
+                                      <Component id="learnedSpellcasterRadioButton" min="-2" max="-2" attributes="0"/>
                                       <Component id="getsDomainSpellCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -345,9 +345,9 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="castsSpellsCheckBox" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="arcaneSpellcasterRadioButton" min="-2" max="-2" attributes="0"/>
+                          <Component id="learnedSpellcasterRadioButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="divineSpellcasterRadioButton" min="-2" max="-2" attributes="0"/>
+                          <Component id="innateSpellcasterRadioButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="getsDomainSpellCheckBox" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -376,21 +376,21 @@
                     <Property name="text" type="java.lang.String" value="Uses Abilities"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="arcaneSpellcasterRadioButton">
+                <Component class="javax.swing.JRadioButton" name="learnedSpellcasterRadioButton">
                   <Properties>
                     <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                       <ComponentRef name="casterTypeButtonGroup"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Arcane spellcaster"/>
+                    <Property name="text" type="java.lang.String" value="Learned: Learns spells individually, once they are preparable"/>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JRadioButton" name="divineSpellcasterRadioButton">
+                <Component class="javax.swing.JRadioButton" name="innateSpellcasterRadioButton">
                   <Properties>
                     <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                       <ComponentRef name="casterTypeButtonGroup"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Divine spellcaster"/>
+                    <Property name="text" type="java.lang.String" value="Innate: Knows all spells are that preparable"/>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
@@ -418,7 +418,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" pref="828" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" pref="871" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -621,7 +621,7 @@
                       <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="390" max="32767" attributes="0"/>
+                      <EmptySpace pref="433" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -829,7 +829,7 @@
                       <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jPanel8" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="168" max="32767" attributes="0"/>
+                      <EmptySpace pref="211" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1081,7 +1081,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="282" max="-2" attributes="0"/>
                       <Component id="finishClassButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="477" max="32767" attributes="0"/>
+                      <EmptySpace pref="520" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
