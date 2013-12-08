@@ -16,6 +16,8 @@ public class Spell implements Serializable {
     private int level;
     //The reference that contains this spell
     private String reference;
+    //The page that contains information for this spell
+    private int page;
     //The description of this spell
     private String description;
     //The school that this spell belongs to
@@ -30,8 +32,12 @@ public class Spell implements Serializable {
     private boolean focus;
     //How many rounds it takes to cast this spell (0 is a free action)
     private String castingTime;
+    //The range of this spell
+    private String range;
     //The target type of this spell
     private String target;
+    //The effect of this spell
+    private String effect;
     //The duration of this spell
     private String duration;
     //The saving throw vs. this spell
@@ -51,6 +57,30 @@ public class Spell implements Serializable {
 
     public Spell(String spellName) {
         this.name = spellName;
+    }
+
+    public String getEffect() {
+        return effect;
+    }
+
+    public void setEffect(String effect) {
+        this.effect = effect;
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public String getRange() {
+        return range;
+    }
+
+    public void setRange(String range) {
+        this.range = range;
     }
 
     public String getReference() {
