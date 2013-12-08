@@ -7,5 +7,5 @@ package enumerations;
  */
 public enum CasterType {
 
-    NON_CASTER, DIVINE_CASTER, ARCANE_CASTER
+    NON_CASTER, INNATE, LEARNED
 }

@@ -60,7 +60,7 @@ public class CharacterClassInfo extends SaveStateSender implements Serializable 
         classData.get(cc.getName()).setClassLevel(prevLevel + 1);
         //Increase hitpoints
         //Divine casters learn all their spells that they have access to immediately
-        if (cc.getCasterType().equals(CasterType.DIVINE_CASTER)) {
+        if (cc.getCasterType().equals(CasterType.INNATE)) {
             //Add all accessible spells to known list
         }
         super.stateChanged();
