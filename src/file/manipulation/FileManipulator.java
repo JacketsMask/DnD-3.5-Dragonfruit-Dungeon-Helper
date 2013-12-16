@@ -261,6 +261,27 @@ public class FileManipulator {
         }
         return null;
     }
+    
+    /**
+     * Allows a user to select a ability from the ability directory, and then
+     * returns the selected ability.
+     *
+     * @return the selected ability, or null if no ability is selected
+     */
+    public static Ability userSelectAbility() {
+        //Allow the user to choose the ability file.
+        File file = chooseFile(SPELL_PATH, "ability");
+        if (file == null) {
+            return null;
+        }
+        try {
+            //Attempt to deserialize the ability to return it.
+            return (Ability) readObject(ABILITY_PATH, file.getName());
+        } catch (ClassNotFoundException | IOException ex) {
+            Logger.getLogger(FileManipulator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
     /**
      * Writes the passed spell to the preset spell directory.

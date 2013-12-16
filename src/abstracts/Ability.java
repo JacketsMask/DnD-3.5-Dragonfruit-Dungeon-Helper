@@ -6,14 +6,62 @@ package abstracts;
  *
  * @author Japhez
  */
-public abstract class Ability {
+public class Ability {
 
-    protected String name;
-    protected String description;
+    private String name;
+    private String description;
+    private int level;
+    //The reference that contains this ability
+    private String reference;
+    //The page that contains information for this ability
+    private int page;
+    //The number of dice this ability throws
+    private int diceNumber;
+    //The sides of the dice that are thrown
+    private int diceSides;
 
-    public Ability(String name, String description) {
+    public Ability(String name) {
         this.name = name;
-        this.description = description;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public int getDiceNumber() {
+        return diceNumber;
+    }
+
+    public void setDiceNumber(int diceNumber) {
+        this.diceNumber = diceNumber;
+    }
+
+    public int getDiceSides() {
+        return diceSides;
+    }
+
+    public void setDiceSides(int diceSides) {
+        this.diceSides = diceSides;
     }
 
     /**
