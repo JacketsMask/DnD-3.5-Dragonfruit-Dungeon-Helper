@@ -29,6 +29,8 @@ public class ClassEditorAbilityPanel extends javax.swing.JPanel {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
+        setName("Abilities"); // NOI18N
+
         jLabel1.setText("Abilities are unlocked for a class at certain levels.");
 
         jList1.setModel(new javax.swing.AbstractListModel() {

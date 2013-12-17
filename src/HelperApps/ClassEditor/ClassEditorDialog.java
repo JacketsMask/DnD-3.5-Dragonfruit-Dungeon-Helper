@@ -1169,7 +1169,7 @@ public class ClassEditorDialog extends javax.swing.JDialog {
     private void usesAbilitiesCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usesAbilitiesCheckBoxActionPerformed
         if (usesAbilitiesCheckBox.isSelected()) {
             abilityPanel = new ClassEditorAbilityPanel();
-            mainTabbedPane.add(abilityPanel);
+            mainTabbedPane.add(abilityPanel,3);
         } else {
             mainTabbedPane.remove(abilityPanel);
         }
