@@ -4,6 +4,7 @@ import character.CharacterSkills;
 import character.IntegerVerifier;
 import character.Player;
 import enumerations.Skill;
+import savestate.DataRetrievalManager;
 
 /**
  *
@@ -168,7 +169,7 @@ public class SkillAdjustmentDialog extends javax.swing.JDialog {
         if (skills.getMiscModifierSkillValue(skill) != otherModifiers) {
             skills.setSkillModifier(skill, otherModifiers);
         }
-        parent.loadInfo();
+        DataRetrievalManager.dataChanged(skills);
         this.setVisible(false);
     }//GEN-LAST:event_saveChangesButtonActionPerformed
 

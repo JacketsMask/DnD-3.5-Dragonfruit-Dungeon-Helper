@@ -226,6 +226,8 @@ public class SkillsPanel extends javax.swing.JPanel implements SaveStateReader {
         Skill skill = (Skill) row.get(0);
         SkillAdjustmentDialog skillAdjustmentDialog = new SkillAdjustmentDialog(this, player, skill);
         skillAdjustmentDialog.setVisible(true);
+        //Load updated skills if necessary
+        loadInfo();
     }//GEN-LAST:event_changeSkillValuesButtonActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton changeSkillValuesButton;
