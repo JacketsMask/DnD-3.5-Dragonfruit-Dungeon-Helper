@@ -39,7 +39,6 @@ public class CharacterAttack extends StateSender implements Serializable {
         int totalBAB = 0;
         for (CharacterClass cc : characterClasses) { //Null pointer
             int classLevel = classInfo.getClassLevel(cc);
-            System.out.println("BAB at level: " + classLevel + " = " + cc.getBaseAttackBonus(classLevel));
             totalBAB += cc.getBaseAttackBonus(classLevel);
         }
         int[] bab = new int[3];
