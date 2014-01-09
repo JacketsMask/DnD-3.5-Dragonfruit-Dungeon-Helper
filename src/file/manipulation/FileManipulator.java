@@ -7,6 +7,7 @@ import character.CharacterAttack;
 import character.CharacterBasicInfo;
 import character.CharacterClassInfo;
 import character.CharacterDefense;
+import character.CharacterFeats;
 import character.CharacterHealth;
 import character.CharacterProficiencies;
 import character.CharacterSkills;
@@ -14,6 +15,7 @@ import character.Spell;
 import character.classes.CharacterClass;
 import character.classes.MutableCharacterClass;
 import character.effects.EffectManager;
+import character.feats.Feat;
 import character.inventory.CharacterInventory;
 import character.inventory.Item;
 import java.io.*;
@@ -89,6 +91,7 @@ public class FileManipulator {
         writeObject(character.getAttack(), path, "attack");
         writeObject(character.getDefense(), path, "defense");
         writeObject(character.getProficiencies(), path, "proficiencies");
+        writeObject(character.getFeats(), path, "feats");
         writeObject(character.getInventory(), path, "inventory");
         writeObject(character.getEffectManager(), path, "effects");
         writeObject(character.getSkills(), path, "skills");
@@ -144,7 +147,7 @@ public class FileManipulator {
     /**
      * Attempts to gather character data with the passed name, and then returns
      * it.
-     * 
+     *
      * //TODO: Document this better, this step is huge.
      */
     public static Player readCharacterFromFile(String characterName) {
@@ -193,6 +196,11 @@ public class FileManipulator {
         }
         try {
             player.setProficiencies((CharacterProficiencies) readObject(path, "proficiencies"));
+        } catch (ClassNotFoundException | IOException ex) {
+            Logger.getLogger(FileManipulator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            player.setFeats((CharacterFeats) readObject(path, "feats"));
         } catch (ClassNotFoundException | IOException ex) {
             Logger.getLogger(FileManipulator.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -261,7 +269,28 @@ public class FileManipulator {
         }
         return null;
     }
-    
+
+    /**
+     * Allows a user to select a feat from the feat directory, and then
+     * returns the selected feat.
+     *
+     * @return the selected feat, or null if no feat is selected
+     */
+    public static Spell userSelectFeat() {
+        //Allow the user to choose the feat file.
+        File file = chooseFile(FEAT_PATH, "feat");
+        if (file == null) {
+            return null;
+        }
+        try {
+            //Attempt to deserialize the feat to return it.
+            return (Spell) readObject(FEAT_PATH, file.getName());
+        } catch (ClassNotFoundException | IOException ex) {
+            Logger.getLogger(FileManipulator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
     /**
      * Allows a user to select a ability from the ability directory, and then
      * returns the selected ability.
@@ -291,7 +320,7 @@ public class FileManipulator {
     public static void writeSpell(Spell spell) {
         writeObject(spell, SPELL_PATH, spell.getName() + ".spell");
     }
-    
+
     /**
      * Writes the passed item to the preset item directory.
      *
@@ -299,6 +328,15 @@ public class FileManipulator {
      */
     public static void writeItem(Item item) {
         writeObject(item, ITEM_PATH, item.getName() + ".item");
+    }
+
+    /**
+     * Writes the passed feat to the preset feat directory.
+     *
+     * @param feat
+     */
+    public static void writeFeat(Feat feat) {
+        writeObject(feat, FEAT_PATH, feat.getName() + ".feat");
     }
 
     /**
@@ -400,5 +438,13 @@ public class FileManipulator {
             Logger.getLogger(FileManipulator.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    public static Feat readFeat(String featName) {
+        try {
+            return (Feat) readObject(FEAT_PATH, featName + ".feat");
+        } catch (ClassNotFoundException | IOException ex) {
+            return null;
+        }
     }
 }

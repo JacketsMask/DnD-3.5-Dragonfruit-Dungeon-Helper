@@ -19,6 +19,7 @@ public class Player extends StateSender implements Serializable {
     private CharacterAttack attack;
     private CharacterDefense defense;
     private CharacterProficiencies proficiencies;
+    private CharacterFeats feats;
     private CharacterInventory inventory;
     private EffectManager effectManager;
     private CharacterSkills skills;
@@ -34,9 +35,20 @@ public class Player extends StateSender implements Serializable {
         attack = new CharacterAttack(this);
         defense = new CharacterDefense(this);
         proficiencies = new CharacterProficiencies();
+        feats = new CharacterFeats();
         inventory = new CharacterInventory(this);
         effectManager = new EffectManager(this);
         skills = new CharacterSkills(this);
+    }
+
+    public void setFeats(CharacterFeats feats) {
+        this.feats = feats;
+        //Load in feats from files since old versions aren't serialized
+        this.feats.loadFeats();
+    }
+
+    public CharacterFeats getFeats() {
+        return feats;
     }
 
     public void setAttack(CharacterAttack attack) {
@@ -140,7 +152,7 @@ public class Player extends StateSender implements Serializable {
         return (basicInfo.isStateChanged() || health.isStateChanged() || classInfo.isStateChanged()
                 || abilityScore.isStateChanged() || attack.isStateChanged()
                 || defense.isStateChanged() || proficiencies.isStateChanged()
-                || inventory.isStateChanged() || effectManager.isStateChanged()
+                || inventory.isStateChanged() || feats.isStateChanged() || effectManager.isStateChanged()
                 || skills.isStateChanged());
     }
 
@@ -154,6 +166,7 @@ public class Player extends StateSender implements Serializable {
         defense.stateSaved();
         proficiencies.stateSaved();
         inventory.stateSaved();
+        feats.stateSaved();
         effectManager.stateSaved();
         skills.stateSaved();
     }
