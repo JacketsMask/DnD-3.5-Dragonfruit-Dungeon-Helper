@@ -5,7 +5,7 @@ import character.Player;
 import diceroller.DiceRoll;
 import diceroller.DiceRoller;
 import enumerations.AbilityScore;
-import savestate.SaveStateReader;
+import savestate.StateReader;
 import javax.swing.JRadioButton;
 import savestate.DataRetrievalManager;
 
@@ -13,7 +13,7 @@ import savestate.DataRetrievalManager;
  *
  * @author Japhez
  */
-public class AttackPanel extends javax.swing.JPanel implements SaveStateReader {
+public class AttackPanel extends javax.swing.JPanel implements StateReader {
     
     private Player player;
     

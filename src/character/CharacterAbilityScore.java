@@ -2,7 +2,7 @@ package character;
 
 import diceroller.DiceRoller;
 import enumerations.AbilityScore;
-import savestate.SaveStateSender;
+import savestate.StateSender;
 import java.io.Serializable;
 import java.util.HashMap;
 
@@ -13,7 +13,7 @@ import java.util.HashMap;
  *
  * @author Jacob Dorman
  */
-public final class CharacterAbilityScore extends SaveStateSender implements Serializable {
+public final class CharacterAbilityScore extends StateSender implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private HashMap<AbilityScore, Integer> abilityScoreBases;

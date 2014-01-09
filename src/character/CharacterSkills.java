@@ -2,7 +2,7 @@ package character;
 
 import enumerations.AbilityScore;
 import enumerations.Skill;
-import savestate.SaveStateSender;
+import savestate.StateSender;
 import java.io.Serializable;
 import java.util.HashMap;
 
@@ -13,7 +13,7 @@ import java.util.HashMap;
  *
  * @author Jacob Dorman
  */
-public class CharacterSkills extends SaveStateSender implements Serializable {
+public class CharacterSkills extends StateSender implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private transient Player player;

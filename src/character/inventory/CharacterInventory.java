@@ -2,7 +2,7 @@ package character.inventory;
 
 import character.Player;
 import enumerations.AbilityScore;
-import savestate.SaveStateSender;
+import savestate.StateSender;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author Jacob Dorman
  */
-public class CharacterInventory extends SaveStateSender implements Serializable {
+public class CharacterInventory extends StateSender implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private transient Player player;

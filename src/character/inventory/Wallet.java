@@ -1,7 +1,7 @@
 package character.inventory;
 
 import java.io.Serializable;
-import savestate.SaveStateSender;
+import savestate.StateSender;
 
 /**
  * Stores a player's wallet information.
@@ -9,7 +9,7 @@ import savestate.SaveStateSender;
  * @author Jacob Dorman
  * @version Dec 3, 2012
  */
-public class Wallet extends SaveStateSender implements Serializable {
+public class Wallet extends StateSender implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private static final int COPPER_PER_PLATINUM = 1000;

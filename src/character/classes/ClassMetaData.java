@@ -9,7 +9,7 @@ import java.util.HashMap;
  * Contains meta data about a class, such as its name, known spells and the
  * class level.
  * 
- * Note that this class doesn't need to extend SaveStateSender because
+ * Note that this class doesn't need to extend StateSender because
  * the state is actually tracked in the above container.
  *
  * @author Japhez

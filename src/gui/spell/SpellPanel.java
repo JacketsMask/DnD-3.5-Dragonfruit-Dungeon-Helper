@@ -10,13 +10,13 @@ import java.util.Set;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import savestate.DataRetrievalManager;
-import savestate.SaveStateReader;
+import savestate.StateReader;
 
 /**
  * Displays spell information for this class.
  * @author Japhez
  */
-public class SpellPanel extends javax.swing.JPanel implements SaveStateReader {
+public class SpellPanel extends javax.swing.JPanel implements StateReader {
 
     private Player player;
     private CharacterClass cc;

@@ -4,7 +4,7 @@ import character.classes.CharacterClass;
 import character.inventory.Weapon;
 import diceroller.DiceRoll;
 import diceroller.DiceRoller;
-import savestate.SaveStateSender;
+import savestate.StateSender;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -14,7 +14,7 @@ import java.util.ArrayList;
  *
  * @author Japhez
  */
-public class CharacterAttack extends SaveStateSender implements Serializable {
+public class CharacterAttack extends StateSender implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private transient Player player;

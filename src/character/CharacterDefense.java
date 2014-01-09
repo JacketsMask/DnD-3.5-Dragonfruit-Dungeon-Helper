@@ -4,7 +4,7 @@ import abstracts.Size;
 import character.classes.CharacterClass;
 import character.inventory.Armor;
 import enumerations.AbilityScore;
-import savestate.SaveStateSender;
+import savestate.StateSender;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -14,7 +14,7 @@ import java.util.ArrayList;
  *
  * @author Jacob Dorman
  */
-public class CharacterDefense extends SaveStateSender implements Serializable {
+public class CharacterDefense extends StateSender implements Serializable {
     //AC = 10 + armor bonus + shield bonus + AbilityScore modifier + size modifier
 
     //Core AC stats

@@ -1,13 +1,13 @@
 package gui.classes;
 
 import character.Player;
-import savestate.SaveStateReader;
+import savestate.StateReader;
 
 /**
  *
  * @author Japhez
  */
-public class AbilityPanel extends javax.swing.JPanel implements SaveStateReader {
+public class AbilityPanel extends javax.swing.JPanel implements StateReader {
 
     private Player player;
 

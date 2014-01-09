@@ -7,7 +7,7 @@ package character;
 import character.classes.CharacterClass;
 import character.proficiencies.ArmorProficiency;
 import character.proficiencies.WeaponProficiency;
-import savestate.SaveStateSender;
+import savestate.StateSender;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -15,7 +15,7 @@ import java.util.ArrayList;
  *
  * @author Japhez
  */
-public class CharacterProficiencies extends SaveStateSender implements Serializable {
+public class CharacterProficiencies extends StateSender implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private ArrayList<ArmorProficiency> armorProficiencyList;

@@ -7,7 +7,7 @@ import character.classes.MutableCharacterClass;
 import enumerations.AbilityScore;
 import enumerations.CasterType;
 import file.manipulation.FileManipulator;
-import savestate.SaveStateSender;
+import savestate.StateSender;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,7 +25,7 @@ import java.util.Set;
  *
  * @author Jacob Dorman
  */
-public class CharacterClassInfo extends SaveStateSender implements Serializable {
+public class CharacterClassInfo extends StateSender implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private transient Player player;

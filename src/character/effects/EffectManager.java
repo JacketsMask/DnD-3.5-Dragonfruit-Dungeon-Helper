@@ -4,7 +4,7 @@ import character.CharacterAttack;
 import character.CharacterDefense;
 import character.Player;
 import enumerations.AbilityScore;
-import savestate.SaveStateSender;
+import savestate.StateSender;
 import java.io.Serializable;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
@@ -14,7 +14,7 @@ import javax.swing.DefaultListModel;
  *
  * @author Jacob Dorman
  */
-public class EffectManager extends SaveStateSender implements Serializable {
+public class EffectManager extends StateSender implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private ArrayList<Effect> permanentEffects;

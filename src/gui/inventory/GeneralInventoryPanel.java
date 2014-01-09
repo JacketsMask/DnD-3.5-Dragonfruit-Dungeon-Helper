@@ -3,14 +3,14 @@ package gui.inventory;
 import character.Player;
 import character.inventory.CarryingCapacity;
 import character.inventory.CharacterInventory;
-import savestate.SaveStateReader;
+import savestate.StateReader;
 import savestate.DataRetrievalManager;
 
 /**
  *
  * @author Jacob
  */
-public class GeneralInventoryPanel extends javax.swing.JPanel implements SaveStateReader {
+public class GeneralInventoryPanel extends javax.swing.JPanel implements StateReader {
 
     private CharacterInventory inventory;
 

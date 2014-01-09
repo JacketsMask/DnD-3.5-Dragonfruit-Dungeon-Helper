@@ -5,7 +5,7 @@ import character.IntegerVerifier;
 import character.Player;
 import diceroller.DiceRoller;
 import enumerations.Skill;
-import savestate.SaveStateReader;
+import savestate.StateReader;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.ListSelectionModel;
@@ -19,7 +19,7 @@ import main.FilteredTableModel;
  *
  * @author Japhez
  */
-public class SkillsPanel extends javax.swing.JPanel implements SaveStateReader {
+public class SkillsPanel extends javax.swing.JPanel implements StateReader {
 
     private Player player;
     private CharacterSkills skills;

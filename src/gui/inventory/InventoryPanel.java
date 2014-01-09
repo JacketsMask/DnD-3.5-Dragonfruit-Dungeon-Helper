@@ -4,7 +4,7 @@ import character.Player;
 import character.inventory.CharacterInventory;
 import character.inventory.Item;
 import file.manipulation.FileManipulator;
-import savestate.SaveStateReader;
+import savestate.StateReader;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import savestate.DataRetrievalManager;
@@ -13,7 +13,7 @@ import savestate.DataRetrievalManager;
  *
  * @author Japhez
  */
-public class InventoryPanel extends javax.swing.JPanel implements SaveStateReader {
+public class InventoryPanel extends javax.swing.JPanel implements StateReader {
 
     private CharacterInventory inventory;
     private DefaultListModel itemListModel;

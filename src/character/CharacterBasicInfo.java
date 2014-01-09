@@ -4,7 +4,7 @@ import abstracts.Size;
 import character.races.Race;
 import enumerations.Alignment;
 import enumerations.Gender;
-import savestate.SaveStateSender;
+import savestate.StateSender;
 import java.io.Serializable;
 import java.util.Random;
 
@@ -13,7 +13,7 @@ import java.util.Random;
  *
  * @author Jacob Dorman
  */
-public class CharacterBasicInfo extends SaveStateSender implements Serializable {
+public class CharacterBasicInfo extends StateSender implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private final String[] FIRST_NAMES = {

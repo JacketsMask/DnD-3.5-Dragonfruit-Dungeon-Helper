@@ -5,13 +5,13 @@ import character.IntegerVerifier;
 import character.Player;
 import diceroller.DiceRoller;
 import savestate.DataRetrievalManager;
-import savestate.SaveStateReader;
+import savestate.StateReader;
 
 /**
  *
  * @author Japhez
  */
-public final class DefensePanel extends javax.swing.JPanel implements SaveStateReader {
+public final class DefensePanel extends javax.swing.JPanel implements StateReader {
 
     private Player player;
     private CharacterDefense defense;

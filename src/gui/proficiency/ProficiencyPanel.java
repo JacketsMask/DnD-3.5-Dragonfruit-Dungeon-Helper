@@ -4,7 +4,7 @@ import character.CharacterProficiencies;
 import character.Player;
 import character.proficiencies.ArmorProficiency;
 import character.proficiencies.WeaponProficiency;
-import savestate.SaveStateReader;
+import savestate.StateReader;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import savestate.DataRetrievalManager;
@@ -13,7 +13,7 @@ import savestate.DataRetrievalManager;
  *
  * @author Japhez
  */
-public class ProficiencyPanel extends javax.swing.JPanel implements SaveStateReader {
+public class ProficiencyPanel extends javax.swing.JPanel implements StateReader {
 
     private Player player;
     private CharacterProficiencies proficiencies;

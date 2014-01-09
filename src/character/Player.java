@@ -2,7 +2,7 @@ package character;
 
 import character.effects.EffectManager;
 import character.inventory.CharacterInventory;
-import savestate.SaveStateSender;
+import savestate.StateSender;
 import java.io.Serializable;
 
 /**
@@ -10,7 +10,7 @@ import java.io.Serializable;
  *
  * @author Jacob Dorman
  */
-public class Player extends SaveStateSender implements Serializable {
+public class Player extends StateSender implements Serializable {
 
     private CharacterBasicInfo basicInfo;
     private CharacterHealth health;

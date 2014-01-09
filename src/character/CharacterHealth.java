@@ -1,7 +1,7 @@
 package character;
 
 import diceroller.DiceRoller;
-import savestate.SaveStateSender;
+import savestate.StateSender;
 import java.io.Serializable;
 
 /**
@@ -9,7 +9,7 @@ import java.io.Serializable;
  *
  * @author Japhez
  */
-public class CharacterHealth extends SaveStateSender implements Serializable {
+public class CharacterHealth extends StateSender implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private transient Player player;

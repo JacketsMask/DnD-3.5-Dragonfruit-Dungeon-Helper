@@ -5,19 +5,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Data is stored within classes than extend SaveStateTracker, and GUI
- * components (readers) depend on the data stored within the extended classes.
+ * Data is stored within classes than extend StateSender, classes (usually GUI
+ * components) that implement StateReader depend on the data stored within the
+ * extended classes.
  *
- * This class
+ * This class provides the methods that allow a
  *
  * @author Japhez
  */
 public abstract class DataRetrievalManager {
 
     //Master list
-    private static HashMap<SaveStateSender, ArrayList<SaveStateReader>> masterList = new HashMap<>();
+    private static final HashMap<StateSender, ArrayList<StateReader>> masterList = new HashMap<>();
     //Current list
-    private static HashMap<SaveStateSender, ArrayList<SaveStateReader>> currentList = new HashMap<>();
+    private static final HashMap<StateSender, ArrayList<StateReader>> currentList = new HashMap<>();
 
     /**
      * Updates the current list of readers that need to retrieve the updated
@@ -26,32 +27,32 @@ public abstract class DataRetrievalManager {
      * @param sender
      * @param reader
      */
-    public static void dataRead(SaveStateSender sender, SaveStateReader reader) {
+    public static void dataRead(StateSender sender, StateReader reader) {
         System.out.println(reader.getClass() + " acknowledges data from " + sender.getClass());
-        boolean remove = currentList.get(sender).remove(reader);
-        if (!remove) {
+        boolean successfullyRemoved = currentList.get(sender).remove(reader);
+        if (!successfullyRemoved) {
             System.out.println("...but was it necessary?");
         }
     }
 
     /**
      * Called when data is changed, this resets the "read" status for any
-     * readers that use the passed SaveStateTracker.
+     * readers that use the passed StateTracker.
      *
      * @param sender
      */
-    public static void dataChanged(SaveStateSender sender) {
+    public static void dataChanged(StateSender sender) {
         //Add to list if not already there
         if (masterList.get(sender) == null) {
-            masterList.put(sender, new ArrayList<SaveStateReader>());
-            currentList.put(sender, new ArrayList<SaveStateReader>());
+            masterList.put(sender, new ArrayList<StateReader>());
+            currentList.put(sender, new ArrayList<StateReader>());
         }
         //Clear current list
         currentList.get(sender).clear();
         //Add each reader from the master list to current list
-        ArrayList<SaveStateReader> get = masterList.get(sender);
+        ArrayList<StateReader> get = masterList.get(sender);
         System.out.println(sender.getClass() + " was changed...");
-        for (SaveStateReader infoReader : get) {
+        for (StateReader infoReader : get) {
             System.out.println("..." + infoReader.getClass() + " should be updated.");
             currentList.get(sender).add(infoReader);
         }
@@ -63,10 +64,10 @@ public abstract class DataRetrievalManager {
      * @return true if the passed reader needs to update their data from the
      * passed source.
      */
-    public static boolean isDataChanged(SaveStateSender source, SaveStateReader reader) {
+    public static boolean isDataChanged(StateSender source, StateReader reader) {
         //Add source to master list if it hasn't been added yet
         if (masterList.get(source) == null) {
-            masterList.put(source, new ArrayList<SaveStateReader>());
+            masterList.put(source, new ArrayList<StateReader>());
         }
         if (masterList.get(source).contains(reader)) {
             return (currentList.get(source).contains(reader));
@@ -75,26 +76,26 @@ public abstract class DataRetrievalManager {
     }
 
     /**
-     * Links the passed SaveStateReader to the passed SaveStateTracker. After
-     * linking, the reader can use the isDataChanged() method to determine
-     * whether they need to retrieve new data or not.
+     * Links the passed StateReader to the passed StateTracker. After linking,
+     * the reader can use the isDataChanged() method to determine whether they
+     * need to retrieve new data or not.
      *
      * @param reader
-     * @param source
+     * @param sender
      */
-    public static void linkReader(SaveStateReader reader, SaveStateSender source) {
-        if (masterList.get(source) == null) {
-            System.out.println(reader.getClass() + " linked to " + source.getClass());
-            masterList.put(source, new ArrayList<SaveStateReader>());
-            currentList.put(source, new ArrayList<SaveStateReader>());
+    public static void linkReader(StateReader reader, StateSender sender) {
+        if (masterList.get(sender) == null) {
+            System.out.println(reader.getClass() + " linked to " + sender.getClass());
+            masterList.put(sender, new ArrayList<StateReader>());
+            currentList.put(sender, new ArrayList<StateReader>());
         }
-        masterList.get(source).add(reader);
-        currentList.get(source).add(reader);
+        masterList.get(sender).add(reader);
+        currentList.get(sender).add(reader);
     }
 
     public static void main(String[] args) {
         final CharacterBasicInfo characterBasicInfo = new CharacterBasicInfo();
-        SaveStateReader reader = new SaveStateReader() {
+        StateReader reader = new StateReader() {
             @Override
             public void loadInfo() {
                 if (DataRetrievalManager.isDataChanged(characterBasicInfo, this)) {

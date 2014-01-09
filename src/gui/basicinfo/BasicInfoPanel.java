@@ -8,13 +8,13 @@ import character.CharacterBasicInfo;
 import character.Player;
 import enumerations.Alignment;
 import savestate.DataRetrievalManager;
-import savestate.SaveStateReader;
+import savestate.StateReader;
 
 /**
  *
  * @author Japhez
  */
-public final class BasicInfoPanel extends javax.swing.JPanel implements SaveStateReader {
+public final class BasicInfoPanel extends javax.swing.JPanel implements StateReader {
 
     private Player player;
     private CharacterBasicInfo info;
