@@ -70,7 +70,6 @@ public class AddArmorProficiencyDialog extends javax.swing.JDialog {
 
         jLabel1.setText("Unknown armor proficiencies:");
 
-        learnProficiencyButton.setSelected(true);
         learnProficiencyButton.setText("Learn Proficiencies");
         learnProficiencyButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
