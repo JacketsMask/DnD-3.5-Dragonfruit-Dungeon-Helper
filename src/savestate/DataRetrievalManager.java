@@ -9,7 +9,20 @@ import java.util.HashMap;
  * components) that implement StateReader depend on the data stored within the
  * extended classes.
  *
- * This class provides the methods that allow a
+ * This class provides the methods that allow a Reader to link to a Sender
+ * (linkReader()).
+ *
+ * 1. The data source needs to extend StateSender.  In methods where data is
+ *    changed, it should call stateChanged() to signal the change.
+ * 2. The data reader (usually a GUI element), needs to implement StateReader 
+ *    and the loadInfo() method to call isDataChanged(), and if true then load 
+ *    whatever data it needs.
+ * 3. A Sender should signal that its data has changed with dataChanged().
+ * 4. The Reader's loadInfo method should be called when it needs to verify
+ *    that it has the most up-to-date data.  It will only load data if
+ *    isDataChanged() returns true.
+ * 5. The reader should then call dataRead() to signal that it doesn't need
+ *    updates until the Sender changes again.
  *
  * @author Japhez
  */
