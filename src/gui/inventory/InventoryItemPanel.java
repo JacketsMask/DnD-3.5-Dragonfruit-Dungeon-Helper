@@ -13,7 +13,7 @@ import savestate.DataRetrievalManager;
  *
  * @author Japhez
  */
-public class InventoryPanel extends javax.swing.JPanel implements StateReader {
+public class InventoryItemPanel extends javax.swing.JPanel implements StateReader {
 
     private CharacterInventory inventory;
     private DefaultListModel itemListModel;
@@ -21,7 +21,7 @@ public class InventoryPanel extends javax.swing.JPanel implements StateReader {
     /**
      * Creates new form InventoryPanel
      */
-    public InventoryPanel(Player player) {
+    public InventoryItemPanel(Player player) {
         this.inventory = player.getInventory();
         this.itemListModel = new DefaultListModel();
         for (Item i : inventory.getItems()) {

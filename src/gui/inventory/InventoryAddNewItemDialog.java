@@ -15,7 +15,7 @@ public class InventoryAddNewItemDialog extends javax.swing.JDialog {
     /**
      * Creates new form InventoryAddNewItemDialog
      */
-    public InventoryAddNewItemDialog(InventoryPanel parent, boolean modal) {
+    public InventoryAddNewItemDialog(InventoryItemPanel parent, boolean modal) {
         super();
         setModal(modal);
         initComponents();

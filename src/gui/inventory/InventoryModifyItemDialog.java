@@ -14,10 +14,10 @@ import character.inventory.Item;
 public class InventoryModifyItemDialog extends javax.swing.JDialog
 {
 
-    private InventoryPanel parent;
+    private InventoryItemPanel parent;
     private Item item;
 
-    public InventoryModifyItemDialog(InventoryPanel parent, boolean modal, Item item)
+    public InventoryModifyItemDialog(InventoryItemPanel parent, boolean modal, Item item)
     {
         this.parent = parent;
         this.item = item;
