@@ -14,6 +14,7 @@ import savestate.StateReader;
 
 /**
  * Displays spell information for this class.
+ *
  * @author Japhez
  */
 public class SpellPanel extends javax.swing.JPanel implements StateReader {
@@ -79,7 +80,8 @@ public class SpellPanel extends javax.swing.JPanel implements StateReader {
 
     /**
      * Adds the passed spell to the appropriate spell list.
-     * @param spell 
+     *
+     * @param spell
      */
     private void addSpellToList(Spell spell) {
         JList spellList = spellPanels.get(spell.getLevel()).getSpellList();
@@ -89,7 +91,8 @@ public class SpellPanel extends javax.swing.JPanel implements StateReader {
 
     /**
      * Removes the passed spell from the appropriate spell list.
-     * @param spell 
+     *
+     * @param spell
      */
     private void removeFromSpellList(Spell spell) {
         JList spellList = spellPanels.get(spell.getLevel()).getSpellList();
@@ -116,6 +119,7 @@ public class SpellPanel extends javax.swing.JPanel implements StateReader {
     public void loadInfo() {
         if (DataRetrievalManager.isDataChanged(player.getClassInfo(), this)) {
             initSpellLists();
+            initPreparedSpellList();
             DataRetrievalManager.dataRead(player.getClassInfo(), this);
         }
     }
@@ -140,8 +144,8 @@ public class SpellPanel extends javax.swing.JPanel implements StateReader {
         spellScrollPane1 = new javax.swing.JScrollPane();
         preparedSpellsList = new javax.swing.JList();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        castSpellButton2 = new javax.swing.JButton();
+        forgetSpellButton = new javax.swing.JButton();
         uselessLabel781 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
         spellDescriptionTextArea = new javax.swing.JTextArea();
@@ -216,10 +220,15 @@ public class SpellPanel extends javax.swing.JPanel implements StateReader {
 
         jLabel1.setText("Prepared spells:");
 
-        jButton1.setText("Cast Spell");
-        jButton1.setEnabled(false);
+        castSpellButton2.setText("Cast Spell");
+        castSpellButton2.setEnabled(false);
 
-        jButton2.setText("Un-prepare Spell");
+        forgetSpellButton.setText("Forget Spell");
+        forgetSpellButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                forgetSpellButtonActionPerformed(evt);
+            }
+        });
 
         uselessLabel781.setText("Selected spell info:");
 
@@ -241,15 +250,15 @@ public class SpellPanel extends javax.swing.JPanel implements StateReader {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(castSpellButton2)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2))
+                        .addComponent(forgetSpellButton))
                     .addComponent(spellScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(uselessLabel781))
-                .addContainerGap(98, Short.MAX_VALUE))
+                .addContainerGap(122, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -266,8 +275,8 @@ public class SpellPanel extends javax.swing.JPanel implements StateReader {
                         .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(castSpellButton2)
+                    .addComponent(forgetSpellButton))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
@@ -277,7 +286,7 @@ public class SpellPanel extends javax.swing.JPanel implements StateReader {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
+            .addComponent(mainTabbedPane)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -312,7 +321,7 @@ public class SpellPanel extends javax.swing.JPanel implements StateReader {
         Spell spell = panel.getSelectedSpell();
         if (spell != null) {
             player.getClassInfo().prepareSpell(cc, spell);
-            initPreparedSpellList();
+            loadInfo();
         }
     }//GEN-LAST:event_prepareSpellButtonActionPerformed
 
@@ -325,10 +334,18 @@ public class SpellPanel extends javax.swing.JPanel implements StateReader {
         }
     }//GEN-LAST:event_preparedSpellsListValueChanged
 
+    private void forgetSpellButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_forgetSpellButtonActionPerformed
+        if (!preparedSpellsList.isSelectionEmpty()) {
+            Spell spell = (Spell) preparedSpellsList.getSelectedValue();
+            player.getClassInfo().unprepareSpell(cc, spell);
+            loadInfo();
+        }
+    }//GEN-LAST:event_forgetSpellButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton castSpellButton;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton castSpellButton2;
+    private javax.swing.JButton forgetSpellButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

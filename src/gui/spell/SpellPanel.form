@@ -136,9 +136,9 @@
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                              <Component id="castSpellButton2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                              <Component id="forgetSpellButton" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="spellScrollPane1" alignment="0" pref="0" max="32767" attributes="0"/>
                       </Group>
@@ -147,7 +147,7 @@
                           <Component id="jScrollPane6" min="-2" pref="198" max="-2" attributes="0"/>
                           <Component id="uselessLabel781" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="98" max="32767" attributes="0"/>
+                      <EmptySpace pref="122" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -169,8 +169,8 @@
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="castSpellButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="forgetSpellButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="26" max="32767" attributes="0"/>
                   </Group>
@@ -202,16 +202,19 @@
                 <Property name="text" type="java.lang.String" value="Prepared spells:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton1">
+            <Component class="javax.swing.JButton" name="castSpellButton2">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cast Spell"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton2">
+            <Component class="javax.swing.JButton" name="forgetSpellButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Un-prepare Spell"/>
+                <Property name="text" type="java.lang.String" value="Forget Spell"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="forgetSpellButtonActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="uselessLabel781">
               <Properties>
