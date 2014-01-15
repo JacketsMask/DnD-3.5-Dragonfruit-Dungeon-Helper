@@ -41,7 +41,7 @@ public abstract class DataRetrievalManager {
      * @param reader
      */
     public static void dataRead(StateSender sender, StateReader reader) {
-        System.out.println(reader.getClass() + " acknowledges data from " + sender.getClass());
+        System.out.println(reader.getClass() + " ACKNOWLEDGES updated data from " + sender.getClass());
         boolean successfullyRemoved = currentList.get(sender).remove(reader);
         if (!successfullyRemoved) {
             System.out.println("...but was it necessary?");
@@ -64,9 +64,9 @@ public abstract class DataRetrievalManager {
         currentList.get(sender).clear();
         //Add each reader from the master list to current list
         ArrayList<StateReader> get = masterList.get(sender);
-        System.out.println(sender.getClass() + " was changed...");
+        System.out.println(sender.getClass() + " data source CHANGED...");
         for (StateReader infoReader : get) {
-            System.out.println("..." + infoReader.getClass() + " should be updated.");
+            System.out.println("..." + infoReader.getClass() + " QUEUED to retrieve data.");
             currentList.get(sender).add(infoReader);
         }
     }
@@ -85,7 +85,7 @@ public abstract class DataRetrievalManager {
         if (masterList.get(source).contains(reader)) {
             return (currentList.get(source).contains(reader));
         }
-        throw new RuntimeException("Unlinked reader " + reader.getClass() + " wants source " + source.getClass());
+        throw new RuntimeException("UNLINKED reader " + reader.getClass() + " wants source " + source.getClass());
     }
 
     /**
@@ -98,7 +98,7 @@ public abstract class DataRetrievalManager {
      */
     public static void linkReader(StateReader reader, StateSender sender) {
         if (masterList.get(sender) == null) {
-            System.out.println(reader.getClass() + " linked to " + sender.getClass());
+            System.out.println(reader.getClass() + " LINKED as reader to " + sender.getClass());
             masterList.put(sender, new ArrayList<StateReader>());
             currentList.put(sender, new ArrayList<StateReader>());
         }
