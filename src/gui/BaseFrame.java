@@ -5,7 +5,7 @@ import gui.classes.AbilityPanel;
 import gui.skills.SkillsPanel;
 import gui.proficiency.ProficiencyPanel;
 import gui.basicinfo.BasicInfoPanel;
-import gui.inventory.InventoryPanel;
+import gui.inventory.InventoryItemPanel;
 import gui.abilityscore.AbilityScorePanel;
 import gui.defense.DefensePanel;
 import character.Player;
@@ -13,6 +13,7 @@ import character.classes.CharacterClass;
 import enumerations.CasterType;
 import gui.chat.ChatPanel;
 import gui.classes.GeneralClassPanel;
+import gui.feats.FeatPanel;
 import gui.inventory.GeneralInventoryPanel;
 import gui.inventory.WalletPanel;
 import gui.spell.SpellPanel;
@@ -118,18 +119,23 @@ public final class BaseFrame extends javax.swing.JFrame {
      * panel below.
      */
     private void addPanels() throws IOException, IOException {
+        //General, basic info panel
         characterInfoTabbedPane.addTab("General", new BasicInfoPanel(player));
+        //Ability score panel
         characterInfoTabbedPane.addTab("Ability Score", new AbilityScorePanel(player));
+        //Panels for character classes
         CharacterClassInfo classInfo = player.getClassInfo();
         ArrayList<CharacterClass> characterClasses = classInfo.getCharacterClasses();
         for (CharacterClass cc : characterClasses) {
             JTabbedPane classTabs = new JTabbedPane();
             characterInfoTabbedPane.addTab(cc.getName(), classTabs);
-            //Add general info panel
+            //Add general class info panel
             classTabs.addTab("General", new GeneralClassPanel(player, cc));
+            //Add spells tab if the class is a spell caster
             if (!cc.getCasterType().equals(CasterType.NON_CASTER)) {
                 classTabs.addTab("Spells", new SpellPanel(player, cc));
             }
+            //Add ability tab if the class is an ability user
             if (cc.isAbilityUser()) {
                 classTabs.addTab("Abilities", new AbilityPanel(player));
             }
@@ -142,14 +148,20 @@ public final class BaseFrame extends javax.swing.JFrame {
                 }
             });
         }
+        //Character skills panel
         characterInfoTabbedPane.addTab("Skills", new SkillsPanel(player));
+        //Character attack panel
         characterInfoTabbedPane.addTab("Attack", new AttackPanel(player));
+        //Character defense panel
         characterInfoTabbedPane.addTab("Defense", new DefensePanel(player));
+        //Character proficiency panel
         characterInfoTabbedPane.addTab("Proficiencies", new ProficiencyPanel(player));
-        //Inventory
+        //Character feats panel
+        characterInfoTabbedPane.addTab("Feats",  new FeatPanel(player));
+        //Character inventory panel
         JTabbedPane inventoryTabbedPane = new JTabbedPane();
         inventoryTabbedPane.addTab("General", new GeneralInventoryPanel(player));
-        inventoryTabbedPane.add("Items", new InventoryPanel(player));
+        inventoryTabbedPane.add("Items", new InventoryItemPanel(player));
         inventoryTabbedPane.add("Coin Pouch", new WalletPanel(player));
         inventoryTabbedPane.addChangeListener(new javax.swing.event.ChangeListener() {
             @Override
