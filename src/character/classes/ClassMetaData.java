@@ -56,7 +56,7 @@ public class ClassMetaData implements Serializable {
     }
 
     public void unprepareSpell(Spell spell) {
-        preparedSpells.get(spell.getLevel()).add(spell.getName());
+        preparedSpells.get(spell.getLevel()).remove(spell.getName());
     }
 
     public void learnSpell(Spell spell) {

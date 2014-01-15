@@ -2,6 +2,7 @@ package character;
 
 import character.feats.Feat;
 import file.manipulation.FileManipulator;
+import java.io.Serializable;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import savestate.StateSender;
@@ -11,13 +12,18 @@ import savestate.StateSender;
  *
  * @author Japhez
  */
-public class CharacterFeats extends StateSender {
+public class CharacterFeats extends StateSender implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     private ArrayList<String> featsNames;
     private transient ArrayList<Feat> feats;
 
     public CharacterFeats() {
         featsNames = new ArrayList<>();
+    }
+    
+    public ArrayList<Feat> getFeats() {
+        return feats;
     }
 
     /**
