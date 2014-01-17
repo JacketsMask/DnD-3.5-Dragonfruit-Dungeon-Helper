@@ -69,4 +69,9 @@ public class Feat implements Serializable {
     public void setPrerequisites(String[] prerequisites) {
         this.prerequisites = prerequisites;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
