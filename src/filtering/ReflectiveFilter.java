@@ -41,11 +41,6 @@ public class ReflectiveFilter {
         return true;
     }
 
-    /**
-     * @SupressWarnings
-     * @param object
-     * @return 
-     */
     private boolean passesFilter(Object object) {
         for (JTextField tf : map.keySet()) {
             String data = "";
