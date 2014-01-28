@@ -134,6 +134,9 @@ public class FilteredListModel<G> extends AbstractListModel {
         return this.data.get(index);
     }
 
+    /**
+     * @return the number of elements in the list
+     */
     @Override
     public int getSize() {
         if (searchCompleted) {
@@ -143,6 +146,10 @@ public class FilteredListModel<G> extends AbstractListModel {
         }
     }
 
+    /**
+     * @param index
+     * @return the element at the passed index
+     */
     @Override
     public Object getElementAt(int index) {
         if (searchCompleted) {

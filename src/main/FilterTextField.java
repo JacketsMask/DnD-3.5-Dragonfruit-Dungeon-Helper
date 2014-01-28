@@ -11,7 +11,7 @@ import javax.swing.JTextField;
  *
  * In order to use this, a JList must be used to display the model.
  *
- * @author Japhez
+ * @author Jacob Dorman
  */
 public class FilterTextField<G> extends JTextField {
 
@@ -89,7 +89,7 @@ public class FilterTextField<G> extends JTextField {
     /**
      * Clears the search filter.
      */
-    private void clearFilter() {
+    public void clearFilter() {
         this.setText("");
         ArrayList<G> results = this.searchData("");
         fillModelFromArrayList(results);
